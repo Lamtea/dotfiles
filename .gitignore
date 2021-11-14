@@ -1,0 +1,45 @@
+# デフォルトで全部無効
+/*
+/.**
+
+# gitignore
+!/.gitignore
+
+# インストールシェルスクリプト
+
+!/install.sh
+
+# vscode 開発環境
+!/.vscode/
+!/.vscode/**/*
+!/package.json
+!/package-lock.json
+
+# readme
+!/README.md
+
+# シェルスクリプト
+!/.bin/
+!/.bin/**/*
+
+# ホームディレクトリ設定ファイル
+## zsh
+!/.zprofile
+!/.zshrc
+!/.zshenv
+## tmux
+!/.tmux.conf
+## git
+!/.gitconfig
+
+# config設定ファイル
+!/.config/
+## neomutt
+!/.config/neomutt/
+!/.config/neomutt/**/*
+## neovim
+!/.config/nvim/
+!/.config/nvim/**/*
+## ranger
+!/.config/ranger/
+!/.config/ranger/**/*

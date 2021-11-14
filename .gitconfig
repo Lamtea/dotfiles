@@ -1,0 +1,9 @@
+[user]
+	email = caramelamcha@gmail.com
+	name = lamt
+[credential]
+	helper = /usr/lib/git-core/git-credential-gnome-keyring
+[core]
+	editor = nvim
+[color]
+	ui = auto

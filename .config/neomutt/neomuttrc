@@ -1,0 +1,6 @@
+set mbox_type=Maildir
+set folder=~/Maildir
+set spoolfile=~/Maildir
+set record=~/Maildir/sent
+set editor=`echo \$EDITOR`
+set my_name="Lam Tea"
