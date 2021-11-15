@@ -55,6 +55,10 @@ create_dotfile_links() {
     .zshenv
     .tmux.conf
     .gitconfig
+    .default-gems
+    .default-golang-pkgs
+    .default-npm-packages
+    .default-python-packages
     .config/nvim
     .config/neomutt
     .config/ranger

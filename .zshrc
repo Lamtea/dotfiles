@@ -1,3 +1,5 @@
+#!/usr/bin/zsh
+
 #######################################
 # プラグイン
 # プラグイン管理はzinitを使用
@@ -25,6 +27,50 @@ zinit light romkatv/powerlevel10k
 
 # powerlevel10k読込
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+######################################
+# 環境変数
+# 全般
+export LANG=ja_JP.UTF-8
+export LESSOPEN='| /usr/bin/src-hilite-lesspipe.sh %s'
+export LESS='-R'
+export PAGER=less
+export EDITOR=nvim
+export VISUAL=nvim
+export MAIL=~/Maildir
+export BROWSER=w3m
+
+# bemenuの設定
+export BEMENU_BACKEND=curses
+export BEMENU_OPTS='--scrollbar=autohide'
+
+# sshの設定
+eval $(gnome-keyring-daemon --start --components=pkcs11,secrets,ssh)
+export SSH_AUTH_SOCK
+
+# asdfの設定
+source "$HOME/.asdf/asdf.sh"
+fpath=(${ASDF_DIR}/completions $fpath)
+
+# pyenvの設定
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+if command -v pyenv 1>/dev/null 2>&1; then
+    eval "$(pyenv init --path)"
+fi
+
+# poetryの設定
+export PATH="$HOME/.poetry/bin:$PATH"
+
+# rustupの設定
+source "$HOME/.cargo/env"
+
+# dotnetの設定
+source "$HOME/.asdf/plugins/dotnet-core/set-dotnet-home.zsh"
+export PATH="$HOME/.dotnet/tools:$PATH"
+
+# PATHの重複を除去
+typeset -U PATH
 
 #######################################
 # 全般

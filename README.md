@@ -8,19 +8,20 @@ Run this command: `install.sh`
 
 ## On depends
 
+- asdf
+  - dotnet
+  - golang
+  - nodejs
+  - ruby
 - bemenu
 - colordiff
-- dotnet
 - fzf
 - gnome-keyring
-- goenv
 - neomutt
 - neovim
-- nodenv
 - poetry
 - pyenv
 - ranger
-- rbenv
 - rclone
 - rustup
 - source-highlight
@@ -36,8 +37,6 @@ Run this command: `install.sh`
 - MesloLGS NF
 - Symbols Nerd Font
 
-## env, rustup, dotnet settings
-
 ## Shell scripts
 
 | Name            | Description         |
@@ -50,4 +49,5 @@ Run this command: `install.sh`
 - bashdb
 - git
 - nodejs
+  - bash-language-server
 - vscode
