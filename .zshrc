@@ -6,17 +6,13 @@
 if [[ ! -f $HOME/.zinit/bin/zinit.zsh ]]; then
   print -P "%F{33}▓▒░ %F{220}Installing %F{33}DHARMA%F{220} Initiative Plugin Manager (%F{33}zdharma/zinit%F{220})…%f"
   command mkdir -p "$HOME/.zinit" && command chmod g-rwX "$HOME/.zinit"
-  command git clone https://github.com/zdharma/zinit "$HOME/.zinit/bin" && \
+  command git clone https://github.com/zdharma-continuum/zinit.git "$HOME/.zinit/bin" && \
     print -P "%F{33}▓▒░ %F{34}Installation successful.%f%b" || \
     print -P "%F{160}▓▒░ The clone has failed.%f%b"
 fi
 source "$HOME/.zinit/bin/zinit.zsh"
 autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
-zinit light-mode for \
-  zinit-zsh/z-a-as-monitor \
-  zinit-zsh/z-a-patch-dl \
-  zinit-zsh/z-a-bin-gem-node
 
 # プラグイン読込
 zinit light zsh-users/zsh-completions
@@ -24,6 +20,7 @@ zinit light zsh-users/zsh-syntax-highlighting
 zinit light zsh-users/zsh-autosuggestions
 zinit light zsh-users/zsh-history-substring-search
 zinit light romkatv/powerlevel10k
+zinit light asdf-vm/asdf
 
 # powerlevel10k読込
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
@@ -47,10 +44,6 @@ export BEMENU_OPTS='--scrollbar=autohide'
 # sshの設定
 eval $(gnome-keyring-daemon --start --components=pkcs11,secrets,ssh)
 export SSH_AUTH_SOCK
-
-# asdfの設定
-source "$HOME/.asdf/asdf.sh"
-fpath=(${ASDF_DIR}/completions $fpath)
 
 # pyenvの設定
 export PYENV_ROOT="$HOME/.pyenv"
@@ -93,6 +86,9 @@ zstyle ':zle:*' word-style unspecified
 
 ########################################
 # 補完
+# asdfの補完設定
+fpath=(${ASDF_DIR}/completions $fpath)
+
 # 補完機能を有効にする
 autoload -Uz compinit
 compinit
