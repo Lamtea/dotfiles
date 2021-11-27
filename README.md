@@ -1,6 +1,6 @@
 # dotfiles
 
-My dotfiles for CLI.
+My dotfiles for command line interface on Arch linux.
 
 ## How to install
 
@@ -17,13 +17,21 @@ Run this command: `install.sh`
 - colordiff
 - fzf
 - gnome-keyring
+- libgnome-keyring
 - neomutt
 - neovim
 - poetry
 - pyenv
+  - python
 - ranger
 - rclone
+  - gdrive
+  - dropbox
+  - onedrive
+  - pcloud
+  - mega
 - rustup
+  - rust
 - source-highlight
 - openssh
 - tmux
@@ -31,11 +39,10 @@ Run this command: `install.sh`
 - xsel
 - zsh
 
-## zsh powerlevel10k
+## Terminal fonts for zsh powerlevel10k
 
-- Ricty
-- MesloLGS NF
-- Symbols Nerd Font
+- Ricty & MesloLGS NF
+- HackGenNerd
 
 ## Shell scripts
 
