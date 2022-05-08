@@ -35,7 +35,6 @@
 !/.default-gems
 !/.default-golang-pkgs
 !/.default-npm-packages
-!/.default-python-packages
 
 # config設定ファイル
 !/.config/
@@ -44,7 +43,9 @@
 !/.config/neomutt/**/*
 ## neovim
 !/.config/nvim/
-!/.config/nvim/**/*
+!/.config/nvim/init.lua
+!/.config/nvim/lua/
+!/.config/nvim/lua/**/*
 ## ranger
 !/.config/ranger/
 !/.config/ranger/**/*

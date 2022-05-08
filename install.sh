@@ -69,8 +69,5 @@ create_dotfile_links() {
 create_dotfile_links "${dotfiles_or_dirs[@]}"
 
 # 個別にリンク設定が必要なもの
-## neovim vim互換設定
-ln -snf "${HOME}/.config/nvim" "${HOME}/.vim"
-ln -snf "${HOME}/.config/nvim/init.vim" "${HOME}/.vimrc"
 ## neomutt mutt互換設定
 ln -snf "${HOME}/.config/neomutt/neomuttrc" "${HOME}/.muttrc"
