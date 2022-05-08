@@ -1,7 +1,6 @@
+-- Running packer plugin manager.
 vim.cmd[[packadd packer.nvim]]
-
 require'packer'.startup(function()
-  -- Plugin manager.
   use {'wbthomason/packer.nvim', opt = true}
 
   -- Libraries.
