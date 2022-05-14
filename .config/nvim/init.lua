@@ -1,6 +1,9 @@
 -- External scripts.
-require('config')
+require('variables')
+require('keys')
+require('options')
+require('commands')
 require('plugins')
 
 -- Compiling plugins script.
-vim.cmd[[autocmd BufWritePost plugins.lua PackerCompile]]
+vim.cmd([[autocmd BufWritePost plugins.lua PackerCompile]])
