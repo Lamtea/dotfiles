@@ -12,7 +12,10 @@ end
 -- Running packer plugin manager.
 vim.cmd[[packadd packer.nvim]]
 require'packer'.startup(function()
-    use { 'wbthomason/packer.nvim', opt = true }
+    use {
+        'wbthomason/packer.nvim',
+        opt = true
+    }
 
     -- Libraries.
     use 'nvim-lua/popup.nvim'
@@ -27,28 +30,33 @@ require'packer'.startup(function()
     use {
         'tpope/vim-unimpaired',
         opt = true,
-        event = { 'FocusLost', 'CursorHold' }
+        event = {
+            'FocusLost',
+            'CursorHold'
+        }
     }
+    use 'easymotion/vim-easymotion'
+    use 'mileszs/ack.vim'
 
-    -- Filers.
+    -- Filer.
     use {
         'nvim-neo-tree/neo-tree.nvim',
         branch = 'v2.x',
         requires = { 
             'nvim-lua/plenary.nvim',
             'kyazdani42/nvim-web-devicons',
-            'MunifTanjim/nui.nvim',
+            'MunifTanjim/nui.nvim'
         }
     }
 
-    -- Fuzzy finders.
+    -- Fuzzy finder.
     use 'junegunn/fzf'
     use 'junegunn/fzf.vim'
     use {
         'nvim-telescope/telescope.nvim',
         requires = {
             'nvim-lua/popup.nvim',
-            'nvim-lua/plenary.nvim',
+            'nvim-lua/plenary.nvim'
         }
     }
 end)
