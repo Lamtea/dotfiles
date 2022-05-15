@@ -7,3 +7,8 @@
 	editor = nvim
 [color]
 	ui = auto
+[merge]
+	tool = vimdiff
+	conflictstyle = diff3
+[mergetool]
+	prompt = false
