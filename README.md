@@ -36,7 +36,6 @@ Run this command: `install.sh`
 - openssh
 - tmux
 - w3m
-- xsel
 - zsh
 
 ## Terminal fonts for zsh powerlevel10k
@@ -58,3 +57,4 @@ Run this command: `install.sh`
 - nodejs
   - bash-language-server
 - vscode
+- neovim
