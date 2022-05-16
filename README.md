@@ -18,6 +18,7 @@ Run this command: `install.sh`
 - fzf
 - gnome-keyring
 - libgnome-keyring
+- postfix
 - neomutt
 - neovim
 - poetry
