@@ -1,8 +1,8 @@
-local api = vim.api
+local api = vim.api                                 -- neovim api
 
--- Variables.
+-- 変数設定
 local vars = {
-    python3_host_prog = '/usr/bin/python3',
+    python3_host_prog = '/usr/bin/python3',         -- neovimのpythonサポート
 }
 
 for key, val in pairs(vars) do

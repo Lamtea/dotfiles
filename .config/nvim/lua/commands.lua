@@ -1,9 +1,4 @@
--- Commands.
-vim.cmd('syntax on')
-vim.cmd('filetype plugin indent on')
--- vim.cmd('colorscheme murphy')
-
--- Auto commands.
+-- ノーマルモードに戻ったときにfcitx5のIMEをoffにする
 vim.cmd('augroup fcitx')
 vim.cmd('autocmd!')
 vim.cmd([[autocmd InsertLeave * :call system('fcitx5-remote -c')]])

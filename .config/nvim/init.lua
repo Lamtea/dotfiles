@@ -1,9 +1,9 @@
--- External scripts.
+-- 外部ファイル読込
 require('variables')
-require('keys')
 require('options')
-require('commands')
 require('plugins')
+require('keys')
+require('commands')
 
--- Compiling plugins script.
+-- プラグインファイルをコンパイル
 vim.cmd([[autocmd BufWritePost plugins.lua PackerCompile]])
