@@ -115,6 +115,7 @@ require'packer'.startup(function()
             'nvim-treesitter/nvim-treesitter'
         }
     }
+    use 'nvim-treesitter/nvim-treesitter-textobjects'   -- シンタックスベースの編集サポート(キーバインドは textobjects 参照)
     require('nvim-treesitter.configs').setup {
         ensure_installed = 'all',                       -- モジュールはすべてインストール
         sync_install = true,                            -- モジュール自動更新
@@ -131,6 +132,67 @@ require'packer'.startup(function()
         },
         context_commentstring = {
             enable = true
+        },
+        textobjects = {
+            select = {
+                enable = true,
+                keymaps = {
+                    ['af'] = '@function.outer',
+                    ['if'] = '@function.inner',
+                    ['ac'] = '@class.outer',
+                    ['ic'] = '@class.inner',
+				    ['ab'] = '@block.outer',
+                    ['ib'] = '@block.inner',
+				    ['aC'] = '@conditional.outer',
+                    ['iC'] = '@conditional.inner',
+				    ['al'] = '@loop.outer',
+				    ['il'] = '@loop.inner',
+				    ['ap'] = '@parameter.outer',
+				    ['ip'] = '@parameter.inner',
+				    ['aF'] = '@frame.outer',
+                    ['iF'] = '@frame.inner',
+                    ['aS'] = '@statement.outer',
+                    ['iS'] = '@scopename.inner',
+                    ['a/'] = '@comment.outer',          -- コメントの/
+                    ['ao'] = '@call.outer',             -- オブジェクトのo
+                    ['io'] = '@call.inner',             -- 同上
+                }
+            },
+            swap = {
+                enable = true,
+                swap_next = {
+                    ['<leader>a'] = '@parameter.inner'
+                },
+                swap_previous = {
+                    ['<leader>A'] = '@parameter.inner'
+                }
+            },
+            move = {
+                enable = true,
+                goto_next_start = {
+                    [']m'] = '@function.outer',
+                    [']]'] = '@class.outer'
+                },
+                goto_next_end = {
+                    [']M'] = '@function.outer',
+                    [']['] = '@class.outer'
+                },
+                goto_previous_start = {
+                    ['[m'] = '@function.outer',
+                    ['[['] = '@class.outer'
+                },
+                goto_previous_end = {
+                    ['[M'] = '@function.outer',
+                    ['[]'] = '@class.outer'
+                }
+            },
+            lsp_interop = {
+                enable = true,
+                peek_definition_code = {
+                    ['<leader>df'] = '@function.outer',
+                    ['<leader>dF'] = '@class.outer'
+                }
+            }
         }
     }
     require('treesitter-context').setup {
@@ -148,7 +210,7 @@ require'packer'.startup(function()
         config = function()
             require('Comment').setup {
                 pre_hook = function()
-		            return require("ts_context_commentstring.internal").calculate_commentstring()
+		            return require('ts_context_commentstring.internal').calculate_commentstring()
 	            end,
                 post_hook = nil
             }
