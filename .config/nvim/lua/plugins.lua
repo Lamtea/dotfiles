@@ -1,14 +1,5 @@
 local api = vim.api                                     -- neovim api
 
--- 変数設定
-local vars = {
-    neo_tree_remove_legacy_commands = 1,                -- neo-treeのレガシーコマンドは使用しない
-}
-
-for key, val in pairs(vars) do
-    api.nvim_set_var(key, val)
-end
-
 -- プラグイン読込
 vim.cmd[[packadd packer.nvim]]
 require'packer'.startup(function()
@@ -117,11 +108,21 @@ require'packer'.startup(function()
     }
     use 'nvim-treesitter/nvim-treesitter-textobjects'   -- シンタックスベースの編集サポート(キーバインドは textobjects 参照, 言語別対応については see:github)
     use 'RRethy/nvim-treesitter-textsubjects'           -- シンタックスベースの範囲選択(キーバインドは textsubjects 参照)
+    use 'mfussenegger/nvim-ts-hint-textobject'          -- シンタックスベースの範囲選択(EasyMotion系)
     require('nvim-treesitter.configs').setup {
         ensure_installed = 'all',                       -- モジュールはすべてインストール
         sync_install = true,                            -- モジュール自動更新
         highlight = {
             enable = true
+        },
+        incremental_selection = {
+            enable = true,
+            keymaps = {
+                init_selection = '<CR>',
+                node_incremental = '<CR>',
+                scope_incremental = '<TAB>',
+                node_decremental = '<S-TAB>'
+            }
         },
         indent = {
             enable = true                               -- インデント有効(実験的 see:github, 代替はnvim-yati see:github)
@@ -156,7 +157,7 @@ require'packer'.startup(function()
                     ['iS'] = '@scopename.inner',
                     ['a/'] = '@comment.outer',          -- コメントの/
                     ['ao'] = '@call.outer',             -- オブジェクトのo
-                    ['io'] = '@call.inner',             -- 同上
+                    ['io'] = '@call.inner'              -- 同上
                 }
             },
             swap = {

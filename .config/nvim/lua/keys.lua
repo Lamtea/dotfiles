@@ -17,3 +17,6 @@ for key, val in pairs({
 }) do
     api.nvim_set_keymap('n', key, val, {noremap = true, silent = true})
 end
+
+vim.cmd[[omap <silent> m :<C-U>lua require('tsht').nodes()<CR>]]                        -- シンタックスベースの範囲選択(EasyMotion風)
+vim.cmd[[vnoremap <silent> m :lua require('tsht').nodes()<CR>]]                         -- 同上
