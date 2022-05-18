@@ -6,7 +6,6 @@
 !/.gitignore
 
 # インストールシェルスクリプト
-
 !/install.sh
 
 # vscode 開発環境
