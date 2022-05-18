@@ -40,13 +40,17 @@ require'packer'.startup(function()
     }
 
     -- カラースキーム
-    use 'EdenEast/nightfox.nvim'                        -- lsp, treesitter等に対応したテーマ
-    require('nightfox').setup {
-        options = {
-            transparent = true
-        }
+    use {
+        'EdenEast/nightfox.nvim',                       -- lsp, treesitter等に対応したテーマ
+        config = function()
+            require('nightfox').setup {
+                options = {
+                    transparent = true
+                }
+            }
+            vim.cmd('colorscheme nightfox')             -- カラーを設定
+        end
     }
-    vim.cmd('colorscheme nordfox')                      -- カラーをnordに設定
 
     -- Basics.
     use 'tpope/vim-fugitive'
@@ -101,14 +105,53 @@ require'packer'.startup(function()
         'nvim-treesitter/nvim-treesitter',              -- パーサー(モジュールによってはnode.js, gccが必須. エラーがないか :checkhealth で要確認)
         run = ':TSUpdate'
     }
+    use 'nvim-treesitter/nvim-treesitter-context'       -- メソッド等のスコープが長いとき先頭行に表示してくれる(context.vimの代替)
+    use 'p00f/nvim-ts-rainbow'                          -- 対応する括弧の色分け表示
+    use 'JoosepAlviste/nvim-ts-context-commentstring'   -- コメンティングにtreesitterを使用(tsx/jsx等のスタイル混在時に便利, numToStr/Comment.nvimで使用)
+    use 'haringsrob/nvim_context_vt'                    -- 閉括弧にvirtual textを表示
+    use {
+        'm-demare/hlargs.nvim',                         -- 引数を色分け表示
+        requires = {
+            'nvim-treesitter/nvim-treesitter'
+        }
+    }
     require('nvim-treesitter.configs').setup {
         ensure_installed = 'all',                       -- モジュールはすべてインストール
-        sync_install = true,                            -- 同期する
+        sync_install = true,                            -- モジュール自動更新
         highlight = {
-            enabled = true                              -- シンタックスハイライト有効
+            enable = true
         },
         indent = {
-            enabled = true                              -- treesitterのインデント有効(実験的 see:github)
+            enable = true                               -- インデント有効(実験的 see:github, 代替はnvim-yati see:github)
+        },
+        rainbow = {
+            enable = true,
+            extended_mode = true,                       -- 括弧以外の区切り文字を色分け表示
+            max_file_line = nil                         -- 大きなファイルで重くなる場合は最大行数を設定
+        },
+        context_commentstring = {
+            enable = true
         }
+    }
+    require('treesitter-context').setup {
+        enable = true
+    }
+    require('nvim_context_vt').setup {
+        enabled = true,
+        disable_virtual_lines = true,                   -- pythonなどのインデントベースの場合は非表示(virtual textで行がズレて見にくい)
+    }
+    require('hlargs').setup()
+
+    -- コメント
+    use {
+        'numToStr/Comment.nvim',                        -- コメンティング(nvim-ts-context-commentstringを使用, キーバインドは標準 see:github)
+        config = function()
+            require('Comment').setup {
+                pre_hook = function()
+		            return require("ts_context_commentstring.internal").calculate_commentstring()
+	            end,
+                post_hook = nil
+            }
+        end
     }
 end)
