@@ -175,7 +175,7 @@ alias grep='grep --color=auto'
 # fzf使用
 if [[ -z "$TMUX" && ! -z "$PS1" && $TERM_PROGRAM != "vscode" ]]; then
   PERCOL="fzf"
-  ID="`tmux list-sessions`"
+  ID="`tmux list-sessions 2>/dev/null`"
   if [[ -z "$ID" ]]; then
     tmux new-session
   fi
