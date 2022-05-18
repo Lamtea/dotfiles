@@ -115,7 +115,8 @@ require'packer'.startup(function()
             'nvim-treesitter/nvim-treesitter'
         }
     }
-    use 'nvim-treesitter/nvim-treesitter-textobjects'   -- シンタックスベースの編集サポート(キーバインドは textobjects 参照)
+    use 'nvim-treesitter/nvim-treesitter-textobjects'   -- シンタックスベースの編集サポート(キーバインドは textobjects 参照, 言語別対応については see:github)
+    use 'RRethy/nvim-treesitter-textsubjects'           -- シンタックスベースの範囲選択(キーバインドは textsubjects 参照)
     require('nvim-treesitter.configs').setup {
         ensure_installed = 'all',                       -- モジュールはすべてインストール
         sync_install = true,                            -- モジュール自動更新
@@ -193,7 +194,16 @@ require'packer'.startup(function()
                     ['<leader>dF'] = '@class.outer'
                 }
             }
-        }
+        },
+        textsubjects = {
+		    enable = true,
+            prev_selection = ',',
+		    keymaps = {
+			    ['.'] = "textsubjects-smart",
+			    [';'] = "textsubjects-container-outer",
+			    ['i;'] = "textsubjects-container-inner"
+		    }
+	    }
     }
     require('treesitter-context').setup {
         enable = true
