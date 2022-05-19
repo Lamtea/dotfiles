@@ -56,27 +56,102 @@ require'packer'.startup(function(use)
     use 'hrsh7th/cmp-vsnip'                             -- vscodeスニペット用ソース
     use 'hrsh7th/vim-vsnip'                             -- vscodeスニペット
     use 'onsails/lspkind-nvim'                          -- 補完にアイコン表示
+    use {
+        'tami5/lspsaga.nvim',                           -- LSP高性能UI
+        config = function()
+            require('lspsaga').setup {
+	            debug = false,
+	            use_saga_diagnostic_sign = true,
+	            error_sign = '',
+	            warn_sign = '',
+	            hint_sign = '',
+	            infor_sign = '',
+	            diagnostic_header_icon = '   ',
+                code_action_icon = ' ',
+	            code_action_prompt = {
+                    enable = true,
+                    sign = true,
+                    sign_priority = 40,
+                    virtual_text = true
+                },
+	            finder_definition_icon = '  ',
+	            finder_reference_icon = '  ',
+	            max_preview_lines = 10,
+	            finder_action_keys = {
+		            open = 'o',
+		            vsplit = 's',
+		            split = 'i',
+		            quit = 'q',
+		            scroll_down = '<C-f>',
+		        scroll_up = '<C-b>'
+	            },
+	            code_action_keys = {
+                    quit = 'q',
+                    exec = '<CR>'
+                },
+	            rename_action_keys = {
+                    quit = '<C-c>',
+                    exec = '<CR>'
+                },
+	            definition_preview_icon = '  ',
+	            border_style = 'single',
+	            rename_prompt_prefix = '➤',
+	            server_filetype_map = {},
+	            diagnostic_prefix_format = '%d. '
+            }
+        end
+    }
+    use {
+        'folke/lsp-colors.nvim',                        -- LSPカラー
+        config = function()
+            require('lsp-colors').setup {
+                Error = '#db4b4b',
+                Warning = '#e0af68',
+                Information = '#0db9d7',
+                Hint = '#10B981'
+            }
+        end
+    }
+    use {
+        'folke/trouble.nvim',                           -- LSP診断UI
+        requires = 'kyazdani42/nvim-web-devicons',
+        config = function()
+            require('trouble').setup {
+                height = 8,
+                auto_clos = true,                       -- 診断がない場合は自動で閉じる
+                use_diagnostic_signs = true             -- LSPクライアントと同じ記号を使用
+            }
+        end
+    }
+    use {
+        'j-hui/fidget.nvim',                            -- LSPプログレス
+        config = function()
+            require('fidget').setup()
+        end
+    }
+    use 'RRethy/vim-illuminate'                         -- LSP単語ハイライト
 
-    local lsp_on_attach = function(_, bufnr)
+    local lsp_on_attach = function(client, bufnr)
+        require('illuminate').on_attach(client)
         local function buf_set_keymap(...)
             vim.api.nvim_buf_set_keymap(bufnr, ...)
         end
         local opts = { noremap = true, silent = true }
         buf_set_keymap('n', 'gD', 'lua vim.lsp.buf.declaration()', opts)
         buf_set_keymap('n', 'gd', 'lua vim.lsp.buf.definition()', opts)
-        buf_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
+        -- buf_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)                               lspsaga使用
         buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-        buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+        -- buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)                  lspsaga使用
         buf_set_keymap('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
         buf_set_keymap('n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
         buf_set_keymap('n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
         buf_set_keymap('n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
-        buf_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-        buf_set_keymap('n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
+        -- buf_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)                      lspsaga使用
+        -- buf_set_keymap('n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)                 lspsaga使用
         buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-        buf_set_keymap('n', '<space>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
-        buf_set_keymap('n', '<space>p', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
-        buf_set_keymap('n', '<space>n', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
+        -- buf_set_keymap('n', '<space>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts) lspsaga使用
+        -- buf_set_keymap('n', '<space>p', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)             lspsaga使用
+        -- buf_set_keymap('n', '<space>n', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)             lspsaga使用
         buf_set_keymap('n', '<space>q', 'lua vim.lsp.diagnostic.set_loclist()', opts)
         buf_set_keymap('n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
     end
@@ -107,31 +182,31 @@ require'packer'.startup(function(use)
         mode = 'symbol_text',
         preset = 'codicons',
         symbol_map = {
-          Text = "",
-          Method = "",
-          Function = "",
-          Constructor = "",
-          Field = "ﰠ",
-          Variable = "",
-          Class = "ﴯ",
-          Interface = "",
-          Module = "",
-          Property = "ﰠ",
-          Unit = "塞",
-          Value = "",
-          Enum = "",
-          Keyword = "",
-          Snippet = "",
-          Color = "",
-          File = "",
-          Reference = "",
-          Folder = "",
-          EnumMember = "",
-          Constant = "",
-          Struct = "פּ",
-          Event = "",
-          Operator = "",
-          TypeParameter = ""
+          Text = '',
+          Method = '',
+          Function = '',
+          Constructor = '',
+          Field = 'ﰠ',
+          Variable = '',
+          Class = 'ﴯ',
+          Interface = '',
+          Module = '',
+          Property = 'ﰠ',
+          Unit = '塞',
+          Value = '',
+          Enum = '',
+          Keyword = '',
+          Snippet = '',
+          Color = '',
+          File = '',
+          Reference = '',
+          Folder = '',
+          EnumMember = '',
+          Constant = '',
+          Struct = 'פּ',
+          Event = '',
+          Operator = '',
+          TypeParameter = ''
         }
     }
 
@@ -176,10 +251,10 @@ require'packer'.startup(function(use)
         mapping = cmp_engine.mapping.preset.cmdline(),
         sources = cmp_engine.config.sources(
             {
-		        {name = "nvim_lsp_document_symbol"}
+		        {name = 'nvim_lsp_document_symbol'}
 	        },
             {
-		        {name = "buffer"}
+		        {name = 'buffer'}
 	        }
         )
     })
@@ -195,6 +270,28 @@ require'packer'.startup(function(use)
         )
     })
 
+    vim.keymap.set('n', 'gh', '<cmd>Lspsaga lsp_finder<cr>', { silent = true, noremap = true })
+    vim.keymap.set('n', '<space>ca', '<cmd>Lspsaga code_action<cr>', { silent = true, noremap = true })
+    vim.keymap.set('x', '<space>ca', ':<C-u>Lspsaga range_code_action<cr>', { silent = true, noremap = true })
+    vim.keymap.set('n', 'K', '<cmd>Lspsaga hover_doc<cr>', { silent = true, noremap = true })
+    vim.keymap.set('n', '<C-f>', [[<cmd>lua require('lspsaga.action').smart_scroll_with_saga(1)<cr>]], { silent = true, noremap = true })
+    vim.keymap.set('n', '<C-b>', [[<cmd>lua require('lspsaga.action').smart_scroll_with_saga(-1)<cr>]], { silent = true, noremap = true })
+    vim.keymap.set('n', '<space>k', '<cmd>Lspsaga signature_help<cr>', { silent = true, noremap = true })
+    vim.keymap.set('n', '<space>rn', '<cmd>Lspsaga rename<cr>', { silent = true, noremap = true })
+    vim.keymap.set('n', '<space>d', '<cmd>Lspsaga preview_definition<cr>', { silent = true, noremap = true })
+    vim.keymap.set('n', '<space>e', '<cmd>Lspsaga show_line_diagnostics<cr>', { silent = true, noremap = true })
+    vim.keymap.set('n', '<space>E', [[<cmd>lua require('lspsaga.diagnostic').show_cursor_diagnostics()<cr>]], { silent = true, noremap = true })
+    vim.keymap.set('n', '<space>n', '<cmd>Lspsaga diagnostic_jump_next<cr>', { silent = true, noremap = true })
+    vim.keymap.set('n', '<space>p', '<cmd>Lspsaga diagnostic_jump_prev<cr>', { silent = true, noremap = true })
+    vim.keymap.set('n', '<A-d>', '<cmd>Lspsaga open_floaterm<cr>', { silent = true, noremap = true })
+    vim.cmd[[tnoremap <silent> <A-d> <C-\><C-n>:Lspsaga close_floaterm<CR>]]
+    vim.api.nvim_set_keymap('n', '<leader>xx', '<cmd>Trouble<cr>', { silent = true, noremap = true })
+    vim.api.nvim_set_keymap('n', '<leader>xw', '<cmd>Trouble workspace_diagnostics<cr>', { silent = true, noremap = true })
+    vim.api.nvim_set_keymap('n', '<leader>xd', '<cmd>Trouble document_diagnostics<cr>', { silent = true, noremap = true })
+    vim.api.nvim_set_keymap('n', '<leader>xl', '<cmd>Trouble loclist<cr>', { silent = true, noremap = true })
+    vim.api.nvim_set_keymap('n', '<leader>xq', '<cmd>Trouble quickfix<cr>', { silent = true, noremap = true })
+    vim.api.nvim_set_keymap('n', 'gR', '<cmd>Trouble lsp_references<cr>', { silent = true, noremap = true })
+
     -- ファジーファインダー
     use {
         'nvim-telescope/telescope.nvim',                -- ファインダー(ripgrep推奨 see:github)
@@ -202,7 +299,14 @@ require'packer'.startup(function(use)
             'nvim-lua/plenary.nvim'
         },
         config = function()
+            local trouble = require('trouble.providers.telescope')
             require('telescope').setup {
+                defaults = {
+                    mappings = {
+                        i = {['<c-t>'] = trouble.open_with_trouble},
+                        n = {['<c-t>'] = trouble.open_with_trouble},
+                    },
+                },
                 extensions = {
                     fzf = {
                         fuzzy = true,
@@ -379,7 +483,7 @@ require'packer'.startup(function(use)
     vim.api.nvim_set_keymap('x', 'au', [[:lua require('treesitter-unit').select(true)<CR>]], {noremap=true})
     vim.api.nvim_set_keymap('o', 'iu', [[:<c-u>lua require('treesitter-unit').select()<CR>]], {noremap=true})
     vim.api.nvim_set_keymap('o', 'au', [[:<c-u>lua require('treesitter-unit').select(true)<CR>]], {noremap=true})
-    vim.cmd[[omap <silent> m :<C-U>lua require('tsht').nodes()<CR>]]
+    vim.cmd[[omap <silent> m :<C-u>lua require('tsht').nodes()<CR>]]
     vim.cmd[[vnoremap <silent> m :lua require('tsht').nodes()<CR>]]
     vim.api.nvim_set_keymap('n', '<Leader>ss', '<cmd>ISwap<cr>', {noremap = true})
     vim.api.nvim_set_keymap('n', '<Leader>sw', '<cmd>ISwapWith<cr>', {noremap = true})
@@ -450,8 +554,8 @@ require'packer'.startup(function(use)
 
     vim.api.nvim_set_keymap('n', 'L', '<Cmd>BufferLineCycleNext<CR>', { noremap = true, silent = true })
     vim.api.nvim_set_keymap('n', 'H', '<Cmd>BufferLineCyclePrev<CR>', { noremap = true, silent = true })
-    -- vim.api.nvim_set_keymap('n', '', '<Cmd>BufferLineMoveNext<CR>', { noremap = true, silent = true })
-    -- vim.api.nvim_set_keymap('n', '', '<Cmd>BufferLineMovePrev<CR>', { noremap = true, silent = true })
+    -- vim.api.nvim_set_keymap('n', 'J', '<Cmd>BufferLineMoveNext<CR>', { noremap = true, silent = true })
+    -- vim.api.nvim_set_keymap('n', 'K', '<Cmd>BufferLineMovePrev<CR>', { noremap = true, silent = true })
     -- vim.api.nvim_set_keymap('n', '', '<Cmd>BufferLineSortByExtension<CR>', { noremap = true, silent = true })
     -- vim.api.nvim_set_keymap('n', '', '<Cmd>BufferLineSortByDirectory<CR>', { noremap = true, silent = true })
     vim.api.nvim_set_keymap('n', '<Leader>b', '<Cmd>BufferLinePick<CR>', { noremap = true, silent = true })
@@ -466,6 +570,21 @@ require'packer'.startup(function(use)
     vim.api.nvim_set_keymap('n', '<Leader>9', '<Cmd>BufferLineGoToBuffer 9<CR>', { noremap = true, silent = true })
 
     -- ハイライト
+    use {
+        'norcalli/nvim-colorizer.lua',                  -- 色をカラー表示
+        config = function()
+            require('colorizer').setup()
+        end
+    }
+    use {
+        "folke/todo-comments.nvim",                     -- todo系コメントハイライト(タグについては see:github)
+        requires = "nvim-lua/plenary.nvim",
+        config = function()
+            require("todo-comments").setup()
+        end
+    }
+    vim.api.nvim_set_keymap('n', '<Leader>tx', '<cmd>TodoTrouble<cr>', {noremap = true})
+    vim.api.nvim_set_keymap('n', '<Leader>tt', '<cmd>TodoTelescope<cr>', {noremap = true})
 
     -- コメント
     use {
@@ -479,6 +598,9 @@ require'packer'.startup(function(use)
             }
         end
     }
+
+    -- 行番号
+    use 'myusuf3/numbers.vim'                           -- insertモード時は絶対行にする
 
     -- Basics.
     use 'tpope/vim-fugitive'
