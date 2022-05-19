@@ -15,6 +15,7 @@ Run this command: `install.sh`
   - ruby(local)
 - aspnet-runtime
 - aspnet-targeting-pack
+- bashdb
 - bemenu
 - cmake
 - colordiff
@@ -33,6 +34,7 @@ Run this command: `install.sh`
   - nodejs-neovim
   - python-pynvim
   - ruby-neovim
+  - wbthomason/packer.nvim(see: gitHub, quickstart: linux installation)
 - nodejs-lts-gallium
 - openssh
 - poetry
