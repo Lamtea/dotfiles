@@ -6,24 +6,40 @@ My dotfiles for command line interface on Arch linux.
 
 Run this command: `install.sh`
 
-## On depends
+## Depends on
 
 - asdf
-  - dotnet
-  - golang
-  - nodejs
-  - ruby
+  - dotnet(local)
+  - golang(local)
+  - nodejs(local)
+  - ruby(local)
+- aspnet-runtime
+- aspnet-targeting-pack
 - bemenu
+- cmake
 - colordiff
+- dotnet-host
+- dotnet-runtime
+- dotnet-sdk
+- dotnet-targeting-pack
+- fd
 - fzf
 - gnome-keyring
+- go
 - libgnome-keyring
-- postfix
 - neomutt
 - neovim
+  - neovim-drop-in(vi/vim simlink)
+  - nodejs-neovim
+  - python-pynvim
+  - ruby-neovim
+- nodejs-lts-gallium
+- openssh
 - poetry
+- postfix(localhost only)
 - pyenv
-  - python
+  - python3(local)
+- python3
 - ranger
 - rclone
   - gdrive
@@ -31,12 +47,15 @@ Run this command: `install.sh`
   - onedrive
   - pcloud
   - mega
+- ripgrep
+- ruby
+- rust
 - rustup
-  - rust
+  - rust(local)
 - source-highlight
-- openssh
 - tmux
 - w3m
+- xclip
 - zsh
 
 ## Terminal fonts for zsh powerlevel10k
