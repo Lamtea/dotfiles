@@ -6,7 +6,7 @@ My dotfiles for command line interface on Arch linux.
 
 Run this command: `install.sh`
 
-## Depends on
+## Depend on
 
 - asdf
   - dotnet(local)
