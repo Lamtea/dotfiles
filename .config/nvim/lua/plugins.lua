@@ -1,5 +1,3 @@
-local api = vim.api                                     -- neovim api
-
 -- プラグイン読込
 vim.cmd[[packadd packer.nvim]]
 require'packer'.startup(function(use)
@@ -43,14 +41,26 @@ require'packer'.startup(function(use)
         end
     }
 
-    -- LSP
+    -- LSPと補完
     use 'neovim/nvim-lspconfig'                         -- LSPクライアント
-    use 'williamboman/nvim-lsp-installer'               -- LSPインストーラー
-    local on_attach = function(_, bufnr)
-        local function buf_set_keymap(...)
-            api.nvim_buf_set_keymap(bufnr, ...)
-        end
+    use 'williamboman/nvim-lsp-installer'               -- LSPインストーラー(:LspInstall :LspInstallinfo コマンドでlsをインストールする see:github)
+    use 'hrsh7th/cmp-nvim-lsp'                          -- LSP補完用ソース
+    use 'hrsh7th/cmp-buffer'                            -- バッファ補完用ソース
+    use 'hrsh7th/cmp-path'                              -- パス補完用ソース
+    use 'hrsh7th/cmp-cmdline'                           -- コマンドライン補完用ソース
+    use 'hrsh7th/cmp-nvim-lsp-signature-help'           -- 関数シグネチャ補完用ソース
+    use 'hrsh7th/cmp-nvim-lsp-document-symbol'          -- /検索用ソース
+    use 'hrsh7th/cmp-nvim-lua'                          -- Lua API用ソース
+    use 'hrsh7th/cmp-emoji'                             -- 絵文字用ソース
+    use 'hrsh7th/nvim-cmp'                              -- 補完エンジン
+    use 'hrsh7th/cmp-vsnip'                             -- vscodeスニペット用ソース
+    use 'hrsh7th/vim-vsnip'                             -- vscodeスニペット
+    use 'onsails/lspkind-nvim'                          -- 補完にアイコン表示
 
+    local lsp_on_attach = function(_, bufnr)
+        local function buf_set_keymap(...)
+            vim.api.nvim_buf_set_keymap(bufnr, ...)
+        end
         local opts = { noremap = true, silent = true }
         buf_set_keymap('n', 'gD', 'lua vim.lsp.buf.declaration()', opts)
         buf_set_keymap('n', 'gd', 'lua vim.lsp.buf.definition()', opts)
@@ -65,31 +75,125 @@ require'packer'.startup(function(use)
         buf_set_keymap('n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
         buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
         buf_set_keymap('n', '<space>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
-        buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
-        buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
+        buf_set_keymap('n', '<space>p', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
+        buf_set_keymap('n', '<space>n', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
         buf_set_keymap('n', '<space>q', 'lua vim.lsp.diagnostic.set_loclist()', opts)
         buf_set_keymap('n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
     end
     local lsp_installer = require('nvim-lsp-installer')
-    local lspconfig = require('lspconfig')
+    local lsp_config = require('lspconfig')
+    local lsp_capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
     lsp_installer.setup()
     for _, server in ipairs(lsp_installer.get_installed_servers()) do
-        lspconfig[server.name].setup {
-            on_attach = on_attach
+        lsp_config[server.name].setup {
+            on_attach = lsp_on_attach,                  -- キーバインドのアタッチ
+            capabilities = lsp_capabilities             -- 補完設定
         }
     end
-    lspconfig.sumneko_lua.setup{
+    lsp_config.sumneko_lua.setup{
         settings = {
             Lua = {
                 diagnostics = {
-                    globals = { 'vim' }
+                    globals = {'vim'}                  -- neovim設定ファイル用(vimがグローバルオブジェクトのため)
                 }
             }
         }
     }
 
-    -- 自動補完
+    vim.g.completeopt = 'menu,menuone,noselect'        -- 補完設定
 
+    local lsp_kind = require('lspkind')
+    lsp_kind.init {
+        mode = 'symbol_text',
+        preset = 'codicons',
+        symbol_map = {
+          Text = "",
+          Method = "",
+          Function = "",
+          Constructor = "",
+          Field = "ﰠ",
+          Variable = "",
+          Class = "ﴯ",
+          Interface = "",
+          Module = "",
+          Property = "ﰠ",
+          Unit = "塞",
+          Value = "",
+          Enum = "",
+          Keyword = "",
+          Snippet = "",
+          Color = "",
+          File = "",
+          Reference = "",
+          Folder = "",
+          EnumMember = "",
+          Constant = "",
+          Struct = "פּ",
+          Event = "",
+          Operator = "",
+          TypeParameter = ""
+        }
+    }
+
+    local cmp_engine = require('cmp')
+    cmp_engine.setup {
+        formatting = {
+            format = lsp_kind.cmp_format {
+                mode = 'symbol',
+                maxwidth = 50,
+                before = function (_, vim_item)
+                    return vim_item
+                end
+            }
+        },
+        snippet = {
+            expand = function(args)
+                vim.fn['vsnip#anonymous'](args.body)   -- vscodeスニペット設定
+            end
+        },
+        mapping = {
+            ['<C-b>'] = cmp_engine.mapping.scroll_docs(-4),
+            ['<C-f>'] = cmp_engine.mapping.scroll_docs(4),
+            ['<C-Space>'] = cmp_engine.mapping.complete(),
+            ['<C-e>'] = cmp_engine.mapping.close(),
+            ['<CR>'] = cmp_engine.mapping.confirm {select = true}
+        },
+        sources = cmp_engine.config.sources(
+            {
+                {name = 'nvim_lsp'},
+                {name = 'vsnip'},
+                {name = 'path'},
+                {name = 'emoji', insert = true},
+                {name = 'nvim-lua'},
+                {name = 'nvim_lsp_signature_help'}
+            },
+            {
+                {name = 'buffer'}
+            }
+        )
+    }
+    cmp_engine.setup.cmdline('/', {
+        mapping = cmp_engine.mapping.preset.cmdline(),
+        sources = cmp_engine.config.sources(
+            {
+		        {name = "nvim_lsp_document_symbol"}
+	        },
+            {
+		        {name = "buffer"}
+	        }
+        )
+    })
+    cmp_engine.setup.cmdline(':', {
+        mapping = cmp_engine.mapping.preset.cmdline(),
+        sources = cmp_engine.config.sources(
+            {
+                {name = 'path'}
+            },
+            {
+                {name = 'cmdline'}
+            }
+        )
+    })
 
     -- ファジーファインダー
     use {
@@ -109,20 +213,29 @@ require'packer'.startup(function(use)
                 }
             }
             require('telescope').load_extension('fzf')
-        end
+       end
     }
     use {
         'nvim-telescope/telescope-fzf-native.nvim',     -- ソーター(cmake必須 see:github)
         run = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build'
     }
-    api.nvim_set_keymap('n', '<leader>ff', [[<cmd>lua require('telescope.builtin').find_files()<cr>]], {noremap = true})
-    api.nvim_set_keymap('n', '<leader>fg', [[<cmd>lua require('telescope.builtin').live_grep()<cr>]], {noremap = true})
-    api.nvim_set_keymap('n', '<leader>fb', [[<cmd>lua require('telescope.builtin').buffers()<cr>]], {noremap = true})
-    api.nvim_set_keymap('n', '<leader>fh', [[<cmd>lua require('telescope.builtin').oldfiles()<cr>]], {noremap = true})
-    api.nvim_set_keymap('n', '<leader>gb', [[<cmd>lua require('telescope.builtin').git_branches()<cr>]], {noremap = true})
-    api.nvim_set_keymap('n', '<leader>gc', [[<cmd>lua require('telescope.builtin').git_commits()<cr>]], {noremap = true})
-    api.nvim_set_keymap('n', '<leader>gf', [[<cmd>lua require('telescope.builtin').git_files()<cr>]], {noremap = true})
-    api.nvim_set_keymap('n', '<leader>gs', [[<cmd>lua require('telescope.builtin').git_status()<cr>]], {noremap = true})
+
+    vim.api.nvim_set_keymap('n', '<leader>ff', [[<cmd>lua require('telescope.builtin').find_files()<cr>]], {noremap = true})
+    vim.api.nvim_set_keymap('n', '<leader>fg', [[<cmd>lua require('telescope.builtin').live_grep()<cr>]], {noremap = true})
+    vim.api.nvim_set_keymap('n', '<leader>fb', [[<cmd>lua require('telescope.builtin').buffers()<cr>]], {noremap = true})
+    vim.api.nvim_set_keymap('n', '<leader>fh', [[<cmd>lua require('telescope.builtin').oldfiles()<cr>]], {noremap = true})
+    vim.api.nvim_set_keymap('n', '<leader>fc', [[<cmd>lua require('telescope.builtin').commands()<cr>]], {noremap = true})
+    vim.api.nvim_set_keymap('n', '<leader>ft', [[<cmd>lua require('telescope.builtin').treesitter()<cr>]], {noremap = true})
+    vim.api.nvim_set_keymap('n', '<leader>gb', [[<cmd>lua require('telescope.builtin').git_branches()<cr>]], {noremap = true})
+    vim.api.nvim_set_keymap('n', '<leader>gc', [[<cmd>lua require('telescope.builtin').git_commits()<cr>]], {noremap = true})
+    vim.api.nvim_set_keymap('n', '<leader>gm', [[<cmd>lua require('telescope.builtin').git_bcommits()<cr>]], {noremap = true})
+    vim.api.nvim_set_keymap('n', '<leader>gf', [[<cmd>lua require('telescope.builtin').git_files()<cr>]], {noremap = true})
+    vim.api.nvim_set_keymap('n', '<leader>gs', [[<cmd>lua require('telescope.builtin').git_status()<cr>]], {noremap = true})
+    vim.api.nvim_set_keymap('n', '<leader>gt', [[<cmd>lua require('telescope.builtin').git_stash()<cr>]], {noremap = true})
+    vim.api.nvim_set_keymap('n', '<leader>ld', [[<cmd>lua require('telescope.builtin').lsp_definitions()<cr>]], {noremap = true})
+    vim.api.nvim_set_keymap('n', '<leader>lr', [[<cmd>lua require('telescope.builtin').lsp_references()<cr>]], {noremap = true})
+    vim.api.nvim_set_keymap('n', '<leader>ls', [[<cmd>lua require('telescope.builtin').lsp_document_symbols()<cr>]], {noremap = true})
+    vim.api.nvim_set_keymap('n', '<leader>lw', [[<cmd>lua require('telescope.builtin').lsp_workspace_symbols()<cr>]], {noremap = true})
 
     -- treesitter
     use {
@@ -175,9 +288,9 @@ require'packer'.startup(function(use)
                             ['iF'] = '@frame.inner',
                             ['aS'] = '@statement.outer',
                             ['iS'] = '@scopename.inner',
-                            ['a/'] = '@comment.outer',      -- コメントの/
-                            ['ao'] = '@call.outer',         -- オブジェクトのo
-                            ['io'] = '@call.inner'          -- 同上
+                            ['am'] = '@comment.outer',
+                            ['ao'] = '@call.outer',
+                            ['io'] = '@call.inner'
                         }
                     },
                     swap = {
@@ -226,7 +339,7 @@ require'packer'.startup(function(use)
                     }
                 }
             }
-        end
+           end
     }
     use {
         'nvim-treesitter/nvim-treesitter-context',      -- メソッド等のスコープが長いとき先頭行に表示してくれる(context.vimの代替)
@@ -261,14 +374,15 @@ require'packer'.startup(function(use)
     use 'mfussenegger/nvim-ts-hint-textobject'          -- シンタックスベースの範囲選択(EasyMotion系)
     use 'David-Kunz/treesitter-unit'                    -- シンタックスベースの範囲選択(ユニット単位, ざっくり系)
     use 'mizlan/iswap.nvim'                             -- シンタックスベースのスワップ(EasyMotion系)
-    api.nvim_set_keymap('x', 'iu', [[:lua require('treesitter-unit').select()<CR>]], {noremap=true})
-    api.nvim_set_keymap('x', 'au', [[:lua require('treesitter-unit').select(true)<CR>]], {noremap=true})
-    api.nvim_set_keymap('o', 'iu', [[:<c-u>lua require('treesitter-unit').select()<CR>]], {noremap=true})
-    api.nvim_set_keymap('o', 'au', [[:<c-u>lua require('treesitter-unit').select(true)<CR>]], {noremap=true})
+
+    vim.api.nvim_set_keymap('x', 'iu', [[:lua require('treesitter-unit').select()<CR>]], {noremap=true})
+    vim.api.nvim_set_keymap('x', 'au', [[:lua require('treesitter-unit').select(true)<CR>]], {noremap=true})
+    vim.api.nvim_set_keymap('o', 'iu', [[:<c-u>lua require('treesitter-unit').select()<CR>]], {noremap=true})
+    vim.api.nvim_set_keymap('o', 'au', [[:<c-u>lua require('treesitter-unit').select(true)<CR>]], {noremap=true})
     vim.cmd[[omap <silent> m :<C-U>lua require('tsht').nodes()<CR>]]
     vim.cmd[[vnoremap <silent> m :lua require('tsht').nodes()<CR>]]
-    api.nvim_set_keymap('n', '<Leader>ss', '<cmd>ISwap<cr>', { noremap = true })
-    api.nvim_set_keymap('n', '<Leader>sw', '<cmd>ISwapWith<cr>', { noremap = true })
+    vim.api.nvim_set_keymap('n', '<Leader>ss', '<cmd>ISwap<cr>', {noremap = true})
+    vim.api.nvim_set_keymap('n', '<Leader>sw', '<cmd>ISwapWith<cr>', {noremap = true})
 
     -- ステータスライン
     use {
@@ -284,10 +398,25 @@ require'packer'.startup(function(use)
                     theme = 'nightfox'
                 },
                 sections = {
+                    lualine_a = {
+                        'mode'
+                    },
+                    lualine_b = {
+                        'branch', 'diff', 'diagnostics'
+                    },
                     lualine_c = {
                         'filename',
 				        {gps.get_location, cond = gps.is_available}
-			        }
+			        },
+                    lualine_x = {
+                        'encoding', 'fileformat', 'filetype'
+                    },
+                    lualine_y = {
+                        'progress'
+                    },
+                    lualine_z = {
+                        'location'
+                    }
                 }
             }
         end
@@ -318,6 +447,7 @@ require'packer'.startup(function(use)
             }
         end
     }
+
     vim.api.nvim_set_keymap('n', 'L', '<Cmd>BufferLineCycleNext<CR>', { noremap = true, silent = true })
     vim.api.nvim_set_keymap('n', 'H', '<Cmd>BufferLineCyclePrev<CR>', { noremap = true, silent = true })
     -- vim.api.nvim_set_keymap('n', '', '<Cmd>BufferLineMoveNext<CR>', { noremap = true, silent = true })
