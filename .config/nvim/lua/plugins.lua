@@ -2,7 +2,7 @@ local api = vim.api                                     -- neovim api
 
 -- プラグイン読込
 vim.cmd[[packadd packer.nvim]]
-require'packer'.startup(function()
+require'packer'.startup(function(use)
     -- プラグインマネージャ
     use {
         'wbthomason/packer.nvim',                       -- lua製プラグインマネージャ
@@ -41,6 +41,51 @@ require'packer'.startup(function()
             }
             vim.cmd('colorscheme nightfox')
         end
+    }
+
+    -- LSP
+    use 'neovim/nvim-lspconfig'                         -- LSPクライアント
+    use 'williamboman/nvim-lsp-installer'               -- LSPインストーラー
+    local on_attach = function(_, bufnr)
+        local function buf_set_keymap(...)
+            api.nvim_buf_set_keymap(bufnr, ...)
+        end
+
+        local opts = { noremap = true, silent = true }
+        buf_set_keymap('n', 'gD', 'lua vim.lsp.buf.declaration()', opts)
+        buf_set_keymap('n', 'gd', 'lua vim.lsp.buf.definition()', opts)
+        buf_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
+        buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
+        buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+        buf_set_keymap('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
+        buf_set_keymap('n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
+        buf_set_keymap('n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
+        buf_set_keymap('n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
+        buf_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+        buf_set_keymap('n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
+        buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+        buf_set_keymap('n', '<space>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
+        buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
+        buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
+        buf_set_keymap('n', '<space>q', 'lua vim.lsp.diagnostic.set_loclist()', opts)
+        buf_set_keymap('n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
+    end
+    local lsp_installer = require('nvim-lsp-installer')
+    local lspconfig = require('lspconfig')
+    lsp_installer.setup()
+    for _, server in ipairs(lsp_installer.get_installed_servers()) do
+        lspconfig[server.name].setup {
+            on_attach = on_attach
+        }
+    end
+    lspconfig.sumneko_lua.setup{
+        settings = {
+            Lua = {
+                diagnostics = {
+                    globals = { 'vim' }
+                }
+            }
+        }
     }
 
     -- ファジーファインダー
@@ -237,6 +282,25 @@ require'packer'.startup(function()
             require('nvim-gps').setup()
         end
     }
+
+    -- バッファライン
+    use {
+        'akinsho/bufferline.nvim',                      -- バッファをタブ表示
+        tag = 'v2.*',
+        requires = 'kyazdani42/nvim-web-devicons',
+        config = function()
+            require('bufferline').setup {
+                options = {
+                    numbers = 'both',
+                    diagnostics = 'nvim_lsp',
+		            show_buffer_close_icons = false,
+		            show_close_icon = false
+                }
+            }
+        end
+    }
+
+    -- ハイライト
 
     -- コメント
     use {
