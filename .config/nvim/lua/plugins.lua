@@ -217,6 +217,38 @@ require'packer'.startup(function()
     }
     require('hlargs').setup()
 
+    -- ステータスライン
+    use {
+        'nvim-lualine/lualine.nvim',                    -- lua製のステータスライン
+        requires = {
+            'kyazdani42/nvim-web-devicons',
+            opt = true
+        },
+        config = function()
+            local gps = require("nvim-gps")
+            require('lualine').setup {
+                options = {
+                    theme = 'nightfox'
+                },
+                sections = {
+                    lualine_c = {
+                        'filename',
+				        {gps.get_location, cond = gps.is_available}
+			        }
+                }
+            }
+        end
+    }
+    use {
+	    "SmiteshP/nvim-gps",                            -- ステータスバーにカーソル位置のコンテキストを表示
+	    requires = {
+            "nvim-treesitter/nvim-treesitter"
+        },
+        config = function()
+            require("nvim-gps").setup()
+        end
+    }
+
     -- コメント
     use {
         'numToStr/Comment.nvim',                        -- コメンティング(nvim-ts-context-commentstringを使用, キーバインドは標準 see:github)
