@@ -602,6 +602,75 @@ require'packer'.startup(function(use)
     -- 行番号
     use 'myusuf3/numbers.vim'                           -- insertモード時は絶対行にする
 
+    -- サイドバー
+    use {
+        'sidebar-nvim/sidebar.nvim',                    -- 色々な情報を出すサイドバー
+        config = function()
+            require('sidebar-nvim').setup {
+	            disable_default_keybindings = 0,
+	            bindings = {
+		            ['q'] = function()
+			            require('sidebar-nvim').close() -- qで閉じる
+		            end
+	            },
+	            open = false,
+	            side = 'right',
+	            initial_width = 40,
+                hide_statusline = false,
+	            update_interval = 1000,
+                sections = {
+                    'datetime',
+                    'containers',
+                    'git',
+                    'diagnostics',
+                    'todos',
+                    'symbols',
+                    'buffers',
+                    'files'
+                },
+	            section_separator = '------------------------------',
+                datetime = {
+                    icon = '',
+                    format = '%b %d日 (%a) %H:%M',
+                    clocks = {{name = 'local'}}
+                },
+                ['git'] = {
+                    icon = ''
+                },
+                ['diagnostics'] = {
+                    icon = ''
+                },
+                todos = {
+                    icon = '',
+                    ignored_paths = {'~'},
+                    initially_closed = false
+                },
+                containers = {
+                    icon = '',
+                    use_podman = false,
+                    attach_shell = '/bin/bash',
+                    show_all = true,
+                    interval = 5000
+                },
+                buffers = {
+                    icon = '',
+                    ignored_buffers = {},
+                    sorting = 'id',
+                    show_numbers = true
+                },
+                files = {
+                    icon = '',
+                    show_hidden = true,
+                    ignored_paths = {'%.git$'}
+                },
+                symbols = {
+                    icon = 'ƒ'
+                }
+            }
+        end
+    }
+    vim.api.nvim_set_keymap('n', 'gs', '<Cmd>SidebarNvimToggle<CR>', {noremap = true, silent = true})
+
     -- Basics.
     use 'tpope/vim-fugitive'
     use 'tpope/vim-surround'
