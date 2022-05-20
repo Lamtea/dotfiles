@@ -769,7 +769,7 @@ require'packer'.startup(function(use)
         config = function()
             require('indent_blankline').setup {
                 space_char_blankline = " ",
-                show_current_context = true,
+                show_current_context = true,            -- treesitterベースでスコープを表示
                 show_current_context_start = false      -- アンダースコア表示はしない
             }
         end
