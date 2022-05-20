@@ -717,6 +717,27 @@ require'packer'.startup(function(use)
     vim.api.nvim_set_keymap('n', '<leader>e', [[<cmd>lua require('hop').hint_words()<CR>]], {})
     vim.api.nvim_set_keymap('x', '<leader>e', [[<cmd>lua require('hop').hint_words()<CR>]], {})
 
+    -- 編集
+    use 'machakann/vim-sandwich'                        -- クォートなどでサンドイッチされたテキストの編集(キーバインドについては see:github, vimscript)
+
+    -- ヤンク
+    use {
+        'AckslD/nvim-neoclip.lua',                      -- ヤンクをセッション間で共有できtelescopeで検索可能
+        requires = {
+            {'tami5/sqlite.lua', module = 'sqlite'},
+            {'nvim-telescope/telescope.nvim'}
+        },
+        config = function()
+            require('neoclip').setup {
+                enable_persistent_history = true
+            }
+            require('telescope').load_extension('neoclip')
+        end
+    }
+    use 'tversteeg/registers.nvim'                      -- レジスタの内容を一覧表示してヤンク(normal mode: ', insert mode: C-r)
+
+    vim.api.nvim_set_keymap('n', '<leader>fy', '<Cmd>Telescope neoclip<CR>', {noremap = true, silent = true})
+
     -- 検索
     use 'kevinhwang91/nvim-hlslens'                     -- 検索時にカーソルの隣にマッチ情報表示(nvim-scrollbarと連携)
 
@@ -729,9 +750,24 @@ require'packer'.startup(function(use)
     vim.api.nvim_set_keymap('n', 'g#', [[g#<Cmd>lua require('hlslens').start()<CR>]], hlslens_opts)
     vim.api.nvim_set_keymap('n', '<Leader>h', ':noh<CR>', hlslens_opts)
 
+    -- ファイラ
+    use {
+        'nvim-neo-tree/neo-tree.nvim',                  -- 軽くて安定したlua製ファイラ
+        branch = 'v2.x',
+        requires = {
+            'nvim-lua/plenary.nvim',
+            'kyazdani42/nvim-web-devicons',
+            'MunifTanjim/nui.nvim'
+        },
+        config = function()
+            require('neo-tree').setup()
+        end
+    }
+
+    vim.keymap.set('n', 'gx', '<Cmd>Neotree reveal toggle <CR>', { noremap = true, silent = true })
+
     -- Basics.
     use 'tpope/vim-fugitive'
-    use 'tpope/vim-surround'
     use {
         'tpope/vim-unimpaired',
         opt = true,
@@ -741,17 +777,6 @@ require'packer'.startup(function(use)
         }
     }
 
-    -- ファイラ
-    use {
-        'nvim-neo-tree/neo-tree.nvim',
-        branch = 'v2.x',
-        requires = {
-            'nvim-lua/plenary.nvim',
-            'kyazdani42/nvim-web-devicons',
-            'MunifTanjim/nui.nvim'
-        }
-    }
-
-    -- コマンド
+        -- コマンド
     use 'mileszs/ack.vim'                               -- :Ack
 end)
