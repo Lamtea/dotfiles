@@ -777,6 +777,12 @@ require'packer'.startup(function(use)
         }
     }
 
-        -- コマンド
+    -- コマンド
     use 'mileszs/ack.vim'                               -- :Ack
+    use {
+        'folke/which-key.nvim',                         -- :WhichKey
+        config = function()
+            require('which-key').setup()
+        end
+    }
 end)
