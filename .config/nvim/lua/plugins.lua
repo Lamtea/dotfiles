@@ -577,13 +577,13 @@ require'packer'.startup(function(use)
 
     -- ハイライト
     use {
-        'norcalli/nvim-colorizer.lua',                  -- 色をカラー表示
+        'norcalli/nvim-colorizer.lua',                  -- 色コードや名称をカラー表示
         config = function()
             require('colorizer').setup()
         end
     }
     use {
-        'folke/todo-comments.nvim',                     -- todo系コメントハイライト(タグについては see:github)
+        'folke/todo-comments.nvim',                     -- todo系コメントハイライトとtrouble, telecopeに表示(タグについては see:github)
         requires = 'nvim-lua/plenary.nvim',
         config = function()
             require('todo-comments').setup()
@@ -593,25 +593,12 @@ require'packer'.startup(function(use)
     vim.api.nvim_set_keymap('n', '<Leader>tx', '<cmd>TodoTrouble<cr>', {noremap = true})
     vim.api.nvim_set_keymap('n', '<Leader>tt', '<cmd>TodoTelescope<cr>', {noremap = true})
 
-    -- コメント
-    use {
-        'numToStr/Comment.nvim',                        -- コメンティング(nvim-ts-context-commentstringを使用, キーバインドは標準 see:github)
-        config = function()
-            require('Comment').setup {
-                pre_hook = function()
-		            return require('ts_context_commentstring.internal').calculate_commentstring()
-	            end,
-                post_hook = nil
-            }
-        end
-    }
-
     -- 行番号
     use 'myusuf3/numbers.vim'                           -- insertモード時は絶対行にする(vimscript)
 
     -- サイドバー
     use {
-        'sidebar-nvim/sidebar.nvim',                    -- 色々な情報を出すサイドバー
+        'sidebar-nvim/sidebar.nvim',                    -- 色々な情報を出すサイドバー(ファイラと違って隠しファイルも表示する設定にしてある)
         config = function()
             require('sidebar-nvim').setup {
 	            disable_default_keybindings = 0,
@@ -692,7 +679,7 @@ require'packer'.startup(function(use)
 
     -- スクロールバー
     use {
-        'petertriho/nvim-scrollbar',                    -- スクロールバーを表示(nvim-hlslensと連携)
+        'petertriho/nvim-scrollbar',                    -- スクロールバーを表示(nvim-hlslensと連携してスクロールバーにハイライト表示)
         config = function()
             require('scrollbar.handlers.search').setup()
             require('scrollbar').setup {
@@ -734,12 +721,12 @@ require'packer'.startup(function(use)
             require('telescope').load_extension('neoclip')
         end
     }
-    use 'tversteeg/registers.nvim'                      -- レジスタの内容を一覧表示してヤンク(normal mode: ', insert mode: C-r)
+    use 'tversteeg/registers.nvim'                      -- レジスタの内容を一覧表示してヤンク(normal mode: ", insert mode: C-r)
 
     vim.api.nvim_set_keymap('n', '<leader>fy', '<Cmd>Telescope neoclip<CR>', {noremap = true, silent = true})
 
     -- 検索
-    use 'kevinhwang91/nvim-hlslens'                     -- 検索時にカーソルの隣にマッチ情報表示(nvim-scrollbarと連携)
+    use 'kevinhwang91/nvim-hlslens'                     -- 検索時にカーソルの隣にマッチ情報表示(nvim-scrollbarと連携してスクロールバーにハイライト表示)
 
     local hlslens_opts = {noremap = true, silent = true}
     vim.api.nvim_set_keymap('n', 'n', [[<Cmd>execute('normal! ' . v:count1 . 'n')<CR><Cmd>lua require('hlslens').start()<CR>]], hlslens_opts)
@@ -752,7 +739,7 @@ require'packer'.startup(function(use)
 
     -- ファイラ
     use {
-        'nvim-neo-tree/neo-tree.nvim',                  -- 軽くて安定したlua製ファイラ
+        'nvim-neo-tree/neo-tree.nvim',                  -- 軽くて安定したlua製ファイラ(隠しファイルを表示する場合はサイドバーを使用)
         branch = 'v2.x',
         requires = {
             'nvim-lua/plenary.nvim',
@@ -768,13 +755,38 @@ require'packer'.startup(function(use)
 
     -- ターミナル
     use {
-        'akinsho/toggleterm.nvim',
+        'akinsho/toggleterm.nvim',                      -- ターミナルをウィンドウ表示(ターミナルの停止は<C-\><C-n>, これでウィンドウ操作できる)
         tag = 'v1.*',
         config = function()
             require('toggleterm').setup()
         end
     }
     vim.keymap.set('n', '<A-t>', '<cmd>ToggleTerm<cr>', { silent = true, noremap = true })
+
+    -- インデント
+    use {
+        'lukas-reineke/indent-blankline.nvim',          -- インデントを見やすく表示
+        config = function()
+            require('indent_blankline').setup {
+                space_char_blankline = " ",
+                show_current_context = true,
+                show_current_context_start = false      -- アンダースコア表示はしない
+            }
+        end
+    }
+
+    -- コメント
+    use {
+        'numToStr/Comment.nvim',                        -- コメンティング(nvim-ts-context-commentstringを使用, キーバインドは標準 see:github)
+        config = function()
+            require('Comment').setup {
+                pre_hook = function()
+		            return require('ts_context_commentstring.internal').calculate_commentstring()
+	            end,
+                post_hook = nil
+            }
+        end
+    }
 
     -- Basics.
     use 'tpope/vim-fugitive'

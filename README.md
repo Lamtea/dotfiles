@@ -55,6 +55,7 @@ Run this command: `install.sh`
 - rustup
   - rust(local)
 - source-highlight
+- sqlite
 - tmux
 - w3m
 - xclip
