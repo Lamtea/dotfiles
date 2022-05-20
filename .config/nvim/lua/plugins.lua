@@ -766,6 +766,16 @@ require'packer'.startup(function(use)
 
     vim.keymap.set('n', 'gx', '<Cmd>Neotree reveal toggle <CR>', { noremap = true, silent = true })
 
+    -- ターミナル
+    use {
+        'akinsho/toggleterm.nvim',
+        tag = 'v1.*',
+        config = function()
+            require('toggleterm').setup()
+        end
+    }
+    vim.keymap.set('n', '<A-t>', '<cmd>ToggleTerm<cr>', { silent = true, noremap = true })
+
     -- Basics.
     use 'tpope/vim-fugitive'
     use {
