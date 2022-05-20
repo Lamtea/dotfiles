@@ -6,6 +6,8 @@ local vars = {
     loaded_perl_provider = 0,                       -- neovimのperlサポート無効
     Illuminate_delay = 500,                         -- vim-illuminateの単語をハイライトするまでの時間
     Illuminate_highlightUnderCursor = 0,            -- vim-illuminateのカーソル位置の単語はハイライトしない
+    qs_highlight_on_keys = {'f', 'F', 't', 'T'},    -- quick-scopeのキー設定
+    camelcasemotion_key = '<leader>',               -- camelcasemotionのキー設定(<leader> + w, b, e, ge)
     neo_tree_remove_legacy_commands = 1             -- neo-treeのレガシーコマンドは使用しない
 }
 

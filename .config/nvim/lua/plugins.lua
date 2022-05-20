@@ -102,7 +102,7 @@ require'packer'.startup(function(use)
         end
     }
     use {
-        'folke/lsp-colors.nvim',                        -- LSPカラー
+        'folke/lsp-colors.nvim',                        -- LSP用のカラー追加
         config = function()
             require('lsp-colors').setup {
                 Error = '#db4b4b',
@@ -117,8 +117,8 @@ require'packer'.startup(function(use)
         requires = 'kyazdani42/nvim-web-devicons',
         config = function()
             require('trouble').setup {
-                height = 8,
-                auto_clos = true,                       -- 診断がない場合は自動で閉じる
+                height = 10,
+                auto_close = true,                      -- 診断がない場合は自動で閉じる
                 use_diagnostic_signs = true             -- LSPクライアントと同じ記号を使用
             }
         end
@@ -133,9 +133,11 @@ require'packer'.startup(function(use)
 
     local lsp_on_attach = function(client, bufnr)
         require('illuminate').on_attach(client)
+
         local function buf_set_keymap(...)
             vim.api.nvim_buf_set_keymap(bufnr, ...)
         end
+
         local opts = { noremap = true, silent = true }
         buf_set_keymap('n', 'gD', 'lua vim.lsp.buf.declaration()', opts)
         buf_set_keymap('n', 'gd', 'lua vim.lsp.buf.definition()', opts)
@@ -155,6 +157,7 @@ require'packer'.startup(function(use)
         buf_set_keymap('n', '<space>q', 'lua vim.lsp.diagnostic.set_loclist()', opts)
         buf_set_keymap('n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
     end
+
     local lsp_installer = require('nvim-lsp-installer')
     local lsp_config = require('lspconfig')
     local lsp_capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
@@ -165,6 +168,7 @@ require'packer'.startup(function(use)
             capabilities = lsp_capabilities             -- 補完設定
         }
     end
+
     lsp_config.sumneko_lua.setup{
         settings = {
             Lua = {
@@ -247,6 +251,7 @@ require'packer'.startup(function(use)
             }
         )
     }
+
     cmp_engine.setup.cmdline('/', {
         mapping = cmp_engine.mapping.preset.cmdline(),
         sources = cmp_engine.config.sources(
@@ -258,6 +263,7 @@ require'packer'.startup(function(use)
 	        }
         )
     })
+
     cmp_engine.setup.cmdline(':', {
         mapping = cmp_engine.mapping.preset.cmdline(),
         sources = cmp_engine.config.sources(
@@ -577,12 +583,13 @@ require'packer'.startup(function(use)
         end
     }
     use {
-        "folke/todo-comments.nvim",                     -- todo系コメントハイライト(タグについては see:github)
-        requires = "nvim-lua/plenary.nvim",
+        'folke/todo-comments.nvim',                     -- todo系コメントハイライト(タグについては see:github)
+        requires = 'nvim-lua/plenary.nvim',
         config = function()
-            require("todo-comments").setup()
+            require('todo-comments').setup()
         end
     }
+
     vim.api.nvim_set_keymap('n', '<Leader>tx', '<cmd>TodoTrouble<cr>', {noremap = true})
     vim.api.nvim_set_keymap('n', '<Leader>tt', '<cmd>TodoTelescope<cr>', {noremap = true})
 
@@ -600,7 +607,7 @@ require'packer'.startup(function(use)
     }
 
     -- 行番号
-    use 'myusuf3/numbers.vim'                           -- insertモード時は絶対行にする
+    use 'myusuf3/numbers.vim'                           -- insertモード時は絶対行にする(vimscript)
 
     -- サイドバー
     use {
@@ -669,7 +676,58 @@ require'packer'.startup(function(use)
             }
         end
     }
+
     vim.api.nvim_set_keymap('n', 'gs', '<Cmd>SidebarNvimToggle<CR>', {noremap = true, silent = true})
+
+    -- スタート画面
+    use {
+        'goolord/alpha-nvim',                           -- スタート画面に履歴等表示
+        requires = {
+            'kyazdani42/nvim-web-devicons'
+        },
+        config = function ()
+            require('alpha').setup(require'alpha.themes.startify'.config)
+        end
+    }
+
+    -- スクロールバー
+    use {
+        'petertriho/nvim-scrollbar',                    -- スクロールバーを表示(nvim-hlslensと連携)
+        config = function()
+            require('scrollbar.handlers.search').setup()
+            require('scrollbar').setup {
+                handlers = {
+                    diagnostic = true,
+                    search = true
+                },
+            }
+        end
+    }
+
+    -- 移動
+    use {
+        'phaazon/hop.nvim',                             -- ラベルジャンプ(EasyMotion風)
+        config = function()
+            require('hop').setup()
+        end
+    }
+    use 'unblevable/quick-scope'                        -- 1行内ラベルジャンプ(キーバインドはvariables.luaで定義, vimscript)
+    use 'bkad/CamelCaseMotion'                          -- キャメルケースの移動(キーバインドはvariables.luaで定義, vimscript)
+
+    vim.api.nvim_set_keymap('n', '<leader>e', [[<cmd>lua require('hop').hint_words()<CR>]], {})
+    vim.api.nvim_set_keymap('x', '<leader>e', [[<cmd>lua require('hop').hint_words()<CR>]], {})
+
+    -- 検索
+    use 'kevinhwang91/nvim-hlslens'                     -- 検索時にカーソルの隣にマッチ情報表示(nvim-scrollbarと連携)
+
+    local hlslens_opts = {noremap = true, silent = true}
+    vim.api.nvim_set_keymap('n', 'n', [[<Cmd>execute('normal! ' . v:count1 . 'n')<CR><Cmd>lua require('hlslens').start()<CR>]], hlslens_opts)
+    vim.api.nvim_set_keymap('n', 'N', [[<Cmd>execute('normal! ' . v:count1 . 'N')<CR><Cmd>lua require('hlslens').start()<CR>]], hlslens_opts)
+    vim.api.nvim_set_keymap('n', '*', [[*<Cmd>lua require('hlslens').start()<CR>]], hlslens_opts)
+    vim.api.nvim_set_keymap('n', '#', [[#<Cmd>lua require('hlslens').start()<CR>]], hlslens_opts)
+    vim.api.nvim_set_keymap('n', 'g*', [[g*<Cmd>lua require('hlslens').start()<CR>]], hlslens_opts)
+    vim.api.nvim_set_keymap('n', 'g#', [[g#<Cmd>lua require('hlslens').start()<CR>]], hlslens_opts)
+    vim.api.nvim_set_keymap('n', '<Leader>h', ':noh<CR>', hlslens_opts)
 
     -- Basics.
     use 'tpope/vim-fugitive'
@@ -682,10 +740,8 @@ require'packer'.startup(function(use)
             'CursorHold'
         }
     }
-    use 'easymotion/vim-easymotion'
-    use 'mileszs/ack.vim'
 
-    -- Filer.
+    -- ファイラ
     use {
         'nvim-neo-tree/neo-tree.nvim',
         branch = 'v2.x',
@@ -695,4 +751,7 @@ require'packer'.startup(function(use)
             'MunifTanjim/nui.nvim'
         }
     }
+
+    -- コマンド
+    use 'mileszs/ack.vim'                               -- :Ack
 end)
