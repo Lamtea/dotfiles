@@ -1,6 +1,6 @@
 -- プラグイン読込
 vim.cmd[[packadd packer.nvim]]
-require'packer'.startup(function(use)
+require('packer').startup(function(use)
     -- プラグインマネージャ
     use {
         'wbthomason/packer.nvim',                       -- lua製プラグインマネージャ
@@ -575,27 +575,6 @@ require'packer'.startup(function(use)
     vim.api.nvim_set_keymap('n', '<Leader>8', '<Cmd>BufferLineGoToBuffer 8<CR>', { noremap = true, silent = true })
     vim.api.nvim_set_keymap('n', '<Leader>9', '<Cmd>BufferLineGoToBuffer 9<CR>', { noremap = true, silent = true })
 
-    -- ハイライト
-    use {
-        'norcalli/nvim-colorizer.lua',                  -- 色コードや名称をカラー表示
-        config = function()
-            require('colorizer').setup()
-        end
-    }
-    use {
-        'folke/todo-comments.nvim',                     -- todo系コメントハイライトとtrouble, telecopeに表示(タグについては see:github)
-        requires = 'nvim-lua/plenary.nvim',
-        config = function()
-            require('todo-comments').setup()
-        end
-    }
-
-    vim.api.nvim_set_keymap('n', '<Leader>tx', '<cmd>TodoTrouble<cr>', {noremap = true})
-    vim.api.nvim_set_keymap('n', '<Leader>tt', '<cmd>TodoTelescope<cr>', {noremap = true})
-
-    -- 行番号
-    use 'myusuf3/numbers.vim'                           -- insertモード時は絶対行にする(vimscript)
-
     -- サイドバー
     use {
         'sidebar-nvim/sidebar.nvim',                    -- 色々な情報を出すサイドバー(ファイラと違って隠しファイルも表示する設定にしてある)
@@ -666,16 +645,21 @@ require'packer'.startup(function(use)
 
     vim.api.nvim_set_keymap('n', 'gs', '<Cmd>SidebarNvimToggle<CR>', {noremap = true, silent = true})
 
-    -- スタート画面
+    -- ファイラ
     use {
-        'goolord/alpha-nvim',                           -- スタート画面に履歴等表示
+        'nvim-neo-tree/neo-tree.nvim',                  -- 軽くて安定したlua製ファイラ(隠しファイルを表示する場合はサイドバーを使用)
+        branch = 'v2.x',
         requires = {
-            'kyazdani42/nvim-web-devicons'
+            'nvim-lua/plenary.nvim',
+            'kyazdani42/nvim-web-devicons',
+            'MunifTanjim/nui.nvim'
         },
-        config = function ()
-            require('alpha').setup(require'alpha.themes.startify'.config)
+        config = function()
+            require('neo-tree').setup()
         end
     }
+
+    vim.keymap.set('n', 'gx', '<Cmd>Neotree reveal toggle <CR>', { noremap = true, silent = true })
 
     -- スクロールバー
     use {
@@ -690,6 +674,56 @@ require'packer'.startup(function(use)
             }
         end
     }
+
+    -- スタート画面
+    use {
+        'goolord/alpha-nvim',                           -- スタート画面に履歴等表示
+        requires = {
+            'kyazdani42/nvim-web-devicons'
+        },
+        config = function ()
+            require('alpha').setup(require'alpha.themes.startify'.config)
+        end
+    }
+
+    -- ターミナル
+    use {
+        'akinsho/toggleterm.nvim',                      -- ターミナルをウィンドウ表示(floatingはlspsagaのほうを使用, ターミナルの停止は<C-\><C-n>)
+        tag = 'v1.*',
+        config = function()
+            require('toggleterm').setup()
+        end
+    }
+    vim.keymap.set('n', '<A-t>', '<cmd>ToggleTerm<cr>', { silent = true, noremap = true })
+
+    -- ハイライト
+    use {
+        'norcalli/nvim-colorizer.lua',                  -- 色コードや名称をカラー表示
+        config = function()
+            require('colorizer').setup()
+        end
+    }
+    use {
+        'folke/todo-comments.nvim',                     -- todo系コメントハイライトとtrouble, telecopeに表示(タグについては see:github)
+        requires = 'nvim-lua/plenary.nvim',
+        config = function()
+            require('todo-comments').setup()
+        end
+    }
+    use 'myusuf3/numbers.vim'                           -- insertモード時は絶対行にする(vimscript)
+    use {
+        'lukas-reineke/indent-blankline.nvim',          -- インデントを見やすく表示
+        config = function()
+            require('indent_blankline').setup {
+                space_char_blankline = ' ',
+                show_current_context = true,            -- treesitterベースでスコープを表示
+                show_current_context_start = false      -- アンダースコア表示はしない
+            }
+        end
+    }
+
+    vim.api.nvim_set_keymap('n', '<Leader>tx', '<cmd>TodoTrouble<cr>', {noremap = true})
+    vim.api.nvim_set_keymap('n', '<Leader>tt', '<cmd>TodoTelescope<cr>', {noremap = true})
 
     -- 移動
     use {
@@ -707,9 +741,9 @@ require'packer'.startup(function(use)
     -- 編集
     use 'machakann/vim-sandwich'                        -- クォートなどでサンドイッチされたテキストの編集(キーバインドについては see:github, vimscript)
 
-    -- ヤンク
+    -- レジスタ
     use {
-        'AckslD/nvim-neoclip.lua',                      -- ヤンクをセッション間で共有できtelescopeで検索可能
+        'AckslD/nvim-neoclip.lua',                      -- レジスタをセッション間で共有できtelescopeで検索可能
         requires = {
             {'tami5/sqlite.lua', module = 'sqlite'},
             {'nvim-telescope/telescope.nvim'}
@@ -737,44 +771,6 @@ require'packer'.startup(function(use)
     vim.api.nvim_set_keymap('n', 'g#', [[g#<Cmd>lua require('hlslens').start()<CR>]], hlslens_opts)
     vim.api.nvim_set_keymap('n', '<Leader>h', ':noh<CR>', hlslens_opts)
 
-    -- ファイラ
-    use {
-        'nvim-neo-tree/neo-tree.nvim',                  -- 軽くて安定したlua製ファイラ(隠しファイルを表示する場合はサイドバーを使用)
-        branch = 'v2.x',
-        requires = {
-            'nvim-lua/plenary.nvim',
-            'kyazdani42/nvim-web-devicons',
-            'MunifTanjim/nui.nvim'
-        },
-        config = function()
-            require('neo-tree').setup()
-        end
-    }
-
-    vim.keymap.set('n', 'gx', '<Cmd>Neotree reveal toggle <CR>', { noremap = true, silent = true })
-
-    -- ターミナル
-    use {
-        'akinsho/toggleterm.nvim',                      -- ターミナルをウィンドウ表示(ターミナルの停止は<C-\><C-n>, これでウィンドウ操作できる)
-        tag = 'v1.*',
-        config = function()
-            require('toggleterm').setup()
-        end
-    }
-    vim.keymap.set('n', '<A-t>', '<cmd>ToggleTerm<cr>', { silent = true, noremap = true })
-
-    -- インデント
-    use {
-        'lukas-reineke/indent-blankline.nvim',          -- インデントを見やすく表示
-        config = function()
-            require('indent_blankline').setup {
-                space_char_blankline = " ",
-                show_current_context = true,            -- treesitterベースでスコープを表示
-                show_current_context_start = false      -- アンダースコア表示はしない
-            }
-        end
-    }
-
     -- コメント
     use {
         'numToStr/Comment.nvim',                        -- コメンティング(nvim-ts-context-commentstringを使用, キーバインドは標準 see:github)
@@ -786,17 +782,6 @@ require'packer'.startup(function(use)
                 post_hook = nil
             }
         end
-    }
-
-    -- Basics.
-    use 'tpope/vim-fugitive'
-    use {
-        'tpope/vim-unimpaired',
-        opt = true,
-        event = {
-            'FocusLost',
-            'CursorHold'
-        }
     }
 
     -- コマンド
