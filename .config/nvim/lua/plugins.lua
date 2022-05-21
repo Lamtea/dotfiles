@@ -139,9 +139,9 @@ require('packer').startup(function(use)
         end
 
         local opts = { noremap = true, silent = true }
-        buf_set_keymap('n', 'gD', 'lua vim.lsp.buf.declaration()', opts)
-        buf_set_keymap('n', 'gd', 'lua vim.lsp.buf.definition()', opts)
-        -- buf_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)                               lspsaga使用
+        buf_set_keymap('n', 'gD', 'lua vim.lsp.buf.declaration()', opts)                                    -- 標準コマンド拡張(move to global declaration)
+        buf_set_keymap('n', 'gd', 'lua vim.lsp.buf.definition()', opts)                                     -- 標準コマンド拡張(move to local declaration)
+        -- buf_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)                               -- 標準コマンド拡張(show man page) lspsaga使用
         buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
         -- buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)                  lspsaga使用
         buf_set_keymap('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
@@ -150,11 +150,11 @@ require('packer').startup(function(use)
         buf_set_keymap('n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
         -- buf_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)                      lspsaga使用
         -- buf_set_keymap('n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)                 lspsaga使用
-        buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+        -- buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)                         trouble使用
         -- buf_set_keymap('n', '<space>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts) lspsaga使用
         -- buf_set_keymap('n', '<space>p', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)             lspsaga使用
         -- buf_set_keymap('n', '<space>n', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)             lspsaga使用
-        buf_set_keymap('n', '<space>q', 'lua vim.lsp.diagnostic.set_loclist()', opts)
+        buf_set_keymap('n', '<space>q', 'lua vim.lsp.diagnostic.setloclist()', opts)
         buf_set_keymap('n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
     end
 
@@ -219,7 +219,7 @@ require('packer').startup(function(use)
         formatting = {
             format = lsp_kind.cmp_format {
                 mode = 'symbol',
-                maxwidth = 50,
+                maxwidth = 100,
                 before = function (_, vim_item)
                     return vim_item
                 end
@@ -276,14 +276,14 @@ require('packer').startup(function(use)
         )
     })
 
-    vim.keymap.set('n', 'gh', '<cmd>Lspsaga lsp_finder<cr>', { silent = true, noremap = true })
-    vim.keymap.set('n', '<space>ca', '<cmd>Lspsaga code_action<cr>', { silent = true, noremap = true })
-    vim.keymap.set('x', '<space>ca', ':<C-u>Lspsaga range_code_action<cr>', { silent = true, noremap = true })
+    vim.keymap.set('n', 'gh', '<cmd>Lspsaga lsp_finder<cr>', { silent = true, noremap = true }) -- (h)elp
+    vim.keymap.set('n', '<space>c', '<cmd>Lspsaga code_action<cr>', { silent = true, noremap = true })
+    vim.keymap.set('x', '<space>c', ':<C-u>Lspsaga range_code_action<cr>', { silent = true, noremap = true })
     vim.keymap.set('n', 'K', '<cmd>Lspsaga hover_doc<cr>', { silent = true, noremap = true })
     vim.keymap.set('n', '<C-f>', [[<cmd>lua require('lspsaga.action').smart_scroll_with_saga(1)<cr>]], { silent = true, noremap = true })
     vim.keymap.set('n', '<C-b>', [[<cmd>lua require('lspsaga.action').smart_scroll_with_saga(-1)<cr>]], { silent = true, noremap = true })
     vim.keymap.set('n', '<space>k', '<cmd>Lspsaga signature_help<cr>', { silent = true, noremap = true })
-    vim.keymap.set('n', '<space>rn', '<cmd>Lspsaga rename<cr>', { silent = true, noremap = true })
+    vim.keymap.set('n', '<space>r', '<cmd>Lspsaga rename<cr>', { silent = true, noremap = true })
     vim.keymap.set('n', '<space>d', '<cmd>Lspsaga preview_definition<cr>', { silent = true, noremap = true })
     vim.keymap.set('n', '<space>e', '<cmd>Lspsaga show_line_diagnostics<cr>', { silent = true, noremap = true })
     vim.keymap.set('n', '<space>E', [[<cmd>lua require('lspsaga.diagnostic').show_cursor_diagnostics()<cr>]], { silent = true, noremap = true })
@@ -296,7 +296,7 @@ require('packer').startup(function(use)
     vim.api.nvim_set_keymap('n', '<leader>xd', '<cmd>Trouble document_diagnostics<cr>', { silent = true, noremap = true })
     vim.api.nvim_set_keymap('n', '<leader>xl', '<cmd>Trouble loclist<cr>', { silent = true, noremap = true })
     vim.api.nvim_set_keymap('n', '<leader>xq', '<cmd>Trouble quickfix<cr>', { silent = true, noremap = true })
-    vim.api.nvim_set_keymap('n', 'gR', '<cmd>Trouble lsp_references<cr>', { silent = true, noremap = true })
+    vim.api.nvim_set_keymap('n', 'gr', '<cmd>Trouble lsp_references<cr>', { silent = true, noremap = true })
 
     -- ファジーファインダー
     use {
@@ -333,19 +333,19 @@ require('packer').startup(function(use)
     vim.api.nvim_set_keymap('n', '<leader>ff', [[<cmd>lua require('telescope.builtin').find_files()<cr>]], {noremap = true})
     vim.api.nvim_set_keymap('n', '<leader>fg', [[<cmd>lua require('telescope.builtin').live_grep()<cr>]], {noremap = true})
     vim.api.nvim_set_keymap('n', '<leader>fb', [[<cmd>lua require('telescope.builtin').buffers()<cr>]], {noremap = true})
-    vim.api.nvim_set_keymap('n', '<leader>fh', [[<cmd>lua require('telescope.builtin').oldfiles()<cr>]], {noremap = true})
+    vim.api.nvim_set_keymap('n', '<leader>fh', [[<cmd>lua require('telescope.builtin').oldfiles()<cr>]], {noremap = true})      -- (h)istory
     vim.api.nvim_set_keymap('n', '<leader>fc', [[<cmd>lua require('telescope.builtin').commands()<cr>]], {noremap = true})
-    vim.api.nvim_set_keymap('n', '<leader>ft', [[<cmd>lua require('telescope.builtin').treesitter()<cr>]], {noremap = true})
+    vim.api.nvim_set_keymap('n', '<leader>fn', [[<cmd>lua require('telescope.builtin').treesitter()<cr>]], {noremap = true})    -- (n)ode
     vim.api.nvim_set_keymap('n', '<leader>gb', [[<cmd>lua require('telescope.builtin').git_branches()<cr>]], {noremap = true})
     vim.api.nvim_set_keymap('n', '<leader>gc', [[<cmd>lua require('telescope.builtin').git_commits()<cr>]], {noremap = true})
-    vim.api.nvim_set_keymap('n', '<leader>gm', [[<cmd>lua require('telescope.builtin').git_bcommits()<cr>]], {noremap = true})
+    vim.api.nvim_set_keymap('n', '<leader>gC', [[<cmd>lua require('telescope.builtin').git_bcommits()<cr>]], {noremap = true})
     vim.api.nvim_set_keymap('n', '<leader>gf', [[<cmd>lua require('telescope.builtin').git_files()<cr>]], {noremap = true})
     vim.api.nvim_set_keymap('n', '<leader>gs', [[<cmd>lua require('telescope.builtin').git_status()<cr>]], {noremap = true})
-    vim.api.nvim_set_keymap('n', '<leader>gt', [[<cmd>lua require('telescope.builtin').git_stash()<cr>]], {noremap = true})
+    vim.api.nvim_set_keymap('n', '<leader>gS', [[<cmd>lua require('telescope.builtin').git_stash()<cr>]], {noremap = true})
     vim.api.nvim_set_keymap('n', '<leader>ld', [[<cmd>lua require('telescope.builtin').lsp_definitions()<cr>]], {noremap = true})
     vim.api.nvim_set_keymap('n', '<leader>lr', [[<cmd>lua require('telescope.builtin').lsp_references()<cr>]], {noremap = true})
     vim.api.nvim_set_keymap('n', '<leader>ls', [[<cmd>lua require('telescope.builtin').lsp_document_symbols()<cr>]], {noremap = true})
-    vim.api.nvim_set_keymap('n', '<leader>lw', [[<cmd>lua require('telescope.builtin').lsp_workspace_symbols()<cr>]], {noremap = true})
+    vim.api.nvim_set_keymap('n', '<leader>lS', [[<cmd>lua require('telescope.builtin').lsp_workspace_symbols()<cr>]], {noremap = true})
 
     -- treesitter
     use {
@@ -361,10 +361,10 @@ require('packer').startup(function(use)
                 incremental_selection = {
                     enable = true,
                     keymaps = {
-                        init_selection = '<CR>',
-                        node_incremental = '<CR>',
-                        scope_incremental = '<TAB>',
-                        node_decremental = '<S-TAB>'
+                        init_selection = '<CR>',            -- normal modeからnodeを初期選択してvisual modeに入れる
+                        node_incremental = '<CR>',          -- 親nodeをたどって選択
+                        scope_incremental = '<TAB>',        -- scope範囲で親nodeをたどって選択
+                        node_decremental = '<S-TAB>'        -- 子nodeまで選択を戻す
                     }
                 },
                 indent = {
@@ -398,49 +398,53 @@ require('packer').startup(function(use)
                             ['iF'] = '@frame.inner',
                             ['aS'] = '@statement.outer',
                             ['iS'] = '@scopename.inner',
-                            ['am'] = '@comment.outer',
-                            ['ao'] = '@call.outer',
-                            ['io'] = '@call.inner'
+                            ['am'] = '@comment.outer',      -- co(m)ment
+                            ['ao'] = '@call.outer',         -- (o)bject
+                            ['io'] = '@call.inner'          -- (o)bject
                         }
                     },
                     swap = {
                         enable = true,
                         swap_next = {
-                            ['<leader>a'] = '@parameter.inner'
+                            ['<leader>sn'] = '@parameter.inner'
                         },
                         swap_previous = {
-                            ['<leader>A'] = '@parameter.inner'
+                            ['<leader>sp'] = '@parameter.inner'
                         }
                     },
                     move = {
                         enable = true,
                         goto_next_start = {
-                            [']m'] = '@function.outer',
-                            [']]'] = '@class.outer'
+                            [']f'] = '@function.outer',
+                            [']c'] = '@class.outer',
+                            [']b'] = '@block.outer'
                         },
                         goto_next_end = {
-                            [']M'] = '@function.outer',
-                            [']['] = '@class.outer'
+                            [']F'] = '@function.outer',
+                            [']C'] = '@class.outer',
+                            [']B'] = '@block.outer'
                         },
                         goto_previous_start = {
-                            ['[m'] = '@function.outer',
-                            ['[['] = '@class.outer'
+                            ['[f'] = '@function.outer',
+                            ['[c'] = '@class.outer',
+                            ['[b'] = '@block.outer'
                         },
                         goto_previous_end = {
-                            ['[M'] = '@function.outer',
-                            ['[]'] = '@class.outer'
+                            ['[F'] = '@function.outer',
+                            ['[C'] = '@class.outer',
+                            ['[B'] = '@block.outer'
                         }
                     },
                     lsp_interop = {
                         enable = true,
                         peek_definition_code = {
                             ['<leader>df'] = '@function.outer',
-                            ['<leader>dF'] = '@class.outer'
+                            ['<leader>dc'] = '@class.outer'
                         }
                     }
                 },
                 textsubjects = {
-                    enable = true,
+                    enable = true,                      -- incremental_selectionと違いトリビアごと選択できる
                     prev_selection = ',',
                     keymaps = {
                         ['.'] = 'textsubjects-smart',
@@ -489,10 +493,10 @@ require('packer').startup(function(use)
     vim.api.nvim_set_keymap('x', 'au', [[:lua require('treesitter-unit').select(true)<CR>]], {noremap=true})
     vim.api.nvim_set_keymap('o', 'iu', [[:<c-u>lua require('treesitter-unit').select()<CR>]], {noremap=true})
     vim.api.nvim_set_keymap('o', 'au', [[:<c-u>lua require('treesitter-unit').select(true)<CR>]], {noremap=true})
-    vim.cmd[[omap <silent> m :<C-u>lua require('tsht').nodes()<CR>]]
-    vim.cmd[[vnoremap <silent> m :lua require('tsht').nodes()<CR>]]
-    vim.api.nvim_set_keymap('n', '<Leader>ss', '<cmd>ISwap<cr>', {noremap = true})
-    vim.api.nvim_set_keymap('n', '<Leader>sw', '<cmd>ISwapWith<cr>', {noremap = true})
+    vim.cmd[[omap <silent> m :<C-u>lua require('tsht').nodes()<CR>]]                    -- (m)otion
+    vim.cmd[[vnoremap <silent> m :lua require('tsht').nodes()<CR>]]                     -- (m)otion
+    vim.api.nvim_set_keymap('n', '<Leader>sm', '<cmd>ISwap<cr>', {noremap = true})      -- (s)wap (m)otion
+    vim.api.nvim_set_keymap('n', '<Leader>sw', '<cmd>ISwapWith<cr>', {noremap = true})  -- (s)wap motion (w)ith
 
     -- ステータスライン
     use {
@@ -558,12 +562,12 @@ require('packer').startup(function(use)
         end
     }
 
-    vim.api.nvim_set_keymap('n', 'L', '<Cmd>BufferLineCycleNext<CR>', { noremap = true, silent = true })
-    vim.api.nvim_set_keymap('n', 'H', '<Cmd>BufferLineCyclePrev<CR>', { noremap = true, silent = true })
-    -- vim.api.nvim_set_keymap('n', 'J', '<Cmd>BufferLineMoveNext<CR>', { noremap = true, silent = true })
-    -- vim.api.nvim_set_keymap('n', 'K', '<Cmd>BufferLineMovePrev<CR>', { noremap = true, silent = true })
-    -- vim.api.nvim_set_keymap('n', '', '<Cmd>BufferLineSortByExtension<CR>', { noremap = true, silent = true })
-    -- vim.api.nvim_set_keymap('n', '', '<Cmd>BufferLineSortByDirectory<CR>', { noremap = true, silent = true })
+    vim.api.nvim_set_keymap('n', '<leader>n', '<Cmd>BufferLineCycleNext<CR>', { noremap = true, silent = true })
+    vim.api.nvim_set_keymap('n', '<leader>p', '<Cmd>BufferLineCyclePrev<CR>', { noremap = true, silent = true })
+    vim.api.nvim_set_keymap('n', '<leader>N', '<Cmd>BufferLineMoveNext<CR>', { noremap = true, silent = true })
+    vim.api.nvim_set_keymap('n', '<leader>P', '<Cmd>BufferLineMovePrev<CR>', { noremap = true, silent = true })
+    -- vim.api.nvim_set_keymap('n', '<leader>Be', '<Cmd>BufferLineSortByExtension<CR>', { noremap = true, silent = true })
+    -- vim.api.nvim_set_keymap('n', '<leader>Bd', '<Cmd>BufferLineSortByDirectory<CR>', { noremap = true, silent = true })
     vim.api.nvim_set_keymap('n', '<Leader>b', '<Cmd>BufferLinePick<CR>', { noremap = true, silent = true })
     vim.api.nvim_set_keymap('n', '<Leader>1', '<Cmd>BufferLineGoToBuffer 1<CR>', { noremap = true, silent = true })
     vim.api.nvim_set_keymap('n', '<Leader>2', '<Cmd>BufferLineGoToBuffer 2<CR>', { noremap = true, silent = true })
@@ -696,6 +700,14 @@ require('packer').startup(function(use)
     }
     vim.keymap.set('n', '<A-t>', '<cmd>ToggleTerm<cr>', { silent = true, noremap = true })
 
+    -- ヘルプ
+    use {
+        'folke/which-key.nvim',                         -- キーを一覧表示(:WhichKey コマンドですべてを参照)
+        config = function()
+            require('which-key').setup()
+        end
+    }
+
     -- ハイライト
     use {
         'norcalli/nvim-colorizer.lua',                  -- 色コードや名称をカラー表示
@@ -722,8 +734,8 @@ require('packer').startup(function(use)
         end
     }
 
-    vim.api.nvim_set_keymap('n', '<Leader>tx', '<cmd>TodoTrouble<cr>', {noremap = true})
-    vim.api.nvim_set_keymap('n', '<Leader>tt', '<cmd>TodoTelescope<cr>', {noremap = true})
+    vim.api.nvim_set_keymap('n', '<Leader>xt', '<cmd>TodoTrouble<cr>', {noremap = true})
+    vim.api.nvim_set_keymap('n', '<Leader>ft', '<cmd>TodoTelescope<cr>', {noremap = true})
 
     -- 移動
     use {
@@ -735,8 +747,8 @@ require('packer').startup(function(use)
     use 'unblevable/quick-scope'                        -- 1行内ラベルジャンプ(キーバインドはvariables.luaで定義, vimscript)
     use 'bkad/CamelCaseMotion'                          -- キャメルケースの移動(キーバインドはvariables.luaで定義, vimscript)
 
-    vim.api.nvim_set_keymap('n', '<leader>e', [[<cmd>lua require('hop').hint_words()<CR>]], {})
-    vim.api.nvim_set_keymap('x', '<leader>e', [[<cmd>lua require('hop').hint_words()<CR>]], {})
+    vim.api.nvim_set_keymap('n', '<leader>m', [[<cmd>lua require('hop').hint_words()<CR>]], {}) -- (m)otion
+    vim.api.nvim_set_keymap('x', '<leader>m', [[<cmd>lua require('hop').hint_words()<CR>]], {}) -- (m)otion
 
     -- 編集
     use 'machakann/vim-sandwich'                        -- クォートなどでサンドイッチされたテキストの編集(キーバインドについては see:github, vimscript)
@@ -757,19 +769,21 @@ require('packer').startup(function(use)
     }
     use 'tversteeg/registers.nvim'                      -- レジスタの内容を一覧表示してヤンク(normal mode: ", insert mode: C-r)
 
-    vim.api.nvim_set_keymap('n', '<leader>fy', '<Cmd>Telescope neoclip<CR>', {noremap = true, silent = true})
+    vim.api.nvim_set_keymap('n', '<leader>fr', '<Cmd>Telescope neoclip<CR>', {noremap = true, silent = true})
 
     -- 検索
     use 'kevinhwang91/nvim-hlslens'                     -- 検索時にカーソルの隣にマッチ情報表示(nvim-scrollbarと連携してスクロールバーにハイライト表示)
 
     local hlslens_opts = {noremap = true, silent = true}
-    vim.api.nvim_set_keymap('n', 'n', [[<Cmd>execute('normal! ' . v:count1 . 'n')<CR><Cmd>lua require('hlslens').start()<CR>]], hlslens_opts)
-    vim.api.nvim_set_keymap('n', 'N', [[<Cmd>execute('normal! ' . v:count1 . 'N')<CR><Cmd>lua require('hlslens').start()<CR>]], hlslens_opts)
+    vim.api.nvim_set_keymap('n', 'n',
+        [[<Cmd>execute('normal! ' . v:count1 . 'n')<CR><Cmd>lua require('hlslens').start()<CR>]], hlslens_opts) -- 標準コマンド拡張(順方向に再検索)
+    vim.api.nvim_set_keymap('n', 'N',
+        [[<Cmd>execute('normal! ' . v:count1 . 'N')<CR><Cmd>lua require('hlslens').start()<CR>]], hlslens_opts) -- 標準コマンド拡張(逆方向に再検索)
     vim.api.nvim_set_keymap('n', '*', [[*<Cmd>lua require('hlslens').start()<CR>]], hlslens_opts)
     vim.api.nvim_set_keymap('n', '#', [[#<Cmd>lua require('hlslens').start()<CR>]], hlslens_opts)
     vim.api.nvim_set_keymap('n', 'g*', [[g*<Cmd>lua require('hlslens').start()<CR>]], hlslens_opts)
     vim.api.nvim_set_keymap('n', 'g#', [[g#<Cmd>lua require('hlslens').start()<CR>]], hlslens_opts)
-    vim.api.nvim_set_keymap('n', '<Leader>h', ':noh<CR>', hlslens_opts)
+    vim.api.nvim_set_keymap('n', '<Leader>h', ':noh<CR>', hlslens_opts)                                         -- 標準コマンド実行(ハイライトを消す)
 
     -- コメント
     use {
@@ -786,10 +800,4 @@ require('packer').startup(function(use)
 
     -- コマンド
     use 'mileszs/ack.vim'                               -- :Ack
-    use {
-        'folke/which-key.nvim',                         -- :WhichKey
-        config = function()
-            require('which-key').setup()
-        end
-    }
 end)
