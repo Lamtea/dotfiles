@@ -55,6 +55,7 @@ require("packer").startup(function(use)
 	use("hrsh7th/nvim-cmp") -- 補完エンジン
 	use("hrsh7th/cmp-vsnip") -- vscodeスニペット用ソース
 	use("hrsh7th/vim-vsnip") -- vscodeスニペット(vimscript)
+	use("rafamadriz/friendly-snippets") -- vscodeスニペット定義ファイル
 	use({
 		"jose-elias-alvarez/null-ls.nvim", -- LSP用linter, formatter
 		requires = {
@@ -1036,6 +1037,27 @@ require("packer").startup(function(use)
 		[[<Cmd>lua require('sniprun.display').close_all()<CR>]],
 		{ noremap = true, silent = true }
 	) -- runner close
+
+	-- git
+	use({
+		"TimUntersberger/neogit", -- gitクライアント
+		requires = {
+			"nvim-lua/plenary.nvim",
+		},
+		config = function()
+			require("neogit").setup({
+				kind = "tab",
+				commit_popup = {
+					kind = "split",
+				},
+				integrations = {
+					diffview = true,
+				},
+			})
+		end,
+	})
+
+	vim.api.nvim_set_keymap("n", "<leader><Space>", "<Cmd>Neogit<CR>", { noremap = true, silent = true })
 
 	-- コマンド
 	use("mileszs/ack.vim") -- :Ack
