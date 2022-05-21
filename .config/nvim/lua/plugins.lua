@@ -454,6 +454,9 @@ require('packer').startup(function(use)
                 },
                 matchup = {
                     enable = true
+                },
+                autotag = {
+                    enable = true
                 }
             }
            end
@@ -477,7 +480,13 @@ require('packer').startup(function(use)
             }
         end
     }
-    use 'andymass/vim-matchup'                          -- マッチングペアをハイライト, 移動, 編集(キーバインドについては see:github)
+    use 'andymass/vim-matchup'                          -- マッチングペアをハイライト, 移動, 編集(キーバインドについては see:github, vimscript)
+    use {
+        'windwp/nvim-ts-autotag',                       -- タグを自動で閉じてくれる
+        config = function()
+            require('nvim-ts-autotag').setup()
+        end
+    }
     use {
         'm-demare/hlargs.nvim',                         -- 引数を色分け表示
         requires = {
@@ -793,7 +802,7 @@ require('packer').startup(function(use)
 
     -- コメント
     use {
-        'numToStr/Comment.nvim',                        -- コメンティング(nvim-ts-context-commentstringを使用, キーバインドは標準 see:github)
+        'numToStr/Comment.nvim',                        -- コメンティング(nvim-ts-context-commentstringを使用(treesitter), キーバインドは標準 see:github)
         config = function()
             require('Comment').setup {
                 pre_hook = function()
@@ -805,6 +814,14 @@ require('packer').startup(function(use)
     }
 
     -- 括弧
+    use {
+        'windwp/nvim-autopairs',                        -- 括弧を自動で閉じてくれる
+        config = function()
+            require('nvim-autopairs').setup {
+                map_cr = false
+            }
+        end
+    }
 
     -- コマンド
     use 'mileszs/ack.vim'                               -- :Ack
