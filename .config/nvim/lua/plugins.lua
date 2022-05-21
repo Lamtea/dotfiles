@@ -54,7 +54,7 @@ require("packer").startup(function(use)
 	use("hrsh7th/cmp-emoji") -- 絵文字用ソース
 	use("hrsh7th/nvim-cmp") -- 補完エンジン
 	use("hrsh7th/cmp-vsnip") -- vscodeスニペット用ソース
-	use("hrsh7th/vim-vsnip") -- vscodeスニペット
+	use("hrsh7th/vim-vsnip") -- vscodeスニペット(vimscript)
 	use({
 		"jose-elias-alvarez/null-ls.nvim", -- LSP用linter, formatter
 		requires = {
@@ -138,7 +138,7 @@ require("packer").startup(function(use)
 	use("RRethy/vim-illuminate") -- LSP単語ハイライト
 
 	local lsp_on_attach = function(client, bufnr)
-		-- client.server_capabilities.document_formatting = false -- null-lsを使用するのでlsのフォーマットは無効にする
+		client.resolved_capabilities.document_formatting = false -- null-lsを使用するのでlsのフォーマッタは無効にする
 		require("illuminate").on_attach(client) -- 単語ハイライトをアタッチ
 
 		local function buf_set_keymap(...)
@@ -209,7 +209,7 @@ require("packer").startup(function(use)
 			null_ls.builtins.diagnostics.yamllint, -- for yaml
 			-- formatting
 			null_ls.builtins.formatting.black, -- for python
-			null_ls.builtins.formatting.codespell, -- for spell
+			-- null_ls.builtins.formatting.codespell, -- for spell
 			null_ls.builtins.formatting.gofmt, -- for go
 			null_ls.builtins.formatting.prettier, -- for multiple
 			null_ls.builtins.formatting.rustfmt, -- for rust
@@ -287,13 +287,13 @@ require("packer").startup(function(use)
 				vim.fn["vsnip#anonymous"](args.body) -- vscodeスニペット設定
 			end,
 		},
-		mapping = {
+		mapping = cmp_engine.mapping.preset.insert({
 			["<C-b>"] = cmp_engine.mapping.scroll_docs(-4),
 			["<C-f>"] = cmp_engine.mapping.scroll_docs(4),
 			["<C-Space>"] = cmp_engine.mapping.complete(),
 			["<C-e>"] = cmp_engine.mapping.close(),
 			["<CR>"] = cmp_engine.mapping.confirm({ select = true }),
-		},
+		}),
 		sources = cmp_engine.config.sources({
 			{ name = "nvim_lsp" },
 			{ name = "vsnip" },
