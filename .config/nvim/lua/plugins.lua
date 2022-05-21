@@ -129,10 +129,21 @@ require('packer').startup(function(use)
             require('fidget').setup()
         end
     }
+    use {
+        'jose-elias-alvarez/null-ls.nvim',              -- LSP用linter, formatter
+        requires = {
+            'nvim-lua/plenary.nvim'
+        },
+        config = function()
+            require('null-ls').setup()
+        end
+    }
     use 'RRethy/vim-illuminate'                         -- LSP単語ハイライト
 
     local lsp_on_attach = function(client, bufnr)
-        require('illuminate').on_attach(client)
+        client.resolved_capabilities.document_formatting = false                                            -- formatterはnull_lsを使用
+
+        require('illuminate').on_attach(client)                                                             -- 単語ハイライトをアタッチ
 
         local function buf_set_keymap(...)
             vim.api.nvim_buf_set_keymap(bufnr, ...)
@@ -822,6 +833,20 @@ require('packer').startup(function(use)
             }
         end
     }
+
+    -- テスト
+    use {
+        'michaelb/sniprun',                             -- 部分実行できるコードランナー
+        run = 'bash ./install.sh',
+        config = function()
+            require('sniprun').setup()
+        end
+    }
+
+    vim.api.nvim_set_keymap('n', '<leader>rr', [[<Cmd>lua require('sniprun').run()<CR>]], {noremap = true, silent = true})                  -- (r)unner (r)un
+    vim.api.nvim_set_keymap('x', '<leader>rr', [[<Cmd>lua require('sniprun').run('v')<CR>]], {noremap = true, silent = true})               -- (r)unner (r)un
+    vim.api.nvim_set_keymap('n', '<leader>rR', [[<Cmd>lua require('sniprun').reset()<CR>]], {noremap = true, silent = true})                -- (r)unner (R)eset
+    vim.api.nvim_set_keymap('n', '<leader>rc', [[<Cmd>lua require('sniprun.display').close_all()<CR>]], {noremap = true, silent = true})    -- (r)unner (c)lose
 
     -- コマンド
     use 'mileszs/ack.vim'                               -- :Ack
