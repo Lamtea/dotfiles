@@ -8,7 +8,7 @@ Run this command: `install.sh`
 
 ## Depend on
 
-- asdf
+- asdf(from git clone, see: gitHub)
   - deno(local)
   - dotnet(local)
   - golang(local)
@@ -18,8 +18,10 @@ Run this command: `install.sh`
 - aspnet-targeting-pack
 - bashdb
 - bemenu
+- clang
 - cmake
 - codespell(spell linter/formatter)
+- composer
 - colordiff
 - cppcheck(c/cpp linter)
 - dart
@@ -28,16 +30,22 @@ Run this command: `install.sh`
 - dotnet-runtime
 - dotnet-sdk
 - dotnet-targeting-pack
+- editorconfig-checker
 - fd
 - flake8(python linter)
 - fzf
 - gawk
+- ghcup-hs-bin
+  - ghc(local)
 - gnome-keyring
 - go
 - golanci-lint(go linter)
+- hadolint-bin(dockerfile linter)
+- haskell-fourmolu(haskell formatter)
 - jdk-openjdk
 - julia
 - kotlin
+- ktlint(kotlin linter/formatter)
 - libgnome-keyring
 - luacheck(lua linter)
 - neomutt
@@ -46,19 +54,23 @@ Run this command: `install.sh`
   - nodejs-neovim
   - python-pynvim
   - ruby-neovim
-  - wbthomason/packer.nvim(see: gitHub, quickstart: linux installation)
+  - wbthomason/packer.nvim(from install script, see: gitHub)
+- nodejs-jsonlint(json linter)
 - nodejs-lts-gallium
-- npm
 - nodejs-markdownlint-cli(markdown linter)
+- npm
 - openssh
-- poetry
-- postfix(localhost only)
+- php
+- php-cs-fixer(php formatter)
+- poetry(from install script, see: python-poetry.org)
+- postfix(localhost only for neomutt)
 - prettier(multiple formatter)
-- pyenv
+- pyenv(from install script, see: gitHub)
   - python3(local)
 - python3
 - python-black(python formatter)
 - python-isort(python formatter)
+- python-pip
 - ranger
 - rclone
   - gdrive
@@ -68,8 +80,8 @@ Run this command: `install.sh`
   - mega
 - ripgrep
 - ruby
-- rust
-- rustup
+- rubygems
+- rustup(from install script, see: www.rust-lang.org)
   - rust(local)
 - shfmt(bash formatter)
 - shellcheck(bash linter)
@@ -77,12 +89,13 @@ Run this command: `install.sh`
 - stylelint(css linter)
 - stylelint-config-standard
 - stylua(lua formatter)
+- sqlfluff(sql linter/formatter)
 - sqlite
 - tidy(html linter)
 - tmux
 - typescript
-- uncrustify(c/cpp/cs/java formatter)
 - w3m
+- wget
 - xclip
 - zsh
 

@@ -191,35 +191,51 @@ require("packer").startup(function(use)
 		sources = {
 			-- code action
 			null_ls.builtins.code_actions.eslint, -- for javascript/typescript
+			null_ls.builtins.code_actions.shellcheck, -- for bash
 			-- diagnostics
 			null_ls.builtins.diagnostics.codespell, -- for spell
 			null_ls.builtins.diagnostics.cppcheck, -- for c/cpp
+			null_ls.builtins.diagnostics.editorconfig_checker, -- for editorconfig
 			null_ls.builtins.diagnostics.eslint, -- for javascript/typescript
 			null_ls.builtins.diagnostics.flake8, -- for python
 			null_ls.builtins.diagnostics.golangci_lint, -- for go
+			null_ls.builtins.diagnostics.hadolint, -- for dockerfile
+			null_ls.builtins.diagnostics.jsonlint, -- for json
+			null_ls.builtins.diagnostics.ktlint, -- kotlin
 			null_ls.builtins.diagnostics.luacheck.with({
-				extra_args = { "--globals vim" }, -- for lua(vimのグローバルオブジェクト警告のため)
-			}),
+				extra_args = { "--globals vim" },
+			}), -- for lua(vimのグローバルオブジェクト警告のため)
 			null_ls.builtins.diagnostics.markdownlint, -- for markdown
+			null_ls.builtins.diagnostics.php, -- for php
 			null_ls.builtins.diagnostics.shellcheck, -- for bash
 			null_ls.builtins.diagnostics.stylelint, -- for css
+			null_ls.builtins.diagnostics.sqlfluff.with({
+				extra_args = { "--dialect", "postgres" },
+			}), -- for postgresql
 			null_ls.builtins.diagnostics.tidy, -- for html/xml
 			null_ls.builtins.diagnostics.tsc, -- for typescript
 			null_ls.builtins.diagnostics.yamllint, -- for yaml
 			-- formatting
 			null_ls.builtins.formatting.black, -- for python
 			-- null_ls.builtins.formatting.codespell, -- for spell
+			null_ls.builtins.formatting.clang_format, -- for c/cpp/cs/java
+			null_ls.builtins.formatting.dart_format, -- for dart
+			null_ls.builtins.formatting.fourmolu, -- for haskell
 			null_ls.builtins.formatting.gofmt, -- for go
+			null_ls.builtins.formatting.isort, -- for python
+			null_ls.builtins.formatting.ktlint, -- for kotlin
+			null_ls.builtins.formatting.phpcsfixer, -- for php
 			null_ls.builtins.formatting.prettier, -- for multiple
 			null_ls.builtins.formatting.rustfmt, -- for rust
+			null_ls.builtins.formatting.shfmt, -- for bash
+			null_ls.builtins.formatting.sqlfluff.with({
+				extra_args = { "--dialect", "postgres" },
+			}), -- for postgresql
 			null_ls.builtins.formatting.stylua, -- for lua
 			null_ls.builtins.formatting.tidy.with({
-				disabled_filetypes = { "html" }, -- for xml
-			}),
+				disabled_filetypes = { "html" },
+			}), -- for xml
 			null_ls.builtins.formatting.trim_whitespace, -- for text
-			null_ls.builtins.formatting.uncrustify, -- for c/cpp/cs/java
-			null_ls.builtins.formatting.isort, -- for python
-			null_ls.builtins.formatting.shfmt, -- for bash
 		},
 		-- ファイル保存時にnull-lsを使用してフォーマットする(バージョン 0.8 になるとnull-ls使用にできるので現状は問い合わせを我慢 see:github)
 		on_attach = function(client, bufnr)
@@ -871,7 +887,7 @@ require("packer").startup(function(use)
 
 	-- ヘルプ
 	use({
-		"folke/which-key.nvim", -- キーを一覧表示
+		"folke/which-key.nvim", -- キーを一覧表示(`or'でマーク, <leader>kでキー, レジスタはregistersの方を使用(キーかぶり))
 		config = function()
 			require("which-key").setup()
 		end,
@@ -922,7 +938,7 @@ require("packer").startup(function(use)
 	vim.api.nvim_set_keymap("x", "<leader>m", [[<cmd>lua require('hop').hint_words()<CR>]], {}) -- motion
 
 	-- 編集
-	use("machakann/vim-sandwich") -- クォートなどでサンドイッチされたテキストの編集(キーバインドについては see:github, vimscript)
+	use("machakann/vim-sandwich") -- クォートなどでサンドイッチされたテキストの編集(キーバインドは標準(標準コマンドの拡張あり) see:github, vimscript)
 
 	-- レジスタ
 	use({
@@ -938,7 +954,7 @@ require("packer").startup(function(use)
 			require("telescope").load_extension("neoclip")
 		end,
 	})
-	use("tversteeg/registers.nvim") -- レジスタの内容を一覧表示してヤンク(normal mode: ", insert mode: C-r)
+	use("tversteeg/registers.nvim") -- レジスタの内容を一覧表示してヤンク(whichkeyより優先, normal mode: ", insert mode: C-r)
 
 	vim.api.nvim_set_keymap("n", "<leader>fr", "<Cmd>Telescope neoclip<CR>", { noremap = true, silent = true })
 
@@ -966,7 +982,7 @@ require("packer").startup(function(use)
 
 	-- コメント
 	use({
-		"numToStr/Comment.nvim", -- コメンティング(nvim-ts-context-commentstringを使用(treesitter), キーバインドは標準 see:github)
+		"numToStr/Comment.nvim", -- コメンティング(nvim-ts-context-commentstringを使用(treesitter), キーバインドは標準(標準コマンド拡張あり) see:github)
 		config = function()
 			require("Comment").setup({
 				pre_hook = function()

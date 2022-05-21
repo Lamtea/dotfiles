@@ -66,6 +66,9 @@ export PATH="$HOME/.poetry/bin:$PATH"
 # rustupの設定
 source "$HOME/.cargo/env"
 
+# ghcupの設定
+export PATH="$HOME/.ghcup/bin:$PATH"
+
 # dotnetの設定
 source "$HOME/.asdf/plugins/dotnet-core/set-dotnet-home.zsh"
 export PATH="$HOME/.dotnet/tools:$PATH"
