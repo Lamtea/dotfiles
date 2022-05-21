@@ -1046,6 +1046,7 @@ require("packer").startup(function(use)
 		},
 		config = function()
 			require("neogit").setup({
+				disable_commit_confirmation = true,
 				kind = "tab",
 				commit_popup = {
 					kind = "split",
