@@ -19,7 +19,9 @@ Run this command: `install.sh`
 - bashdb
 - bemenu
 - cmake
+- codespell(spell linter/formatter)
 - colordiff
+- cppcheck(c/cpp linter)
 - dart
 - deno
 - dotnet-host
@@ -27,13 +29,17 @@ Run this command: `install.sh`
 - dotnet-sdk
 - dotnet-targeting-pack
 - fd
+- flake8(python linter)
 - fzf
+- gawk
 - gnome-keyring
 - go
+- golanci-lint(go linter)
 - jdk-openjdk
 - julia
 - kotlin
 - libgnome-keyring
+- luacheck(lua linter)
 - neomutt
 - neovim
   - neovim-drop-in(vi/vim simlink)
@@ -43,12 +49,16 @@ Run this command: `install.sh`
   - wbthomason/packer.nvim(see: gitHub, quickstart: linux installation)
 - nodejs-lts-gallium
 - npm
+- nodejs-markdownlint-cli(markdown linter)
 - openssh
 - poetry
 - postfix(localhost only)
+- prettier(multiple formatter)
 - pyenv
   - python3(local)
 - python3
+- python-black(python formatter)
+- python-isort(python formatter)
 - ranger
 - rclone
   - gdrive
@@ -61,10 +71,17 @@ Run this command: `install.sh`
 - rust
 - rustup
   - rust(local)
+- shfmt(bash formatter)
+- shellcheck(bash linter)
 - source-highlight
+- stylelint(css linter)
+- stylelint-config-standard
+- stylua(lua formatter)
 - sqlite
+- tidy(html linter)
 - tmux
 - typescript
+- uncrustify(c/cpp/cs/java formatter)
 - w3m
 - xclip
 - zsh

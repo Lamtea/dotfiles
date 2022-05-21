@@ -55,6 +55,12 @@ require('packer').startup(function(use)
     use 'hrsh7th/nvim-cmp'                              -- 補完エンジン
     use 'hrsh7th/cmp-vsnip'                             -- vscodeスニペット用ソース
     use 'hrsh7th/vim-vsnip'                             -- vscodeスニペット
+    use {
+        'jose-elias-alvarez/null-ls.nvim',              -- LSP用linter, formatter
+        requires = {
+            'nvim-lua/plenary.nvim'
+        }
+    }
     use 'onsails/lspkind-nvim'                          -- 補完にアイコン表示
     use {
         'tami5/lspsaga.nvim',                           -- LSP高性能UI
@@ -129,20 +135,10 @@ require('packer').startup(function(use)
             require('fidget').setup()
         end
     }
-    use {
-        'jose-elias-alvarez/null-ls.nvim',              -- LSP用linter, formatter
-        requires = {
-            'nvim-lua/plenary.nvim'
-        },
-        config = function()
-            require('null-ls').setup()
-        end
-    }
     use 'RRethy/vim-illuminate'                         -- LSP単語ハイライト
 
     local lsp_on_attach = function(client, bufnr)
-        client.resolved_capabilities.document_formatting = false                                            -- formatterはnull_lsを使用
-
+        client.server_capabilities.document_formatting = false                                              -- null-lsを使用するのでlsのフォーマットは無効にする
         require('illuminate').on_attach(client)                                                             -- 単語ハイライトをアタッチ
 
         local function buf_set_keymap(...)
@@ -166,7 +162,7 @@ require('packer').startup(function(use)
         -- buf_set_keymap('n', '<space>p', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)             lspsaga使用
         -- buf_set_keymap('n', '<space>n', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)             lspsaga使用
         buf_set_keymap('n', '<space>q', 'lua vim.lsp.diagnostic.setloclist()', opts)
-        buf_set_keymap('n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
+        buf_set_keymap('n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)                      -- バージョン 0.8 は format メソッドを使用すること(see: github)
     end
 
     local lsp_installer = require('nvim-lsp-installer')
@@ -190,7 +186,56 @@ require('packer').startup(function(use)
         }
     }
 
-    vim.g.completeopt = 'menu,menuone,noselect'        -- 補完設定
+    local null_ls = require('null-ls')
+    local augroup = vim.api.nvim_create_augroup('LspFormatting', {})
+    null_ls.setup {
+        sources = {
+            -- code action
+            null_ls.builtins.code_actions.eslint,               -- for javascript/typescript
+            -- diagnostics
+            null_ls.builtins.diagnostics.codespell,             -- for spell
+            null_ls.builtins.diagnostics.cppcheck,              -- for c/cpp
+            null_ls.builtins.diagnostics.eslint,                -- for javascript/typescript
+            null_ls.builtins.diagnostics.flake8,                -- for python
+            null_ls.builtins.diagnostics.golangci_lint,         -- for go
+            null_ls.builtins.diagnostics.luacheck.with {
+                extra_args = {'--globals vim'}                  -- for lua(vimのグローバルオブジェクト警告のため)
+            },
+            null_ls.builtins.diagnostics.markdownlint,          -- for markdown
+            null_ls.builtins.diagnostics.shellcheck,            -- for bash
+            null_ls.builtins.diagnostics.stylelint,             -- for css
+            null_ls.builtins.diagnostics.tidy,                  -- for html/xml
+            null_ls.builtins.diagnostics.tsc,                   -- for typescript
+            null_ls.builtins.diagnostics.yamllint,              -- for yaml
+            -- formatting
+            null_ls.builtins.formatting.black,                  -- for python
+            null_ls.builtins.formatting.codespell,              -- for spell
+            null_ls.builtins.formatting.gofmt,                  -- for go
+            null_ls.builtins.formatting.prettier,               -- for multiple
+            null_ls.builtins.formatting.rustfmt,                -- for rust
+            null_ls.builtins.formatting.stylua,                 -- for lua
+            null_ls.builtins.formatting.tidy.with {
+                disabled_filetypes = {'html'}                   -- for xml
+            },
+            null_ls.builtins.formatting.trim_whitespace,        -- for text
+            null_ls.builtins.formatting.uncrustify,             -- for c/cpp/cs/java
+            null_ls.builtins.formatting.isort,                  -- for python
+            null_ls.builtins.formatting.shfmt,                  -- for bash
+        },
+        -- ファイル保存時にnull-lsを使用してフォーマットする
+        on_attach = function(client, bufnr)
+            if client.supports_method('textDocument/formatting') then
+                vim.api.nvim_clear_autocmds({group = augroup, buffer = bufnr})
+                vim.api.nvim_create_autocmd('BufWritePre', {
+                    group = augroup,
+                    buffer = bufnr,
+                    callback = function()
+                        vim.lsp.buf.formatting_sync() -- バージョン 0.8 の場合は format メソッドを使用すること(see: github)
+                    end
+                })
+            end
+        end
+    }
 
     local lsp_kind = require('lspkind')
     lsp_kind.init {
@@ -225,6 +270,7 @@ require('packer').startup(function(use)
         }
     }
 
+    vim.g.completeopt = 'menu,menuone,noselect'        -- 補完設定
     local cmp_engine = require('cmp')
     cmp_engine.setup {
         formatting = {
@@ -401,9 +447,9 @@ require('packer').startup(function(use)
                             ['iF'] = '@frame.inner',
                             ['aS'] = '@statement.outer',
                             ['iS'] = '@scopename.inner',
-                            ['am'] = '@comment.outer',  -- co(m)ment
-                            ['ao'] = '@call.outer',     -- (o)bject
-                            ['io'] = '@call.inner'      -- (o)bject
+                            ['am'] = '@comment.outer',  -- comment
+                            ['ao'] = '@call.outer',     -- object
+                            ['io'] = '@call.inner'      -- object
                         }
                     },
                     swap = {
@@ -517,10 +563,10 @@ require('packer').startup(function(use)
     vim.api.nvim_set_keymap('x', 'au', [[:lua require('treesitter-unit').select(true)<CR>]], {noremap=true})
     vim.api.nvim_set_keymap('o', 'iu', [[:<c-u>lua require('treesitter-unit').select()<CR>]], {noremap=true})
     vim.api.nvim_set_keymap('o', 'au', [[:<c-u>lua require('treesitter-unit').select(true)<CR>]], {noremap=true})
-    vim.cmd[[omap <silent> m :<C-u>lua require('tsht').nodes()<CR>]]                    -- (m)otion
-    vim.cmd[[vnoremap <silent> m :lua require('tsht').nodes()<CR>]]                     -- (m)otion
-    vim.api.nvim_set_keymap('n', '<Leader>sm', '<cmd>ISwap<cr>', {noremap = true})      -- (s)wap (m)otion
-    vim.api.nvim_set_keymap('n', '<Leader>sw', '<cmd>ISwapWith<cr>', {noremap = true})  -- (s)wap motion (w)ith
+    vim.cmd[[omap <silent> m :<C-u>lua require('tsht').nodes()<CR>]]                    -- motion
+    vim.cmd[[vnoremap <silent> m :lua require('tsht').nodes()<CR>]]                     -- motion
+    vim.api.nvim_set_keymap('n', '<Leader>sm', '<cmd>ISwap<cr>', {noremap = true})      -- swap motion
+    vim.api.nvim_set_keymap('n', '<Leader>sw', '<cmd>ISwapWith<cr>', {noremap = true})  -- swap motion with
 
     -- ステータスライン
     use {
@@ -773,8 +819,8 @@ require('packer').startup(function(use)
     use 'unblevable/quick-scope'                        -- 1行内ラベルジャンプ(キーバインドはvariables.luaで定義, vimscript)
     use 'bkad/CamelCaseMotion'                          -- キャメルケースの移動(キーバインドはvariables.luaで定義, vimscript)
 
-    vim.api.nvim_set_keymap('n', '<leader>m', [[<cmd>lua require('hop').hint_words()<CR>]], {}) -- (m)otion
-    vim.api.nvim_set_keymap('x', '<leader>m', [[<cmd>lua require('hop').hint_words()<CR>]], {}) -- (m)otion
+    vim.api.nvim_set_keymap('n', '<leader>m', [[<cmd>lua require('hop').hint_words()<CR>]], {}) -- motion
+    vim.api.nvim_set_keymap('x', '<leader>m', [[<cmd>lua require('hop').hint_words()<CR>]], {}) -- motion
 
     -- 編集
     use 'machakann/vim-sandwich'                        -- クォートなどでサンドイッチされたテキストの編集(キーバインドについては see:github, vimscript)
