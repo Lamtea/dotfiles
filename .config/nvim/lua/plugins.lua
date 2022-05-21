@@ -138,7 +138,6 @@ require("packer").startup(function(use)
 	use("RRethy/vim-illuminate") -- LSP単語ハイライト
 
 	local lsp_on_attach = function(client, bufnr)
-		client.resolved_capabilities.document_formatting = false -- null-lsを使用するのでlsのフォーマッタは無効にする
 		require("illuminate").on_attach(client) -- 単語ハイライトをアタッチ
 
 		local function buf_set_keymap(...)
