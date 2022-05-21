@@ -276,7 +276,7 @@ require('packer').startup(function(use)
         )
     })
 
-    vim.keymap.set('n', 'gh', '<cmd>Lspsaga lsp_finder<cr>', { silent = true, noremap = true }) -- (h)elp
+    vim.keymap.set('n', 'gh', '<cmd>Lspsaga lsp_finder<cr>', { silent = true, noremap = true }) -- (h)over
     vim.keymap.set('n', '<space>c', '<cmd>Lspsaga code_action<cr>', { silent = true, noremap = true })
     vim.keymap.set('x', '<space>c', ':<C-u>Lspsaga range_code_action<cr>', { silent = true, noremap = true })
     vim.keymap.set('n', 'K', '<cmd>Lspsaga hover_doc<cr>', { silent = true, noremap = true })
@@ -361,22 +361,14 @@ require('packer').startup(function(use)
                 incremental_selection = {
                     enable = true,
                     keymaps = {
-                        init_selection = '<CR>',            -- normal modeからnodeを初期選択してvisual modeに入れる
-                        node_incremental = '<CR>',          -- 親nodeをたどって選択
-                        scope_incremental = '<TAB>',        -- scope範囲で親nodeをたどって選択
-                        node_decremental = '<S-TAB>'        -- 子nodeまで選択を戻す
+                        init_selection = '<CR>',        -- normal modeからnodeを初期選択してvisual modeに入れる
+                        node_incremental = '<CR>',      -- 親nodeをたどって選択
+                        scope_incremental = '<TAB>',    -- scope範囲で親nodeをたどって選択
+                        node_decremental = '<S-TAB>'    -- 子nodeまで選択を戻す
                     }
                 },
                 indent = {
-                    enable = true                           -- インデント有効(実験的 see:github, 代替はnvim-yati see:github)
-                },
-                rainbow = {
-                    enable = true,
-                    extended_mode = true,
-                    max_file_line = nil                     -- 大きなファイルで重くなる場合は最大行数を設定
-                },
-                context_commentstring = {
-                    enable = true
+                    enable = true                       -- インデント有効(実験的 see:github, 代替はnvim-yati see:github)
                 },
                 textobjects = {
                     select = {
@@ -398,9 +390,9 @@ require('packer').startup(function(use)
                             ['iF'] = '@frame.inner',
                             ['aS'] = '@statement.outer',
                             ['iS'] = '@scopename.inner',
-                            ['am'] = '@comment.outer',      -- co(m)ment
-                            ['ao'] = '@call.outer',         -- (o)bject
-                            ['io'] = '@call.inner'          -- (o)bject
+                            ['am'] = '@comment.outer',  -- co(m)ment
+                            ['ao'] = '@call.outer',     -- (o)bject
+                            ['io'] = '@call.inner'      -- (o)bject
                         }
                     },
                     swap = {
@@ -451,6 +443,17 @@ require('packer').startup(function(use)
                         [';'] = 'textsubjects-container-outer',
                         ['i;'] = 'textsubjects-container-inner'
                     }
+                },
+                rainbow = {
+                    enable = true,
+                    extended_mode = true,
+                    max_file_line = nil                 -- 大きなファイルで重くなる場合は最大行数を設定
+                },
+                context_commentstring = {
+                    enable = true
+                },
+                matchup = {
+                    enable = true
                 }
             }
            end
@@ -474,6 +477,7 @@ require('packer').startup(function(use)
             }
         end
     }
+    use 'andymass/vim-matchup'                          -- マッチングペアをハイライト, 移動, 編集(キーバインドについては see:github)
     use {
         'm-demare/hlargs.nvim',                         -- 引数を色分け表示
         requires = {
@@ -663,7 +667,7 @@ require('packer').startup(function(use)
         end
     }
 
-    vim.keymap.set('n', 'gx', '<Cmd>Neotree reveal toggle <CR>', { noremap = true, silent = true })
+    vim.keymap.set('n', 'gx', '<Cmd>Neotree reveal toggle <CR>', { noremap = true, silent = true }) -- xは特に意味はないが公式キーマップ((s)idebarの下の段)
 
     -- スクロールバー
     use {
@@ -702,11 +706,13 @@ require('packer').startup(function(use)
 
     -- ヘルプ
     use {
-        'folke/which-key.nvim',                         -- キーを一覧表示(:WhichKey コマンドですべてを参照)
+        'folke/which-key.nvim',                         -- キーを一覧表示
         config = function()
             require('which-key').setup()
         end
     }
+
+    vim.api.nvim_set_keymap('n', '<leader>k', '<Cmd>WhichKey<CR>', {noremap = true, silent = true}) -- (k)ey
 
     -- ハイライト
     use {
@@ -797,6 +803,8 @@ require('packer').startup(function(use)
             }
         end
     }
+
+    -- 括弧
 
     -- コマンド
     use 'mileszs/ack.vim'                               -- :Ack
