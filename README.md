@@ -9,6 +9,7 @@ Run this command: `install.sh`
 ## Depend on
 
 - asdf
+  - deno(local)
   - dotnet(local)
   - golang(local)
   - nodejs(local)
@@ -19,6 +20,8 @@ Run this command: `install.sh`
 - bemenu
 - cmake
 - colordiff
+- dart
+- deno
 - dotnet-host
 - dotnet-runtime
 - dotnet-sdk
@@ -27,6 +30,9 @@ Run this command: `install.sh`
 - fzf
 - gnome-keyring
 - go
+- jdk-openjdk
+- julia
+- kotlin
 - libgnome-keyring
 - neomutt
 - neovim
@@ -36,6 +42,7 @@ Run this command: `install.sh`
   - ruby-neovim
   - wbthomason/packer.nvim(see: gitHub, quickstart: linux installation)
 - nodejs-lts-gallium
+- npm
 - openssh
 - poetry
 - postfix(localhost only)
@@ -57,6 +64,7 @@ Run this command: `install.sh`
 - source-highlight
 - sqlite
 - tmux
+- typescript
 - w3m
 - xclip
 - zsh
