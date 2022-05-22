@@ -61,6 +61,9 @@ fi
 # poetryの設定
 export PATH="$HOME/.poetry/bin:$PATH"
 
+# rubygemsの設定
+export PATH="$HOME/.local/share/gem/ruby/3.0.0/bin:$PATH"
+
 # rustupの設定
 source "$HOME/.cargo/env"
 
