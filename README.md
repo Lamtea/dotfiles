@@ -37,6 +37,7 @@ Run this command: `install.sh`
 - gawk
 - ghcup-hs-bin
   - ghc(local)
+- github-cli
 - gnome-keyring
 - go
 - golanci-lint(go linter)

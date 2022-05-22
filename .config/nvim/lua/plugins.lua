@@ -133,7 +133,16 @@ require("packer").startup(function(use)
 	use({
 		"j-hui/fidget.nvim", -- LSPプログレス
 		config = function()
-			require("fidget").setup()
+			require("fidget").setup({
+				task = function(task_name, message, percentage)
+					return string.format(
+						"%s%s [%s]",
+						message,
+						percentage and string.format(" (%s%%)", percentage) or "",
+						task_name
+					)
+				end,
+			})
 		end,
 	})
 	use("RRethy/vim-illuminate") -- LSP単語ハイライト
@@ -462,10 +471,10 @@ require("packer").startup(function(use)
 		"<leader>fn",
 		[[<cmd>lua require('telescope.builtin').treesitter()<CR>]],
 		{ noremap = true }
-	) -- (n)ode
+	) -- node
 	vim.api.nvim_set_keymap(
 		"n",
-		"<leader>gb",
+		"<leader>gl",
 		[[<cmd>lua require('telescope.builtin').git_branches()<CR>]],
 		{ noremap = true }
 	)
@@ -477,7 +486,7 @@ require("packer").startup(function(use)
 	)
 	vim.api.nvim_set_keymap(
 		"n",
-		"<leader>gC",
+		"<leader>gb",
 		[[<cmd>lua require('telescope.builtin').git_bcommits()<CR>]],
 		{ noremap = true }
 	)
@@ -489,13 +498,13 @@ require("packer").startup(function(use)
 	)
 	vim.api.nvim_set_keymap(
 		"n",
-		"<leader>gs",
+		"<leader>gg",
 		[[<cmd>lua require('telescope.builtin').git_status()<CR>]],
 		{ noremap = true }
 	)
 	vim.api.nvim_set_keymap(
 		"n",
-		"<leader>gS",
+		"<leader>gs",
 		[[<cmd>lua require('telescope.builtin').git_stash()<CR>]],
 		{ noremap = true }
 	)
@@ -519,7 +528,7 @@ require("packer").startup(function(use)
 	)
 	vim.api.nvim_set_keymap(
 		"n",
-		"<leader>lS",
+		"<leader>ll",
 		[[<cmd>lua require('telescope.builtin').lsp_workspace_symbols()<CR>]],
 		{ noremap = true }
 	)
@@ -607,8 +616,8 @@ require("packer").startup(function(use)
 					lsp_interop = {
 						enable = true,
 						peek_definition_code = {
-							["<leader>df"] = "@function.outer",
-							["<leader>dc"] = "@class.outer",
+							["<leader>lf"] = "@function.outer",
+							["<leader>lc"] = "@class.outer",
 						},
 					},
 				},
@@ -685,7 +694,7 @@ require("packer").startup(function(use)
 	vim.api.nvim_set_keymap("o", "au", [[:<c-u>lua require('treesitter-unit').select(true)<CR>]], { noremap = true })
 	vim.cmd([[omap <silent> m :<C-u>lua require('tsht').nodes()<CR>]]) -- motion
 	vim.cmd([[vnoremap <silent> m :lua require('tsht').nodes()<CR>]]) -- motion
-	vim.api.nvim_set_keymap("n", "<Leader>sm", "<cmd>ISwap<CR>", { noremap = true }) -- swap motion
+	vim.api.nvim_set_keymap("n", "<Leader>ss", "<cmd>ISwap<CR>", { noremap = true }) -- swap motion
 	vim.api.nvim_set_keymap("n", "<Leader>sw", "<cmd>ISwapWith<CR>", { noremap = true }) -- swap motion with
 
 	-- ステータスライン
@@ -760,8 +769,8 @@ require("packer").startup(function(use)
 	vim.api.nvim_set_keymap("n", "<leader>p", "<Cmd>BufferLineCyclePrev<CR>", { noremap = true, silent = true })
 	vim.api.nvim_set_keymap("n", "<leader>N", "<Cmd>BufferLineMoveNext<CR>", { noremap = true, silent = true })
 	vim.api.nvim_set_keymap("n", "<leader>P", "<Cmd>BufferLineMovePrev<CR>", { noremap = true, silent = true })
-	-- vim.api.nvim_set_keymap('n', '<leader>Be', '<Cmd>BufferLineSortByExtension<CR>', { noremap = true, silent = true })
-	-- vim.api.nvim_set_keymap('n', '<leader>Bd', '<Cmd>BufferLineSortByDirectory<CR>', { noremap = true, silent = true })
+	vim.api.nvim_set_keymap("n", "<leader>E", "<Cmd>BufferLineSortByExtension<CR>", { noremap = true, silent = true })
+	vim.api.nvim_set_keymap("n", "<leader>D", "<Cmd>BufferLineSortByDirectory<CR>", { noremap = true, silent = true })
 	vim.api.nvim_set_keymap("n", "<Leader>b", "<Cmd>BufferLinePick<CR>", { noremap = true, silent = true })
 	vim.api.nvim_set_keymap("n", "<Leader>1", "<Cmd>BufferLineGoToBuffer 1<CR>", { noremap = true, silent = true })
 	vim.api.nvim_set_keymap("n", "<Leader>2", "<Cmd>BufferLineGoToBuffer 2<CR>", { noremap = true, silent = true })
@@ -773,6 +782,8 @@ require("packer").startup(function(use)
 	vim.api.nvim_set_keymap("n", "<Leader>8", "<Cmd>BufferLineGoToBuffer 8<CR>", { noremap = true, silent = true })
 	vim.api.nvim_set_keymap("n", "<Leader>9", "<Cmd>BufferLineGoToBuffer 9<CR>", { noremap = true, silent = true })
 	vim.api.nvim_set_keymap("n", "<Leader>q", "<Cmd>BufferLinePickClose<CR>", { noremap = true, silent = true })
+	vim.api.nvim_set_keymap("n", "<Leader>L", "<Cmd>BufferLineCloseLeft<CR>", { noremap = true, silent = true })
+	vim.api.nvim_set_keymap("n", "<Leader>R", "<Cmd>BufferLineCloseRight<CR>", { noremap = true, silent = true })
 
 	-- サイドバー
 	use({
@@ -897,7 +908,7 @@ require("packer").startup(function(use)
 
 	-- ヘルプ
 	use({
-		"folke/which-key.nvim", -- キーを一覧表示(`or'でマーク, <leader>kでキー, レジスタはregistersの方を使用(キーかぶり))
+		"folke/which-key.nvim", -- キーを一覧表示(`or'でマーク, "(normal)or<C-r>(insert)でレジスタ, <leader>kでキー)
 		config = function()
 			require("which-key").setup()
 		end,
@@ -952,7 +963,7 @@ require("packer").startup(function(use)
 
 	-- レジスタ
 	use({
-		"AckslD/nvim-neoclip.lua", -- レジスタをセッション間で共有できtelescopeで検索可能
+		"AckslD/nvim-neoclip.lua", -- レジスタを共有できtelescope可(insert modeではselect以外<C->: <CR> select, p paste, k paste-behind, q replay-macro, d delete)
 		requires = {
 			{ "tami5/sqlite.lua", module = "sqlite" },
 			{ "nvim-telescope/telescope.nvim" },
@@ -964,7 +975,6 @@ require("packer").startup(function(use)
 			require("telescope").load_extension("neoclip")
 		end,
 	})
-	use("tversteeg/registers.nvim") -- レジスタの内容を一覧表示してヤンク(whichkeyより優先, normal mode: ", insert mode: C-r)
 
 	vim.api.nvim_set_keymap("n", "<leader>fr", "<Cmd>Telescope neoclip<CR>", { noremap = true, silent = true })
 
@@ -1036,10 +1046,10 @@ require("packer").startup(function(use)
 	) -- runner run
 	vim.api.nvim_set_keymap(
 		"n",
-		"<leader>rR",
+		"<leader>rd",
 		[[<Cmd>lua require('sniprun').reset()<CR>]],
 		{ noremap = true, silent = true }
-	) -- runner Reset
+	) -- runner delete
 	vim.api.nvim_set_keymap(
 		"n",
 		"<leader>rc",
@@ -1125,15 +1135,15 @@ require("packer").startup(function(use)
 					map("n", "<leader><leader>gS", gs.stage_buffer)
 					map("n", "<leader><leader>gu", gs.undo_stage_hunk)
 					map("n", "<leader><leader>gR", gs.reset_buffer)
-					map("n", "<leader><leader>gp", gs.preview_hunk)
+					map("n", "<leader><leader>gg", gs.preview_hunk)
 					map("n", "<leader><leader>gb", function()
 						gs.blame_line({ full = true })
 					end)
 					map("n", "<leader><leader>gB", gs.toggle_current_line_blame)
-					map("n", "<leader><leader>gt", gs.diffthis)
-					map("n", "<leader><leader>gT", function()
-						gs.diffthis("~")
-					end)
+					-- map("n", "<leader><leader>gd", gs.diffthis) diffview
+					-- map("n", "<leader><leader>gD", function()
+					-- 	   gs.diffthis("~")
+					-- end) diffview
 					map("n", "<leader><leader>gD", gs.toggle_deleted)
 
 					-- Text object
@@ -1142,6 +1152,77 @@ require("packer").startup(function(use)
 			})
 		end,
 	})
+
+	-- github
+	use({
+		"pwntester/octo.nvim", -- :Octo <object> <action> [argument] コマンド(TAB補完推奨)でgithub-cliと同じようなことができる(github-cli必須)
+		requires = {
+			"nvim-lua/plenary.nvim",
+			"nvim-telescope/telescope.nvim",
+			"kyazdani42/nvim-web-devicons",
+		},
+		config = function()
+			require("octo").setup()
+		end,
+	})
+
+	-- デバッガー
+	use("mfussenegger/nvim-dap") -- noevim用デバッガアダプタプロトコル(インストール後に :helptags ALL を実行しておく)
+
+	local dap = require("dap")
+	dap.adapters.rust = {
+		type = "executable",
+		attach = { pidProperty = "pid", pidSelect = "ask" },
+		command = "lldb-vscode", -- my binary was called 'lldb-vscode-11'
+		env = { LLDB_LAUNCH_FLAG_LAUNCH_IN_TTY = "YES" },
+		name = "lldb",
+	}
+
+	vim.api.nvim_set_keymap("n", "<F4>", "<Cmd>lua require'dap'.disconnect({})<CR>", { noremap = true, silent = true })
+	vim.api.nvim_set_keymap("n", "<F5>", "<Cmd>lua require'dap'.continue()<CR>", { noremap = true, silent = true }) -- vscode
+	vim.api.nvim_set_keymap("n", "<F6>", "<Cmd>lua require'dap'.load_launchjs()<CR>", { noremap = true, silent = true })
+	vim.api.nvim_set_keymap("n", "<F7>", "lua require'dap'.run_last()", { noremap = true, silent = true })
+	vim.api.nvim_set_keymap(
+		"n",
+		"<F8>",
+		"lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))",
+		{ noremap = true, silent = true }
+	)
+	vim.api.nvim_set_keymap(
+		"n",
+		"<F9>",
+		"<Cmd>lua require'dap'.toggle_breakpoint()<CR>",
+		{ noremap = true, silent = true }
+	) -- vscode
+	vim.api.nvim_set_keymap("n", "<F10>", "<Cmd>lua require'dap'.step_over()<CR>", { noremap = true, silent = true }) -- vscode
+	vim.api.nvim_set_keymap("n", "<F11>", "<Cmd>lua require'dap'.step_into()<CR>", { noremap = true, silent = true }) -- vscode
+	vim.api.nvim_set_keymap("n", "<S-F11>", "<Cmd>lua require'dap'.step_out()<CR>", { noremap = true, silent = true }) -- vscode
+	vim.api.nvim_set_keymap("n", "<F12>", "<Cmd>lua require'dap'.repl.open()<CR>", { noremap = true, silent = true })
+
+	vim.api.nvim_set_keymap(
+		"n",
+		"<leader>dr",
+		"lua require'telescope'.extensions.dap.commands{}",
+		{ noremap = true, silent = true }
+	) -- run
+	vim.api.nvim_set_keymap(
+		"n",
+		"<leader>dc",
+		"<Cmd>lua require'telescope'.extensions.dap.configurations{}<CR>",
+		{ noremap = true, silent = true }
+	)
+	vim.api.nvim_set_keymap(
+		"n",
+		"<leader>dd",
+		"<Cmd>lua require'telescope'.extensions.dap.list_breakpoints{}<CR>",
+		{ noremap = true, silent = true }
+	)
+	vim.api.nvim_set_keymap(
+		"n",
+		"<leader>dv",
+		"<Cmd>lua require'telescope'.extensions.dap.variables{}<CR>",
+		{ noremap = true, silent = true }
+	)
 
 	-- コマンド
 	use("mileszs/ack.vim") -- :Ack
