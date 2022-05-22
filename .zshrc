@@ -48,10 +48,8 @@ export BEMENU_BACKEND=curses
 export BEMENU_OPTS='--scrollbar=autohide'
 
 # sshの設定
-if command -v gnome-keyring-daemon 1>/dev/null 2>&1; then
-    eval $(gnome-keyring-daemon --start --components=pkcs11,secrets,ssh)
-    export SSH_AUTH_SOCK
-fi
+eval $(gnome-keyring-daemon --start --components=pkcs11,secrets,ssh 2>/dev/null)
+export SSH_AUTH_SOCK
 
 # pyenvの設定
 export PYENV_ROOT="$HOME/.pyenv"
@@ -99,9 +97,7 @@ zstyle ':zle:*' word-style unspecified
 ########################################
 # 補完
 # asdfの補完設定
-if command -v asdf 1>/dev/null 2>&1; then
-    fpath=(${ASDF_DIR}/completions $fpath)
-fi
+fpath=(${ASDF_DIR}/completions $fpath)
 
 # 補完機能を有効にする
 autoload -Uz compinit
@@ -168,9 +164,7 @@ alias rm='rm -i'
 alias cp='cp -i'
 alias mv='mv -i'
 alias mkdir='mkdir -p'
-if command -v colordiff 1>/dev/null 2>&1; then
-    alias diff='colordiff -u'
-fi
+alias diff='colordiff -u'
 alias grep='grep --color=auto'
 
 ########################################
