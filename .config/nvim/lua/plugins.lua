@@ -57,7 +57,7 @@ require("packer").startup(function(use)
 	use("hrsh7th/vim-vsnip") -- vscodeスニペット(vimscript)
 	use("rafamadriz/friendly-snippets") -- vscodeスニペット定義ファイル
 	use({
-		"jose-elias-alvarez/null-ls.nvim", -- LSP用linter, formatter
+		"jose-elias-alvarez/null-ls.nvim", -- LSP用linter, formatter(各種linter, 各種formatter必須 see: setup)
 		requires = {
 			"nvim-lua/plenary.nvim",
 		},
@@ -218,6 +218,7 @@ require("packer").startup(function(use)
 			}), -- for lua(vimのグローバルオブジェクト警告のため)
 			null_ls.builtins.diagnostics.markdownlint, -- for markdown
 			null_ls.builtins.diagnostics.php, -- for php
+			null_ls.builtins.diagnostics.rubocop, -- for ruby
 			null_ls.builtins.diagnostics.shellcheck, -- for bash
 			null_ls.builtins.diagnostics.stylelint, -- for css
 			null_ls.builtins.diagnostics.sqlfluff.with({
@@ -236,7 +237,8 @@ require("packer").startup(function(use)
 			null_ls.builtins.formatting.isort, -- for python
 			null_ls.builtins.formatting.ktlint, -- for kotlin
 			null_ls.builtins.formatting.phpcsfixer, -- for php
-			null_ls.builtins.formatting.prettier, -- for multiple
+			null_ls.builtins.formatting.prettier, -- for multiple(vscodeだとlinterから呼ぶことが多い)
+			null_ls.builtins.formatting.rubocop, -- for ruby
 			null_ls.builtins.formatting.rustfmt, -- for rust
 			null_ls.builtins.formatting.shfmt, -- for bash
 			null_ls.builtins.formatting.sqlfluff.with({
@@ -246,7 +248,7 @@ require("packer").startup(function(use)
 			null_ls.builtins.formatting.tidy.with({
 				disabled_filetypes = { "html" },
 			}), -- for xml
-			null_ls.builtins.formatting.trim_whitespace, -- for text
+			null_ls.builtins.formatting.trim_whitespace, -- 末尾の空白除去
 		},
 		-- ファイル保存時にnull-lsを使用してフォーマットする(バージョン 0.8 になるとnull-ls使用にできるので現状は問い合わせを我慢 see:github)
 		on_attach = function(client, bufnr)
@@ -1167,15 +1169,65 @@ require("packer").startup(function(use)
 	})
 
 	-- デバッガー
-	use("mfussenegger/nvim-dap") -- noevim用デバッガアダプタプロトコル(インストール後に :helptags ALL を実行しておく)
+	use("mfussenegger/nvim-dap") -- noevim用デバッガアダプタプロトコル(各種debugger必須, インストール後に :helptags ALL を実行しておく)
+	use("mfussenegger/nvim-dap-python") -- python用dap
+	use("leoluz/nvim-dap-go") -- go用dap
+	use("suketa/nvim-dap-ruby") -- ruby用dap
 
 	local dap = require("dap")
-	dap.adapters.rust = {
+	local dap_python = require("dap-python")
+	dap_python.setup(require("os").getenv("HOME") .. "/.pyenv/shims/python")
+	dap_python.test_runner = "pytest"
+
+	local dap_go = require("dap-go")
+	dap_go.setup()
+
+	local dap_ruby = require("dap-ruby")
+	dap_ruby.setup()
+
+	dap.adapters.lldb = {
 		type = "executable",
-		attach = { pidProperty = "pid", pidSelect = "ask" },
-		command = "lldb-vscode", -- my binary was called 'lldb-vscode-11'
-		env = { LLDB_LAUNCH_FLAG_LAUNCH_IN_TTY = "YES" },
+		command = "lldb-vscode",
 		name = "lldb",
+	}
+	dap.configurations.c = {
+		{
+			name = "Launch",
+			type = "lldb",
+			request = "launch",
+			program = function()
+				return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
+			end,
+			cwd = "${workspaceFolder}",
+			stopOnEntry = false,
+			-- attach = { pidProperty = "pid", pidSelect = "ask" },
+			-- env = { LLDB_LAUNCH_FLAG_LAUNCH_IN_TTY = "YES" },
+			args = {},
+		},
+	}
+	dap.configurations.cpp = dap.configurations.c
+	dap.configurations.rust = dap.configurations.c
+
+	dap.adapters.haskell = {
+		type = "executable",
+		command = "haskell-debug-adapter",
+		args = { "--hackage-version=0.0.33.0" },
+	}
+	dap.configurations.haskell = {
+		{
+			type = "haskell",
+			request = "launch",
+			name = "Debug",
+			workspace = "${workspaceFolder}",
+			startup = "${file}",
+			stopOnEntry = true,
+			logFile = vim.fn.stdpath("data") .. "/haskell-dap.log",
+			logLevel = "WARNING",
+			ghciEnv = vim.empty_dict(),
+			ghciPrompt = "λ: ",
+			ghciInitialPrompt = "λ: ",
+			ghciCmd = "stack ghci --test --no-load --no-build --main-is TARGET --ghci-options -fprint-evld-with-show",
+		},
 	}
 
 	vim.api.nvim_set_keymap("n", "<F4>", "<Cmd>lua require'dap'.disconnect({})<CR>", { noremap = true, silent = true })
@@ -1223,6 +1275,11 @@ require("packer").startup(function(use)
 		"<Cmd>lua require'telescope'.extensions.dap.variables{}<CR>",
 		{ noremap = true, silent = true }
 	)
+
+	vim.cmd([[nnoremap <silent> <leader>tpp :lua require('dap-python').test_method()<CR>]])
+	vim.cmd([[nnoremap <silent> <leader>tpa :lua require('dap-python').test_class()<CR>]])
+	vim.cmd([[vnoremap <silent> <leader>tps <ESC>:lua require('dap-python').debug_selection()<CR>]])
+	vim.cmd([[nmap <silent> <leader>tg :lua require('dap-go').debug_test()<CR>]])
 
 	-- コマンド
 	use("mileszs/ack.vim") -- :Ack

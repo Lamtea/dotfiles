@@ -12,8 +12,25 @@ Run this command: `install.sh`
   - deno(local)
   - dotnet(local)
   - golang(local)
+  - golangci-lint(local)
   - nodejs(local)
+    - editorconfig-checker(npm)
+    - eslint(npm)
+    - jsonlint(npm)
+    - neovim(npm)
+    - markdownlint-cli(npm)
+    - postcss(npm)
+    - prettier(npm)
+    - sass(npm)
+    - stylelint(npm)
+    - tidy(npm)
+    - typescript(npm)
+    - webpack(npm)
   - ruby(local)
+    - debug(gem)
+    - neovim(gem)
+    - rspec(gem)
+    - rubocop(gem)
 - aspnet-runtime
 - aspnet-targeting-pack
 - bashdb
@@ -25,29 +42,36 @@ Run this command: `install.sh`
 - colordiff
 - cppcheck(c/cpp linter)
 - dart
+- dart-sass
+- delve(go debugger)
 - deno
 - dotnet-host
 - dotnet-runtime
 - dotnet-sdk
 - dotnet-targeting-pack
-- editorconfig-checker
+- editorconfig-checker(editorconfig linter)
 - fd
 - flake8(python linter)
 - fzf
 - gawk
 - ghcup-hs-bin
-  - ghc(local)
+  - ghc(ghcup)
+  - stack(ghcup)
+    - haskell-dap(stack, haskell debugger)
+    - ghci-dap(stack, haskell debugger)
+    - haskell-debug-adapter(stack, haskell debugger)
+    - fourmolu(stack, haskell formatter)
 - github-cli
 - gnome-keyring
 - go
-- golanci-lint(go linter)
+- golangci-lint(go linter)
 - hadolint-bin(dockerfile linter)
-- haskell-fourmolu(haskell formatter)
 - jdk-openjdk
 - julia
 - kotlin
 - ktlint(kotlin linter/formatter)
 - libgnome-keyring
+- lldb(c/cpp/rust debugger)
 - luacheck(lua linter)
 - neomutt
 - neovim
@@ -67,9 +91,15 @@ Run this command: `install.sh`
 - postfix(localhost only for neomutt)
 - prettier(multiple formatter)
 - pyenv(from install script, see: gitHub)
-  - python3(local)
+  - python3(pyenv)
+    - black(poetry)
+    - debugpy(poetry)
+    - flake8(poetry)
+    - isort(poetry)
+    - pynvim(poetry)
 - python3
 - python-black(python formatter)
+- python-debugpy(python debugger)
 - python-isort(python formatter)
 - python-pip
 - ranger
@@ -81,9 +111,10 @@ Run this command: `install.sh`
   - mega
 - ripgrep
 - ruby
-- rubygems
+- rubygems(for debugger/linter/formatter: gem install debug rspec rubocop)
 - rustup(from install script, see: www.rust-lang.org)
-  - rust(local)
+  - rust(rustup)
+  - cargo(rustup)
 - shfmt(bash formatter)
 - shellcheck(bash linter)
 - source-highlight

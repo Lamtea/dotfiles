@@ -68,6 +68,7 @@ source "$HOME/.cargo/env"
 
 # ghcupの設定
 export PATH="$HOME/.ghcup/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
 
 # dotnetの設定
 source "$HOME/.asdf/plugins/dotnet-core/set-dotnet-home.zsh"
