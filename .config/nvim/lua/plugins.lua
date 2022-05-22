@@ -187,7 +187,7 @@ require("packer").startup(function(use)
 	})
 
 	local null_ls = require("null-ls")
-	local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
+	local null_ls_augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 	null_ls.setup({
 		sources = {
 			-- code action
@@ -241,9 +241,9 @@ require("packer").startup(function(use)
 		-- ファイル保存時にnull-lsを使用してフォーマットする(バージョン 0.8 になるとnull-ls使用にできるので現状は問い合わせを我慢 see:github)
 		on_attach = function(client, bufnr)
 			if client.supports_method("textDocument/formatting") then
-				vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
+				vim.api.nvim_clear_autocmds({ group = null_ls_augroup, buffer = bufnr })
 				vim.api.nvim_create_autocmd("BufWritePre", {
-					group = augroup,
+					group = null_ls_augroup,
 					buffer = bufnr,
 					callback = function()
 						vim.lsp.buf.formatting_sync() -- バージョン 0.8 の場合は format メソッドを使用すること(see: github)
@@ -287,8 +287,8 @@ require("packer").startup(function(use)
 	})
 
 	vim.g.completeopt = "menu,menuone,noselect" -- 補完設定
-	local cmp_engine = require("cmp")
-	cmp_engine.setup({
+	local cmp = require("cmp")
+	cmp.setup({
 		formatting = {
 			format = lsp_kind.cmp_format({
 				mode = "symbol",
@@ -303,14 +303,21 @@ require("packer").startup(function(use)
 				vim.fn["vsnip#anonymous"](args.body) -- vscodeスニペット設定
 			end,
 		},
-		mapping = cmp_engine.mapping.preset.insert({
-			["<C-b>"] = cmp_engine.mapping.scroll_docs(-4),
-			["<C-f>"] = cmp_engine.mapping.scroll_docs(4),
-			["<C-Space>"] = cmp_engine.mapping.complete(),
-			["<C-e>"] = cmp_engine.mapping.close(),
-			["<CR>"] = cmp_engine.mapping.confirm({ select = true }),
+		mapping = cmp.mapping.preset.insert({
+			["<C-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
+			["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
+			["<TAB>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
+			["<S-TAB>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
+			["<C-b>"] = cmp.mapping.scroll_docs(-4),
+			["<C-f>"] = cmp.mapping.scroll_docs(4),
+			["<C-Space>"] = cmp.mapping.complete(),
+			["<C-e>"] = cmp.mapping.close(),
+			["<CR>"] = cmp.mapping.confirm({
+				behavior = cmp.ConfirmBehavior.Replace,
+				select = true,
+			}),
 		}),
-		sources = cmp_engine.config.sources({
+		sources = cmp.config.sources({
 			{ name = "nvim_lsp" },
 			{ name = "vsnip" },
 			{ name = "path" },
@@ -322,70 +329,70 @@ require("packer").startup(function(use)
 		}),
 	})
 
-	cmp_engine.setup.cmdline("/", {
-		mapping = cmp_engine.mapping.preset.cmdline(),
-		sources = cmp_engine.config.sources({
+	cmp.setup.cmdline("/", {
+		mapping = cmp.mapping.preset.cmdline(),
+		sources = cmp.config.sources({
 			{ name = "nvim_lsp_document_symbol" },
 		}, {
 			{ name = "buffer" },
 		}),
 	})
 
-	cmp_engine.setup.cmdline(":", {
-		mapping = cmp_engine.mapping.preset.cmdline(),
-		sources = cmp_engine.config.sources({
+	cmp.setup.cmdline(":", {
+		mapping = cmp.mapping.preset.cmdline(),
+		sources = cmp.config.sources({
 			{ name = "path" },
 		}, {
 			{ name = "cmdline" },
 		}),
 	})
 
-	vim.keymap.set("n", "gh", "<cmd>Lspsaga lsp_finder<cr>", { silent = true, noremap = true }) -- hover
-	vim.keymap.set("n", "<space>c", "<cmd>Lspsaga code_action<cr>", { silent = true, noremap = true })
-	vim.keymap.set("x", "<space>c", ":<C-u>Lspsaga range_code_action<cr>", { silent = true, noremap = true })
-	vim.keymap.set("n", "K", "<cmd>Lspsaga hover_doc<cr>", { silent = true, noremap = true })
+	vim.keymap.set("n", "gh", "<cmd>Lspsaga lsp_finder<CR>", { silent = true, noremap = true }) -- hover
+	vim.keymap.set("n", "<space>c", "<cmd>Lspsaga code_action<CR>", { silent = true, noremap = true })
+	vim.keymap.set("x", "<space>c", ":<C-u>Lspsaga range_code_action<CR>", { silent = true, noremap = true })
+	vim.keymap.set("n", "K", "<cmd>Lspsaga hover_doc<CR>", { silent = true, noremap = true })
 	vim.keymap.set(
 		"n",
 		"<C-f>",
-		[[<cmd>lua require('lspsaga.action').smart_scroll_with_saga(1)<cr>]],
+		[[<cmd>lua require('lspsaga.action').smart_scroll_with_saga(1)<CR>]],
 		{ silent = true, noremap = true }
 	)
 	vim.keymap.set(
 		"n",
 		"<C-b>",
-		[[<cmd>lua require('lspsaga.action').smart_scroll_with_saga(-1)<cr>]],
+		[[<cmd>lua require('lspsaga.action').smart_scroll_with_saga(-1)<CR>]],
 		{ silent = true, noremap = true }
 	)
-	vim.keymap.set("n", "<space>k", "<cmd>Lspsaga signature_help<cr>", { silent = true, noremap = true })
-	vim.keymap.set("n", "<space>r", "<cmd>Lspsaga rename<cr>", { silent = true, noremap = true })
-	vim.keymap.set("n", "<space>d", "<cmd>Lspsaga preview_definition<cr>", { silent = true, noremap = true })
-	vim.keymap.set("n", "<space>e", "<cmd>Lspsaga show_line_diagnostics<cr>", { silent = true, noremap = true })
+	vim.keymap.set("n", "<space>k", "<cmd>Lspsaga signature_help<CR>", { silent = true, noremap = true })
+	vim.keymap.set("n", "<space>r", "<cmd>Lspsaga rename<CR>", { silent = true, noremap = true })
+	vim.keymap.set("n", "<space>d", "<cmd>Lspsaga preview_definition<CR>", { silent = true, noremap = true })
+	vim.keymap.set("n", "<space>e", "<cmd>Lspsaga show_line_diagnostics<CR>", { silent = true, noremap = true })
 	vim.keymap.set(
 		"n",
 		"<space>E",
-		[[<cmd>lua require('lspsaga.diagnostic').show_cursor_diagnostics()<cr>]],
+		[[<cmd>lua require('lspsaga.diagnostic').show_cursor_diagnostics()<CR>]],
 		{ silent = true, noremap = true }
 	)
-	vim.keymap.set("n", "<space>n", "<cmd>Lspsaga diagnostic_jump_next<cr>", { silent = true, noremap = true })
-	vim.keymap.set("n", "<space>p", "<cmd>Lspsaga diagnostic_jump_prev<cr>", { silent = true, noremap = true })
-	vim.keymap.set("n", "<A-d>", "<cmd>Lspsaga open_floaterm<cr>", { silent = true, noremap = true })
-	vim.cmd([[tnoremap <silent> <A-d> <C-\><C-n>:Lspsaga close_floaterm<CR>]])
-	vim.api.nvim_set_keymap("n", "<leader>xx", "<cmd>Trouble<cr>", { silent = true, noremap = true })
+	vim.keymap.set("n", "<space>n", "<cmd>Lspsaga diagnostic_jump_next<CR>", { silent = true, noremap = true })
+	vim.keymap.set("n", "<space>p", "<cmd>Lspsaga diagnostic_jump_prev<CR>", { silent = true, noremap = true })
+	vim.keymap.set("n", "<M-f>", "<cmd>Lspsaga open_floaterm<CR>", { silent = true, noremap = true })
+	vim.cmd([[tnoremap <silent> <M-f> <C-\><C-n>:Lspsaga close_floaterm<CR>]])
+	vim.api.nvim_set_keymap("n", "<leader>xx", "<cmd>Trouble<CR>", { silent = true, noremap = true })
 	vim.api.nvim_set_keymap(
 		"n",
 		"<leader>xw",
-		"<cmd>Trouble workspace_diagnostics<cr>",
+		"<cmd>Trouble workspace_diagnostics<CR>",
 		{ silent = true, noremap = true }
 	)
 	vim.api.nvim_set_keymap(
 		"n",
 		"<leader>xd",
-		"<cmd>Trouble document_diagnostics<cr>",
+		"<cmd>Trouble document_diagnostics<CR>",
 		{ silent = true, noremap = true }
 	)
-	vim.api.nvim_set_keymap("n", "<leader>xl", "<cmd>Trouble loclist<cr>", { silent = true, noremap = true })
-	vim.api.nvim_set_keymap("n", "<leader>xq", "<cmd>Trouble quickfix<cr>", { silent = true, noremap = true })
-	vim.api.nvim_set_keymap("n", "gr", "<cmd>Trouble lsp_references<cr>", { silent = true, noremap = true })
+	vim.api.nvim_set_keymap("n", "<leader>xl", "<cmd>Trouble loclist<CR>", { silent = true, noremap = true })
+	vim.api.nvim_set_keymap("n", "<leader>xq", "<cmd>Trouble quickfix<CR>", { silent = true, noremap = true })
+	vim.api.nvim_set_keymap("n", "gr", "<cmd>Trouble lsp_references<CR>", { silent = true, noremap = true })
 
 	-- ファジーファインダー
 	use({
@@ -422,97 +429,97 @@ require("packer").startup(function(use)
 	vim.api.nvim_set_keymap(
 		"n",
 		"<leader>ff",
-		[[<cmd>lua require('telescope.builtin').find_files()<cr>]],
+		[[<cmd>lua require('telescope.builtin').find_files()<CR>]],
 		{ noremap = true }
 	)
 	vim.api.nvim_set_keymap(
 		"n",
 		"<leader>fg",
-		[[<cmd>lua require('telescope.builtin').live_grep()<cr>]],
+		[[<cmd>lua require('telescope.builtin').live_grep()<CR>]],
 		{ noremap = true }
 	)
 	vim.api.nvim_set_keymap(
 		"n",
 		"<leader>fb",
-		[[<cmd>lua require('telescope.builtin').buffers()<cr>]],
+		[[<cmd>lua require('telescope.builtin').buffers()<CR>]],
 		{ noremap = true }
 	)
 	vim.api.nvim_set_keymap(
 		"n",
 		"<leader>fh",
-		[[<cmd>lua require('telescope.builtin').oldfiles()<cr>]],
+		[[<cmd>lua require('telescope.builtin').oldfiles()<CR>]],
 		{ noremap = true }
 	) -- (h)istory
 	vim.api.nvim_set_keymap(
 		"n",
 		"<leader>fc",
-		[[<cmd>lua require('telescope.builtin').commands()<cr>]],
+		[[<cmd>lua require('telescope.builtin').commands()<CR>]],
 		{ noremap = true }
 	)
 	vim.api.nvim_set_keymap(
 		"n",
 		"<leader>fn",
-		[[<cmd>lua require('telescope.builtin').treesitter()<cr>]],
+		[[<cmd>lua require('telescope.builtin').treesitter()<CR>]],
 		{ noremap = true }
 	) -- (n)ode
 	vim.api.nvim_set_keymap(
 		"n",
 		"<leader>gb",
-		[[<cmd>lua require('telescope.builtin').git_branches()<cr>]],
+		[[<cmd>lua require('telescope.builtin').git_branches()<CR>]],
 		{ noremap = true }
 	)
 	vim.api.nvim_set_keymap(
 		"n",
 		"<leader>gc",
-		[[<cmd>lua require('telescope.builtin').git_commits()<cr>]],
+		[[<cmd>lua require('telescope.builtin').git_commits()<CR>]],
 		{ noremap = true }
 	)
 	vim.api.nvim_set_keymap(
 		"n",
 		"<leader>gC",
-		[[<cmd>lua require('telescope.builtin').git_bcommits()<cr>]],
+		[[<cmd>lua require('telescope.builtin').git_bcommits()<CR>]],
 		{ noremap = true }
 	)
 	vim.api.nvim_set_keymap(
 		"n",
 		"<leader>gf",
-		[[<cmd>lua require('telescope.builtin').git_files()<cr>]],
+		[[<cmd>lua require('telescope.builtin').git_files()<CR>]],
 		{ noremap = true }
 	)
 	vim.api.nvim_set_keymap(
 		"n",
 		"<leader>gs",
-		[[<cmd>lua require('telescope.builtin').git_status()<cr>]],
+		[[<cmd>lua require('telescope.builtin').git_status()<CR>]],
 		{ noremap = true }
 	)
 	vim.api.nvim_set_keymap(
 		"n",
 		"<leader>gS",
-		[[<cmd>lua require('telescope.builtin').git_stash()<cr>]],
+		[[<cmd>lua require('telescope.builtin').git_stash()<CR>]],
 		{ noremap = true }
 	)
 	vim.api.nvim_set_keymap(
 		"n",
 		"<leader>ld",
-		[[<cmd>lua require('telescope.builtin').lsp_definitions()<cr>]],
+		[[<cmd>lua require('telescope.builtin').lsp_definitions()<CR>]],
 		{ noremap = true }
 	)
 	vim.api.nvim_set_keymap(
 		"n",
 		"<leader>lr",
-		[[<cmd>lua require('telescope.builtin').lsp_references()<cr>]],
+		[[<cmd>lua require('telescope.builtin').lsp_references()<CR>]],
 		{ noremap = true }
 	)
 	vim.api.nvim_set_keymap(
 		"n",
 		"<leader>ls",
-		[[<cmd>lua require('telescope.builtin').lsp_document_symbols()<cr>]],
+		[[<cmd>lua require('telescope.builtin').lsp_document_symbols()<CR>]],
 		{ noremap = true }
 	)
 	vim.api.nvim_set_keymap(
 		"n",
 		"<leader>lS",
-		[[<cmd>lua require('telescope.builtin').lsp_workspace_symbols()<cr>]],
+		[[<cmd>lua require('telescope.builtin').lsp_workspace_symbols()<CR>]],
 		{ noremap = true }
 	)
 
@@ -677,8 +684,8 @@ require("packer").startup(function(use)
 	vim.api.nvim_set_keymap("o", "au", [[:<c-u>lua require('treesitter-unit').select(true)<CR>]], { noremap = true })
 	vim.cmd([[omap <silent> m :<C-u>lua require('tsht').nodes()<CR>]]) -- motion
 	vim.cmd([[vnoremap <silent> m :lua require('tsht').nodes()<CR>]]) -- motion
-	vim.api.nvim_set_keymap("n", "<Leader>sm", "<cmd>ISwap<cr>", { noremap = true }) -- swap motion
-	vim.api.nvim_set_keymap("n", "<Leader>sw", "<cmd>ISwapWith<cr>", { noremap = true }) -- swap motion with
+	vim.api.nvim_set_keymap("n", "<Leader>sm", "<cmd>ISwap<CR>", { noremap = true }) -- swap motion
+	vim.api.nvim_set_keymap("n", "<Leader>sw", "<cmd>ISwapWith<CR>", { noremap = true }) -- swap motion with
 
 	-- ステータスライン
 	use({
@@ -764,6 +771,7 @@ require("packer").startup(function(use)
 	vim.api.nvim_set_keymap("n", "<Leader>7", "<Cmd>BufferLineGoToBuffer 7<CR>", { noremap = true, silent = true })
 	vim.api.nvim_set_keymap("n", "<Leader>8", "<Cmd>BufferLineGoToBuffer 8<CR>", { noremap = true, silent = true })
 	vim.api.nvim_set_keymap("n", "<Leader>9", "<Cmd>BufferLineGoToBuffer 9<CR>", { noremap = true, silent = true })
+	vim.api.nvim_set_keymap("n", "<Leader>q", "<Cmd>BufferLinePickClose<CR>", { noremap = true, silent = true })
 
 	-- サイドバー
 	use({
@@ -884,7 +892,7 @@ require("packer").startup(function(use)
 			require("toggleterm").setup()
 		end,
 	})
-	vim.keymap.set("n", "<A-t>", "<cmd>ToggleTerm<cr>", { silent = true, noremap = true })
+	vim.keymap.set("n", "<M-t>", "<cmd>ToggleTerm<CR>", { silent = true, noremap = true })
 
 	-- ヘルプ
 	use({
@@ -922,8 +930,8 @@ require("packer").startup(function(use)
 		end,
 	})
 
-	vim.api.nvim_set_keymap("n", "<Leader>xt", "<cmd>TodoTrouble<cr>", { noremap = true })
-	vim.api.nvim_set_keymap("n", "<Leader>ft", "<cmd>TodoTelescope<cr>", { noremap = true })
+	vim.api.nvim_set_keymap("n", "<Leader>xt", "<cmd>TodoTrouble<CR>", { noremap = true })
+	vim.api.nvim_set_keymap("n", "<Leader>ft", "<cmd>TodoTelescope<CR>", { noremap = true })
 
 	-- 移動
 	use({
@@ -1040,7 +1048,7 @@ require("packer").startup(function(use)
 
 	-- git
 	use({
-		"TimUntersberger/neogit", -- gitクライアント
+		"TimUntersberger/neogit", -- gitクライアント(dでdiffviewが起動できる)
 		requires = {
 			"nvim-lua/plenary.nvim",
 		},
@@ -1057,8 +1065,25 @@ require("packer").startup(function(use)
 			})
 		end,
 	})
+	use({
+		"sindrets/diffview.nvim", -- git差分(キーバインドは標準 see: github)
+		requires = {
+			"nvim-lua/plenary.nvim",
+		},
+		config = function()
+			require("diffview").setup()
+		end,
+	})
 
-	vim.api.nvim_set_keymap("n", "<leader><Space>", "<Cmd>Neogit<CR>", { noremap = true, silent = true })
+	vim.api.nvim_set_keymap("n", "<leader><leader>gg", "<Cmd>Neogit<CR>", { noremap = true, silent = true })
+	vim.api.nvim_set_keymap("n", "<leader><leader>gd", "<Cmd>DiffviewOpen<CR>", { noremap = true, silent = true })
+	vim.api.nvim_set_keymap(
+		"n",
+		"<leader><leader>gh",
+		"<Cmd>DiffviewFileHistory<CR>",
+		{ noremap = true, silent = true }
+	)
+	vim.api.nvim_set_keymap("n", "gq", "<Cmd>tabclose<CR>", { noremap = true, silent = true })
 
 	-- コマンド
 	use("mileszs/ack.vim") -- :Ack
