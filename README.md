@@ -114,6 +114,8 @@ Run this command: `install.sh`
 
 - bash
 - bashdb
+- python
+- lua
 - git
 - nodejs
   - bash-language-server
