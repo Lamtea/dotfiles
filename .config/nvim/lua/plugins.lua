@@ -200,45 +200,74 @@ require("packer").startup(function(use)
 	null_ls.setup({
 		sources = {
 			-- code action
-			null_ls.builtins.code_actions.gitsigns, -- gitsignsをコードアクションで実行できる
-			null_ls.builtins.code_actions.eslint, -- for javascript/typescript
+			null_ls.builtins.code_actions.eslint.with({
+				prefer_local = "node_modules/.bin",
+			}), -- for javascript/typescript
 			null_ls.builtins.code_actions.shellcheck, -- for bash
 			-- diagnostics
 			null_ls.builtins.diagnostics.codespell, -- for spell
 			null_ls.builtins.diagnostics.cppcheck, -- for c/cpp
-			null_ls.builtins.diagnostics.editorconfig_checker, -- for editorconfig
-			null_ls.builtins.diagnostics.eslint, -- for javascript/typescript
-			null_ls.builtins.diagnostics.flake8, -- for python
+			null_ls.builtins.diagnostics.editorconfig_checker.with({
+				prefer_local = "node_modules/.bin",
+			}), -- for editorconfig
+			null_ls.builtins.diagnostics.eslint.with({
+				prefer_local = "node_modules/.bin",
+			}), -- for javascript/typescript
+			null_ls.builtins.diagnostics.flake8.with({
+				prefer_local = ".venv/bin",
+			}), -- for python
 			null_ls.builtins.diagnostics.golangci_lint, -- for go
 			null_ls.builtins.diagnostics.hadolint, -- for dockerfile
-			null_ls.builtins.diagnostics.jsonlint, -- for json
+			null_ls.builtins.diagnostics.jsonlint.with({
+				prefer_local = "node_modules/.bin",
+			}), -- for json
 			null_ls.builtins.diagnostics.ktlint, -- kotlin
 			null_ls.builtins.diagnostics.luacheck.with({
 				extra_args = { "--globals vim" },
 			}), -- for lua(vimのグローバルオブジェクト警告のため)
-			null_ls.builtins.diagnostics.markdownlint, -- for markdown
+			null_ls.builtins.diagnostics.markdownlint.with({
+				prefer_local = "node_modules/.bin",
+			}), -- for markdown
 			null_ls.builtins.diagnostics.php, -- for php
-			null_ls.builtins.diagnostics.rubocop, -- for ruby
+			null_ls.builtins.diagnostics.rubocop.with({
+				prefer_local = "vendor/bundle/ruby/3.0.0/bin",
+			}), -- for ruby
 			null_ls.builtins.diagnostics.shellcheck, -- for bash
-			null_ls.builtins.diagnostics.stylelint, -- for css
+			null_ls.builtins.diagnostics.stylelint.with({
+				prefer_local = "node_modules/.bin",
+			}), -- for css
 			null_ls.builtins.diagnostics.sqlfluff.with({
 				extra_args = { "--dialect", "postgres" },
 			}), -- for postgresql
-			null_ls.builtins.diagnostics.tidy, -- for html/xml
-			null_ls.builtins.diagnostics.tsc, -- for typescript
-			null_ls.builtins.diagnostics.yamllint, -- for yaml
+			null_ls.builtins.diagnostics.tidy.with({
+				prefer_local = "node_modules/.bin",
+			}), -- for html/xml
+			null_ls.builtins.diagnostics.tsc.with({
+				prefer_local = "node_modules/.bin",
+			}), -- for typescript
+			null_ls.builtins.diagnostics.yamllint.with({
+				prefer_local = "node_modules/.bin",
+			}), -- for yaml
+			null_ls.builtins.diagnostics.zsh, -- for zsh
 			-- formatting
-			null_ls.builtins.formatting.black, -- for python
-			-- null_ls.builtins.formatting.codespell, -- for spell
+			null_ls.builtins.formatting.black.with({
+				prefer_local = ".venv/bin",
+			}), -- for python
 			null_ls.builtins.formatting.clang_format, -- for c/cpp/cs/java
 			null_ls.builtins.formatting.dart_format, -- for dart
 			null_ls.builtins.formatting.fourmolu, -- for haskell
 			null_ls.builtins.formatting.gofmt, -- for go
-			null_ls.builtins.formatting.isort, -- for python
+			null_ls.builtins.formatting.isort.with({
+				prefer_local = ".venv/bin",
+			}), -- for python
 			null_ls.builtins.formatting.ktlint, -- for kotlin
 			null_ls.builtins.formatting.phpcsfixer, -- for php
-			null_ls.builtins.formatting.prettier, -- for multiple(vscodeだとlinterから呼ぶことが多い)
-			null_ls.builtins.formatting.rubocop, -- for ruby
+			null_ls.builtins.formatting.prettier.with({
+				prefer_local = "node_modules/.bin",
+			}), -- for html/css/sass/javascript/typescript/react/vue/json/yaml/markdown/graphql
+			null_ls.builtins.formatting.rubocop.with({
+				prefer_local = "vendor/bundle/ruby/3.0.0/bin",
+			}), -- for ruby
 			null_ls.builtins.formatting.rustfmt, -- for rust
 			null_ls.builtins.formatting.shfmt, -- for bash
 			null_ls.builtins.formatting.sqlfluff.with({
@@ -246,6 +275,7 @@ require("packer").startup(function(use)
 			}), -- for postgresql
 			null_ls.builtins.formatting.stylua, -- for lua
 			null_ls.builtins.formatting.tidy.with({
+				prefer_local = "node_modules/.bin",
 				disabled_filetypes = { "html" },
 			}), -- for xml
 			null_ls.builtins.formatting.trim_whitespace, -- 末尾の空白除去
@@ -1170,29 +1200,49 @@ require("packer").startup(function(use)
 
 	-- デバッガー
 	use("mfussenegger/nvim-dap") -- noevim用デバッガアダプタプロトコル(各種debugger必須, インストール後に :helptags ALL を実行しておく)
-	use("mfussenegger/nvim-dap-python") -- python用dap
+	use("mfussenegger/nvim-dap-python") -- python用dap(poetryサポートがpull request中なのでそのうち入るはず)
 	use("leoluz/nvim-dap-go") -- go用dap
-	use("suketa/nvim-dap-ruby") -- ruby用dap
 
 	local dap = require("dap")
 	local dap_python = require("dap-python")
 	dap_python.setup(require("os").getenv("HOME") .. "/.pyenv/shims/python")
 	dap_python.test_runner = "pytest"
 
+	dap.adapters.ruby = {
+		type = "executable",
+		command = "bundle",
+		args = { "exec", "readapt", "stdio" },
+	}
+	dap.configurations.ruby = {
+		{
+			type = "ruby",
+			request = "launch",
+			name = "Launch file",
+			program = "${file}",
+			programArgs = {},
+			useBundler = true,
+		},
+		{
+			type = "ruby",
+			request = "launch",
+			name = "Launch rails server",
+			program = "bundle",
+			programArgs = { "exec", "rails", "s" },
+			useBundler = true,
+		},
+	}
+
 	local dap_go = require("dap-go")
 	dap_go.setup()
 
-	local dap_ruby = require("dap-ruby")
-	dap_ruby.setup()
-
 	dap.adapters.lldb = {
 		type = "executable",
-		command = "lldb-vscode",
+		command = "/usr/bin/lldb-vscode",
 		name = "lldb",
 	}
 	dap.configurations.c = {
 		{
-			name = "Launch",
+			name = "Launch file",
 			type = "lldb",
 			request = "launch",
 			program = function()
@@ -1211,21 +1261,21 @@ require("packer").startup(function(use)
 	dap.adapters.haskell = {
 		type = "executable",
 		command = "haskell-debug-adapter",
-		args = { "--hackage-version=0.0.33.0" },
+		args = { "--hackage-version=0.0.35.0" },
 	}
 	dap.configurations.haskell = {
 		{
 			type = "haskell",
 			request = "launch",
-			name = "Debug",
+			name = "Launch file",
 			workspace = "${workspaceFolder}",
 			startup = "${file}",
 			stopOnEntry = true,
 			logFile = vim.fn.stdpath("data") .. "/haskell-dap.log",
 			logLevel = "WARNING",
 			ghciEnv = vim.empty_dict(),
-			ghciPrompt = "λ: ",
-			ghciInitialPrompt = "λ: ",
+			ghciPrompt = "> ",
+			ghciInitialPrompt = "> ",
 			ghciCmd = "stack ghci --test --no-load --no-build --main-is TARGET --ghci-options -fprint-evld-with-show",
 		},
 	}

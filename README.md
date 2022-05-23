@@ -9,15 +9,14 @@ Run this command: `install.sh`
 ## Depend on
 
 - asdf(from git clone, see: gitHub)
-  - deno(local)
-  - dotnet(local)
-  - golang(local)
-  - golangci-lint(local)
-  - nodejs(local)
+  - deno(asdf)
+  - dotnet(asdf)
+  - golang(asdf)
+  - golangci-lint(asdf)
+  - nodejs(asdf)
     - editorconfig-checker(npm)
     - eslint(npm)
     - jsonlint(npm)
-    - neovim(npm)
     - markdownlint-cli(npm)
     - postcss(npm)
     - prettier(npm)
@@ -26,11 +25,11 @@ Run this command: `install.sh`
     - tidy(npm)
     - typescript(npm)
     - webpack(npm)
-  - ruby(local)
-    - debug(gem)
-    - neovim(gem)
-    - rspec(gem)
-    - rubocop(gem)
+    - yaml-lint(npm)
+  - ruby(asdf)
+    - readapt(bundle)
+    - rails(bundle)
+    - rubocop(bundle)
 - aspnet-runtime
 - aspnet-targeting-pack
 - bashdb
@@ -96,7 +95,6 @@ Run this command: `install.sh`
     - debugpy(poetry)
     - flake8(poetry)
     - isort(poetry)
-    - pynvim(poetry)
 - python3
 - python-black(python formatter)
 - python-debugpy(python debugger)
@@ -111,7 +109,14 @@ Run this command: `install.sh`
   - mega
 - ripgrep
 - ruby
-- rubygems(for debugger/linter/formatter: gem install debug rspec rubocop)
+- ruby-bundler
+  cd ~/
+  bundle config set --local path 'vendor/bundle'
+  vi GemFile (add 'gem readapt')
+  bundle install
+  - readapt(ruby debugger)
+- rubygems
+  - rubocop(ruby linter/formatter)
 - rustup(from install script, see: www.rust-lang.org)
   - rust(rustup)
   - cargo(rustup)
