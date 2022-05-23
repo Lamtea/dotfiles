@@ -12,7 +12,9 @@ Run this command: `install.sh`
   - deno(asdf)
   - dotnet(asdf)
   - golang(asdf)
-  - golangci-lint(asdf)
+  - golangci-lint(asdf, go linter)
+  - hadolint(asdf, dockerfile linter)
+  - ktlint(asdf, kotlin linter/formatter)
   - nodejs(asdf)
     - editorconfig-checker(npm)
     - eslint(npm)
@@ -32,7 +34,7 @@ Run this command: `install.sh`
     - rubocop(bundle)
 - aspnet-runtime
 - aspnet-targeting-pack
-- bashdb
+- bashdb(aur)
 - bemenu
 - clang
 - cmake
@@ -53,7 +55,7 @@ Run this command: `install.sh`
 - flake8(python linter)
 - fzf
 - gawk
-- ghcup-hs-bin
+- ghcup-hs-bin(aur)
   - ghc(ghcup)
   - stack(ghcup)
     - haskell-dap(stack, haskell debugger)
@@ -63,29 +65,26 @@ Run this command: `install.sh`
 - github-cli
 - gnome-keyring
 - go
-- golangci-lint(go linter)
-- hadolint-bin(dockerfile linter)
 - jdk-openjdk
 - julia
 - kotlin
-- ktlint(kotlin linter/formatter)
 - libgnome-keyring
 - lldb(c/cpp/rust debugger)
 - luacheck(lua linter)
 - neomutt
 - neovim
-  - neovim-drop-in(vi/vim simlink)
-  - nodejs-neovim
+  - neovim-drop-in(aur, vi/vim simlink)
+  - nodejs-neovim(aur)
   - python-pynvim
-  - ruby-neovim
+  - ruby-neovim(aur)
   - wbthomason/packer.nvim(from install script, see: gitHub)
-- nodejs-jsonlint(json linter)
+- nodejs-jsonlint(aur, json linter)
 - nodejs-lts-gallium
-- nodejs-markdownlint-cli(markdown linter)
+- nodejs-markdownlint-cli(aur, markdown linter)
 - npm
 - openssh
 - php
-- php-cs-fixer(php formatter)
+- php-cs-fixer(aur, php formatter)
 - poetry(from install script, see: python-poetry.org)
 - postfix(localhost only for neomutt)
 - prettier(multiple formatter)
