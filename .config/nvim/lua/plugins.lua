@@ -348,13 +348,13 @@ require("packer").startup(function(use)
 		mapping = cmp.mapping.preset.insert({
 			["<C-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
 			["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
-			["<TAB>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
-			["<S-TAB>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
+			["<Up>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
+			["<Down>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
 			["<C-b>"] = cmp.mapping.scroll_docs(-4),
 			["<C-f>"] = cmp.mapping.scroll_docs(4),
 			["<C-Space>"] = cmp.mapping.complete(),
 			["<C-e>"] = cmp.mapping.close(),
-			["<CR>"] = cmp.mapping.confirm({
+			["<TAB>"] = cmp.mapping.confirm({
 				behavior = cmp.ConfirmBehavior.Replace,
 				select = true,
 			}),
@@ -1240,7 +1240,7 @@ require("packer").startup(function(use)
 		command = "/usr/bin/lldb-vscode",
 		name = "lldb",
 	}
-	dap.configurations.c = {
+	dap.configurations.cpp = {
 		{
 			name = "Launch file",
 			type = "lldb",
@@ -1250,13 +1250,12 @@ require("packer").startup(function(use)
 			end,
 			cwd = "${workspaceFolder}",
 			stopOnEntry = false,
-			-- attach = { pidProperty = "pid", pidSelect = "ask" },
-			-- env = { LLDB_LAUNCH_FLAG_LAUNCH_IN_TTY = "YES" },
 			args = {},
+			runInTerminal = true,
 		},
 	}
-	dap.configurations.cpp = dap.configurations.c
-	dap.configurations.rust = dap.configurations.c
+	dap.configurations.c = dap.configurations.cpp
+	dap.configurations.rust = dap.configurations.cpp
 
 	dap.adapters.haskell = {
 		type = "executable",
