@@ -354,10 +354,27 @@ require("packer").startup(function(use)
 			["<C-f>"] = cmp.mapping.scroll_docs(4),
 			["<C-Space>"] = cmp.mapping.complete(),
 			["<C-e>"] = cmp.mapping.close(),
-			["<TAB>"] = cmp.mapping.confirm({
+			["<CR>"] = cmp.mapping.confirm({
 				behavior = cmp.ConfirmBehavior.Replace,
 				select = true,
 			}),
+			["<Tab>"] = cmp.mapping(function(fallback)
+				local col = vim.fn.col(".") - 1
+				if cmp.visible() then
+					cmp.select_next_item({ behavior = cmp.ConfirmBehavior.Select })
+				elseif col == 0 or vim.fn.getline("."):sub(col, col):match("%s") then
+					fallback()
+				else
+					cmp.complete()
+				end
+			end, { "i", "s" }),
+			["<S-Tab>"] = cmp.mapping(function(fallback)
+				if cmp.visible() then
+					cmp.select_prev_item({ behavior = cmp.ConfirmBehavior.Select })
+				else
+					fallback()
+				end
+			end, { "i", "s" }),
 		}),
 		sources = cmp.config.sources({
 			{ name = "nvim_lsp" },
@@ -1202,8 +1219,10 @@ require("packer").startup(function(use)
 	use("mfussenegger/nvim-dap") -- noevim用デバッガアダプタプロトコル(各種debugger必須, インストール後に :helptags ALL を実行しておく)
 	use("mfussenegger/nvim-dap-python") -- python用dap(poetryサポートがpull request中なのでそのうち入るはず)
 	use("leoluz/nvim-dap-go") -- go用dap
+	-- use("Pocco81/dap-buddy.nvim") -- デバッガインストーラーが開発中
 
 	local dap = require("dap")
+
 	local dap_python = require("dap-python")
 	dap_python.setup(require("os").getenv("HOME") .. "/.pyenv/shims/python")
 	dap_python.test_runner = "pytest"
@@ -1232,9 +1251,6 @@ require("packer").startup(function(use)
 		},
 	}
 
-	local dap_go = require("dap-go")
-	dap_go.setup()
-
 	dap.adapters.lldb = {
 		type = "executable",
 		command = "/usr/bin/lldb-vscode",
@@ -1256,6 +1272,9 @@ require("packer").startup(function(use)
 	}
 	dap.configurations.c = dap.configurations.cpp
 	dap.configurations.rust = dap.configurations.cpp
+
+	local dap_go = require("dap-go")
+	dap_go.setup()
 
 	dap.adapters.haskell = {
 		type = "executable",
