@@ -96,11 +96,13 @@ Run this command: `install.sh`
     - debugpy(poetry)
     - flake8(poetry)
     - isort(poetry)
+    - pytest(poetry)
 - python3
 - python-black(python formatter)
 - python-debugpy(python debugger)
 - python-isort(python formatter)
 - python-pip
+- python-pytest
 - ranger
 - rclone
   - gdrive
