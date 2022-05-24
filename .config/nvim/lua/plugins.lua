@@ -200,9 +200,9 @@ require("packer").startup(function(use)
 	null_ls.setup({
 		sources = {
 			-- code action
-			null_ls.builtins.code_actions.eslint.with({
+			null_ls.builtins.code_actions.eslint_d.with({
 				prefer_local = "node_modules/.bin",
-			}), -- for javascript/typescript
+			}), -- for javascript/typescript/react/vue
 			null_ls.builtins.code_actions.shellcheck, -- for bash
 			-- diagnostics
 			null_ls.builtins.diagnostics.codespell, -- for spell
@@ -210,9 +210,9 @@ require("packer").startup(function(use)
 			null_ls.builtins.diagnostics.editorconfig_checker.with({
 				prefer_local = "node_modules/.bin",
 			}), -- for editorconfig
-			null_ls.builtins.diagnostics.eslint.with({
+			null_ls.builtins.diagnostics.eslint_d.with({
 				prefer_local = "node_modules/.bin",
-			}), -- for javascript/typescript
+			}), -- for javascript/typescript/react/vue
 			null_ls.builtins.diagnostics.flake8.with({
 				prefer_local = ".venv/bin",
 			}), -- for python
@@ -244,7 +244,7 @@ require("packer").startup(function(use)
 			}), -- for html/xml
 			null_ls.builtins.diagnostics.tsc.with({
 				prefer_local = "node_modules/.bin",
-			}), -- for typescript
+			}), -- for typescript/react
 			null_ls.builtins.diagnostics.yamllint.with({
 				prefer_local = "node_modules/.bin",
 			}), -- for yaml
@@ -262,7 +262,7 @@ require("packer").startup(function(use)
 			}), -- for python
 			null_ls.builtins.formatting.ktlint, -- for kotlin
 			null_ls.builtins.formatting.phpcsfixer, -- for php
-			null_ls.builtins.formatting.prettier.with({
+			null_ls.builtins.formatting.prettierd.with({
 				prefer_local = "node_modules/.bin",
 			}), -- for html/css/sass/javascript/typescript/react/vue/json/yaml/markdown/graphql
 			null_ls.builtins.formatting.rubocop.with({

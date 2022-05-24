@@ -17,11 +17,11 @@ Run this command: `install.sh`
   - ktlint(asdf, kotlin linter/formatter)
   - nodejs(asdf)
     - editorconfig-checker(npm)
-    - eslint(npm)
+    - eslint_d(npm)
     - jsonlint(npm)
     - markdownlint-cli(npm)
     - postcss(npm)
-    - prettier(npm)
+    - prettierd(npm)
     - sass(npm)
     - stylelint(npm)
     - tidy(npm)
@@ -51,6 +51,7 @@ Run this command: `install.sh`
 - dotnet-sdk
 - dotnet-targeting-pack
 - editorconfig-checker(editorconfig linter)
+- eslint_d(for javascript/typescript/react/vue linter)
 - fd
 - flake8(python linter)
 - fzf
@@ -87,7 +88,8 @@ Run this command: `install.sh`
 - php-cs-fixer(aur, php formatter)
 - poetry(from install script, see: python-poetry.org)
 - postfix(localhost only for neomutt)
-- prettier(multiple formatter)
+- prettierd(aur)
+  (html/css/sass/javascript/typescript/react/vue/json/yaml/markdown/graphql formatter)
 - pyenv(from install script, see: gitHub)
   - python3(pyenv)
     - black(poetry)
