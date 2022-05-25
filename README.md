@@ -12,6 +12,7 @@ Run this command: `install.sh`
   - deno(asdf)
   - dotnet(asdf)
   - golang(asdf)
+    - delve(go get)
   - golangci-lint(asdf, go linter)
   - hadolint(asdf, dockerfile linter)
   - ktlint(asdf, kotlin linter/formatter)
