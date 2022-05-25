@@ -20,18 +20,17 @@ Run this command: `install.sh`
     - eslint_d(npm)
     - jsonlint(npm)
     - markdownlint-cli(npm)
-    - postcss(npm)
     - prettierd(npm)
-    - sass(npm)
     - stylelint(npm)
     - tidy(npm)
     - typescript(npm)
-    - webpack(npm)
     - yaml-lint(npm)
+    - etc...(for development)
   - ruby(asdf)
-    - readapt(bundle)
-    - rails(bundle)
-    - rubocop(bundle)
+    - bundler(gem)
+    - readapt(gem)
+    - rails(gem)
+    - rubocop(gem)
 - aspnet-runtime
 - aspnet-targeting-pack
 - bashdb(aur)
@@ -78,7 +77,6 @@ Run this command: `install.sh`
   - neovim-drop-in(aur, vi/vim simlink)
   - nodejs-neovim(aur)
   - python-pynvim
-  - ruby-neovim(aur)
   - wbthomason/packer.nvim(from install script, see: gitHub)
 - nginx
 - nodejs-jsonlint(aur, json linter)
@@ -90,16 +88,17 @@ Run this command: `install.sh`
 - php-\*(apcu, gd, sqlite, pgsql, redis, imap, imagick, fpm)
 - php-cs-fixer(aur, php formatter)
 - poetry(from install script, see: python-poetry.org)
-- postfix(localhost only for neomutt)
-- prettierd(aur)
-  (html/css/sass/javascript/typescript/react/vue/json/yaml/markdown/graphql formatter)
-- pyenv(from install script, see: gitHub)
-  - python3(pyenv)
+  - python3(poetry)
     - black(poetry)
     - debugpy(poetry)
     - flake8(poetry)
     - isort(poetry)
     - pytest(poetry)
+- postfix(localhost only for neomutt)
+- prettier
+  (html/css/sass/javascript/typescript/react/vue/json/yaml/markdown/graphql formatter)
+- pyenv(from install script, see: gitHub)
+  - python3(pyenv)
 - python3
 - python-black(python formatter)
 - python-debugpy(python debugger)
@@ -114,10 +113,6 @@ Run this command: `install.sh`
   - pcloud
   - mega
 - ripgrep
-- ruby
-- ruby-bundler
-- rubygems
-  - rubocop(ruby linter/formatter)
 - rustup(from install script, see: www.rust-lang.org)
   - rust(rustup)
   - cargo(rustup)
@@ -136,6 +131,7 @@ Run this command: `install.sh`
 - wget
 - xclip
 - xdebug(php debugger extension)
+- yarn
 - zsh
 
 ## Terminal fonts for zsh powerlevel10k

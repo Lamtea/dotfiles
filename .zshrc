@@ -43,6 +43,7 @@ export VISUAL=nvim
 export MAIL=~/Maildir
 export BROWSER=w3m
 
+
 # bemenuの設定
 export BEMENU_BACKEND=curses
 export BEMENU_OPTS='--scrollbar=autohide'
@@ -60,9 +61,6 @@ fi
 
 # poetryの設定
 export PATH="$HOME/.poetry/bin:$PATH"
-
-# rubygemsの設定
-export PATH="$HOME/.local/share/gem/ruby/3.0.0/bin:$PATH"
 
 # rustupの設定
 source "$HOME/.cargo/env"
@@ -99,8 +97,19 @@ zstyle ':zle:*' word-style unspecified
 
 ########################################
 # 補完
-# asdfの補完設定
+# asdfの設定
 fpath=(${ASDF_DIR}/completions $fpath)
+
+# poetry/rustup/cargoの設定
+fpath+=~/.zfunc
+
+# dotnetの設定
+_dotnet_zsh_complete()
+{
+  local completions=("$(dotnet complete "$words")")
+  reply=( "${(ps:\n:)completions}" )
+}
+compctl -K _dotnet_zsh_complete dotnet
 
 # 補完機能を有効にする
 autoload -Uz compinit
@@ -187,7 +196,5 @@ if [[ -z "$TMUX" && ! -z "$PS1" && $TERM_PROGRAM != "vscode" ]]; then
     tmux new-session
   elif [[ -n "$ID" ]]; then
     tmux attach-session -t "$ID"
-  else
-    :  # Start terminal normally
   fi
 fi

@@ -229,9 +229,7 @@ require("packer").startup(function(use)
 				prefer_local = "node_modules/.bin",
 			}), -- for markdown
 			null_ls.builtins.diagnostics.php, -- for php
-			null_ls.builtins.diagnostics.rubocop.with({
-				prefer_local = "vendor/bundle/ruby/3.0.0/bin",
-			}), -- for ruby
+			null_ls.builtins.diagnostics.rubocop, -- for ruby
 			null_ls.builtins.diagnostics.shellcheck, -- for bash
 			null_ls.builtins.diagnostics.stylelint.with({
 				prefer_local = "node_modules/.bin",
@@ -262,12 +260,10 @@ require("packer").startup(function(use)
 			}), -- for python
 			null_ls.builtins.formatting.ktlint, -- for kotlin
 			null_ls.builtins.formatting.phpcsfixer, -- for php
-			null_ls.builtins.formatting.prettierd.with({
+			null_ls.builtins.formatting.prettier.with({
 				prefer_local = "node_modules/.bin",
 			}), -- for html/css/sass/javascript/typescript/react/vue/json/yaml/markdown/graphql
-			null_ls.builtins.formatting.rubocop.with({
-				prefer_local = "vendor/bundle/ruby/3.0.0/bin",
-			}), -- for ruby
+			null_ls.builtins.formatting.rubocop, -- for ruby
 			null_ls.builtins.formatting.rustfmt, -- for rust
 			null_ls.builtins.formatting.shfmt, -- for bash
 			null_ls.builtins.formatting.sqlfluff.with({
