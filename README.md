@@ -66,6 +66,7 @@ Run this command: `install.sh`
 - github-cli
 - gnome-keyring
 - go
+- imagemagick
 - jdk-openjdk
 - julia
 - kotlin
@@ -79,12 +80,14 @@ Run this command: `install.sh`
   - python-pynvim
   - ruby-neovim(aur)
   - wbthomason/packer.nvim(from install script, see: gitHub)
+- nginx
 - nodejs-jsonlint(aur, json linter)
 - nodejs-lts-gallium
 - nodejs-markdownlint-cli(aur, markdown linter)
 - npm
 - openssh
 - php
+- php-\*(apcu, gd, sqlite, pgsql, redis, imap, imagick, fpm)
 - php-cs-fixer(aur, php formatter)
 - poetry(from install script, see: python-poetry.org)
 - postfix(localhost only for neomutt)
@@ -132,6 +135,7 @@ Run this command: `install.sh`
 - w3m
 - wget
 - xclip
+- xdebug(php debugger extension)
 - zsh
 
 ## Terminal fonts for zsh powerlevel10k
