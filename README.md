@@ -29,9 +29,6 @@ Run this command: `install.sh`
     - etc...(for development)
   - ruby(asdf)
     - bundler(gem)
-    - readapt(gem)
-    - rails(gem)
-    - rubocop(gem)
 - aspnet-runtime
 - aspnet-targeting-pack
 - bashdb(aur)
