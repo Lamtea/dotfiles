@@ -31,6 +31,7 @@ lodash
 markdownlint-cli
 mini-css-extract-plugin
 moment
+neovim
 next
 npm-check-updates
 npm-run-all

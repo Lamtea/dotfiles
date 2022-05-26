@@ -21,6 +21,7 @@ Run this command: `install.sh`
     - eslint_d(npm)
     - jsonlint(npm)
     - markdownlint-cli(npm)
+    - neovim(npm)
     - prettierd(npm)
     - stylelint(npm)
     - tidy(npm)
