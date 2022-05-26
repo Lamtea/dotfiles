@@ -39,6 +39,7 @@ path
 postcss
 postcss-loader
 prettier
+prisma
 react
 react-dom
 sass
@@ -51,6 +52,7 @@ stylelint-config-standard
 stylelint-config-standard-scss
 terser-webpack-plugin
 ts-loader
+ts-node
 typescript
 vue
 vue-class-component
