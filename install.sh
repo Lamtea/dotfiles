@@ -63,6 +63,7 @@ dotfiles_or_dirs=(
 	.config/neomutt
 	.config/ranger
 	.bin/rclone_mount.sh
+	Gemfile
 )
 
 # リンク作成

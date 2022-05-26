@@ -90,7 +90,7 @@ require("packer").startup(function(use)
 					split = "i",
 					quit = "q",
 					scroll_down = "<C-f>",
-					scroll_up = "<C-b>",
+					scroll_up = "<C-d>",
 				},
 				code_action_keys = {
 					quit = "q",
@@ -344,9 +344,7 @@ require("packer").startup(function(use)
 		mapping = cmp.mapping.preset.insert({
 			["<C-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
 			["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
-			["<Up>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
-			["<Down>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
-			["<C-b>"] = cmp.mapping.scroll_docs(-4),
+			["<C-d>"] = cmp.mapping.scroll_docs(-4),
 			["<C-f>"] = cmp.mapping.scroll_docs(4),
 			["<C-Space>"] = cmp.mapping.complete(),
 			["<C-e>"] = cmp.mapping.close(),
@@ -355,13 +353,10 @@ require("packer").startup(function(use)
 				select = true,
 			}),
 			["<Tab>"] = cmp.mapping(function(fallback)
-				local col = vim.fn.col(".") - 1
 				if cmp.visible() then
 					cmp.select_next_item({ behavior = cmp.ConfirmBehavior.Select })
-				elseif col == 0 or vim.fn.getline("."):sub(col, col):match("%s") then
-					fallback()
 				else
-					cmp.complete()
+					fallback()
 				end
 			end, { "i", "s" }),
 			["<S-Tab>"] = cmp.mapping(function(fallback)
@@ -414,7 +409,7 @@ require("packer").startup(function(use)
 	)
 	vim.keymap.set(
 		"n",
-		"<C-b>",
+		"<C-d>",
 		[[<cmd>lua require('lspsaga.action').smart_scroll_with_saga(-1)<CR>]],
 		{ silent = true, noremap = true }
 	)
@@ -1214,6 +1209,7 @@ require("packer").startup(function(use)
 	-- デバッガー
 	use("mfussenegger/nvim-dap") -- noevim用デバッガアダプタプロトコル(各種debugger必須, インストール後に :helptags ALL を実行しておく)
 	use("mfussenegger/nvim-dap-python") -- python用dap(poetryサポートがpull request中なのでそのうち入るはず)
+	use("suketa/nvim-dap-ruby") -- ruby用dap(ruby 3.1から入ったdebug.rbに対応, railsについてはnot yet)
 	use("leoluz/nvim-dap-go") -- go用dap
 	-- use("Pocco81/dap-buddy.nvim") -- デバッガインストーラーが開発中
 
@@ -1223,29 +1219,8 @@ require("packer").startup(function(use)
 	dap_python.setup(require("os").getenv("HOME") .. "/.pyenv/shims/python")
 	dap_python.test_runner = "pytest"
 
-	dap.adapters.ruby = {
-		type = "executable",
-		command = "bundle",
-		args = { "exec", "readapt", "stdio" },
-	}
-	dap.configurations.ruby = {
-		{
-			type = "ruby",
-			request = "launch",
-			name = "Launch file",
-			program = "${file}",
-			programArgs = {},
-			useBundler = true,
-		},
-		{
-			type = "ruby",
-			request = "launch",
-			name = "Launch rails server",
-			program = "bundle",
-			programArgs = { "exec", "rails", "s" },
-			useBundler = true,
-		},
-	}
+	local dap_ruby = require("dap-ruby")
+	dap_ruby.setup()
 
 	dap.adapters.lldb = {
 		type = "executable",

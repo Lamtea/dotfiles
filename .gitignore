@@ -48,3 +48,6 @@
 ## ranger
 !/.config/ranger/
 !/.config/ranger/**/*
+
+# ruby gem設定ファイル
+!/Gemfile
