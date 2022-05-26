@@ -41,8 +41,9 @@ export PAGER=less
 export EDITOR=nvim
 export VISUAL=nvim
 export MAIL=~/Maildir
-export BROWSER=w3m
-
+if [ -z "$BROWSER" ]; then
+    export BROWSER=w3m
+fi
 
 # bemenuの設定
 export BEMENU_BACKEND=curses
