@@ -1,9 +1,9 @@
 -- プラグイン読込
 vim.cmd([[packadd packer.nvim]])
 require("packer").startup(function(use)
-    -- プラグインマネージャ
+    -- lua製プラグインマネージャ
     use({
-        "wbthomason/packer.nvim", -- lua製プラグインマネージャ
+        "wbthomason/packer.nvim",
         opt = true,
     })
 
@@ -32,195 +32,19 @@ require("packer").startup(function(use)
     require("plugins/treesitter").setup(use)
 
     -- ステータスライン
-    use({
-        "nvim-lualine/lualine.nvim", -- lua製のステータスライン
-        requires = {
-            "kyazdani42/nvim-web-devicons",
-            opt = true,
-        },
-        config = function()
-            local gps = require("nvim-gps")
-            require("lualine").setup({
-                options = {
-                    theme = "nightfox",
-                },
-                sections = {
-                    lualine_a = {
-                        "mode",
-                    },
-                    lualine_b = {
-                        "branch",
-                        "diff",
-                        "diagnostics",
-                    },
-                    lualine_c = {
-                        "filename",
-                        { gps.get_location, cond = gps.is_available },
-                    },
-                    lualine_x = {
-                        "encoding",
-                        "fileformat",
-                        "filetype",
-                    },
-                    lualine_y = {
-                        "progress",
-                    },
-                    lualine_z = {
-                        "location",
-                    },
-                },
-            })
-        end,
-    })
-    use({
-        "SmiteshP/nvim-gps", -- ステータスバーにカーソル位置のコンテキストを表示
-        requires = {
-            "nvim-treesitter/nvim-treesitter",
-        },
-        config = function()
-            require("nvim-gps").setup()
-        end,
-    })
+    require("plugins/status-line").setup(use)
 
     -- バッファライン
-    use({
-        "akinsho/bufferline.nvim", -- バッファをタブ表示
-        tag = "v2.*",
-        requires = "kyazdani42/nvim-web-devicons",
-        config = function()
-            require("bufferline").setup({
-                options = {
-                    numbers = "both",
-                    diagnostics = "nvim_lsp",
-                    show_buffer_close_icons = false,
-                    show_close_icon = false,
-                },
-            })
-        end,
-    })
-
-    vim.api.nvim_set_keymap("n", "<leader>n", "<Cmd>BufferLineCycleNext<CR>", { noremap = true, silent = true })
-    vim.api.nvim_set_keymap("n", "<leader>p", "<Cmd>BufferLineCyclePrev<CR>", { noremap = true, silent = true })
-    vim.api.nvim_set_keymap("n", "<leader>N", "<Cmd>BufferLineMoveNext<CR>", { noremap = true, silent = true })
-    vim.api.nvim_set_keymap("n", "<leader>P", "<Cmd>BufferLineMovePrev<CR>", { noremap = true, silent = true })
-    vim.api.nvim_set_keymap("n", "<leader>E", "<Cmd>BufferLineSortByExtension<CR>", { noremap = true, silent = true })
-    vim.api.nvim_set_keymap("n", "<leader>D", "<Cmd>BufferLineSortByDirectory<CR>", { noremap = true, silent = true })
-    vim.api.nvim_set_keymap("n", "<Leader>b", "<Cmd>BufferLinePick<CR>", { noremap = true, silent = true })
-    vim.api.nvim_set_keymap("n", "<Leader>1", "<Cmd>BufferLineGoToBuffer 1<CR>", { noremap = true, silent = true })
-    vim.api.nvim_set_keymap("n", "<Leader>2", "<Cmd>BufferLineGoToBuffer 2<CR>", { noremap = true, silent = true })
-    vim.api.nvim_set_keymap("n", "<Leader>3", "<Cmd>BufferLineGoToBuffer 3<CR>", { noremap = true, silent = true })
-    vim.api.nvim_set_keymap("n", "<Leader>4", "<Cmd>BufferLineGoToBuffer 4<CR>", { noremap = true, silent = true })
-    vim.api.nvim_set_keymap("n", "<Leader>5", "<Cmd>BufferLineGoToBuffer 5<CR>", { noremap = true, silent = true })
-    vim.api.nvim_set_keymap("n", "<Leader>6", "<Cmd>BufferLineGoToBuffer 6<CR>", { noremap = true, silent = true })
-    vim.api.nvim_set_keymap("n", "<Leader>7", "<Cmd>BufferLineGoToBuffer 7<CR>", { noremap = true, silent = true })
-    vim.api.nvim_set_keymap("n", "<Leader>8", "<Cmd>BufferLineGoToBuffer 8<CR>", { noremap = true, silent = true })
-    vim.api.nvim_set_keymap("n", "<Leader>9", "<Cmd>BufferLineGoToBuffer 9<CR>", { noremap = true, silent = true })
-    vim.api.nvim_set_keymap("n", "<Leader>q", "<Cmd>BufferLinePickClose<CR>", { noremap = true, silent = true })
-    vim.api.nvim_set_keymap("n", "<Leader>L", "<Cmd>BufferLineCloseLeft<CR>", { noremap = true, silent = true })
-    vim.api.nvim_set_keymap("n", "<Leader>R", "<Cmd>BufferLineCloseRight<CR>", { noremap = true, silent = true })
+    require("plugins/buffer-line").setup(use)
 
     -- サイドバー
-    use({
-        "sidebar-nvim/sidebar.nvim", -- 色々な情報を出すサイドバー(ファイラと違って隠しファイルも表示する設定にしてある)
-        config = function()
-            require("sidebar-nvim").setup({
-                disable_default_keybindings = 0,
-                bindings = {
-                    ["q"] = function()
-                        require("sidebar-nvim").close() -- qで閉じる
-                    end,
-                },
-                open = false,
-                side = "right",
-                initial_width = 40,
-                hide_statusline = false,
-                update_interval = 1000,
-                sections = {
-                    "datetime",
-                    "containers",
-                    "git",
-                    "diagnostics",
-                    "todos",
-                    "symbols",
-                    "buffers",
-                    "files",
-                },
-                section_separator = "------------------------------",
-                datetime = {
-                    icon = "",
-                    format = "%b %d日 (%a) %H:%M",
-                    clocks = { { name = "local" } },
-                },
-                ["git"] = {
-                    icon = "",
-                },
-                ["diagnostics"] = {
-                    icon = "",
-                },
-                todos = {
-                    icon = "",
-                    ignored_paths = { "~" },
-                    initially_closed = false,
-                },
-                containers = {
-                    icon = "",
-                    use_podman = false,
-                    attach_shell = "/bin/bash",
-                    show_all = true,
-                    interval = 5000,
-                },
-                buffers = {
-                    icon = "",
-                    ignored_buffers = {},
-                    sorting = "id",
-                    show_numbers = true,
-                },
-                files = {
-                    icon = "",
-                    show_hidden = true,
-                    ignored_paths = { "%.git$" },
-                },
-                symbols = {
-                    icon = "ƒ",
-                },
-            })
-        end,
-    })
-
-    vim.api.nvim_set_keymap("n", "gs", "<Cmd>SidebarNvimToggle<CR>", { noremap = true, silent = true })
+    require("plugins/sidebar").setup(use)
 
     -- ファイラ
-    -- neo-treeのレガシーコマンドは使用しない
-    vim.g.neo_tree_remove_legacy_commands = 1
-    use({
-        "nvim-neo-tree/neo-tree.nvim", -- 軽くて安定したlua製ファイラ(隠しファイルを表示する場合はサイドバーを使用)
-        branch = "v2.x",
-        requires = {
-            "nvim-lua/plenary.nvim",
-            "kyazdani42/nvim-web-devicons",
-            "MunifTanjim/nui.nvim",
-        },
-        config = function()
-            require("neo-tree").setup()
-        end,
-    })
-
-    -- xは特に意味はないが公式キーマップ((s)idebarの下の段)
-    vim.keymap.set("n", "gx", "<Cmd>Neotree reveal toggle <CR>", { noremap = true, silent = true })
+    require("plugins/filer").setup(use)
 
     -- スクロールバー
-    use({
-        "petertriho/nvim-scrollbar", -- スクロールバーを表示(nvim-hlslensと連携してスクロールバーにハイライト表示)
-        config = function()
-            require("scrollbar.handlers.search").setup()
-            require("scrollbar").setup({
-                handlers = {
-                    diagnostic = true,
-                    search = true,
-                },
-            })
-        end,
-    })
+    require("plugins/scrollbar").setup(use)
 
     -- スタート画面
     use({

@@ -70,7 +70,9 @@ Run this command: `install.sh`
 - kotlin
 - libgnome-keyring
 - lldb(c/cpp/rust debugger)
+- lua
 - luacheck(lua linter)
+- luarocks
 - neomutt
 - neovim
   - neovim-drop-in(aur, vi/vim simlink)
