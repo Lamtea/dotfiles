@@ -19,6 +19,7 @@ m.setup = function(use)
     m.setup_dap()
     m.setup_dap_python()
     m.setup_dap_ruby()
+    m.setup_dotnet()
     m.setup_dap_lldb()
     m.setup_dap_go()
     m.setup_dap_haskell()
@@ -59,11 +60,30 @@ m.setup_dap_php = function()
     }
 end
 
+m.setup_dotnet = function()
+    local dap = require("dap")
+    dap.adapters.coreclr = {
+        type = "executable",
+        command = "netcoredbg",
+        args = { "--interpreter=vscode" },
+    }
+    dap.configurations.cs = {
+        {
+            type = "coreclr",
+            name = "Launch",
+            request = "launch",
+            program = function()
+                return vim.fn.input("Path to dll", vim.fn.getcwd() .. "/bin/Debug/", "file")
+            end,
+        },
+    }
+end
+
 m.setup_dap_lldb = function()
     local dap = require("dap")
     dap.adapters.lldb = {
         type = "executable",
-        command = "/usr/bin/lldb-vscode",
+        command = "lldb-vscode",
         name = "lldb",
     }
     dap.configurations.cpp = {

@@ -74,6 +74,9 @@ export PATH="$HOME/.local/bin:$PATH"
 source "$HOME/.asdf/plugins/dotnet-core/set-dotnet-home.zsh"
 export PATH="$HOME/.dotnet/tools:$PATH"
 
+# userの設定
+export PATH="$HOME/bin:$PATH"
+
 # PATHの重複を除去
 typeset -U PATH
 

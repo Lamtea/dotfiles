@@ -80,6 +80,7 @@ Run this command: `install.sh`
   - nodejs-neovim(aur)
   - python-pynvim
   - wbthomason/packer.nvim(from install script, see: gitHub)
+- netcoredbg(aur, cs debugger)
 - nginx
 - nodejs-jsonlint(aur, json linter)
 - nodejs-lts-gallium
