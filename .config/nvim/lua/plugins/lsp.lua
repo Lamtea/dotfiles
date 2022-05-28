@@ -19,9 +19,7 @@ m.setup = function(use)
         requires = "kyazdani42/nvim-web-devicons",
     })
     -- lspプログレス
-    use({
-        "j-hui/fidget.nvim",
-    })
+    use("j-hui/fidget.nvim")
     -- lsp単語ハイライト(vimscript)
     use("RRethy/vim-illuminate")
     -- neovimがkotlinのファイルタイプを認識しないために必要
@@ -97,9 +95,7 @@ m.setup_lsp = function()
 
         buf_set_keymap("n", "<space>l", "lua vim.lsp.diagnostic.set_loclist()", opts)
         buf_set_keymap("n", "<space>q", "lua vim.lsp.diagnostic.set_qflist()", opts)
-
-        -- バージョン 0.8 は format メソッドを使用すること(see: github)
-        buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
+        buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.format()<CR>", opts)
     end
 
     -- インストール済のlspとlsp用補完をアタッチする
@@ -120,8 +116,7 @@ m.setup_lsp = function()
     -- haskell
     lspconfig.hls.setup({
         haskell = {
-            -- null-ls側のサポートに合わせる
-            formattingProvider = "fourmolu",
+            formattingProvider = "Stylish Haskell",
         },
     })
     -- html
@@ -146,7 +141,8 @@ m.setup_lsp = function()
                     },
                 },
                 format = {
-                    enable = true,
+                    -- formatterはstyluaを使用
+                    enable = false,
                     defaultConfig = {
                         indent_style = "space",
                         indent_size = "4",
@@ -259,8 +255,8 @@ vim.keymap.set("x", "<space>a", ":<C-u>Lspsaga range_code_action<CR>", { silent 
 -- インターフェースドキュメント(ドキュメントコメント対応, shellだとmanページが開く)
 vim.keymap.set("n", "K", "<cmd>Lspsaga hover_doc<CR>", { silent = true, noremap = true })
 -- lspsagaのUIでスクロール
-vim.cmd [[nnoremap <silent> <C-f> <cmd>lua require('lspsaga.action').smart_scroll_with_saga(1)<CR>]]
-vim.cmd [[nnoremap <silent> <C-d> <cmd>lua require('lspsaga.action').smart_scroll_with_saga(-1)<CR>]]
+vim.cmd([[nnoremap <silent> <C-f> <cmd>lua require('lspsaga.action').smart_scroll_with_saga(1)<CR>]])
+vim.cmd([[nnoremap <silent> <C-d> <cmd>lua require('lspsaga.action').smart_scroll_with_saga(-1)<CR>]])
 -- メソッドの引数シグネチャヘルプ
 vim.keymap.set("n", "<C-k>", "<cmd>Lspsaga signature_help<CR>", { silent = true, noremap = true })
 -- 識別子のリネーム
@@ -286,19 +282,9 @@ vim.cmd([[tnoremap <silent> <M-f> <C-\><C-n>:Lspsaga close_floaterm<CR>]])
 -- 診断ウィンドウを開く(直前のモード, デフォルトはワークスペース)
 vim.api.nvim_set_keymap("n", "<leader>xx", "<cmd>Trouble<CR>", { silent = true, noremap = true })
 -- 診断ウィンドウを開く(ワークスペースの診断)
-vim.api.nvim_set_keymap(
-    "n",
-    "<leader>xw",
-    "<cmd>Trouble workspace_diagnostics<CR>",
-    { silent = true, noremap = true }
-)
+vim.api.nvim_set_keymap("n", "<leader>xw", "<cmd>Trouble workspace_diagnostics<CR>", { silent = true, noremap = true })
 -- 診断ウィンドウを開く(現在ドキュメントの診断)
-vim.api.nvim_set_keymap(
-    "n",
-    "<leader>xd",
-    "<cmd>Trouble document_diagnostics<CR>",
-    { silent = true, noremap = true }
-)
+vim.api.nvim_set_keymap("n", "<leader>xd", "<cmd>Trouble document_diagnostics<CR>", { silent = true, noremap = true })
 -- カーソル下のシンボルの参照(開いているすべてのバッファ対象)を診断ウィンドウで開く
 vim.api.nvim_set_keymap("n", "gr", "<cmd>Trouble lsp_references<CR>", { silent = true, noremap = true })
 

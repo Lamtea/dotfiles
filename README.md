@@ -16,6 +16,7 @@ Run this command: `install.sh`
   - golangci-lint(asdf, go linter)
   - hadolint(asdf, dockerfile linter)
   - ktlint(asdf, kotlin linter/formatter)
+  - neovim(asdf)
   - nodejs(asdf)
     - editorconfig-checker(npm)
     - eslint_d(npm)

@@ -341,8 +341,8 @@ require("packer").startup(function(use)
     -- use("Pocco81/dap-buddy.nvim") -- デバッガインストーラーが開発中
 
     local dap = require("dap")
-    local dap_ext_vscode = require('dap.ext.vscode')
-    dap_ext_vscode.load_launchjs('.vscode/launch.json') -- vscodeと違って標準JSONなので末尾のコンマはエラーになる点に注意
+    local dap_ext_vscode = require("dap.ext.vscode")
+    dap_ext_vscode.load_launchjs(".vscode/launch.json") -- vscodeと違って標準JSONなので末尾のコンマはエラーになる点に注意
 
     local dap_python = require("dap-python")
     dap_python.setup(require("os").getenv("HOME") .. "/.pyenv/shims/python")

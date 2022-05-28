@@ -179,6 +179,9 @@ alias mv='mv -i'
 alias mkdir='mkdir -p'
 alias diff='colordiff -u'
 alias grep='grep --color=auto'
+alias vi='nvim'
+alias vim='nvim'
+alias update-nvim-nightly='asdf uninstall neovim nightly && asdf install neovim nightly'
 
 ########################################
 # tmux自動起動
