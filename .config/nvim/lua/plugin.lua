@@ -8,188 +8,64 @@ require("packer").startup(function(use)
     })
 
     -- ライブラリ
-    require("plugins/lib").setup(use)
+    require("plugins.lib").setup(use)
 
     -- 通知
-    require("plugins/notify").setup(use)
+    require("plugins.notify").setup(use)
 
     -- カラースキーム
-    require("plugins/colorscheme").setup(use)
+    require("plugins.colorscheme").setup(use)
 
     -- lsp
-    require("plugins/lsp").setup(use)
+    require("plugins.lsp").setup(use)
 
     -- linter/formatter
-    require("plugins/null-ls").setup(use)
+    require("plugins.null-ls").setup(use)
 
     -- lsp/スニペット補完
-    require("plugins/completion").setup(use)
+    require("plugins.completion").setup(use)
 
     -- ファジーファインダー
-    require("plugins/fzf").setup(use)
+    require("plugins.fzf").setup(use)
 
     -- treesitter
-    require("plugins/treesitter").setup(use)
+    require("plugins.treesitter").setup(use)
 
     -- ステータスライン
-    require("plugins/status-line").setup(use)
+    require("plugins.status-line").setup(use)
 
     -- バッファライン
-    require("plugins/buffer-line").setup(use)
+    require("plugins.buffer-line").setup(use)
 
     -- サイドバー
-    require("plugins/sidebar").setup(use)
+    require("plugins.sidebar").setup(use)
 
     -- ファイラ
-    require("plugins/filer").setup(use)
+    require("plugins.filer").setup(use)
 
     -- スクロールバー
-    require("plugins/scrollbar").setup(use)
+    require("plugins.scrollbar").setup(use)
 
     -- スタート画面
-    require("plugins/start-page").setup(use)
+    require("plugins.start-page").setup(use)
 
     -- ターミナル
-    require("plugins/terminal").setup(use)
+    require("plugins.terminal").setup(use)
 
     -- ヘルプ
-    require("plugins/help").setup(use)
+    require("plugins.help").setup(use)
 
     -- ハイライト
-    require("plugins/highlight").setup(use)
+    require("plugins.highlight").setup(use)
 
     -- 標準機能
-    require("plugins/basic").setup(use)
+    require("plugins.basic").setup(use)
 
     -- テスト
-    use({
-        "michaelb/sniprun", -- 部分実行できるコードランナー
-        run = "bash ./install.sh",
-        config = function()
-            require("sniprun").setup()
-        end,
-    })
-
-    vim.api.nvim_set_keymap(
-        "n",
-        "<leader>rr",
-        [[<Cmd>lua require('sniprun').run()<CR>]],
-        { noremap = true, silent = true }
-    ) -- runner run
-    vim.api.nvim_set_keymap(
-        "x",
-        "<leader>rr",
-        [[<Cmd>lua require('sniprun').run('v')<CR>]],
-        { noremap = true, silent = true }
-    ) -- runner run
-    vim.api.nvim_set_keymap(
-        "n",
-        "<leader>rd",
-        [[<Cmd>lua require('sniprun').reset()<CR>]],
-        { noremap = true, silent = true }
-    ) -- runner delete
-    vim.api.nvim_set_keymap(
-        "n",
-        "<leader>rc",
-        [[<Cmd>lua require('sniprun.display').close_all()<CR>]],
-        { noremap = true, silent = true }
-    ) -- runner close
+    require("plugins.test").setup(use)
 
     -- git
-    use({
-        "TimUntersberger/neogit", -- gitクライアント(dでdiffviewが起動できる)
-        requires = {
-            "nvim-lua/plenary.nvim",
-        },
-        config = function()
-            require("neogit").setup({
-                disable_commit_confirmation = true,
-                kind = "tab",
-                commit_popup = {
-                    kind = "split",
-                },
-                integrations = {
-                    diffview = true,
-                },
-            })
-        end,
-    })
-    use({
-        "sindrets/diffview.nvim", -- git diff(キーバインドは標準 see: github)
-        requires = {
-            "nvim-lua/plenary.nvim",
-        },
-        config = function()
-            require("diffview").setup()
-        end,
-    })
-
-    vim.api.nvim_set_keymap("n", "<leader><leader>gg", "<Cmd>Neogit<CR>", { noremap = true, silent = true })
-    vim.api.nvim_set_keymap("n", "<leader><leader>gd", "<Cmd>DiffviewOpen<CR>", { noremap = true, silent = true })
-    vim.api.nvim_set_keymap(
-        "n",
-        "<leader><leader>gh",
-        "<Cmd>DiffviewFileHistory<CR>",
-        { noremap = true, silent = true }
-    )
-
-    use({
-        "lewis6991/gitsigns.nvim", -- gitの状態をカラムにサイン表示
-        config = function()
-            require("gitsigns").setup({
-                on_attach = function(bufnr)
-                    local gs = package.loaded.gitsigns
-
-                    local function map(mode, l, r, opts)
-                        opts = opts or {}
-                        opts.buffer = bufnr
-                        vim.keymap.set(mode, l, r, opts)
-                    end
-
-                    -- Navigation
-                    map("n", "]h", function()
-                        if vim.wo.diff then
-                            return "]h"
-                        end
-                        vim.schedule(function()
-                            gs.next_hunk()
-                        end)
-                        return "<Ignore>"
-                    end, { expr = true })
-
-                    map("n", "[h", function()
-                        if vim.wo.diff then
-                            return "[h"
-                        end
-                        vim.schedule(function()
-                            gs.prev_hunk()
-                        end)
-                        return "<Ignore>"
-                    end, { expr = true })
-
-                    -- Actions
-                    map({ "n", "v" }, "<leader><leader>gs", ":Gitsigns stage_hunk<CR>")
-                    map({ "n", "v" }, "<leader><leader>gr", ":Gitsigns reset_hunk<CR>")
-                    map("n", "<leader><leader>gS", gs.stage_buffer)
-                    map("n", "<leader><leader>gu", gs.undo_stage_hunk)
-                    map("n", "<leader><leader>gR", gs.reset_buffer)
-                    map("n", "<leader><leader>gg", gs.preview_hunk)
-                    map("n", "<leader><leader>gb", function()
-                        gs.blame_line({ full = true })
-                    end)
-                    map("n", "<leader><leader>gB", gs.toggle_current_line_blame)
-                    -- map("n", "<leader><leader>gd", gs.diffthis) diffview
-                    -- map("n", "<leader><leader>gD", function()
-                    -- 	   gs.diffthis("~")
-                    -- end) diffview
-                    map("n", "<leader><leader>gD", gs.toggle_deleted)
-
-                    -- Text object
-                    map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>")
-                end,
-            })
-        end,
-    })
+    require("plugins.git").setup(use)
 
     -- github
     use({
