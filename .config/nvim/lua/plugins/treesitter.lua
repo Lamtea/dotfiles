@@ -75,21 +75,21 @@ m.setup_treesitter = function()
                     ["if"] = "@function.inner",
                     ["ac"] = "@class.outer",
                     ["ic"] = "@class.inner",
-                    ["ab"] = "@block.outer",
-                    ["ib"] = "@block.inner",
-                    ["aC"] = "@conditional.outer",
-                    ["iC"] = "@conditional.inner",
+                    ["aB"] = "@block.outer",
+                    ["iB"] = "@block.inner",
+                    ["ai"] = "@conditional.outer",
+                    ["ii"] = "@conditional.inner",
                     ["al"] = "@loop.outer",
                     ["il"] = "@loop.inner",
                     ["ap"] = "@parameter.outer",
                     ["ip"] = "@parameter.inner",
-                    ["aF"] = "@frame.outer",
-                    ["iF"] = "@frame.inner",
-                    ["aS"] = "@statement.outer",
-                    ["iS"] = "@scopename.inner",
-                    ["am"] = "@comment.outer", -- comment
-                    ["ao"] = "@call.outer", -- object
-                    ["io"] = "@call.inner", -- object
+                    -- ["aF"] = "@frame.outer",
+                    -- ["iF"] = "@frame.inner",
+                    -- ["aS"] = "@statement.outer",
+                    -- ["iS"] = "@scopename.inner",
+                    -- ["a"] = "@comment.outer",
+                    -- ["a"] = "@call.outer",
+                    -- ["i"] = "@call.inner",
                 },
             },
             swap = {
@@ -104,28 +104,25 @@ m.setup_treesitter = function()
             move = {
                 enable = true,
                 goto_next_start = {
-                    ["]f"] = "@function.outer",
-                    ["]c"] = "@class.outer",
-                    ["]b"] = "@block.outer",
+                    ["]m"] = "@function.outer",
+                    ["]]"] = "@class.outer",
                 },
                 goto_next_end = {
-                    ["]F"] = "@function.outer",
-                    ["]C"] = "@class.outer",
-                    ["]B"] = "@block.outer",
+                    ["]M"] = "@function.outer",
+                    ["]["] = "@class.outer",
                 },
                 goto_previous_start = {
-                    ["[f"] = "@function.outer",
-                    ["[c"] = "@class.outer",
-                    ["[b"] = "@block.outer",
+                    ["[m"] = "@function.outer",
+                    ["[["] = "@class.outer",
                 },
                 goto_previous_end = {
-                    ["[F"] = "@function.outer",
-                    ["[C"] = "@class.outer",
-                    ["[B"] = "@block.outer",
+                    ["[M"] = "@function.outer",
+                    ["[]"] = "@class.outer",
                 },
             },
             lsp_interop = {
-                enable = true,
+                -- lspsagaのプレビューを使用
+                enable = false,
                 peek_definition_code = {
                     ["<leader>lf"] = "@function.outer",
                     ["<leader>lc"] = "@class.outer",

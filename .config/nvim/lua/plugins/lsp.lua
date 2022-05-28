@@ -64,7 +64,7 @@ m.setup_lsp = function()
 
         -- telescope使用<leader>li
         -- quickfixにカーソル下のシンボルの実装をリストする
-        buf_set_keymap("n", "gl", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
+        buf_set_keymap("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
 
         -- lspsaga使用
         -- buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
@@ -75,13 +75,13 @@ m.setup_lsp = function()
 
         -- telescope使用<leader>lt
         -- カーソル下のシンボルの型定義にジャンプする
-        buf_set_keymap("n", "gy", "<cmd>lua vim.lsp.buf.type_definition()<CR>", opts)
+        buf_set_keymap("n", "<space>D", "<cmd>lua vim.lsp.buf.type_definition()<CR>", opts)
 
         -- lspsaga使用
-        -- buf_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+        -- buf_set_keymap('n', '<space>r', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
 
         -- lspsaga使用
-        -- buf_set_keymap('n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
+        -- buf_set_keymap('n', '<space>a', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
 
         -- trouble使用, telescope使用<leader>lr
         -- buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
@@ -175,7 +175,7 @@ m.setup_lspsaga = function()
         },
         finder_definition_icon = "  ",
         finder_reference_icon = "  ",
-        max_preview_lines = 10,
+        max_preview_lines = 40,
         finder_action_keys = {
             open = "o",
             vsplit = "s",
@@ -253,27 +253,16 @@ end
 -- カーソル下のシンボルの定義と参照を検索(ワークスペース対象)
 vim.keymap.set("n", "gh", "<cmd>Lspsaga lsp_finder<CR>", { silent = true, noremap = true })
 -- コードアクション
-vim.keymap.set("n", "<space>c", "<cmd>Lspsaga code_action<CR>", { silent = true, noremap = true })
+vim.keymap.set("n", "<space>a", "<cmd>Lspsaga code_action<CR>", { silent = true, noremap = true })
 -- 範囲コードアクション(ブロックレベルなど)
-vim.keymap.set("x", "<space>c", ":<C-u>Lspsaga range_code_action<CR>", { silent = true, noremap = true })
+vim.keymap.set("x", "<space>a", ":<C-u>Lspsaga range_code_action<CR>", { silent = true, noremap = true })
 -- インターフェースドキュメント(ドキュメントコメント対応, shellだとmanページが開く)
 vim.keymap.set("n", "K", "<cmd>Lspsaga hover_doc<CR>", { silent = true, noremap = true })
--- lspsagaのUIでスクロール前進
-vim.keymap.set(
-    "n",
-    "<C-f>",
-    [[<cmd>lua require('lspsaga.action').smart_scroll_with_saga(1)<CR>]],
-    { silent = true, noremap = true }
-)
--- lspsagaのUIでスクロール後退(<C-b>はtmuxで使用されるため)
-vim.keymap.set(
-    "n",
-    "<C-d>",
-    [[<cmd>lua require('lspsaga.action').smart_scroll_with_saga(-1)<CR>]],
-    { silent = true, noremap = true }
-)
+-- lspsagaのUIでスクロール
+vim.cmd [[nnoremap <silent> <C-f> <cmd>lua require('lspsaga.action').smart_scroll_with_saga(1)<CR>]]
+vim.cmd [[nnoremap <silent> <C-d> <cmd>lua require('lspsaga.action').smart_scroll_with_saga(-1)<CR>]]
 -- メソッドの引数シグネチャヘルプ
-vim.keymap.set("n", "<space>k", "<cmd>Lspsaga signature_help<CR>", { silent = true, noremap = true })
+vim.keymap.set("n", "<C-k>", "<cmd>Lspsaga signature_help<CR>", { silent = true, noremap = true })
 -- 識別子のリネーム
 vim.keymap.set("n", "<space>r", "<cmd>Lspsaga rename<CR>", { silent = true, noremap = true })
 -- 定義のプレビュー
