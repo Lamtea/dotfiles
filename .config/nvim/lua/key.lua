@@ -11,3 +11,5 @@ api.nvim_set_keymap("n", "<C-k>", "<C-w><C-k>", { noremap = true, silent = true 
 api.nvim_set_keymap("n", "<C-l>", "<C-w><C-l>", { noremap = true, silent = true })
 -- タブを閉じる
 api.nvim_set_keymap("n", "<M-q>", "<Cmd>tabclose<CR>", { noremap = true, silent = true })
+-- ハイライトを消す
+api.nvim_set_keymap("n", "<Leader>h", ":noh<CR>", { noremap = true, silent = true })

@@ -11,9 +11,9 @@ m.setup = function(use)
     -- ソーター(cmake必須 see:github)
     use({
         "nvim-telescope/telescope-fzf-native.nvim",
-        run = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && " ..
-            "cmake --build build --config Release && " ..
-            "cmake --install build --prefix build",
+        run = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && "
+            .. "cmake --build build --config Release && "
+            .. "cmake --install build --prefix build",
     })
 
     m.setup_telescope()
@@ -62,12 +62,7 @@ m.setup_telescope = function()
 end
 
 -- telescope builtin picker検索
-vim.api.nvim_set_keymap(
-    "n",
-    "<leader>fp",
-    [[<cmd>lua require('telescope.builtin').builtin()<CR>]],
-    { noremap = true }
-)
+vim.api.nvim_set_keymap("n", "<leader>fp", [[<cmd>lua require('telescope.builtin').builtin()<CR>]], { noremap = true })
 -- ファイル検索
 vim.api.nvim_set_keymap(
     "n",
@@ -106,12 +101,7 @@ vim.api.nvim_set_keymap(
     { noremap = true }
 )
 -- バッファ検索
-vim.api.nvim_set_keymap(
-    "n",
-    "<leader>fb",
-    [[<cmd>lua require('telescope.builtin').buffers()<CR>]],
-    { noremap = true }
-)
+vim.api.nvim_set_keymap("n", "<leader>fb", [[<cmd>lua require('telescope.builtin').buffers()<CR>]], { noremap = true })
 -- 現在開いているバッファ内のライブ検索
 vim.api.nvim_set_keymap(
     "n",
@@ -120,12 +110,7 @@ vim.api.nvim_set_keymap(
     { noremap = true }
 )
 -- コマンド検索
-vim.api.nvim_set_keymap(
-    "n",
-    "<leader>fc",
-    [[<cmd>lua require('telescope.builtin').commands()<CR>]],
-    { noremap = true }
-)
+vim.api.nvim_set_keymap("n", "<leader>fc", [[<cmd>lua require('telescope.builtin').commands()<CR>]], { noremap = true })
 -- コマンドヒストリ検索
 vim.api.nvim_set_keymap(
     "n",
@@ -136,7 +121,7 @@ vim.api.nvim_set_keymap(
 -- レジスタ検索
 vim.api.nvim_set_keymap(
     "n",
-    "<leader>fr",
+    "<leader>fR",
     [[<cmd>lua require('telescope.builtin').registers()<CR>]],
     { noremap = true }
 )
@@ -149,12 +134,7 @@ vim.api.nvim_set_keymap(
     { noremap = true }
 )
 -- quickfix検索
-vim.api.nvim_set_keymap(
-    "n",
-    "<leader>fq",
-    [[<cmd>lua require('telescope.builtin').quickfix()<CR>]],
-    { noremap = true }
-)
+vim.api.nvim_set_keymap("n", "<leader>fq", [[<cmd>lua require('telescope.builtin').quickfix()<CR>]], { noremap = true })
 -- quickfixヒストリ検索
 vim.api.nvim_set_keymap(
     "n",
@@ -163,26 +143,11 @@ vim.api.nvim_set_keymap(
     { noremap = true }
 )
 -- loclist検索
-vim.api.nvim_set_keymap(
-    "n",
-    "<leader>fl",
-    [[<cmd>lua require('telescope.builtin').loclist()<CR>]],
-    { noremap = true }
-)
+vim.api.nvim_set_keymap("n", "<leader>fl", [[<cmd>lua require('telescope.builtin').loclist()<CR>]], { noremap = true })
 -- mark検索
-vim.api.nvim_set_keymap(
-    "n",
-    "<leader>fm",
-    [[<cmd>lua require('telescope.builtin').marks()<CR>]],
-    { noremap = true }
-)
+vim.api.nvim_set_keymap("n", "<leader>fm", [[<cmd>lua require('telescope.builtin').marks()<CR>]], { noremap = true })
 -- jump list検索
-vim.api.nvim_set_keymap(
-    "n",
-    "<leader>fj",
-    [[<cmd>lua require('telescope.builtin').jumplist()<CR>]],
-    { noremap = true }
-)
+vim.api.nvim_set_keymap("n", "<leader>fj", [[<cmd>lua require('telescope.builtin').jumplist()<CR>]], { noremap = true })
 -- man page検索
 vim.api.nvim_set_keymap(
     "n",
@@ -192,12 +157,7 @@ vim.api.nvim_set_keymap(
     { noremap = true }
 )
 -- normalモードのkeymap検索
-vim.api.nvim_set_keymap(
-    "n",
-    "<leader>fk",
-    [[<cmd>lua require('telescope.builtin').keymaps()<CR>]],
-    { noremap = true }
-)
+vim.api.nvim_set_keymap("n", "<leader>fk", [[<cmd>lua require('telescope.builtin').keymaps()<CR>]], { noremap = true })
 -- vimオプション検索
 vim.api.nvim_set_keymap(
     "n",
