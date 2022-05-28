@@ -1,4 +1,5 @@
 local m = {}
+local vsext_path = require("os").getenv("HOME") .. "/dev/vscode"
 
 m.setup = function(use)
     -- noevim用デバッガアダプタプロトコル
@@ -21,6 +22,7 @@ m.setup = function(use)
     m.setup_dap_lldb()
     m.setup_dap_go()
     m.setup_dap_haskell()
+    m.setup_dap_php()
 end
 
 m.setup_dap = function()
@@ -38,6 +40,23 @@ end
 m.setup_dap_ruby = function()
     local dap_ruby = require("dap-ruby")
     dap_ruby.setup()
+end
+
+m.setup_dap_php = function()
+    local dap = require("dap")
+    dap.adapters.php = {
+        type = "executable",
+        command = "node",
+        args = { vsext_path .. "/vscode-php-debug/out/phpDebug.js" },
+    }
+    dap.configurations.php = {
+        {
+            type = "php",
+            request = "launch",
+            name = "Listen for Xdebug",
+            port = 9003,
+        },
+    }
 end
 
 m.setup_dap_lldb = function()
