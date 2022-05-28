@@ -68,17 +68,7 @@ require("packer").startup(function(use)
     require("plugins.git").setup(use)
 
     -- github
-    use({
-        "pwntester/octo.nvim", -- :Octo <object> <action> [argument] コマンド(TAB補完推奨)でgithub-cliと同じようなことができる(github-cli必須)
-        requires = {
-            "nvim-lua/plenary.nvim",
-            "nvim-telescope/telescope.nvim",
-            "kyazdani42/nvim-web-devicons",
-        },
-        config = function()
-            require("octo").setup()
-        end,
-    })
+    require("plugins.github").setup(use)
 
     -- デバッガー
     use("mfussenegger/nvim-dap") -- noevim用デバッガアダプタプロトコル(各種debugger必須, インストール後に :helptags ALL を実行しておく)
