@@ -76,6 +76,7 @@ dotfiles_or_dirs=(
 	bin/update-asdf-deno.sh
 	bin/update-asdf-golang.sh
 	bin/update-asdf-dotnet-core.sh
+	bin/update-dotnet-core-tools.sh
 	Gemfile
 )
 

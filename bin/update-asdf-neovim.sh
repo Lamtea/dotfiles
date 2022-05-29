@@ -1,7 +1,7 @@
 #!/bin/bash
 
 ESC=$(printf '\033')
-printf "${ESC}[1;36m%s${ESC}[m\n" '***** asdf neovim updateting... *****'
+printf "${ESC}[1;36m%s${ESC}[m\n" '***** asdf neovim updating... *****'
 
 if ! command -v asdf 1>/dev/null 2>&1; then
 	printf "${ESC}[1;31m%s${ESC}[m\n" '***** asdf NOT installed. *****'

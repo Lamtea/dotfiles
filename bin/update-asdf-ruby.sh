@@ -1,7 +1,7 @@
 #!/bin/bash
 
 ESC=$(printf '\033')
-printf "${ESC}[1;36m%s${ESC}[m\n" '***** asdf ruby updateting... *****'
+printf "${ESC}[1;36m%s${ESC}[m\n" '***** asdf ruby and bundle updating... *****'
 
 if ! command -v asdf 1>/dev/null 2>&1; then
 	printf "${ESC}[1;31m%s${ESC}[m\n" '***** asdf NOT installed. *****'
@@ -22,7 +22,7 @@ asdf install ruby latest &&
 	asdf global ruby "$(asdf list ruby | grep '[0-9]\+' | tail -n 1 | xargs)" &&
 	cd "$HOME" &&
 	bundle update &&
-	printf "${ESC}[1;32m%s${ESC}[m\n" '***** asdf ruby updated. *****.' &&
+	printf "${ESC}[1;32m%s${ESC}[m\n" '***** asdf ruby and bundle updated. *****.' &&
 	exit 0 ||
-	printf "${ESC}[1;31m%s${ESC}[m\n" '***** asdf ruby update failed. *****' &&
+	printf "${ESC}[1;31m%s${ESC}[m\n" '***** asdf ruby and bundle update failed. *****' &&
 	exit 3
