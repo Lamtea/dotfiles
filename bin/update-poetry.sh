@@ -4,7 +4,7 @@ ESC=$(printf '\033')
 printf "${ESC}[1;36m%s${ESC}[m\n" '***** poetry updating... *****'
 
 if ! command -v poetry 1>/dev/null 2>&1; then
-	printf "${ESC}[1;31m%s${ESC}[m\n" '***** poetry NOT installed.*****'
+	printf "${ESC}[1;31m%s${ESC}[m\n" '***** poetry NOT installed. *****'
 	exit 1
 fi
 

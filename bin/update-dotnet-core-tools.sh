@@ -4,7 +4,7 @@ ESC=$(printf '\033')
 printf "${ESC}[1;36m%s${ESC}[m\n" '***** dotnet-core tools updating... *****'
 
 if ! command -v dotnet 1>/dev/null 2>&1; then
-	printf "${ESC}[1;31m%s${ESC}[m\n" '***** dotnet-core NOT installed.*****'
+	printf "${ESC}[1;31m%s${ESC}[m\n" '***** dotnet-core NOT installed. *****'
 	exit 1
 fi
 
