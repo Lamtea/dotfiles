@@ -78,6 +78,7 @@ dotfiles_or_dirs=(
 	bin/update-asdf-dotnet-core.sh
 	bin/update-dotnet-core-tools.sh
 	bin/update-ghcup.sh
+	bin/update-rustup.sh
 	Gemfile
 )
 
