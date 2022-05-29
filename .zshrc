@@ -29,7 +29,7 @@ zinit light romkatv/powerlevel10k
 zinit light asdf-vm/asdf
 
 # powerlevel10k読込
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+[[ ! -f $HOME/.p10k.zsh ]] || source ~/.p10k.zsh
 
 ######################################
 # 環境変数
@@ -41,9 +41,7 @@ export PAGER=less
 export EDITOR=nvim
 export VISUAL=nvim
 export MAIL=~/Maildir
-if [ -z "$BROWSER" ]; then
-    export BROWSER=w3m
-fi
+[[ -z "$BROWSER" ]] && export BROWSER=w3m
 
 # bemenuの設定
 export BEMENU_BACKEND=curses
@@ -53,26 +51,54 @@ export BEMENU_OPTS='--scrollbar=autohide'
 eval $(gnome-keyring-daemon --start --components=pkcs11,secrets,ssh 2>/dev/null)
 export SSH_AUTH_SOCK
 
+# asdfの設定
+if [[ ! -d $HOME/.asdf ]]; then
+    print -P "%F{33} %F{220}Installing %F{33}asdf%F{220} tool version manager…%f"
+    git clone https://github.com/asdf-vm/asdf.git ~/.asdf && \
+        print -P "%F{33} %F{34}Installation successful.%f%b" || \
+        print -P "%F{160} Instllation failed.%f%b"
+fi
+
 # pyenvの設定
+if [[ ! -d $HOME/.pyenv ]]; then
+    print -P "%F{33} %F{220}Installing %F{33}pyenv%F{220} python version manager…%f"
+    curl https://pyenv.run | bash && \
+        print -P "%F{33} %F{34}Installation successful.%f%b" || \
+        print -P "%F{160} Instllation failed.%f%b"
+fi
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
 if command -v pyenv 1>/dev/null 2>&1; then
     eval "$(pyenv init -)"
+    eval "$(pyenv virtualenv-init -)"
 fi
 
 # poetryの設定
+if [[ ! -d $HOME/.poetry ]]; then
+    print -P "%F{33} %F{220}Installing %F{33}poetry%F{220} python environment manager…%f"
+    curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python && \
+        print -P "%F{33} %F{34}Installation successful.%f%b" || \
+        print -P "%F{160} Instllation failed.%f%b"
+fi
 export PATH="$HOME/.poetry/bin:$PATH"
 
 # rustupの設定
-source "$HOME/.cargo/env"
+if [[ ! -d $HOME/.cargo ]]; then
+    print -P "%F{33} %F{220}Installing %F{33}rustup%F{220} rust tool manager…%f"
+    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh && \
+        print -P "%F{33} %F{34}Installation successful.%f%b" || \
+        print -P "%F{160} Instllation failed.%f%b"
+fi
+[[ -f $HOME/.cargo/env ]] && source "$HOME/.cargo/env"
+
+# dotnetの設定
+[[ -f $HOME/.asdf/plugins/dotnet-core/set-dotnet-home.zsh ]] && \
+    source "$HOME/.asdf/plugins/dotnet-core/set-dotnet-home.zsh"
+export PATH="$HOME/.dotnet/tools:$PATH"
 
 # ghcupの設定
 export PATH="$HOME/.ghcup/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
-
-# dotnetの設定
-source "$HOME/.asdf/plugins/dotnet-core/set-dotnet-home.zsh"
-export PATH="$HOME/.dotnet/tools:$PATH"
 
 # userの設定
 export PATH="$HOME/bin:$PATH"
@@ -104,16 +130,37 @@ zstyle ':zle:*' word-style unspecified
 # asdfの設定
 fpath=(${ASDF_DIR}/completions $fpath)
 
-# poetry/rustup/cargoの設定
+# zfuncの設定
+[[ ! -d $HOME/.zfunc ]] && mkdir ~/.zfunc
+if [[ ! -f $HOME/.zfunc/_poetry ]]; then
+    print -P "%F{33} %F{220}Installing %F{33}poetry%F{220} completions…%f"
+    poetry completions zsh > ~/.zfunc/_poetry && \
+        print -P "%F{33} %F{34}Installation successful.%f%b" || \
+        print -P "%F{160} Instllation failed.%f%b"
+fi
+if [[ ! -f $HOME/.zfunc/_rustup ]]; then
+    print -P "%F{33} %F{220}Installing %F{33}rustup%F{220} completions…%f"
+    rustup completions zsh > ~/.zfunc/_rustup && \
+        print -P "%F{33} %F{34}Installation successful.%f%b" || \
+        print -P "%F{160} Instllation failed.%f%b"
+fi
+if [[ ! -f $HOME/.zfunc/_cargo ]]; then
+    print -P "%F{33} %F{220}Installing %F{33}cargo%F{220} completions…%f"
+    ln -sf ~/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/share/zsh/site-functions/_cargo ~/.zfunc/_cargo && \
+        print -P "%F{33} %F{34}Installation successful.%f%b" || \
+        print -P "%F{160} Instllation failed.%f%b"
+fi
 fpath+=~/.zfunc
 
 # dotnetの設定
 _dotnet_zsh_complete()
 {
-  local completions=("$(dotnet complete "$words")")
-  reply=( "${(ps:\n:)completions}" )
+    local completions=("$(dotnet complete "$words")")
+    reply=( "${(ps:\n:)completions}" )
 }
-compctl -K _dotnet_zsh_complete dotnet
+if command -v dotnet 1>/dev/null 2>&1; then
+    compctl -K _dotnet_zsh_complete dotnet
+fi
 
 # 補完機能を有効にする
 autoload -Uz compinit
@@ -184,24 +231,24 @@ alias diff='colordiff -u'
 alias grep='grep --color=auto'
 alias vi='nvim'
 alias vim='nvim'
-alias update-nvim-nightly='asdf uninstall neovim nightly && asdf install neovim nightly'
 
 ########################################
 # tmux自動起動
 # VSCodeのときは起動しない
 # fzf使用
 if [[ -z "$TMUX" && ! -z "$PS1" && $TERM_PROGRAM != "vscode" ]]; then
-  PERCOL="fzf"
-  ID="`tmux list-sessions 2>/dev/null`"
-  if [[ -z "$ID" ]]; then
-    tmux new-session
-  fi
-  CREATE_NEW_SESSION="Create New Session"
-  ID="$ID\n${CREATE_NEW_SESSION}:"
-  ID="`echo $ID | $PERCOL | cut -d: -f1`"
-  if [[ "$ID" = "${CREATE_NEW_SESSION}" ]]; then
-    tmux new-session
-  elif [[ -n "$ID" ]]; then
-    tmux attach-session -t "$ID"
-  fi
+    PERCOL="fzf"
+    ID="$(tmux list-sessions 2>/dev/null)"
+    if [[ -z "$ID" ]]; then
+        tmux new-session
+    else
+        CREATE_NEW_SESSION="Create New Session"
+        ID="$ID\n${CREATE_NEW_SESSION}:"
+        ID="`echo $ID | $PERCOL | cut -d: -f1`"
+        if [[ "$ID" = "${CREATE_NEW_SESSION}" ]]; then
+            tmux new-session
+        elif [[ -n "$ID" ]]; then
+            tmux attach-session -t "$ID"
+        fi
+    fi
 fi

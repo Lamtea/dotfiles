@@ -63,6 +63,19 @@ dotfiles_or_dirs=(
 	.config/neomutt
 	.config/ranger
 	.bin/rclone_mount.sh
+	bin/update-asdf.sh
+	bin/update-asdf-self.sh
+	bin/update-asdf-globals.sh
+	bin/update-asdf-neovim.sh
+	bin/update-asdf-ruby.sh
+	bin/update-asdf-golangci-lint.sh
+	bin/update-asdf-hadolint.sh
+	bin/update-asdf-ktlint.sh
+	bin/update-asdf-locals.sh
+	bin/update-asdf-nodejs.sh
+	bin/update-asdf-deno.sh
+	bin/update-asdf-golang.sh
+	bin/update-asdf-dotnet-core.sh
 	Gemfile
 )
 

@@ -18,7 +18,7 @@ o.updatetime = 300
 -- コマンドのタブ補完をbashのような動作に指定
 o.wildmode = "list:longest,full"
 -- OSのクリップボードとneovimのレジスタを共有
--- o.clipboard = o.clipboard .. "unnamedplus"
+o.clipboard = o.clipboard .. "unnamedplus"
 -- タブ挿入時はスペースに変換
 bo.expandtab = true
 -- {}等の字句を考慮してインデントを1つ後ろに設定
