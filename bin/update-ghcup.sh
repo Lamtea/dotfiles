@@ -15,5 +15,5 @@ ghcup install ghc latest &&
 	stack install haskell-dap ghci-dap haskell-debug-adapter fourmolu &&
 	printf "${ESC}[1;32m%s${ESC}[m\n" '***** ghcup updated. *****.' &&
 	exit 0 ||
-	printf "${ESC}[1;31m%s${ESC}[m\n" '***** asdf ghcup update failed. *****' &&
+	printf "${ESC}[1;31m%s${ESC}[m\n" '***** ghcup update failed. *****' &&
 	exit 2

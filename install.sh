@@ -77,6 +77,8 @@ dotfiles_or_dirs=(
 	bin/update-asdf-golang.sh
 	bin/update-asdf-dotnet-core.sh
 	bin/update-dotnet-core-tools.sh
+	bin/update-pyenv.sh
+	bin/update-poetry.sh
 	bin/update-ghcup.sh
 	bin/update-rustup.sh
 	Gemfile

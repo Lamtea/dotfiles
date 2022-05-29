@@ -152,7 +152,7 @@ if [[ ! -f $HOME/.zfunc/_cargo ]]; then
 fi
 fpath+=~/.zfunc
 
-# dotnetの設定
+# dotnet-coreの設定
 _dotnet_zsh_complete()
 {
     local completions=("$(dotnet complete "$words")")
