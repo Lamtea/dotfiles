@@ -10,53 +10,57 @@ require("packer").startup(function(use)
     -- ライブラリ
     require("plugins.lib").setup(use)
 
-    -- 通知
-    require("plugins.notify").setup(use)
+    if not vim.g.vscode then
+        -- 通知
+        require("plugins.notify").setup(use)
 
-    -- カラースキーム
-    require("plugins.colorscheme").setup(use)
+        -- カラースキーム
+        require("plugins.colorscheme").setup(use)
 
-    -- lsp
-    require("plugins.lsp").setup(use)
+        -- lsp
+        require("plugins.lsp").setup(use)
 
-    -- linter/formatter
-    require("plugins.null-ls").setup(use)
+        -- linter/formatter
+        require("plugins.null-ls").setup(use)
 
-    -- lsp/スニペット補完
-    require("plugins.completion").setup(use)
+        -- lsp/スニペット補完
+        require("plugins.completion").setup(use)
 
-    -- ファジーファインダー
-    require("plugins.fzf").setup(use)
+        -- ファジーファインダー
+        require("plugins.fzf").setup(use)
+    end
 
     -- treesitter
     require("plugins.treesitter").setup(use)
 
-    -- ステータスライン
-    require("plugins.status-line").setup(use)
+    if not vim.g.vscode then
+        -- ステータスライン
+        require("plugins.status-line").setup(use)
 
-    -- バッファライン
-    require("plugins.buffer-line").setup(use)
+        -- バッファライン
+        require("plugins.buffer-line").setup(use)
 
-    -- サイドバー
-    require("plugins.sidebar").setup(use)
+        -- サイドバー
+        require("plugins.sidebar").setup(use)
 
-    -- ファイラ
-    require("plugins.filer").setup(use)
+        -- ファイラ
+        require("plugins.filer").setup(use)
 
-    -- スクロールバー
-    require("plugins.scrollbar").setup(use)
+        -- スクロールバー
+        require("plugins.scrollbar").setup(use)
 
-    -- スタート画面
-    require("plugins.start-page").setup(use)
+        -- スタート画面
+        require("plugins.start-page").setup(use)
 
-    -- ターミナル
-    require("plugins.terminal").setup(use)
+        -- ターミナル
+        require("plugins.terminal").setup(use)
 
-    -- ヘルプ
-    require("plugins.help").setup(use)
+        -- ヘルプ
+        require("plugins.help").setup(use)
 
-    -- ハイライト
-    require("plugins.highlight").setup(use)
+        -- ハイライト
+        require("plugins.highlight").setup(use)
+    end
 
     -- 基本機能
     require("plugins.basic").setup(use)
@@ -64,15 +68,17 @@ require("packer").startup(function(use)
     -- コマンド
     require("plugins.command").setup(use)
 
-    -- git
-    require("plugins.git").setup(use)
+    if not vim.g.vscode then
+        -- git
+        require("plugins.git").setup(use)
 
-    -- github
-    require("plugins.github").setup(use)
+        -- github
+        require("plugins.github").setup(use)
 
-    -- テスト
-    require("plugins.test").setup(use)
+        -- テスト
+        require("plugins.test").setup(use)
 
-    -- dap
-    require("plugins.dap").setup(use)
+        -- dap
+        require("plugins.dap").setup(use)
+    end
 end)

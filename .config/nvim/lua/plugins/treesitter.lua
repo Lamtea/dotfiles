@@ -6,25 +6,6 @@ m.setup = function(use)
         "nvim-treesitter/nvim-treesitter",
         run = ":TSUpdate",
     })
-    -- メソッド等のスコープが長いとき先頭行に表示してくれる(context.vimの代替)
-    use("nvim-treesitter/nvim-treesitter-context")
-    -- 対応する括弧の色分け表示
-    use("p00f/nvim-ts-rainbow")
-    -- コメンティングにtreesitterを使用(tsx/jsx等のスタイル混在時に便利, numToStr/Comment.nvimで使用)
-    use("JoosepAlviste/nvim-ts-context-commentstring")
-    -- 閉括弧にvirtual textを表示
-    use("haringsrob/nvim_context_vt")
-    -- マッチングペアをハイライト, 移動, 編集(キーバインドについては see:github, vimscript)
-    use("andymass/vim-matchup")
-    -- タグを自動で閉じてくれる
-    use("windwp/nvim-ts-autotag")
-    -- 引数を色分け表示
-    use({
-        "m-demare/hlargs.nvim",
-        requires = {
-            "nvim-treesitter/nvim-treesitter",
-        },
-    })
     -- シンタックスベースの編集サポート(キーバインドは textobjects 参照, 言語別対応については see:github)
     use("nvim-treesitter/nvim-treesitter-textobjects")
     -- シンタックスベースの範囲選択(キーバインドは textsubjects 参照)
@@ -35,12 +16,37 @@ m.setup = function(use)
     use("David-Kunz/treesitter-unit")
     -- シンタックスベースのスワップ(EasyMotion系)
     use("mizlan/iswap.nvim")
+    -- コメンティングにtreesitterを使用(tsx/jsx等のスタイル混在時に便利, numToStr/Comment.nvimで使用)
+    use("JoosepAlviste/nvim-ts-context-commentstring")
+    -- マッチングペアをハイライト, 移動, 編集(キーバインドについては see:github, vimscript)
+    use("andymass/vim-matchup")
+
+    if not vim.g.vscode then
+        -- メソッド等のスコープが長いとき先頭行に表示してくれる(context.vimの代替)
+        use("nvim-treesitter/nvim-treesitter-context")
+        -- 閉括弧にvirtual textを表示
+        use("haringsrob/nvim_context_vt")
+        -- 引数を色分け表示
+        use({
+            "m-demare/hlargs.nvim",
+            requires = {
+                "nvim-treesitter/nvim-treesitter",
+            },
+        })
+        -- 対応する括弧の色分け表示
+        use("p00f/nvim-ts-rainbow")
+        -- タグを自動で閉じてくれる
+        use("windwp/nvim-ts-autotag")
+    end
 
     m.setup_treesitter()
-    m.setup_context()
-    m.setup_context_vt()
-    m.setup_autotag()
-    m.setup_hlargs()
+
+    if not vim.g.vscode then
+        m.setup_context()
+        m.setup_context_vt()
+        m.setup_hlargs()
+        m.setup_autotag()
+    end
 end
 
 m.setup_treesitter = function()
@@ -48,7 +54,7 @@ m.setup_treesitter = function()
         ensure_installed = "all",
         sync_install = true,
         highlight = {
-            enable = true,
+            enable = not vim.g.vscode,
         },
         incremental_selection = {
             enable = true,
@@ -65,7 +71,7 @@ m.setup_treesitter = function()
         },
         indent = {
             -- インデント有効(実験的 see:github, 代替はnvim-yati see:github)
-            enable = true,
+            enable = not vim.g.vscode,
         },
         textobjects = {
             select = {
@@ -140,7 +146,7 @@ m.setup_treesitter = function()
             },
         },
         rainbow = {
-            enable = true,
+            enable = not vim.g.vscode,
             extended_mode = true,
             -- 大きなファイルで重くなる場合は最大行数を設定
             max_file_line = nil,
@@ -152,7 +158,7 @@ m.setup_treesitter = function()
             enable = true,
         },
         autotag = {
-            enable = true,
+            enable = not vim.g.vscode,
         },
     })
 end
