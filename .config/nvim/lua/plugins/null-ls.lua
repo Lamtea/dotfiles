@@ -56,8 +56,8 @@ m.setup_null_ls = function()
             -- code action
 
             -- for javascript/typescript/react/vue
-            -- NOTE: lsp版を使用しない理由はdiagnostics.eslint_d参照
-            null_ls.builtins.code_actions.eslint_d.with({
+            -- NOTE: lsp版を使用しない理由はdiagnostics.eslint参照
+            null_ls.builtins.code_actions.eslint.with({
                 prefer_local = "node_modules/.bin",
             }),
 
@@ -83,7 +83,7 @@ m.setup_null_ls = function()
 
             -- for javascript/typescript/react/vue
             -- NOTE: eslint-lspもあるがまだ開発中
-            null_ls.builtins.diagnostics.eslint_d.with({
+            null_ls.builtins.diagnostics.eslint.with({
                 prefer_local = "node_modules/.bin",
             }),
 

@@ -13,23 +13,23 @@ m.setup = function(use)
     use("suketa/nvim-dap-ruby")
     -- go用dap
     use("leoluz/nvim-dap-go")
-    -- デバッガインストーラーが開発中
+    -- NOTE: デバッガインストーラーが開発中
     -- use("Pocco81/dap-buddy.nvim")
 
-    m.setup_dap()
     m.setup_dap_python()
     m.setup_dap_ruby()
-    m.setup_dotnet()
-    m.setup_dap_lldb()
+    m.setup_dap_php()
+    m.setup_dap_javascript_typescript()
     m.setup_dap_go()
     m.setup_dap_haskell()
-    m.setup_dap_php()
+    m.setup_dap_dotnet()
+    m.setup_dap_lldb()
+    m.setup_dap_load_launchjs()
 end
 
-m.setup_dap = function()
+m.setup_dap_load_launchjs = function()
     -- vscodeと違って標準JSONなので末尾のコンマはエラーになる点に注意
-    local vscode = require("dap.ext.vscode")
-    vscode.load_launchjs(".vscode/launch.json")
+    require("dap.ext.vscode").load_launchjs()
 end
 
 m.setup_dap_python = function()
@@ -40,6 +40,7 @@ end
 
 m.setup_dap_ruby = function()
     local dap_ruby = require("dap-ruby")
+    -- portは38698がデフォルト設定
     dap_ruby.setup()
 end
 
@@ -55,12 +56,110 @@ m.setup_dap_php = function()
             type = "php",
             request = "launch",
             name = "Listen for Xdebug",
+            -- Xdebugのデフォルト
             port = 9003,
         },
     }
 end
 
-m.setup_dotnet = function()
+m.setup_dap_javascript_typescript = function()
+    local dap = require("dap")
+    -- NOTE: 今のところnvim-dapでvscode-js-debugはサポート外になっている
+    dap.adapters.node2 = {
+        type = "executable",
+        command = "node",
+        args = { vsext_path .. "/vscode-node-debug2/out/src/nodeDebug.js" },
+    }
+    dap.adapters.chrome = {
+        type = "executable",
+        command = "node",
+        args = { vsext_path .. "/vscode-chrome-debug/out/src/chromeDebug.js" },
+    }
+    dap.adapters.firefox = {
+        type = "executable",
+        command = "node",
+        args = { vsext_path .. "/vscode-firefox-debug/dist/adapter.bundle.js" },
+    }
+    local node2_configuration_javascript = {
+        name = "Launch(node)",
+        type = "node2",
+        request = "launch",
+        program = "${file}",
+        cwd = vim.fn.getcwd(),
+        sourceMaps = true,
+        protocol = "inspector",
+        console = "integratedTerminal",
+    }
+    local node2_configuration_typescript = {
+        name = "Launch(node)",
+        type = "node2",
+        request = "launch",
+        program = function()
+            return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
+        end,
+        cwd = vim.fn.getcwd(),
+        sourceMaps = true,
+        protocol = "inspector",
+        console = "integratedTerminal",
+    }
+    local chrome_configuration = {
+        name = "Launch(chrome)",
+        type = "chrome",
+        request = "launch",
+        -- live-server/webpack-dev-serverのデフォルト
+        url = "http://localhost:8080",
+        -- webpack-dev-serverのデフォルト
+        webRoot = "${workspaceFolder}/public",
+        cwd = vim.fn.getcwd(),
+        sourceMaps = true,
+        protocol = "inspector",
+        runtimeExecutable = "/usr/bin/google-chrome-stable",
+    }
+    dap.configurations.javascript = {
+        node2_configuration_javascript,
+        chrome_configuration,
+    }
+    dap.configurations.typescript = {
+        node2_configuration_typescript,
+        chrome_configuration,
+    }
+    dap.configurations.javascriptreact = {
+        chrome_configuration,
+    }
+    dap.configurations.vue = dap.configurations.javascriptreact
+    dap.configurations.typescriptreact = dap.configurations.javascriptreact
+end
+
+m.setup_dap_go = function()
+    local dap_go = require("dap-go")
+    dap_go.setup()
+end
+
+m.setup_dap_haskell = function()
+    local dap = require("dap")
+    dap.adapters.haskell = {
+        type = "executable",
+        command = "haskell-debug-adapter",
+    }
+    dap.configurations.haskell = {
+        {
+            type = "haskell",
+            request = "launch",
+            name = "Launch file",
+            workspace = "${workspaceFolder}",
+            startup = "${file}",
+            stopOnEntry = true,
+            logFile = vim.fn.stdpath("data") .. "/haskell-dap.log",
+            logLevel = "WARNING",
+            ghciEnv = vim.empty_dict(),
+            ghciPrompt = "> ",
+            ghciInitialPrompt = "> ",
+            ghciCmd = "stack ghci --test --no-load --no-build --main-is TARGET --ghci-options -fprint-evld-with-show",
+        },
+    }
+end
+
+m.setup_dap_dotnet = function()
     local dap = require("dap")
     dap.adapters.coreclr = {
         type = "executable",
@@ -103,42 +202,18 @@ m.setup_dap_lldb = function()
     dap.configurations.rust = dap.configurations.cpp
 end
 
-m.setup_dap_go = function()
-    local dap_go = require("dap-go")
-    dap_go.setup()
-end
-
-m.setup_dap_haskell = function()
-    local dap = require("dap")
-    dap.adapters.haskell = {
-        type = "executable",
-        command = "haskell-debug-adapter",
-    }
-    dap.configurations.haskell = {
-        {
-            type = "haskell",
-            request = "launch",
-            name = "Launch file",
-            workspace = "${workspaceFolder}",
-            startup = "${file}",
-            stopOnEntry = true,
-            logFile = vim.fn.stdpath("data") .. "/haskell-dap.log",
-            logLevel = "WARNING",
-            ghciEnv = vim.empty_dict(),
-            ghciPrompt = "> ",
-            ghciInitialPrompt = "> ",
-            ghciCmd = "stack ghci --test --no-load --no-build --main-is TARGET --ghci-options -fprint-evld-with-show",
-        },
-    }
-end
-
 -- dap
 -- アダプタ切断
 vim.api.nvim_set_keymap("n", "<F4>", "<Cmd>lua require'dap'.disconnect({})<CR>", { noremap = true, silent = true })
 -- プロセス続行
 vim.api.nvim_set_keymap("n", "<F5>", "<Cmd>lua require'dap'.continue()<CR>", { noremap = true, silent = true })
 -- launch.jsonの読込
-vim.api.nvim_set_keymap("n", "<F6>", "<Cmd>lua require'dap'.load_launchjs()<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap(
+    "n",
+    "<F6>",
+    "<Cmd>lua require'dap.ext.vscode'.load_launchjs()<CR>",
+    { noremap = true, silent = true }
+)
 -- 最後に実行したデバッグを再実行
 vim.api.nvim_set_keymap("n", "<F7>", "lua require'dap'.run_last()", { noremap = true, silent = true })
 -- ブレークポイントの条件設定

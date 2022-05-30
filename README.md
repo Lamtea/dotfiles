@@ -19,11 +19,11 @@ Run this command: `install.sh`
   - neovim(asdf)
   - nodejs(asdf)
     - editorconfig-checker(npm)
-    - eslint_d(npm)
+    - eslint(npm)
     - jsonlint(npm)
     - markdownlint-cli(npm)
     - neovim(npm)
-    - prettierd(npm)
+    - prettier(npm)
     - stylelint(npm)
     - tidy(npm)
     - typescript(npm)
@@ -50,7 +50,7 @@ Run this command: `install.sh`
 - dotnet-sdk
 - dotnet-targeting-pack
 - editorconfig-checker(editorconfig linter)
-- eslint_d(for javascript/typescript/react/vue linter)
+- eslint(for javascript/typescript/react/vue linter)
 - fd
 - flake8(python linter)
 - fzf

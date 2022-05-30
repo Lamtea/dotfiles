@@ -20,13 +20,14 @@ css-minimizer-webpack-plugin
 debug
 editorconfig-checker
 eslint-config-prettier
-eslint_d
+eslint
 express
 file-loader
 glob
 html-webpack-plugin
 jest
 jsonlint
+live-server
 lodash
 markdownlint-cli
 mini-css-extract-plugin
