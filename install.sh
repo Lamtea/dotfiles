@@ -63,6 +63,7 @@ dotfiles_or_dirs=(
 	.config/neomutt
 	.config/ranger
 	.bin/rclone_mount.sh
+	bin/update-devtools.sh
 	bin/update-asdf.sh
 	bin/update-asdf-self.sh
 	bin/update-asdf-globals.sh
