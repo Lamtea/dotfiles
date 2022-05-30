@@ -5,6 +5,8 @@ m.setup = function(use)
     -- noevim用デバッガアダプタプロトコル
     -- 各種debugger必須, インストール後に :helptags ALL を実行しておく
     use("mfussenegger/nvim-dap")
+    -- neovim lua用dap
+    use("jbyuki/one-small-step-for-vimkind")
     -- python用dap
     -- poetryサポートがpull request中なのでそのうち入るはず
     use("mfussenegger/nvim-dap-python")
@@ -16,6 +18,7 @@ m.setup = function(use)
     -- NOTE: デバッガインストーラーが開発中
     -- use("Pocco81/dap-buddy.nvim")
 
+    m.setup_dap_nlua()
     m.setup_dap_python()
     m.setup_dap_ruby()
     m.setup_dap_php()
@@ -27,9 +30,31 @@ m.setup = function(use)
     m.setup_dap_load_launchjs()
 end
 
-m.setup_dap_load_launchjs = function()
-    -- vscodeと違って標準JSONなので末尾のコンマはエラーになる点に注意
-    require("dap.ext.vscode").load_launchjs()
+m.setup_dap_nlua = function()
+    local dap = require("dap")
+    dap.configurations.lua = {
+        {
+            type = "nlua",
+            request = "attach",
+            name = "Attach to running Neovim instance",
+            host = function()
+                local value = vim.fn.input("Host [127.0.0.1]: ")
+                if value ~= "" then
+                    return value
+                end
+                return "127.0.0.1"
+            end,
+            port = function()
+                local val = tonumber(vim.fn.input("Port: "))
+                assert(val, "Please provide a port number")
+                return val
+            end,
+        },
+    }
+
+    dap.adapters.nlua = function(callback, config)
+        callback({ type = "server", host = config.host, port = config.port })
+    end
 end
 
 m.setup_dap_python = function()
@@ -202,6 +227,11 @@ m.setup_dap_lldb = function()
     dap.configurations.rust = dap.configurations.cpp
 end
 
+m.setup_dap_load_launchjs = function()
+    -- vscodeと違って標準JSONなので末尾のコンマはエラーになる点に注意
+    require("dap.ext.vscode").load_launchjs()
+end
+
 -- dap
 -- アダプタ切断
 vim.api.nvim_set_keymap("n", "<F4>", "<Cmd>lua require'dap'.disconnect({})<CR>", { noremap = true, silent = true })
@@ -261,6 +291,18 @@ vim.api.nvim_set_keymap(
     "<Cmd>lua require'telescope'.extensions.dap.variables{}<CR>",
     { noremap = true, silent = true }
 )
+
+-- neovim lua
+-- Launch the server in the debuggee using require"osv".launch()
+-- Open another Neovim instance with the source file
+-- Place breakpoint
+-- Connect using the DAP client
+-- Run your script/plugin in the debuggee
+vim.api.nvim_set_keymap("n", "<F2>", "<Cmd>lua require'osv'.launch()<CR>", { noremap = true, silent = true })
+-- Open a lua file
+-- Place breakpoint
+-- Invoke require"osv".run_this()
+vim.api.nvim_set_keymap("n", "<F3>", "<Cmd>lua require'osv'.run_this()<CR>", { noremap = true, silent = true })
 
 -- python
 -- カーソル位置のテストメソッドを実行
