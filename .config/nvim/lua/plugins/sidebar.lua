@@ -1,7 +1,7 @@
 local m = {}
 
 m.setup = function(use)
-    -- 色々な情報を出すサイドバー(ファイラと違って隠しファイルも表示する設定にしてある)
+    -- 色々な情報を出すサイドバー
     use("sidebar-nvim/sidebar.nvim")
 
     m.setup_sidebar()

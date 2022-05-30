@@ -104,53 +104,75 @@ m.setup_lsp = function()
     local capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
     lsp_installer.setup()
     for _, server in ipairs(lsp_installer.get_installed_servers()) do
-        lspconfig[server.name].setup({
-            -- キーバインドのアタッチ
-            on_attach = on_attach,
-            -- lsp用補完設定
-            capabilities = capabilities,
-        })
-    end
+        local serverconfig = lspconfig[server.name]
 
-    -- 言語別の設定
-    -- haskell
-    lspconfig.hls.setup({
-        haskell = {
-            formattingProvider = "Stylish Haskell",
-        },
-    })
-    -- html
-    lspconfig.html.setup({
-        -- formatterはprettierを使用
-        provideFormatter = false,
-    })
-    -- json
-    lspconfig.jsonls.setup({
-        -- formatterはprettierを使用
-        provideFormatter = false,
-    })
-    -- lua
-    lspconfig.sumneko_lua.setup({
-        settings = {
-            Lua = {
-                diagnostics = {
-                    -- neovim設定ファイル用(vimがグローバルオブジェクトのため)
-                    globals = { "vim" },
-                    neededFileStatus = {
-                        ["codestyle-check"] = "Any",
+        -- 言語別の設定
+        if server.name == "clangd" then
+            -- c/cpp
+            -- NOTE: エンコーディング指定しないと警告が出る
+            local clangd_capabilities = require("cmp_nvim_lsp").update_capabilities(
+                vim.lsp.protocol.make_client_capabilities()
+            )
+            clangd_capabilities.offsetEncoding = { "utf-16" }
+            serverconfig.setup({
+                on_attach = on_attach,
+                capabilities = clangd_capabilities,
+            })
+        elseif server.name == "hls" then
+            -- haskell
+            serverconfig.setup({
+                -- formatterはstylish-haskell使用
+                haskell = {
+                    formattingProvider = "Stylish Haskell",
+                },
+                on_attach = on_attach,
+                capabilities = capabilities,
+            })
+        elseif server.name == "html" then
+            -- html
+            serverconfig.setup({
+                -- formatterはprettierを使用
+                provideFormatter = false,
+                on_attach = on_attach,
+                capabilities = capabilities,
+            })
+        elseif server.name == "jsonls" then
+            -- json
+            serverconfig.setup({
+                -- formatterはprettierを使用
+                provideFormatter = false,
+                on_attach = on_attach,
+                capabilities = capabilities,
+            })
+        elseif server.name == "sumneko_lua" then
+            -- lua
+            serverconfig.setup({
+                settings = {
+                    Lua = {
+                        diagnostics = {
+                            -- neovim設定ファイル用(vimがグローバルオブジェクトのため)
+                            globals = { "vim" },
+                            neededFileStatus = {
+                                ["codestyle-check"] = "Any",
+                            },
+                        },
+                        format = {
+                            -- formatterはstyluaを使用
+                            enable = false,
+                        },
                     },
                 },
-                format = {
-                    -- formatterはstyluaを使用
-                    enable = false,
-                    defaultConfig = {
-                        indent_style = "space",
-                        indent_size = "4",
-                    },
-                },
-            },
-        },
-    })
+                on_attach = on_attach,
+                capabilities = capabilities,
+            })
+        else
+            -- 通常設定
+            serverconfig.setup({
+                on_attach = on_attach,
+                capabilities = capabilities,
+            })
+        end
+    end
 end
 
 m.setup_lspsaga = function()

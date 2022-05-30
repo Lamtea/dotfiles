@@ -56,7 +56,7 @@ m.setup_null_ls = function()
             -- code action
 
             -- for javascript/typescript/react/vue
-            -- lsp版を使用しない理由はdiagnostics.eslint_d参照
+            -- NOTE: lsp版を使用しない理由はdiagnostics.eslint_d参照
             null_ls.builtins.code_actions.eslint_d.with({
                 prefer_local = "node_modules/.bin",
             }),
@@ -82,7 +82,7 @@ m.setup_null_ls = function()
             null_ls.builtins.diagnostics.erb_lint,
 
             -- for javascript/typescript/react/vue
-            -- eslint-lspもあるがまだ開発中
+            -- NOTE: eslint-lspもあるがまだ開発中
             null_ls.builtins.diagnostics.eslint_d.with({
                 prefer_local = "node_modules/.bin",
             }),
@@ -130,13 +130,13 @@ m.setup_null_ls = function()
             -- null_ls.builtins.diagnostics.shellcheck,
 
             -- for css
-            -- eslint-lspに切り替えるなら合わせてstylelint-lspにしたほうが良い
+            -- NOTE: eslint-lsp(まだ開発中)に切り替えるなら合わせてstylelint-lspにしたほうが良い
             null_ls.builtins.diagnostics.stylelint.with({
                 prefer_local = "node_modules/.bin",
             }),
 
             -- for sql
-            -- sqlsを使用しない理由はformatting.sqlfluff参照
+            -- NOTE: sqlsを使用しない理由はformatting.sqlfluff参照
             null_ls.builtins.diagnostics.sqlfluff.with({
                 extra_args = { "--dialect", "postgres" },
             }),
@@ -214,7 +214,7 @@ m.setup_null_ls = function()
             null_ls.builtins.formatting.shfmt,
 
             -- for sql
-            -- db定義補完はsqlsに切替(db接続必須, まだ開発途中)
+            -- NOTE: db定義補完はsqlsに切替(db接続必須, まだ開発途中)
             -- デフォルトはposgresだがpwdに.sqlfluffを配置すれば設定できる
             null_ls.builtins.formatting.sqlfluff.with({
                 extra_args = { "--dialect", "postgres" },
