@@ -137,7 +137,7 @@ end
 vim.api.nvim_set_keymap("n", "<F4>", "<Cmd>lua require'dap'.disconnect({})<CR>", { noremap = true, silent = true })
 -- プロセス続行
 vim.api.nvim_set_keymap("n", "<F5>", "<Cmd>lua require'dap'.continue()<CR>", { noremap = true, silent = true })
--- launch.jsonの読込(neovim起動時に読込を行う設定になっているが後で配置した場合など)
+-- launch.jsonの読込
 vim.api.nvim_set_keymap("n", "<F6>", "<Cmd>lua require'dap'.load_launchjs()<CR>", { noremap = true, silent = true })
 -- 最後に実行したデバッグを再実行
 vim.api.nvim_set_keymap("n", "<F7>", "lua require'dap'.run_last()", { noremap = true, silent = true })
