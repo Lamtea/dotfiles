@@ -144,9 +144,10 @@ Run this command: `install.sh`
 
 ## Shell scripts
 
-| Name            | Description         |
-| --------------- | ------------------- |
-| rclone_mount.sh | mount cloud script. |
+| Name            | Description                   |
+| --------------- | ----------------------------- |
+| rclone_mount.sh | mount cloud script.           |
+| update-\*.sh    | update local package scripts. |
 
 ## Development
 

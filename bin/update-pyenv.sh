@@ -9,6 +9,7 @@ if ! command -v pyenv 1>/dev/null 2>&1; then
 fi
 
 pyenv update &&
+	pyenv global system &&
 	printf "${ESC}[1;32m%s${ESC}[m\n" '***** pyenv updated. *****.' &&
 	exit 0 ||
 	printf "${ESC}[1;31m%s${ESC}[m\n" '***** pyenv update failed. *****' &&
