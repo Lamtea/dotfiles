@@ -21,7 +21,7 @@ fi
 asdf install ruby latest &&
 	asdf global ruby "$(asdf list ruby | grep '[0-9]\+' | tail -n 1 | xargs)" &&
 	cd "$HOME" &&
-	bundle update &&
+	bundle install &&
 	printf "${ESC}[1;32m%s${ESC}[m\n" '***** asdf ruby and bundle updated. *****.' &&
 	exit 0 ||
 	printf "${ESC}[1;31m%s${ESC}[m\n" '***** asdf ruby and bundle update failed. *****' &&
