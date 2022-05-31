@@ -15,6 +15,8 @@ m.setup = function(use)
             .. "cmake --build build --config Release && "
             .. "cmake --install build --prefix build",
     })
+    -- vim.ui.selectにtelescopeを使用する
+    use("nvim-telescope/telescope-ui-select.nvim")
 
     m.setup_telescope()
 end
@@ -59,6 +61,7 @@ m.setup_telescope = function()
         },
     })
     require("telescope").load_extension("fzf")
+    require("telescope").load_extension("ui-select")
 end
 
 -- telescope builtin picker検索
