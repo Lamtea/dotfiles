@@ -1,7 +1,7 @@
 local m = {}
 
 m.setup = function(use)
-    -- npm/yarn/pnpm
+    -- package.jsonの補完やnpm/yarn/pnpmのコマンドを発行してくれる
     use({
         "vuki656/package-info.nvim",
         requires = "MunifTanjim/nui.nvim",
@@ -95,3 +95,4 @@ vim.api.nvim_set_keymap(
 )
 
 return m
+:a
