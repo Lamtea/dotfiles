@@ -12,6 +12,8 @@ m.setup = function(use)
     })
     -- dapにvirtual textサポートを追加する
     use("theHamsta/nvim-dap-virtual-text")
+    -- dapのtelescope連携
+    use("nvim-telescope/telescope-dap.nvim")
     -- neovim lua用dap
     use("jbyuki/one-small-step-for-vimkind")
     -- python用dap
@@ -27,6 +29,7 @@ m.setup = function(use)
     m.setup_dap()
     m.setup_dap_ui()
     m.setup_dap_virtual_text()
+    m.setup_dap_telescope()
     m.setup_dap_nlua()
     m.setup_dap_python()
     m.setup_dap_ruby()
@@ -152,6 +155,10 @@ m.setup_dap_virtual_text = function()
         virt_text_win_col = nil,
         -- e.g. 80 to position at column 80, see `:h nvim_buf_set_extmark()`
     })
+end
+
+m.setup_dap_telescope = function()
+    require("telescope").load_extension("dap")
 end
 
 m.setup_dap_nlua = function()
