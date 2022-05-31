@@ -23,6 +23,10 @@ local lsp_formatting = function(bufnr)
             if client.name == "sumneko_lua" then
                 return false
             end
+            -- haskellはfourmolu使用
+            if client.name == "hls" then
+                return false
+            end
             -- xmlはtidyを使用
             if client.name == "lemminx" then
                 return false
@@ -56,13 +60,13 @@ m.setup_null_ls = function()
             -- code action
 
             -- for javascript/typescript/react/vue
-            -- NOTE: lsp版を使用しない理由はdiagnostics.eslint参照
+            -- NOTE: lsp版もあるがまだ開発中
             null_ls.builtins.code_actions.eslint.with({
                 prefer_local = "node_modules/.bin",
             }),
 
             -- for bash
-            -- 使用しない理由はdiagnostics.shellcheck参照
+            -- bashlsで使用される
             -- null_ls.builtins.code_actions.shellcheck,
 
             -- diagnostics
@@ -82,7 +86,7 @@ m.setup_null_ls = function()
             null_ls.builtins.diagnostics.erb_lint,
 
             -- for javascript/typescript/react/vue
-            -- NOTE: eslint-lspもあるがまだ開発中
+            -- NOTE: lsp版もあるがまだ開発中
             null_ls.builtins.diagnostics.eslint.with({
                 prefer_local = "node_modules/.bin",
             }),
@@ -93,8 +97,8 @@ m.setup_null_ls = function()
             }),
 
             -- for go
-            -- lsp版を使用する
-            -- null_ls.builtins.diagnostics.golangci_lint,
+            -- NOTE: lsp版もあるがまだ開発中
+            null_ls.builtins.diagnostics.golangci_lint,
 
             -- for dockerfile
             null_ls.builtins.diagnostics.hadolint,
@@ -130,13 +134,13 @@ m.setup_null_ls = function()
             -- null_ls.builtins.diagnostics.shellcheck,
 
             -- for css
-            -- NOTE: eslint-lsp(まだ開発中)に切り替えるなら合わせてstylelint-lspにしたほうが良い
+            -- NOTE: eslintのlsp版(まだ開発中)に切り替えるなら合わせてstylelintもlsp版にしたほうが良い
             null_ls.builtins.diagnostics.stylelint.with({
                 prefer_local = "node_modules/.bin",
             }),
 
             -- for sql
-            -- NOTE: sqlsを使用しない理由はformatting.sqlfluff参照
+            -- NOTE: db定義補完はsqlsに切替(db接続必須, まだ開発途中)
             null_ls.builtins.diagnostics.sqlfluff.with({
                 extra_args = { "--dialect", "postgres" },
             }),
@@ -181,8 +185,7 @@ m.setup_null_ls = function()
             null_ls.builtins.formatting.erb_lint,
 
             -- for haskell
-            -- hls(stylish haskell)を使用
-            -- null_ls.builtins.formatting.fourmolu,
+            null_ls.builtins.formatting.fourmolu,
 
             -- for go
             null_ls.builtins.formatting.gofmt,
@@ -239,6 +242,7 @@ m.setup_null_ls = function()
             }),
 
             -- for xml
+            -- htmlはprettierを使用
             null_ls.builtins.formatting.tidy.with({
                 prefer_local = "node_modules/.bin",
                 disabled_filetypes = { "html" },

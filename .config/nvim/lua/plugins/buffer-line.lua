@@ -18,6 +18,22 @@ m.setup_bufferline = function()
             diagnostics = "nvim_lsp",
             show_buffer_close_icons = false,
             show_close_icon = false,
+            custom_filter = function(buf_number)
+                if vim.bo[buf_number].filetype == "qf" then
+                    return false
+                end
+                if vim.bo[buf_number].buftype == "terminal" then
+                    return false
+                end
+                if vim.fn.bufname(buf_number) == "" or vim.fn.bufname(buf_number) == "[No Name]" then
+                    return false
+                end
+                if vim.fn.bufname(buf_number) == "[dap-repl]" then
+                    return false
+                end
+
+                return true
+            end,
         },
     })
 end

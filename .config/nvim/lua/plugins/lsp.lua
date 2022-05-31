@@ -118,16 +118,6 @@ m.setup_lsp = function()
                 on_attach = on_attach,
                 capabilities = clangd_capabilities,
             })
-        elseif server.name == "hls" then
-            -- haskell
-            serverconfig.setup({
-                -- formatterはstylish-haskell使用
-                haskell = {
-                    formattingProvider = "Stylish Haskell",
-                },
-                on_attach = on_attach,
-                capabilities = capabilities,
-            })
         elseif server.name == "html" then
             -- html
             serverconfig.setup({
