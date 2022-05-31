@@ -51,7 +51,7 @@ m.setup_regexplainer = function()
     require("regexplainer").setup({
         mode = "narrative",
         -- automatically show the explainer when the cursor enters a regexp
-        auto = true,
+        auto = false,
         -- filetypes (i.e. extensions) in which to run the autocommand
         filetypes = {
             "html",
@@ -69,7 +69,7 @@ m.setup_regexplainer = function()
         -- 'split', 'popup', 'pasteboard'
         display = "popup",
         mappings = {
-            toggle = "gR",
+            toggle = "<space>R",
             -- examples, not defaults:
             -- show = 'gS',
             -- hide = 'gH',
