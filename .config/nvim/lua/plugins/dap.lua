@@ -258,7 +258,6 @@ m.setup_dap_javascript_typescript = function()
         cwd = vim.fn.getcwd(),
         sourceMaps = true,
         protocol = "inspector",
-        console = "integratedTerminal",
     }
     local node2_configuration_typescript = {
         name = "Launch(node)",
@@ -270,7 +269,6 @@ m.setup_dap_javascript_typescript = function()
         cwd = vim.fn.getcwd(),
         sourceMaps = true,
         protocol = "inspector",
-        console = "integratedTerminal",
     }
     local chrome_configuration = {
         name = "Launch(chrome)",
@@ -315,7 +313,7 @@ m.setup_dap_haskell = function()
         {
             type = "haskell",
             request = "launch",
-            name = "Launch file",
+            name = "Launch",
             workspace = "${workspaceFolder}",
             startup = "${file}",
             stopOnEntry = true,
@@ -342,7 +340,7 @@ m.setup_dap_dotnet = function()
             name = "Launch",
             request = "launch",
             program = function()
-                return vim.fn.input("Path to dll", vim.fn.getcwd() .. "/bin/Debug/", "file")
+                return vim.fn.input("Path to dll: ", vim.fn.getcwd() .. "/bin/Debug/", "file")
             end,
         },
     }
@@ -357,7 +355,7 @@ m.setup_dap_lldb = function()
     }
     dap.configurations.cpp = {
         {
-            name = "Launch file",
+            name = "Launch",
             type = "lldb",
             request = "launch",
             program = function()
