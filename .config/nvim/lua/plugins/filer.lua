@@ -27,7 +27,7 @@ m.setup_neotree = function()
         enable_diagnostics = true,
         default_component_configs = {
             container = {
-                enable_character_fade = true
+                enable_character_fade = true,
             },
             indent = {
                 indent_size = 2,
@@ -53,7 +53,7 @@ m.setup_neotree = function()
                 -- if you use nvim-web-devicons and configure default icons there
                 -- then these will never be used.
                 default = "*",
-                highlight = "NeoTreeFileIcon"
+                highlight = "NeoTreeFileIcon",
             },
             modified = {
                 symbol = "[+]",
@@ -68,20 +68,20 @@ m.setup_neotree = function()
                 symbols = {
                     -- Change type
                     -- or "✚", but this is redundant info if you use git_status_colors on the name
-                    added     = "",
+                    added = "",
                     -- or "", but this is redundant info if you use git_status_colors on the name
-                    modified  = "",
+                    modified = "",
                     -- this can only be used in the git_status source
-                    deleted   = "✖",
+                    deleted = "✖",
                     -- this can only be used in the git_status source
-                    renamed   = "",
+                    renamed = "",
                     -- Status type
                     untracked = "",
-                    ignored   = "",
-                    unstaged  = "",
-                    staged    = "",
-                    conflict  = "",
-                }
+                    ignored = "",
+                    unstaged = "",
+                    staged = "",
+                    conflict = "",
+                },
             },
         },
         window = {
@@ -111,8 +111,8 @@ m.setup_neotree = function()
                     -- some commands may take optional config options, see `:h neo-tree-mappings` for details
                     config = {
                         -- "none", "relative", "absolute"
-                        show_path = "none"
-                    }
+                        show_path = "none",
+                    },
                 },
                 -- also accepts the config.show_path option.
                 ["A"] = "add_directory",
@@ -128,7 +128,7 @@ m.setup_neotree = function()
                 ["q"] = "close_window",
                 ["R"] = "refresh",
                 ["?"] = "show_help",
-            }
+            },
         },
         nesting_rules = {},
         filesystem = {
@@ -178,8 +178,8 @@ m.setup_neotree = function()
                     ["<c-x>"] = "clear_filter",
                     ["[g"] = "prev_git_modified",
                     ["]g"] = "next_git_modified",
-                }
-            }
+                },
+            },
         },
         buffers = {
             -- This will find and focus the file in the active buffer every
@@ -193,23 +193,23 @@ m.setup_neotree = function()
                     ["bd"] = "buffer_delete",
                     ["<bs>"] = "navigate_up",
                     ["."] = "set_root",
-                }
+                },
             },
         },
         git_status = {
             window = {
                 position = "float",
                 mappings = {
-                    ["A"]  = "git_add_all",
+                    ["A"] = "git_add_all",
                     ["gu"] = "git_unstage_file",
                     ["ga"] = "git_add_file",
                     ["gr"] = "git_revert_file",
                     ["gc"] = "git_commit",
                     ["gp"] = "git_push",
                     ["gg"] = "git_commit_and_push",
-                }
-            }
-        }
+                },
+            },
+        },
     })
 end
 

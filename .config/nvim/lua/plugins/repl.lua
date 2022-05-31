@@ -31,7 +31,7 @@ m.setup_iron = function()
             cr = "<leader>r<cr>",
             interrupt = "<leader>r<space>",
             exit = "<leader>rq",
-            clear = "<leader>re",
+            clear = "<leader>rc",
         },
     })
 end
@@ -40,21 +40,21 @@ end
 vim.api.nvim_set_keymap("n", "<leader>rr", [[<Cmd>lua require('sniprun').run()<CR>]], { noremap = true, silent = true })
 vim.api.nvim_set_keymap(
     "x",
-    "<leader>rr",
+    "<leader>cr",
     [[<Cmd>lua require('sniprun').run('v')<CR>]],
     { noremap = true, silent = true }
 )
 -- 実行結果をリセット
 vim.api.nvim_set_keymap(
     "n",
-    "<leader>rd",
+    "<leader>cc",
     [[<Cmd>lua require('sniprun').reset()<CR>]],
     { noremap = true, silent = true }
 )
 -- すべての実行結果をクローズ
 vim.api.nvim_set_keymap(
     "n",
-    "<leader>rc",
+    "<leader>cq",
     [[<Cmd>lua require('sniprun.display').close_all()<CR>]],
     { noremap = true, silent = true }
 )

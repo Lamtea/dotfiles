@@ -69,16 +69,19 @@ require("packer").startup(function(use)
     require("plugins.command").setup(use)
 
     if not vim.g.vscode then
+        -- code runner/repl
+        require("plugins.repl").setup(use)
+
+        -- dap
+        require("plugins.dap").setup(use)
+
         -- git
         require("plugins.git").setup(use)
 
         -- github
         require("plugins.github").setup(use)
 
-        -- code runner/repl
-        require("plugins.repl").setup(use)
-
-        -- dap
-        require("plugins.dap").setup(use)
+        -- nodejs
+        require("plugins.nodejs").setup(use)
     end
 end)
