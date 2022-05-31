@@ -75,8 +75,8 @@ require("packer").startup(function(use)
         -- github
         require("plugins.github").setup(use)
 
-        -- テスト
-        require("plugins.test").setup(use)
+        -- code runner/repl
+        require("plugins.repl").setup(use)
 
         -- dap
         require("plugins.dap").setup(use)
