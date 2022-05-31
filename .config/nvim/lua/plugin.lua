@@ -81,7 +81,7 @@ require("packer").startup(function(use)
         -- github
         require("plugins.github").setup(use)
 
-        -- nodejs
-        require("plugins.nodejs").setup(use)
+        -- javascript/typescript
+        require("plugins.javascript").setup(use)
     end
 end)

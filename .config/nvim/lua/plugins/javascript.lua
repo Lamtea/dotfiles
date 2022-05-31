@@ -6,8 +6,17 @@ m.setup = function(use)
         "vuki656/package-info.nvim",
         requires = "MunifTanjim/nui.nvim",
     })
+    -- javascript/typescriptの正規表現を解説してくれる
+    use({
+        "bennypowers/nvim-regexplainer",
+        requires = {
+            "nvim-treesitter/nvim-treesitter",
+            "MunifTanjim/nui.nvim",
+        },
+    })
 
     m.setup_package_info()
+    m.setup_regexplainer()
 end
 
 m.setup_package_info = function()
@@ -35,6 +44,41 @@ m.setup_package_info = function()
         -- It hides unstable versions from version list e.g next-11.1.3-canary3
         hide_unstable_versions = false,
         package_manager = "npm",
+    })
+end
+
+m.setup_regexplainer = function()
+    require("regexplainer").setup({
+        mode = "narrative",
+        -- automatically show the explainer when the cursor enters a regexp
+        auto = true,
+        -- filetypes (i.e. extensions) in which to run the autocommand
+        filetypes = {
+            "html",
+            "js",
+            "cjs",
+            "mjs",
+            "ts",
+            "jsx",
+            "tsx",
+            "cjsx",
+            "mjsx",
+        },
+        -- Whether to log debug messages
+        debug = false,
+        -- 'split', 'popup', 'pasteboard'
+        display = "popup",
+        mappings = {
+            toggle = "gR",
+            -- examples, not defaults:
+            -- show = 'gS',
+            -- hide = 'gH',
+            -- show_split = 'gP',
+            -- show_popup = 'gU',
+        },
+        narrative = {
+            separator = "\n",
+        },
     })
 end
 
@@ -95,4 +139,3 @@ vim.api.nvim_set_keymap(
 )
 
 return m
-:a
