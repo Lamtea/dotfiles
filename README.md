@@ -4,7 +4,42 @@ My dotfiles for command line interface on Arch linux.
 
 ## How to install
 
-Run this command: `install.sh`
+```bash
+> cd ~
+> git clone https://github.com/Lamtea/dotfiles.git .dotfiles
+```
+
+```bash
+> cd .dotfiles
+> vi .gitconfig
+>   email = <your email address>
+> vi .config/neomutt/neomuttrc
+>   set my_name="<your name>"
+> ./install.sh
+```
+
+```bash
+> paru -S <dependent packages>
+> # Install arch packages and aur packages.
+> # Options can be ignored.
+```
+
+```bash
+> exec zsh
+> # Install zsh plugin.
+> # Install some packages from git.
+```
+
+```bash
+> ~/bin/update-devtools.sh
+> # Install asdf tools, dotnet tools, pyenv, poetry, ghcup, rustup.
+> # Install neovim nightly.
+```
+
+```bash
+> vi +PackerSync +qall
+> # Install neovim plugins.
+```
 
 ## Depend on
 
@@ -76,14 +111,14 @@ Run this command: `install.sh`
 - lua
 - luacheck(lua linter)
 - luarocks
-- neomutt
+- neomutt(optional)
 - neovim
   - neovim-drop-in(aur, vi/vim simlink)
   - nodejs-neovim(aur)
   - python-pynvim
   - wbthomason/packer.nvim(from install script, see: gitHub)
 - netcoredbg(aur, cs debugger)
-- nginx
+- nginx(optional)
 - nodejs-jsonlint(aur, json linter)
 - nodejs-lts-gallium
 - nodejs-markdownlint-cli(aur, markdown linter)
@@ -99,7 +134,7 @@ Run this command: `install.sh`
     - flake8(poetry)
     - isort(poetry)
     - pytest(poetry)
-- postfix(localhost only for neomutt)
+- postfix(optional)(localhost only for neomutt)
 - prettier
   (html/css/sass/javascript/typescript/react/vue/json/yaml/markdown/graphql formatter)
 - pyenv(from install script, see: gitHub)
@@ -110,8 +145,8 @@ Run this command: `install.sh`
 - python-isort(python formatter)
 - python-pip
 - python-pytest
-- ranger
-- rclone
+- ranger(optional)
+- rclone(optional)
   - gdrive
   - dropbox
   - onedrive
