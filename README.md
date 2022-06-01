@@ -33,6 +33,7 @@ Run this command: `install.sh`
     - bundler(gem)
 - aspnet-runtime
 - aspnet-targeting-pack
+- base-devel
 - bashdb(aur)
 - bemenu
 - clang
@@ -62,6 +63,7 @@ Run this command: `install.sh`
     - ghci-dap(stack, haskell debugger)
     - haskell-debug-adapter(stack, haskell debugger)
     - fourmolu(stack, haskell formatter)
+- git
 - github-cli
 - gnome-keyring
 - go
