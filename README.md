@@ -43,7 +43,7 @@ My dotfiles for command line interface on Arch linux.
 
 ## Depend on
 
-- asdf(from git clone, see: gitHub)
+- asdf(from git clone)
   - deno(asdf)
   - dotnet(asdf)
   - golang(asdf)
@@ -116,7 +116,7 @@ My dotfiles for command line interface on Arch linux.
   - neovim-drop-in(aur, vi/vim simlink)
   - nodejs-neovim(aur)
   - python-pynvim
-  - wbthomason/packer.nvim(from install script, see: gitHub)
+  - wbthomason/packer.nvim(from install script)
 - netcoredbg(aur, cs debugger)
 - nginx(optional)
 - nodejs-jsonlint(aur, json linter)
@@ -127,7 +127,7 @@ My dotfiles for command line interface on Arch linux.
 - php
 - php-\*(apcu, gd, sqlite, pgsql, redis, imap, imagick, fpm)
 - php-cs-fixer(aur, php formatter)
-- poetry(from install script, see: python-poetry.org)
+- poetry(from install script)
   - python3(poetry)
     - black(poetry)
     - debugpy(poetry)
@@ -137,7 +137,7 @@ My dotfiles for command line interface on Arch linux.
 - postfix(optional)(localhost only for neomutt)
 - prettier
   (html/css/sass/javascript/typescript/react/vue/json/yaml/markdown/graphql formatter)
-- pyenv(from install script, see: gitHub)
+- pyenv(from install script)
   - python3(pyenv)
 - python3
 - python-black(python formatter)
@@ -153,7 +153,7 @@ My dotfiles for command line interface on Arch linux.
   - pcloud
   - mega
 - ripgrep
-- rustup(from install script, see: www.rust-lang.org)
+- rustup(from install script)
   - rust(rustup)
   - cargo(rustup)
 - shfmt(bash formatter)
