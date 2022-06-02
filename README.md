@@ -9,39 +9,39 @@ My dotfiles for command line interface on Arch linux.
 ## How to install
 
 ```bash
-> paru -S <dependent packages>
-> # Install arch packages and aur packages.
-> # Options can be ignored.
+paru -S <dependent packages>
+# Install arch packages and aur packages.
+# Options can be ignored.
 ```
 
 ```bash
-> cd ~
-> git clone https://github.com/Lamtea/dotfiles.git .dotfiles
+cd ~
+git clone https://github.com/Lamtea/dotfiles.git .dotfiles
 ```
 
 ```bash
-> cd .dotfiles
-> vi .gitconfig
->   email = <your email address>
-> vi .config/neomutt/neomuttrc
->   set my_name="<your name>"
-> ./install.sh
+cd .dotfiles
+vi .gitconfig
+  email = <your email address>
+vi .config/neomutt/neomuttrc
+  set my_name="<your name>"
+./install.sh
 ```
 
 ```bash
-> exec zsh
-> # Install zsh plugins and some packages from git.
+exec zsh
+# Install zsh plugins and some packages from git.
 ```
 
 ```bash
-> ~/bin/update-devtools.sh
-> # Install asdf tools, dotnet tools, pyenv, poetry, ghcup, rustup,
-> # vscode extensions, neovim nightly, etc...
+~/bin/update-devtools.sh
+# Install asdf tools, dotnet tools, pyenv, poetry, ghcup, rustup,
+# vscode extensions, neovim nightly, etc...
 ```
 
 ```bash
-> vi +PackerSync +qall
-> # Install neovim plugins.
+vi +PackerSync +qall
+# Install neovim plugins.
 ```
 
 ## Depend on
