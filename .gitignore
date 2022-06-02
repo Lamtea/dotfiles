@@ -17,6 +17,10 @@
 # readme
 !/README.md
 
+# github
+!/.github/
+!/.github/**/*
+
 # シェルスクリプト
 !/.bin/
 !/.bin/**/*
