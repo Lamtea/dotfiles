@@ -30,7 +30,7 @@ vi .config/neomutt/neomuttrc
 
 ```bash
 exec zsh
-# Install zsh plugins and some packages from git.
+# Install zsh plugins and some packages from github or script.
 ```
 
 ```bash
