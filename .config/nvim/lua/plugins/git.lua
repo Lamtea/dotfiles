@@ -169,7 +169,7 @@ m.setup_diffview = function()
                 -- Open the commit log panel.
                 ["L"] = actions.open_commit_log,
                 -- Scroll the view up
-                ["<c-b>"] = actions.scroll_view(-0.25),
+                ["<c-d>"] = actions.scroll_view(-0.25),
                 -- Scroll the view down
                 ["<c-f>"] = actions.scroll_view(0.25),
                 ["<tab>"] = actions.select_next_entry,

@@ -81,6 +81,9 @@ require("packer").startup(function(use)
         -- github
         require("plugins.github").setup(use)
 
+        -- markdown
+        require("plugins.markdown").setup(use)
+
         -- javascript/typescript
         require("plugins.javascript").setup(use)
     end

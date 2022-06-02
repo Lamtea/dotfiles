@@ -10,7 +10,8 @@ m.setup = function(use)
     use("hkupty/iron.nvim")
 
     m.setup_sniprun()
-    m.setup_iron()
+    -- NOTE: Doesn't work with nightly.
+    -- m.setup_iron()
 end
 
 m.setup_sniprun = function()
@@ -21,8 +22,18 @@ m.setup_iron = function()
     local iron = require("iron.core")
     iron.setup({
         config = {
+            -- Your repl definitions come here
+            repl_definition = {
+                sh = {
+                    command = { "zsh" },
+                },
+            },
+            -- how the REPL window will be opened, the default is opening
+            -- a float window of width 50 at the right.
             repl_open_cmd = require("iron.view").curry.right(50),
         },
+        -- Iron doesn't set keymaps by default anymore. Set them here
+        -- or use `should_map_plug = true` and map from you vim files
         keymaps = {
             send_motion = "<leader>rs",
             visual_send = "<leader>rs",
