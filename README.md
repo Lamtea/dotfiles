@@ -2,6 +2,10 @@
 
 My dotfiles for command line interface on Arch linux.
 
+## Overview
+
+![a](https://user-images.githubusercontent.com/48638671/171588449-9a133364-cb2b-4423-a661-0510a0940431.png)
+
 ## How to install
 
 ```bash
