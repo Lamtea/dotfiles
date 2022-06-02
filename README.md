@@ -5,6 +5,12 @@ My dotfiles for command line interface on Arch linux.
 ## How to install
 
 ```bash
+> paru -S <dependent packages>
+> # Install arch packages and aur packages.
+> # Options can be ignored.
+```
+
+```bash
 > cd ~
 > git clone https://github.com/Lamtea/dotfiles.git .dotfiles
 ```
@@ -19,21 +25,14 @@ My dotfiles for command line interface on Arch linux.
 ```
 
 ```bash
-> paru -S <dependent packages>
-> # Install arch packages and aur packages.
-> # Options can be ignored.
-```
-
-```bash
 > exec zsh
-> # Install zsh plugin.
-> # Install some packages from git.
+> # Install zsh plugins and some packages from git.
 ```
 
 ```bash
 > ~/bin/update-devtools.sh
-> # Install asdf tools, dotnet tools, pyenv, poetry, ghcup, rustup.
-> # Install neovim nightly.
+> # Install asdf tools, dotnet tools, pyenv, poetry, ghcup, rustup,
+> # vscode extensions, neovim nightly, etc...
 ```
 
 ```bash
