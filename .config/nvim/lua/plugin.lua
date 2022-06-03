@@ -86,5 +86,11 @@ require("packer").startup(function(use)
 
         -- javascript/typescript
         require("plugins.javascript").setup(use)
+
+        -- sql
+        require("plugins.sql").setup(use)
+
+        -- log
+        require("plugins.log").setup(use)
     end
 end)

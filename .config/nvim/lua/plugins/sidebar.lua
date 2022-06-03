@@ -102,7 +102,14 @@ m.setup_sidebar = function()
     })
 end
 
--- サイドバー表示トグル
+-- Toggle show/close of sidebar.
 vim.api.nvim_set_keymap("n", "gs", "<Cmd>SidebarNvimToggle<CR>", { noremap = true, silent = true })
+-- Toggle shor/close of todos.
+vim.api.nvim_set_keymap(
+    "n",
+    "gS",
+    ":lua require('sidebar-nvim.builtin.todos').toggle_all()<CR>",
+    { noremap = true, silent = true }
+)
 
 return m
