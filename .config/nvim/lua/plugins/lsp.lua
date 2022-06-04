@@ -37,71 +37,139 @@ m.setup = function(use)
     m.setup_fidget()
 end
 
-m.setup_lsp = function()
-    local on_attach = function(client, bufnr)
-        -- 単語ハイライトをアタッチ
-        require("illuminate").on_attach(client)
+-- Publish for a plugin that sets lsp on its own
+m.on_attach = function(client, bufnr)
+    -- 単語ハイライトをアタッチ
+    require("illuminate").on_attach(client)
 
-        -- キーマップ設定
-        local function buf_set_keymap(...)
-            vim.api.nvim_buf_set_keymap(bufnr, ...)
-        end
-
-        local opts = { noremap = true, silent = true }
-
-        -- telescope使用<leader>ld
-        -- カーソル下のシンボルの宣言にジャンプする(多くのサーバーがまだ未実装, see: help)
-        buf_set_keymap("n", "gD", "lua vim.lsp.buf.declaration()", opts)
-
-        -- telescope使用<leader>ld
-        -- カーソル下のシンボルの定義にジャンプする
-        buf_set_keymap("n", "gd", "lua vim.lsp.buf.definition()", opts)
-
-        -- lspsaga使用
-        -- buf_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
-
-        -- telescope使用<leader>li
-        -- quickfixにカーソル下のシンボルの実装をリストする
-        buf_set_keymap("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
-
-        -- lspsaga使用
-        -- buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
-
-        buf_set_keymap("n", "<space>wa", "<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>", opts)
-        buf_set_keymap("n", "<space>wr", "<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>", opts)
-        buf_set_keymap("n", "<space>wl", "<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>", opts)
-
-        -- telescope使用<leader>lt
-        -- カーソル下のシンボルの型定義にジャンプする
-        buf_set_keymap("n", "<space>D", "<cmd>lua vim.lsp.buf.type_definition()<CR>", opts)
-
-        -- lspsaga使用
-        -- buf_set_keymap('n', '<space>r', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-
-        -- lspsaga使用
-        -- buf_set_keymap('n', '<space>a', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
-
-        -- trouble使用, telescope使用<leader>lr
-        -- buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-
-        -- lspsaga使用
-        -- buf_set_keymap('n', '<space>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
-
-        -- lspsaga使用
-        -- buf_set_keymap('n', '<space>p', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
-
-        -- lspsaga使用
-        -- buf_set_keymap('n', '<space>n', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
-
-        buf_set_keymap("n", "<space>l", "lua vim.lsp.diagnostic.set_loclist()", opts)
-        buf_set_keymap("n", "<space>q", "lua vim.lsp.diagnostic.set_qflist()", opts)
-        buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.format()<CR>", opts)
+    -- キーマップ設定
+    local function buf_set_keymap(...)
+        vim.api.nvim_buf_set_keymap(bufnr, ...)
     end
 
+    local opts = { noremap = true, silent = true }
+
+    -- telescope使用<leader>ld
+    -- カーソル下のシンボルの宣言にジャンプする(多くのサーバーがまだ未実装, see: help)
+    buf_set_keymap("n", "gD", "lua vim.lsp.buf.declaration()", opts)
+
+    -- telescope使用<leader>ld
+    -- カーソル下のシンボルの定義にジャンプする
+    buf_set_keymap("n", "gd", "lua vim.lsp.buf.definition()", opts)
+
+    -- lspsaga使用
+    -- buf_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
+
+    -- telescope使用<leader>li
+    -- quickfixにカーソル下のシンボルの実装をリストする
+    buf_set_keymap("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
+
+    -- lspsaga使用
+    -- buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+
+    buf_set_keymap("n", "<space>wa", "<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>", opts)
+    buf_set_keymap("n", "<space>wr", "<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>", opts)
+    buf_set_keymap("n", "<space>wl", "<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>", opts)
+
+    -- telescope使用<leader>lt
+    -- カーソル下のシンボルの型定義にジャンプする
+    buf_set_keymap("n", "<space>D", "<cmd>lua vim.lsp.buf.type_definition()<CR>", opts)
+
+    -- lspsaga使用
+    -- buf_set_keymap('n', '<space>r', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+
+    -- lspsaga使用
+    -- buf_set_keymap('n', '<space>a', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
+
+    -- trouble使用, telescope使用<leader>lr
+    -- buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+
+    -- lspsaga使用
+    -- buf_set_keymap('n', '<space>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
+
+    -- lspsaga使用
+    -- buf_set_keymap('n', '<space>p', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
+
+    -- lspsaga使用
+    -- buf_set_keymap('n', '<space>n', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
+
+    buf_set_keymap("n", "<space>l", "lua vim.lsp.diagnostic.set_loclist()", opts)
+    buf_set_keymap("n", "<space>q", "lua vim.lsp.diagnostic.set_qflist()", opts)
+    buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.format()<CR>", opts)
+end
+
+-- Publish for a plugin that sets lsp on its own
+m.get_capabilities = function()
+    return require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
+end
+
+local function get_clang_capabilities()
+    -- NOTE: エンコーディング指定しないと警告が出る
+    local capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
+    capabilities.offsetEncoding = { "utf-16" }
+    return capabilities
+end
+
+local function setup_lsp_clangd(serverconfig, on_attach)
+    serverconfig.setup({
+        on_attach = on_attach,
+        capabilities = get_clang_capabilities(),
+    })
+end
+
+local function setup_lsp_html(serverconfig, on_attach, capabilities)
+    serverconfig.setup({
+        -- formatterはprettierを使用
+        provideFormatter = false,
+        on_attach = on_attach,
+        capabilities = capabilities,
+    })
+end
+
+local function setup_lsp_jsonls(serverconfig, on_attach, capabilities)
+    serverconfig.setup({
+        -- formatterはprettierを使用
+        provideFormatter = false,
+        on_attach = on_attach,
+        capabilities = capabilities,
+    })
+end
+
+local function setup_lsp_sumneko_lua(serverconfig, on_attach, capabilities)
+    serverconfig.setup({
+        settings = {
+            Lua = {
+                diagnostics = {
+                    -- neovim設定ファイル用(vimがグローバルオブジェクトのため)
+                    globals = { "vim" },
+                    neededFileStatus = {
+                        ["codestyle-check"] = "Any",
+                    },
+                },
+                format = {
+                    -- formatterはstyluaを使用
+                    enable = false,
+                },
+            },
+        },
+        on_attach = on_attach,
+        capabilities = capabilities,
+    })
+end
+
+local function setup_lsp_any(serverconfig, on_attach, capabilities)
+    serverconfig.setup({
+        on_attach = on_attach,
+        capabilities = capabilities,
+    })
+end
+
+m.setup_lsp = function()
     -- インストール済のlspとlsp用補完をアタッチする
     local lsp_installer = require("nvim-lsp-installer")
     local lspconfig = require("lspconfig")
-    local capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
+    local capabilities = m.get_capabilities()
+    local on_attach = m.on_attach
     lsp_installer.setup()
     for _, server in ipairs(lsp_installer.get_installed_servers()) do
         local serverconfig = lspconfig[server.name]
@@ -109,58 +177,19 @@ m.setup_lsp = function()
         -- 言語別の設定
         if server.name == "clangd" then
             -- c/cpp
-            -- NOTE: エンコーディング指定しないと警告が出る
-            local clangd_capabilities = require("cmp_nvim_lsp").update_capabilities(
-                vim.lsp.protocol.make_client_capabilities()
-            )
-            clangd_capabilities.offsetEncoding = { "utf-16" }
-            serverconfig.setup({
-                on_attach = on_attach,
-                capabilities = clangd_capabilities,
-            })
+            setup_lsp_clangd(serverconfig, on_attach)
         elseif server.name == "html" then
             -- html
-            serverconfig.setup({
-                -- formatterはprettierを使用
-                provideFormatter = false,
-                on_attach = on_attach,
-                capabilities = capabilities,
-            })
+            setup_lsp_html(serverconfig, on_attach, capabilities)
         elseif server.name == "jsonls" then
             -- json
-            serverconfig.setup({
-                -- formatterはprettierを使用
-                provideFormatter = false,
-                on_attach = on_attach,
-                capabilities = capabilities,
-            })
+            setup_lsp_jsonls(serverconfig, on_attach, capabilities)
         elseif server.name == "sumneko_lua" then
             -- lua
-            serverconfig.setup({
-                settings = {
-                    Lua = {
-                        diagnostics = {
-                            -- neovim設定ファイル用(vimがグローバルオブジェクトのため)
-                            globals = { "vim" },
-                            neededFileStatus = {
-                                ["codestyle-check"] = "Any",
-                            },
-                        },
-                        format = {
-                            -- formatterはstyluaを使用
-                            enable = false,
-                        },
-                    },
-                },
-                on_attach = on_attach,
-                capabilities = capabilities,
-            })
+            setup_lsp_sumneko_lua(serverconfig, on_attach, capabilities)
         else
             -- 通常設定
-            serverconfig.setup({
-                on_attach = on_attach,
-                capabilities = capabilities,
-            })
+            setup_lsp_any(serverconfig, on_attach, capabilities)
         end
     end
 end

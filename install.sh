@@ -88,6 +88,9 @@ dotfiles_or_dirs=(
 	bin/update-vscode-firefox-debug.sh
 	bin/update-java-debug.sh
 	bin/update-vscode-java-test.sh
+	bin/update-lsp.sh
+	bin/update-lsp-jdtls.sh
+	bin/update-lsp-lombok.sh
 	Gemfile
 )
 

@@ -421,9 +421,9 @@ vim.api.nvim_set_keymap("n", "<F12>", "<Cmd>lua require'dap'.repl.open()<CR>", {
 
 -- dapui
 -- dapui表示のトグル
-vim.api.nvim_set_keymap("n", "<leader>dd", '<Cmd>lua require("dapui").toggle()<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<space>u", '<Cmd>lua require("dapui").toggle()<CR>', { noremap = true, silent = true })
 -- 選択範囲の評価をポップアップで表示
-vim.api.nvim_set_keymap("v", "<leader>de", '<Cmd>lua require("dapui").eval()<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap("v", "<space>u", '<Cmd>lua require("dapui").eval()<CR>', { noremap = true, silent = true })
 
 -- telescope連携
 -- デバッグコマンドをtelescopeで表示
@@ -454,17 +454,5 @@ vim.api.nvim_set_keymap(
     "<Cmd>lua require'telescope'.extensions.dap.variables{}<CR>",
     { noremap = true, silent = true }
 )
-
--- python
--- カーソル位置のテストメソッドを実行
-vim.cmd([[nnoremap <silent> <leader>dpp :lua require('dap-python').test_method()<CR>]])
--- カーソル位置のテストクラスを実行
-vim.cmd([[nnoremap <silent> <leader>dpc :lua require('dap-python').test_class()<CR>]])
--- 選択範囲のデバッグを実行
-vim.cmd([[vnoremap <silent> <leader>dps <ESC>:lua require('dap-python').debug_selection()<CR>]])
-
--- go
--- カーソル位置のテストメソッドを実行
-vim.cmd([[nmap <silent> <leader>dg :lua require('dap-go').debug_test()<CR>]])
 
 return m

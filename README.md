@@ -45,7 +45,9 @@ exec zsh
 ```
 
 ```bash
+sudo archlinux-java set jdk11-openjdk
 ~/bin/update-devtools.sh
+sudo archlinux-java set <your jdk version>
 # Install asdf tools, dotnet tools, pyenv, poetry, ghcup, rustup,
 # vscode extensions, neovim nightly, etc...
 # If you fail, make sure the way may have changed(See: github).
@@ -168,15 +170,21 @@ There are also plugins that setup lsp on their own, such as rust-tools.nvim, nvi
 - github-cli
 - gnome-keyring
 - go
+- gradle
 - imagemagick
 - jdk-openjdk
+- jdk11-openjdk
 - julia
 - kotlin
+- language-server-protocol
+  - jdtls _(for nvim-jdtls, download latest)_
+    - lombok _(download latest)_
 - libgnome-keyring
 - lldb _(c/cpp/rust debugger)_
 - lua
 - luacheck _(lua linter)_
 - luarocks
+- maven
 - neomutt **(optional)**
 - neovim
   - neovim-drop-in _(aur, vi/vim simlink)_
@@ -237,6 +245,8 @@ There are also plugins that setup lsp on their own, such as rust-tools.nvim, nvi
   - vscode-node-debug2
   - vscode-chrome-debug
   - vscode-firefox-debug
+  - java-debug
+  - vscode-java-test
 - w3m
 - wget
 - xclip

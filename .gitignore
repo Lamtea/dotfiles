@@ -49,9 +49,10 @@
 ## neovim
 !/.config/nvim/
 !/.config/nvim/init.lua
-!/.config/nvim/vscode.lua
 !/.config/nvim/lua/
 !/.config/nvim/lua/**/*
+!/.config/nvim/ftplugin/
+!/.config/nvim/ftplugin/**/*
 ## ranger
 !/.config/ranger/
 !/.config/ranger/**/*
