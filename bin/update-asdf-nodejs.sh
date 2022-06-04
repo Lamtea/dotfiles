@@ -19,8 +19,8 @@ if [[ -z "$PLUGIN" ]]; then
 	fi
 fi
 
-asdf install nodejs latest &&
+(asdf install nodejs latest &&
 	printf "${ESC}[1;32m%s${ESC}[m\n" '***** asdf nodejs updated (If you want to use latest: asdf local nodejs [version]). *****.' &&
-	exit 0 ||
-	printf "${ESC}[1;31m%s${ESC}[m\n" '***** asdf nodejs update failed. *****' &&
-	exit 3
+	exit 0) ||
+	(printf "${ESC}[1;31m%s${ESC}[m\n" '***** asdf nodejs update failed. *****' &&
+		exit 3)

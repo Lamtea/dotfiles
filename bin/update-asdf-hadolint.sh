@@ -18,9 +18,9 @@ if [[ -z "$PLUGIN" ]]; then
 	fi
 fi
 
-asdf install hadolint latest &&
+(asdf install hadolint latest &&
 	asdf global hadolint "$(asdf list hadolint | grep '[0-9]\+' | tail -n 1 | xargs)" &&
 	printf "${ESC}[1;32m%s${ESC}[m\n" '***** asdf hadolint updated. *****.' &&
-	exit 0 ||
-	printf "${ESC}[1;31m%s${ESC}[m\n" '***** asdf hadolint update failed. *****' &&
-	exit 3
+	exit 0) ||
+	(printf "${ESC}[1;31m%s${ESC}[m\n" '***** asdf hadolint update failed. *****' &&
+		exit 3)

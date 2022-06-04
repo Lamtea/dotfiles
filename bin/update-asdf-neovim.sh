@@ -18,10 +18,10 @@ if [[ -z "$PLUGIN" ]]; then
 	fi
 fi
 
-asdf uninstall neovim nightly &&
+(asdf uninstall neovim nightly &&
 	asdf install neovim nightly 2>/dev/null &&
 	asdf global neovim nightly &&
 	printf "${ESC}[1;32m%s${ESC}[m\n" '***** asdf neovim updated. *****.' &&
-	exit 0 ||
-	printf "${ESC}[1;31m%s${ESC}[m\n" '***** asdf neovim update failed. *****' &&
-	exit 3
+	exit 0) ||
+	(printf "${ESC}[1;31m%s${ESC}[m\n" '***** asdf neovim update failed. *****' &&
+		exit 3)
