@@ -15,9 +15,8 @@ local bundles = {
 }
 vim.list_extend(bundles, vim.split(java_test_paths, "\n"))
 
-local root_markers = { "mvnw", "gradlew", "pom.xml" }
-local root_dir = require("jdtls.setup").find_root(root_markers)
-local jdtls_data_path = require("os").getenv("JAVA_WORKSPACE") .. "/" .. vim.fn.fnamemodify(root_dir, ":p:h:t")
+local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":p:h:t")
+local jdtls_data_path = require("os").getenv("JAVA_WORKSPACE") .. "/" .. project_name
 
 local cmd = {
     "java",
@@ -42,11 +41,18 @@ local cmd = {
     jdtls_data_path,
 }
 
+local root_markers = { "mvnw", "gradlew", "pom.xml" }
+local root_dir = require("jdtls.setup").find_root(root_markers)
 local capabilities = require("plugins.lsp").get_capabilities()
 
 local function on_attach(client, bufnr)
     require("plugins.lsp").on_attach(client, bufnr)
-    require("jdtls").setup_dap({ hotcodereplace = "auto" })
+    require("jdtls").setup_dap({
+        hotcodereplace = "auto",
+        config_overrides = {
+            console = "internalConsole",
+        },
+    })
     require("jdtls.setup").add_commands()
 
     -- Define commands.
