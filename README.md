@@ -67,10 +67,7 @@ vi +PackerSync
 
 ## Hello world
 
-_Comming soon..._
-
-_I plan to state the work I did in the lsp, linter, formatter,
-and dap setup confirmation_
+See: [WIP: Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim)
 
 ## Recommended language servers
 
