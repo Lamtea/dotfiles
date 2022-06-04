@@ -65,7 +65,7 @@ vi +PackerSync
 # (No problem because it is an extension of the standard command)
 ```
 
-## Hello world by neovim
+## Hello world
 
 _Comming soon..._
 
