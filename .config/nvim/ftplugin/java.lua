@@ -3,7 +3,6 @@ local home_path = require("os").getenv("HOME")
 local jdtls_path = home_path .. "/dev/lsp/jdtls"
 local jdtls_jar_path = vim.fn.glob(jdtls_path .. "/plugins/org.eclipse.equinox.launcher_*.jar")
 local jdtls_config_path = jdtls_path .. "/config_linux"
-local jdtls_data_path = require("os").getenv("JAVA_WORKSPACE")
 local lombok_path = home_path .. "/dev/lsp/lombok/lombok.jar"
 
 local vsext_path = home_path .. "/dev/vscode"
@@ -15,6 +14,10 @@ local bundles = {
     java_debug_paths,
 }
 vim.list_extend(bundles, vim.split(java_test_paths, "\n"))
+
+local root_markers = { "mvnw", "gradlew", "pom.xml" }
+local root_dir = require("jdtls.setup").find_root(root_markers)
+local jdtls_data_path = require("os").getenv("JAVA_WORKSPACE") .. "/" .. vim.fn.fnamemodify(root_dir, ":p:h:t")
 
 local cmd = {
     "java",
@@ -61,7 +64,7 @@ end
 
 local config = {
     cmd = cmd,
-    root_dir = require("jdtls.setup").find_root({ ".git", "mvnw", "gradlew" }),
+    root_dir = root_dir,
     settings = {
         java = {},
     },
@@ -85,4 +88,4 @@ vim.cmd([[vnoremap <space>m <Esc><Cmd>lua require('jdtls').extract_method(true)<
 vim.cmd([[nnoremap <space>t <Cmd>lua require'jdtls'.test_nearest_method()<CR>]])
 vim.cmd([[nnoremap <space>T <Cmd>lua require'jdtls'.test_class()<CR>]])
 -- For debug.
-vim.cmd([[nnoremap <space>C <Cmd>lua require'jdtls.dap'.setup_dap_main_class_configs()<CR>]])
+vim.cmd([[nnoremap <space>C <Cmd>JdtRefreshDebugConfigs<CR>]])

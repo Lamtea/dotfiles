@@ -102,7 +102,7 @@ export PATH="$HOME/.local/bin:$PATH"
 
 # userの設定
 export PATH="$HOME/bin:$PATH"
-export JAVA_WORKSPACE="$HOME/java-workspace"
+export JAVA_WORKSPACE="$HOME/.workspace"
 
 # PATHの重複を除去
 typeset -U PATH
