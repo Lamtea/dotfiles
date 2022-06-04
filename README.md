@@ -49,7 +49,7 @@ sudo archlinux-java set jdk11-openjdk
 ~/bin/update-devtools.sh
 sudo archlinux-java set <your jdk version>
 # Install asdf tools, dotnet tools, pyenv, poetry, ghcup, rustup,
-# vscode extensions, neovim nightly, etc...
+# vscode extensions, language servers, neovim nightly, etc...
 # If you fail, make sure the way may have changed(See: github).
 ```
 
@@ -176,7 +176,7 @@ There are also plugins that setup lsp on their own, such as rust-tools.nvim, nvi
 - jdk11-openjdk
 - julia
 - kotlin
-- language-server-protocol
+- language-server
   - jdtls _(for nvim-jdtls, download latest)_
     - lombok _(download latest)_
 - libgnome-keyring
