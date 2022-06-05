@@ -71,40 +71,7 @@ See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
 
 ## Recommended language servers
 
-There are also plugins that setup lsp on their own, such as rust-tools.nvim, nvim-jdtls.
-
-(in which case uninstall the lsp from lsp-installer)
-
-- asm_lsp (assembly-gas, assembly-nasm, assembly-go)
-- awk_ls
-- bashls
-- clangd (c, c++)
-- cmake
-- cssls
-- cssmodules_ls
-- dartls
-- dockerls
-- emmet_ls
-- gopls (go)
-- graphql
-- hls (haskell)
-- html
-- intelephense (php)
-- jsonls
-- julials
-- kotlin_language_server
-- lemminx (xml)
-- omnisharp (c#)
-- prismals
-- prosemd_lsp (markdown)
-- pyright (python)
-- rust_analyzer
-- solargraph (ruby)
-- sumneko_lua (lua)
-- taplo (toml)
-- tsserver (typescript, javascript)
-- vuels
-- yamlls
+See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim-Language-Servers)
 
 ## Depend on
 
