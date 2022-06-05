@@ -38,6 +38,10 @@ vi .config/neomutt/neomuttrc
 ./install.sh
 ```
 
+gnome-keyring settings required.
+
+See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/gnome-keyring)
+
 ```bash
 exec zsh
 # Install zsh plugins and some packages from github or script.
