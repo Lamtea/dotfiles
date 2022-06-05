@@ -60,7 +60,7 @@ vi +PackerSync
    :checkhealth
 # Install neovim plugins and create helptags,
 # and install lsp in your programming languages
-# (if you are unsure, see below `Recommended language servers` list).
+# (if you are unsure, see below `neovim Language Servers` list).
 # Finally, All OK except WARNING from Whichkey.
 # (No problem because it is an extension of the standard command)
 ```
