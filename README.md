@@ -67,7 +67,7 @@ vi +PackerSync
 
 ## Hello world
 
-See: [WIP: Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim)
+See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
 
 ## Recommended language servers
 
