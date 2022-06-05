@@ -1,7 +1,7 @@
 local m = {}
 
 m.setup = function(use)
-    -- LSP用linter, formatter(各種linter, 各種formatter必須 see: setup)
+    -- Use Neovim as a language server to inject LSP diagnostics, code actions, and more via Lua.
     use({
         "jose-elias-alvarez/null-ls.nvim",
         requires = {
@@ -15,19 +15,19 @@ end
 local lsp_formatting = function(bufnr)
     vim.lsp.buf.format({
         filter = function(client)
-            -- javascript/typescriptはprettierを使用
+            -- javascript/typescript use prettier
             if client.name == "tsserver" then
                 return false
             end
-            -- luaはstyluaを使用
+            -- lua use stylua
             if client.name == "sumneko_lua" then
                 return false
             end
-            -- haskellはfourmolu使用
+            -- haskell use fourmolu
             if client.name == "hls" then
                 return false
             end
-            -- xmlはtidyを使用
+            -- xml use tidy
             if client.name == "lemminx" then
                 return false
             end
@@ -60,13 +60,13 @@ m.setup_null_ls = function()
             -- code action
 
             -- for javascript/typescript/react/vue
-            -- NOTE: lsp版もあるがまだ開発中
+            -- NOTE: There is also a lsp version, but still under development.
             null_ls.builtins.code_actions.eslint.with({
                 prefer_local = "node_modules/.bin",
             }),
 
             -- for bash
-            -- bashlsで使用される
+            -- be used by bashls
             -- null_ls.builtins.code_actions.shellcheck,
 
             -- diagnostics
@@ -86,7 +86,7 @@ m.setup_null_ls = function()
             null_ls.builtins.diagnostics.erb_lint,
 
             -- for javascript/typescript/react/vue
-            -- NOTE: lsp版もあるがまだ開発中
+            -- NOTE: There is also a lsp version, but still under development.
             null_ls.builtins.diagnostics.eslint.with({
                 prefer_local = "node_modules/.bin",
             }),
@@ -97,7 +97,7 @@ m.setup_null_ls = function()
             }),
 
             -- for go
-            -- NOTE: lsp版もあるがまだ開発中
+            -- NOTE: There is also a lsp version, but still under development.
             null_ls.builtins.diagnostics.golangci_lint,
 
             -- for dockerfile
@@ -113,7 +113,7 @@ m.setup_null_ls = function()
 
             -- for lua
             null_ls.builtins.diagnostics.luacheck.with({
-                -- vimのグローバルオブジェクト警告のため
+                -- for vim
                 extra_args = { "--globals vim" },
             }),
 
@@ -126,21 +126,20 @@ m.setup_null_ls = function()
             null_ls.builtins.diagnostics.php,
 
             -- for ruby
-            -- solargraphで使用される
+            -- be used by solargraph
             -- null_ls.builtins.diagnostics.rubocop,
 
             -- for bash
-            -- bashlsで使用される
+            -- be used by bashls
             -- null_ls.builtins.diagnostics.shellcheck,
 
             -- for css
-            -- NOTE: eslintのlsp版(まだ開発中)に切り替えるなら合わせてstylelintもlsp版にしたほうが良い
+            -- NOTE: If switch to the lsp version eslint, should also switch to the lsp version stylelint.
             null_ls.builtins.diagnostics.stylelint.with({
                 prefer_local = "node_modules/.bin",
             }),
 
             -- for sql
-            -- NOTE: db定義補完はsqlsに切替(db接続必須, まだ開発途中)
             null_ls.builtins.diagnostics.sqlfluff.with({
                 extra_args = { "--dialect", "postgres" },
             }),
@@ -151,7 +150,7 @@ m.setup_null_ls = function()
             }),
 
             -- for typescript/react
-            -- tsserverを使用する
+            -- use tsserver
             -- null_ls.builtins.diagnostics.tsc.with({
             -- 	   prefer_local = "node_modules/.bin",
             -- }),
@@ -172,13 +171,13 @@ m.setup_null_ls = function()
             }),
 
             -- for c/cpp/cs/java
-            -- cs/javaはominisharp/jdtlsのformattingを使用する
+            -- cs/java use formatter of ominisharp/jdtls
             null_ls.builtins.formatting.clang_format.with({
                 disabled_filetypes = { "cs", "java" },
             }),
 
             -- for dart
-            -- dartlsで使用される
+            -- be used by dartls
             -- null_ls.builtins.formatting.dart_format,
 
             -- for eruby
@@ -210,15 +209,13 @@ m.setup_null_ls = function()
             null_ls.builtins.formatting.rubocop,
 
             -- for rust
-            -- rust_analyzerで使用される
+            -- be used by rust_analyzer
             -- null_ls.builtins.formatting.rustfmt,
 
             -- for bash
             null_ls.builtins.formatting.shfmt,
 
             -- for sql
-            -- NOTE: db定義補完はsqlsに切替(db接続必須, まだ開発途中)
-            -- デフォルトはposgresだがpwdに.sqlfluffを配置すれば設定できる
             null_ls.builtins.formatting.sqlfluff.with({
                 extra_args = { "--dialect", "postgres" },
             }),
@@ -242,13 +239,12 @@ m.setup_null_ls = function()
             }),
 
             -- for xml
-            -- htmlはprettierを使用
+            -- html use prettier
             null_ls.builtins.formatting.tidy.with({
                 prefer_local = "node_modules/.bin",
                 disabled_filetypes = { "html" },
             }),
 
-            -- 末尾の空白除去
             null_ls.builtins.formatting.trim_whitespace,
         },
     })

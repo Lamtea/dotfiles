@@ -1,12 +1,16 @@
 # dotfiles
 
-My dotfiles for command line interface on Arch linux.
+My dotfiles for command-line interface on Arch linux.
 
 ## Overview
 
 ![overview](https://user-images.githubusercontent.com/48638671/171588449-9a133364-cb2b-4423-a661-0510a0940431.png)
 
 ## How to Install
+
+gnome-keyring settings required.
+
+See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/gnome-keyring)
 
 ```bash
 paru -S <dependent packages>
@@ -35,12 +39,12 @@ vi .gitconfig
   email = <your email address>
 vi .config/neomutt/neomuttrc
   set my_name="<your name>"
-./install.sh
+# For localization, see below `Localization`.
 ```
 
-gnome-keyring settings required.
-
-See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/gnome-keyring)
+```bash
+./install.sh
+```
 
 ```bash
 exec zsh
@@ -69,13 +73,17 @@ vi +PackerSync
 # (No problem because it is an extension of the standard command)
 ```
 
-## neovim Hello World
+## neovim Plugins
 
-See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
+See: [neovim plugins used in my dotfiles](https://github.com/stars/Lamtea/lists/neovim-plugins)
 
 ## neovim Language Servers
 
 See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim-language-servers)
+
+## neovim Hello World
+
+See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
 
 ## Depend on
 
@@ -222,10 +230,22 @@ See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim-language-servers)
 - yarn
 - zsh
 
+## Localization
+
+- Edit `.zshrc`
+  - `export LANG=ja_JP.UTF-8` # change your locale
+- Edit `.config/nvim/lua/plugins/sidebar.lua`
+  - `datetime` section
+    - `format = "%b %d日 (%a) %H:%M"` # change your locale
+- There is **fcitx5** setting in `.config/nvim/lua/command.lua`
+  - It works installed _(it won't work unless)_.
+    - If you are ibus user, edit to your setting.
+
 ## Terminal Fonts for zsh powerlevel10k
 
-- Ricty & MesloLGS NF
-- HackGenNerd
+- For Japanese
+  - Ricty & MesloLGS NF
+  - HackGenNerd
 
 ## Shell Scripts
 

@@ -1,7 +1,6 @@
 local m = {}
 
 m.setup = function(use)
-    -- github-cliと同じようなことができる(github-cli必須)
     -- :Octo <Object> <Action> [Argument]
     -- Object		Action				Arguments
     -- issue		close				Close the current issue
@@ -203,15 +202,15 @@ m.setup_octo = function()
     })
 end
 
--- アクション検索
+-- Find actions.
 vim.api.nvim_set_keymap("n", "<leader><leader>hh", "<Cmd>Octo actions<CR>", { noremap = true, silent = true })
--- githubのissueとpull requestを検索(結構重い)
+-- Find github issues and pull requests.
 vim.api.nvim_set_keymap("n", "<leader><leader>hs", "<Cmd>Octo search<CR>", { noremap = true, silent = true })
--- issue(カレントリポジトリ対象)
+-- For issue.
 vim.api.nvim_set_keymap("n", "<leader><leader>hic", "<Cmd>Octo issue create<CR>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "<leader><leader>hil", "<Cmd>Octo issue list<CR>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "<leader><leader>hii", "<Cmd>Octo issue search<CR>", { noremap = true, silent = true })
--- pull request(カレントリポジトリ対象)
+-- For pull request.
 vim.api.nvim_set_keymap("n", "<leader><leader>hpl", "<Cmd>Octo pr list<CR>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "<leader><leader>hps", "<Cmd>Octo pr search<CR>", { noremap = true, silent = true })
 

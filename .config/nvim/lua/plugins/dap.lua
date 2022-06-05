@@ -2,28 +2,44 @@ local m = {}
 local vsext_path = require("os").getenv("HOME") .. "/dev/vscode"
 
 m.setup = function(use)
-    -- noevim用デバッガアダプタプロトコル
-    -- 各種debugger必須, インストール後に :helptags ALL を実行しておく
+    -- nvim-dap is a Debug Adapter Protocol client implementation for Neovim. nvim-dap allows you to:
+    -- Launch an application to debug
+    -- Attach to running applications and debug them
+    -- Set breakpoints and step through code
+    -- Inspect the state of the application
     use("mfussenegger/nvim-dap")
-    -- dap用のUI
+    -- A UI for nvim-dap which provides a good out of the box configuration.
     use({
         "rcarriga/nvim-dap-ui",
         requires = { "mfussenegger/nvim-dap" },
     })
-    -- dapにvirtual textサポートを追加する
+    -- This plugin adds virtual text support to nvim-dap. nvim-treesitter is used to find variable definitions.
     use("theHamsta/nvim-dap-virtual-text")
-    -- dapのtelescope連携
+    -- Integration for nvim-dap with telescope.nvim.
+    -- This plugin is also overriding dap internal ui,
+    -- so running any dap command, which makes use of the internal ui, will result in a telescope prompt.
     use("nvim-telescope/telescope-dap.nvim")
-    -- neovim lua用dap
+    -- one-small-step-for-vimkind is an adapter for the Neovim lua language.
+    -- See the DAP protocol to know more about adapters.
+    -- It allows you to debug any lua code running in a Neovim instance.
     use("jbyuki/one-small-step-for-vimkind")
-    -- python用dap
+    -- An extension for nvim-dap providing default configurations
+    -- for python and methods to debug individual test methods or classes.
     use("mfussenegger/nvim-dap-python")
-    -- ruby用dap
-    -- NOTE: ruby 3.1から入ったdebug.rbに対応, railsについてはnot yet
+    -- An extension for nvim-dap providing configurations for launching debug.rb.
+    -- NOTE: Supports debug.rb from ruby 3.1, not yet for rails.
     use("suketa/nvim-dap-ruby")
-    -- go用dap
+    -- An extension for nvim-dap providing configurations
+    -- for launching go debugger (delve) and debugging individual tests.
     use("leoluz/nvim-dap-go")
-    -- NOTE: デバッガインストーラーが開発中
+    -- Dap Buddy allows you to manage debuggers provided by nvim-dap.
+    -- It should ease out the process of installing, configuring and interacting with said debuggers.
+    -- No troubleshooting needed.
+    -- Just plug and play.
+    -- At the moment the plugin has gone through some problems that could be traced back to the codebase itself;
+    -- that's why I'm going to be doing a rewrite:
+    -- faster, better, and without all the bugs it originally had. Stay tuned!
+    --  NOTE: Debugger installer is under development.
     -- use("Pocco81/dap-buddy.nvim")
 
     m.setup_dap()
@@ -43,9 +59,9 @@ m.setup = function(use)
 end
 
 m.setup_dap = function()
-    -- dapのロード
+    -- Load dap.
     require("dap")
-    -- サインの設定
+    -- Sign settings.
     vim.fn.sign_define("DapBreakpoint", { text = "", texthl = "", linehl = "", numhl = "" })
     vim.fn.sign_define("DapBreakpointCondition", { text = "", texthl = "", linehl = "", numhl = "" })
     vim.fn.sign_define("DapLogPoint", { text = "🅻", texthl = "", linehl = "", numhl = "" })
@@ -109,7 +125,7 @@ m.setup_dap_ui = function()
             max_type_length = nil,
         },
     })
-    -- dapイベントで自動的にopen/close
+    -- Auto opening/closing.
     local dap = require("dap")
     dap.listeners.after.event_initialized["dapui_config"] = function()
         dapui.open()
@@ -210,7 +226,7 @@ end
 
 m.setup_dap_ruby = function()
     local dap_ruby = require("dap-ruby")
-    -- portは38698がデフォルト設定
+    -- Port is 38698 by default.
     dap_ruby.setup()
 end
 
@@ -226,7 +242,7 @@ m.setup_dap_php = function()
             type = "php",
             request = "launch",
             name = "Listen for Xdebug",
-            -- Xdebugのデフォルト
+            -- Xdebug default port.
             port = 9003,
         },
     }
@@ -234,7 +250,7 @@ end
 
 m.setup_dap_javascript_typescript = function()
     local dap = require("dap")
-    -- NOTE: 今のところnvim-dapでvscode-js-debugはサポート外になっている
+    -- NOTE: For now nvim-dap vscode-js-debug is out of support.
     dap.adapters.node2 = {
         type = "executable",
         command = "node",
@@ -274,9 +290,9 @@ m.setup_dap_javascript_typescript = function()
         name = "Launch(chrome)",
         type = "chrome",
         request = "launch",
-        -- live-server/webpack-dev-serverのデフォルト
+        -- live-server/webpack-dev-server default port.
         url = "http://localhost:8080",
-        -- webpack-dev-serverのデフォルト
+        -- webpack-dev-server default.
         webRoot = "${workspaceFolder}/public",
         cwd = vim.fn.getcwd(),
         sourceMaps = true,
@@ -371,83 +387,73 @@ m.setup_dap_lldb = function()
 end
 
 m.setup_dap_load_launchjs = function()
-    -- vscodeと違って標準JSONなので末尾のコンマはエラーになる点に注意
     require("dap.ext.vscode").load_launchjs()
 end
 
--- neovim lua
--- Launch the server in the debuggee using require"osv".launch()
--- Open another Neovim instance with the source file
--- Place breakpoint
--- Connect using the DAP client
--- Run your script/plugin in the debuggee
+-- neovim lua.
+-- Launch the server in the debuggee using require"osv".launch().
+-- Open another Neovim instance with the source file.
+-- Place breakpoint.
+-- Connect using the DAP client.
+-- Run your script/plugin in the debuggee.
 vim.api.nvim_set_keymap("n", "<F2>", "<Cmd>lua require'osv'.launch()<CR>", { noremap = true, silent = true })
--- Open a lua file
--- Place breakpoint
--- Invoke require"osv".run_this()
+-- Open a lua file.
+-- Place breakpoint.
+-- Invoke require"osv".run_this().
 vim.api.nvim_set_keymap("n", "<F3>", "<Cmd>lua require'osv'.run_this()<CR>", { noremap = true, silent = true })
 
--- dap
--- アダプタ切断
+-- dap.
+-- vscode like.
 vim.api.nvim_set_keymap("n", "<F4>", "<Cmd>lua require'dap'.disconnect({})<CR>", { noremap = true, silent = true })
--- プロセス続行
 vim.api.nvim_set_keymap("n", "<F5>", "<Cmd>lua require'dap'.continue()<CR>", { noremap = true, silent = true })
--- launch.jsonの読込
 vim.api.nvim_set_keymap(
     "n",
     "<F6>",
     "<Cmd>lua require'dap.ext.vscode'.load_launchjs()<CR>",
     { noremap = true, silent = true }
 )
--- 最後に実行したデバッグを再実行
 vim.api.nvim_set_keymap("n", "<F7>", "lua require'dap'.run_last()", { noremap = true, silent = true })
--- ブレークポイントの条件設定
 vim.api.nvim_set_keymap(
     "n",
     "<F8>",
     "lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))",
     { noremap = true, silent = true }
 )
--- ブレークポイントのトグル
 vim.api.nvim_set_keymap("n", "<F9>", "<Cmd>lua require'dap'.toggle_breakpoint()<CR>", { noremap = true, silent = true })
--- ステップオーバー実行
 vim.api.nvim_set_keymap("n", "<F10>", "<Cmd>lua require'dap'.step_over()<CR>", { noremap = true, silent = true })
--- ステップイン実行
 vim.api.nvim_set_keymap("n", "<F11>", "<Cmd>lua require'dap'.step_into()<CR>", { noremap = true, silent = true })
--- ステップアウト実行
 vim.api.nvim_set_keymap("n", "<S-F11>", "<Cmd>lua require'dap'.step_out()<CR>", { noremap = true, silent = true })
--- REPL
 vim.api.nvim_set_keymap("n", "<F12>", "<Cmd>lua require'dap'.repl.open()<CR>", { noremap = true, silent = true })
 
--- dapui
--- dapui表示のトグル
+-- dapui.
+-- Toggle show/close of dapui windows.
 vim.api.nvim_set_keymap("n", "<space>u", '<Cmd>lua require("dapui").toggle()<CR>', { noremap = true, silent = true })
--- 選択範囲の評価をポップアップで表示
+-- Pop up the evaluation results of the selection.
 vim.api.nvim_set_keymap("v", "<space>u", '<Cmd>lua require("dapui").eval()<CR>', { noremap = true, silent = true })
 
--- telescope連携
--- デバッグコマンドをtelescopeで表示
+-- telescope.
+-- Show dap commands.
 vim.api.nvim_set_keymap(
     "n",
     "<leader>dr",
     "lua require'telescope'.extensions.dap.commands{}",
     { noremap = true, silent = true }
 )
--- デバッグ設定をtelescopeで表示
+-- Show dap configurations.
 vim.api.nvim_set_keymap(
     "n",
     "<leader>dc",
     "<Cmd>lua require'telescope'.extensions.dap.configurations{}<CR>",
     { noremap = true, silent = true }
 )
--- ブレークポイントリストをtelescopeで表示
+-- Show breakpoints.
 vim.api.nvim_set_keymap(
     "n",
     "<leader>db",
     "<Cmd>lua require'telescope'.extensions.dap.list_breakpoints{}<CR>",
     { noremap = true, silent = true }
 )
--- 変数リストをtelescopeで表示
+-- Show variables.
 vim.api.nvim_set_keymap(
     "n",
     "<leader>dv",

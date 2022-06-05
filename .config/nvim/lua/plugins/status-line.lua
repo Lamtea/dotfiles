@@ -1,7 +1,7 @@
 local m = {}
 
 m.setup = function(use)
-    -- lua製のステータスライン
+    -- A blazing fast and easy to configure Neovim statusline written in Lua.
     use({
         "nvim-lualine/lualine.nvim",
         requires = {
@@ -9,7 +9,11 @@ m.setup = function(use)
             opt = true,
         },
     })
-    -- ステータスバーにカーソル位置のコンテキストを表示
+    -- nvim-gps is a simple status line component that shows context of the current cursor position in file.
+    -- It is similar to the statusline function provided by nvim-treesitter, but smarter.
+    -- Using custom treesitter queries for each language,
+    -- nvim-gps is able to show exact name of containing class, struct, function, method, etc.
+    -- along with some fancy symbols!
     use({
         "SmiteshP/nvim-gps",
         requires = {

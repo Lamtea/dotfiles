@@ -1,8 +1,7 @@
--- グローバル変数
 local g = vim.g
 
--- neovimのpythonサポート
+-- Enable python support.
 g.python3_host_prog = require("os").getenv("HOME") .. "/.pyenv/shims/python"
 
--- neovimのperlサポート無効
+-- Disable perl support.
 g.loaded_perl_provider = 0

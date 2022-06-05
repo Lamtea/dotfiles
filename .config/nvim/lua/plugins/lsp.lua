@@ -1,33 +1,41 @@
 local m = {}
 
 m.setup = function(use)
-    -- lspクライアント
+    -- A collection of common configurations for Neovim's built-in language server client.
+    -- This plugin allows for declaratively configuring, launching,
+    -- and initializing language servers you have installed on your system.
+    -- Disclaimer: Language server configurations are provided on a best-effort basis and are community-maintained.
+    -- See contributions.
+    -- lspconfig has extensive help documentation, see :help lspconfig.
     use("neovim/nvim-lspconfig")
-    -- lspインストーラー
-    -- :LspInstall :LspInstallinfo コマンドでlsをインストールする see:github
-    -- omnisharpをインストールするとomnisharp-roslynも入る
+    -- Neovim plugin that allow you to manage LSP servers
+    -- (servers are installed inside :echo stdpath("data") by default).
+    -- It works in tandem with lspconfig1 by registering a hook that enhances the PATH environment variable,
+    -- allowing neovim's LSP client to locate the server executable installed by nvim-lsp-installer.
     use("williamboman/nvim-lsp-installer")
-    -- lsp補完用ソース
+    -- nvim-cmp source for neovim's built-in language server client.
     use("hrsh7th/cmp-nvim-lsp")
-    -- lsp高性能UI
+    -- A maintained fork of glepnir/lspsaga.nvim.
+    -- Lspsaga is light-weight lsp plugin based on neovim built-in lsp with highly a performant UI.
     use("tami5/lspsaga.nvim")
-    -- lsp用のカラー追加
+    -- Automatically creates missing LSP diagnostics highlight groups for color schemes
+    -- that don't yet support the Neovim 0.5 builtin lsp client.
     use("folke/lsp-colors.nvim")
-    -- lsp診断UI
+    -- A pretty list for showing diagnostics, references, telescope results,
+    -- quickfix and location lists to help you solve all the trouble your code is causing.
     use({
         "folke/trouble.nvim",
         requires = "kyazdani42/nvim-web-devicons",
     })
-    -- lspプログレス
+    -- Standalone UI for nvim-lsp progress. Eye candy for the impatient.
     use("j-hui/fidget.nvim")
-    -- lsp単語ハイライト(vimscript)
+    -- Vim plugin for automatically highlighting other uses of the current word under the cursor.
     use("RRethy/vim-illuminate")
-    -- neovimがkotlinのファイルタイプを認識しないために必要
+    -- For kotlin filetype.
     use("udalov/kotlin-vim")
 
-    -- vim-illuminateの単語をハイライトするまでの時間
+    -- vim-illuminate
     vim.g.Illuminate_delay = 500
-    -- vim-illuminateのカーソル位置の単語はハイライトしない
     vim.g.Illuminate_highlightUnderCursor = 0
 
     m.setup_lsp()
@@ -37,60 +45,53 @@ m.setup = function(use)
     m.setup_fidget()
 end
 
--- Publish for a plugin that sets lsp on its own
 m.on_attach = function(client, bufnr)
-    -- 単語ハイライトをアタッチ
     require("illuminate").on_attach(client)
 
-    -- キーマップ設定
     local function buf_set_keymap(...)
         vim.api.nvim_buf_set_keymap(bufnr, ...)
     end
 
     local opts = { noremap = true, silent = true }
 
-    -- telescope使用<leader>ld
-    -- カーソル下のシンボルの宣言にジャンプする(多くのサーバーがまだ未実装, see: help)
+    -- telescope <leader>ld
     buf_set_keymap("n", "gD", "lua vim.lsp.buf.declaration()", opts)
 
-    -- telescope使用<leader>ld
-    -- カーソル下のシンボルの定義にジャンプする
+    -- telescope <leader>ld
     buf_set_keymap("n", "gd", "lua vim.lsp.buf.definition()", opts)
 
-    -- lspsaga使用
+    -- lspsaga
     -- buf_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
 
-    -- telescope使用<leader>li
-    -- quickfixにカーソル下のシンボルの実装をリストする
+    -- telescope <leader>li
     buf_set_keymap("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
 
-    -- lspsaga使用
+    -- lspsaga
     -- buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
 
     buf_set_keymap("n", "<space>wa", "<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>", opts)
     buf_set_keymap("n", "<space>wr", "<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>", opts)
     buf_set_keymap("n", "<space>wl", "<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>", opts)
 
-    -- telescope使用<leader>lt
-    -- カーソル下のシンボルの型定義にジャンプする
+    -- telescope <leader>lt
     buf_set_keymap("n", "<space>D", "<cmd>lua vim.lsp.buf.type_definition()<CR>", opts)
 
-    -- lspsaga使用
+    -- lspsaga
     -- buf_set_keymap('n', '<space>r', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
 
-    -- lspsaga使用
+    -- lspsaga
     -- buf_set_keymap('n', '<space>a', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
 
-    -- trouble使用, telescope使用<leader>lr
+    -- trouble, telescope <leader>lr
     -- buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
 
-    -- lspsaga使用
+    -- lspsaga
     -- buf_set_keymap('n', '<space>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
 
-    -- lspsaga使用
+    -- lspsaga
     -- buf_set_keymap('n', '<space>p', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
 
-    -- lspsaga使用
+    -- lspsaga
     -- buf_set_keymap('n', '<space>n', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
 
     buf_set_keymap("n", "<space>l", "lua vim.lsp.diagnostic.set_loclist()", opts)
@@ -98,13 +99,12 @@ m.on_attach = function(client, bufnr)
     buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.format()<CR>", opts)
 end
 
--- Publish for a plugin that sets lsp on its own
 m.get_capabilities = function()
     return require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
 end
 
 local function get_clang_capabilities()
-    -- NOTE: エンコーディング指定しないと警告が出る
+    -- NOTE: Warning will be issued if encoding is not specified.
     local capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
     capabilities.offsetEncoding = { "utf-16" }
     return capabilities
@@ -119,7 +119,7 @@ end
 
 local function setup_lsp_html(serverconfig, on_attach, capabilities)
     serverconfig.setup({
-        -- formatterはprettierを使用
+        -- Use prettier
         provideFormatter = false,
         on_attach = on_attach,
         capabilities = capabilities,
@@ -128,7 +128,7 @@ end
 
 local function setup_lsp_jsonls(serverconfig, on_attach, capabilities)
     serverconfig.setup({
-        -- formatterはprettierを使用
+        -- Use prettier
         provideFormatter = false,
         on_attach = on_attach,
         capabilities = capabilities,
@@ -140,14 +140,14 @@ local function setup_lsp_sumneko_lua(serverconfig, on_attach, capabilities)
         settings = {
             Lua = {
                 diagnostics = {
-                    -- neovim設定ファイル用(vimがグローバルオブジェクトのため)
+                    -- For neovim.
                     globals = { "vim" },
                     neededFileStatus = {
                         ["codestyle-check"] = "Any",
                     },
                 },
                 format = {
-                    -- formatterはstyluaを使用
+                    -- Use stylua.
                     enable = false,
                 },
             },
@@ -165,7 +165,6 @@ local function setup_lsp_any(serverconfig, on_attach, capabilities)
 end
 
 m.setup_lsp = function()
-    -- インストール済のlspとlsp用補完をアタッチする
     local lsp_installer = require("nvim-lsp-installer")
     local lspconfig = require("lspconfig")
     local capabilities = m.get_capabilities()
@@ -174,7 +173,6 @@ m.setup_lsp = function()
     for _, server in ipairs(lsp_installer.get_installed_servers()) do
         local serverconfig = lspconfig[server.name]
 
-        -- 言語別の設定
         if server.name == "clangd" then
             -- c/cpp
             setup_lsp_clangd(serverconfig, on_attach)
@@ -188,7 +186,6 @@ m.setup_lsp = function()
             -- lua
             setup_lsp_sumneko_lua(serverconfig, on_attach, capabilities)
         else
-            -- 通常設定
             setup_lsp_any(serverconfig, on_attach, capabilities)
         end
     end
@@ -247,7 +244,7 @@ m.setup_lsp_color = function()
 end
 
 m.setup_trouble = function()
-    -- デフォルトキーマップ
+    -- Key mappings by default.
     -- close = "q",                 close the list
     -- cancel = "<esc>",            cancel the preview and get back to your last window / buffer / cursor
     -- refresh = "r",               manually refresh
@@ -267,9 +264,9 @@ m.setup_trouble = function()
     -- next = "j"                   next item
     require("trouble").setup({
         height = 10,
-        -- 診断がない場合は自動で閉じる
+        -- Auto closing.
         auto_close = true,
-        -- lspクライアントと同じ記号を使用
+        -- Use the same symbol as the lsp client.
         use_diagnostic_signs = true,
     })
 end
@@ -287,46 +284,45 @@ m.setup_fidget = function()
     })
 end
 
--- カーソル下のシンボルの定義と参照を検索(ワークスペース対象)
+-- Find definitions and references of identifier on cursor (workspace target).
 vim.keymap.set("n", "gh", "<cmd>Lspsaga lsp_finder<CR>", { silent = true, noremap = true })
--- コードアクション
+-- code action.
 vim.keymap.set("n", "<space>a", "<cmd>Lspsaga code_action<CR>", { silent = true, noremap = true })
--- 範囲コードアクション(ブロックレベルなど)
+-- range code action.
 vim.keymap.set("x", "<space>a", ":<C-u>Lspsaga range_code_action<CR>", { silent = true, noremap = true })
--- インターフェースドキュメント(ドキュメントコメント対応, shellだとmanページが開く)
+-- Show doc.
 vim.keymap.set("n", "K", "<cmd>Lspsaga hover_doc<CR>", { silent = true, noremap = true })
--- lspsagaのUIでスクロール
+-- Scroll.
 vim.cmd([[nnoremap <silent> <C-f> <cmd>lua require('lspsaga.action').smart_scroll_with_saga(1)<CR>]])
 vim.cmd([[nnoremap <silent> <C-d> <cmd>lua require('lspsaga.action').smart_scroll_with_saga(-1)<CR>]])
--- メソッドの引数シグネチャヘルプ
+-- Show doc of arguments of method.
 vim.keymap.set("n", "<C-k>", "<cmd>Lspsaga signature_help<CR>", { silent = true, noremap = true })
--- 識別子のリネーム
+-- Rename identifier on cursor.
 vim.keymap.set("n", "<space>r", "<cmd>Lspsaga rename<CR>", { silent = true, noremap = true })
--- 定義のプレビュー
+-- Preview definition of identifier on cursor.
 vim.keymap.set("n", "<space>d", "<cmd>Lspsaga preview_definition<CR>", { silent = true, noremap = true })
--- 現在行の診断
+-- Show diagnostics of current line.
 vim.keymap.set("n", "<space>e", "<cmd>Lspsaga show_line_diagnostics<CR>", { silent = true, noremap = true })
--- カーソル下の識別子の診断
+-- Show diagnostics of identifier on cursor.
 vim.keymap.set(
     "n",
     "<space>E",
     [[<cmd>lua require('lspsaga.diagnostic').show_cursor_diagnostics()<CR>]],
     { silent = true, noremap = true }
 )
--- 次の診断へジャンプ
+-- Jump next/prev diagnostic.
 vim.keymap.set("n", "<space>n", "<cmd>Lspsaga diagnostic_jump_next<CR>", { silent = true, noremap = true })
--- 前の診断へジャンプ
 vim.keymap.set("n", "<space>p", "<cmd>Lspsaga diagnostic_jump_prev<CR>", { silent = true, noremap = true })
--- floatingでターミナルを開く(表示中は同じキーで閉じる)
+-- Open/Close a terminal (floating window).
 vim.keymap.set("n", "<M-f>", "<cmd>Lspsaga open_floaterm<CR>", { silent = true, noremap = true })
 vim.cmd([[tnoremap <silent> <M-f> <C-\><C-n>:Lspsaga close_floaterm<CR>]])
--- 診断ウィンドウを開く(直前のモード, デフォルトはワークスペース)
+-- Open a trouble window (previous mode, default workspace).
 vim.api.nvim_set_keymap("n", "<leader>xx", "<cmd>Trouble<CR>", { silent = true, noremap = true })
--- 診断ウィンドウを開く(ワークスペースの診断)
+-- Open a trouble window (workspace target).
 vim.api.nvim_set_keymap("n", "<leader>xw", "<cmd>Trouble workspace_diagnostics<CR>", { silent = true, noremap = true })
--- 診断ウィンドウを開く(現在ドキュメントの診断)
+-- Open a trouble window (currently opened document target).
 vim.api.nvim_set_keymap("n", "<leader>xd", "<cmd>Trouble document_diagnostics<CR>", { silent = true, noremap = true })
--- カーソル下のシンボルの参照(開いているすべてのバッファ対象)を診断ウィンドウで開く
+-- Open references of identifier on cursor in the trouble window.
 vim.api.nvim_set_keymap("n", "gr", "<cmd>Trouble lsp_references<CR>", { silent = true, noremap = true })
 
 return m

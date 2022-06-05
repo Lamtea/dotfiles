@@ -1,21 +1,25 @@
 local m = {}
 
 m.setup = function(use)
-    -- gitクライアント
+    -- A work-in-progress Magit clone for Neovim that is geared toward the Vim philosophy.
     use({
         "TimUntersberger/neogit",
         requires = {
             "nvim-lua/plenary.nvim",
         },
     })
-    -- git diffviewer
+    -- Single tabpage interface for easily cycling through diffs for all modified files for any git rev.
+    -- Vim's diff mode is pretty good,
+    -- but there is no convenient way to quickly bring up all modified files in a diffsplit.
+    -- This plugin aims to provide a simple,
+    -- unified, single tabpage interface that lets you easily review all changed files for any git rev.
     use({
         "sindrets/diffview.nvim",
         requires = {
             "nvim-lua/plenary.nvim",
         },
     })
-    -- gitの状態をカラムにサイン表示
+    -- Super fast git decorations implemented purely in lua/teal.
     use("lewis6991/gitsigns.nvim")
 
     m.setup_neogit()
@@ -24,7 +28,7 @@ m.setup = function(use)
 end
 
 m.setup_neogit = function()
-    -- デフォルトキーマップ
+    -- Key mappings by default.
     -- Tab		Toggle diff
     -- 1, 2, 3, 4	Set a foldlevel
     -- $		Command history
@@ -267,7 +271,7 @@ m.setup_gitsigns = function()
                 gs.toggle_current_line_blame,
                 { desc = "Gitsigns toggle_current_line_blame" }
             )
-            -- diffview使用
+            -- diffview
             -- map("n", "<leader><leader>gd", gs.diffthis)
             -- map("n", "<leader><leader>gD", function()
             -- 	   gs.diffthis("~")
@@ -280,15 +284,9 @@ m.setup_gitsigns = function()
     })
 end
 
--- gitクライアントをタブ表示
 vim.api.nvim_set_keymap("n", "<leader><leader>gc", "<Cmd>Neogit kind=tab<CR>", { noremap = true, silent = true })
--- gitクライアントをフローティング表示(very unstable)
--- vim.api.nvim_set_keymap("n", "<leader><leader>gc", "<Cmd>Neogit kind=floating<CR>", { noremap = true, silent = true })
--- git commitをポップアップ表示
 vim.api.nvim_set_keymap("n", "<leader><leader>gC", "<Cmd>Neogit commit<CR>", { noremap = true, silent = true })
--- git diff表示
 vim.api.nvim_set_keymap("n", "<leader><leader>gd", "<Cmd>DiffviewOpen<CR>", { noremap = true, silent = true })
--- ヒストリをdiff表示
 vim.api.nvim_set_keymap("n", "<leader><leader>gh", "<Cmd>DiffviewFileHistory<CR>", { noremap = true, silent = true })
 
 return m

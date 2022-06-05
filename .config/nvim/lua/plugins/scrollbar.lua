@@ -1,14 +1,13 @@
 local m = {}
 
 m.setup = function(use)
-    -- スクロールバーを表示
+    -- Extensible Neovim Scrollbar.
     use("petertriho/nvim-scrollbar")
 
     m.setup_scrollbar()
 end
 
 m.setup_scrollbar = function()
-    -- nvim-hlslensと連携してスクロールバーにハイライト表示
     require("scrollbar.handlers.search").setup()
     require("scrollbar").setup({
         show = true,

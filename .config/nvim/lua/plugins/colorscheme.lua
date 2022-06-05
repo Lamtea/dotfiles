@@ -1,7 +1,7 @@
 local m = {}
 
 m.setup = function(use)
-    -- lsp, treesitter等に対応したテーマ
+    -- A highly customizable theme for vim and neovim with support for lsp, treesitter and a variety of plugins.
     use("EdenEast/nightfox.nvim")
 
     m.setup_nightfox()

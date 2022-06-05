@@ -1,7 +1,7 @@
 local m = {}
 
 m.setup = function(use)
-    -- スタート画面に履歴等表示
+    -- alpha is a fast and fully customizable greeter for neovim.
     use({
         "goolord/alpha-nvim",
         requires = {

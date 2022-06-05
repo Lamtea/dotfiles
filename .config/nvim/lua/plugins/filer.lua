@@ -1,7 +1,8 @@
 local m = {}
 
 m.setup = function(use)
-    -- 軽くて安定したlua製ファイラ(隠しファイルを表示する場合はサイドバーを使用)
+    -- Neo-tree is a Neovim plugin to browse the file system and other tree like structures in whatever style suits you,
+    -- including sidebars, floating windows, netrw split style, or all of them at once!
     use({
         "nvim-neo-tree/neo-tree.nvim",
         branch = "v2.x",
@@ -12,7 +13,7 @@ m.setup = function(use)
         },
     })
 
-    -- neo-treeのレガシーコマンドは使用しない
+    -- Not use legacy commands.
     vim.g.neo_tree_remove_legacy_commands = 1
 
     m.setup_neotree()
@@ -213,12 +214,8 @@ m.setup_neotree = function()
     })
 end
 
--- キーバインドはどのneotree windowでも ? で確認できる
--- サイドにfilesystemをトグル表示, xは特に意味はないが公式キーマップ((s)idebarの下の段)
 vim.keymap.set("n", "gx", "<Cmd>Neotree filesystem reveal toggle<CR>", { noremap = true, silent = true })
--- サイドにbuffersをトグル表示, zに特に意味はないがxの隣
 vim.keymap.set("n", "gz", "<Cmd>Neotree buffers toggle<CR>", { noremap = true, silent = true })
--- フローティングウィンドウにgit_statusを表示
 vim.keymap.set("n", "gX", "<Cmd>Neotree git_status show<CR>", { noremap = true, silent = true })
 
 return m

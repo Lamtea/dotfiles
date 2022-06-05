@@ -1,8 +1,8 @@
 #!/usr/bin/zsh
 
 #######################################
-# プラグイン
-# プラグイン管理はzinitを使用
+# Plugins
+# zinit
 if [[ ! -f $HOME/.local/share/zinit/zinit.git/zinit.zsh ]]; then
     print -P "%F{33} %F{220}Installing %F{33}ZDHARMA-CONTINUUM%F{220} Initiative Plugin Manager (%F{33}zdharma-continuum/zinit%F{220})…%f"
     command mkdir -p "$HOME/.local/share/zinit" && command chmod g-rwX "$HOME/.local/share/zinit"
@@ -15,7 +15,7 @@ source "$HOME/.local/share/zinit/zinit.git/zinit.zsh"
 autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
 
-# プラグイン読込
+# load plugins
 zinit light zdharma-continuum/zinit-annex-as-monitor
 zinit light zdharma-continuum/zinit-annex-bin-gem-node
 zinit light zdharma-continuum/zinit-annex-patch-dl
@@ -28,12 +28,12 @@ zinit light zdharma/history-search-multi-word
 zinit light romkatv/powerlevel10k
 zinit light asdf-vm/asdf
 
-# powerlevel10k読込
+# load powerlevel10k
 [[ ! -f $HOME/.p10k.zsh ]] || source ~/.p10k.zsh
 
 ######################################
-# 環境変数
-# 全般
+# Environment variables
+# basic
 export LANG=ja_JP.UTF-8
 export LESSOPEN='| /usr/bin/src-hilite-lesspipe.sh %s'
 export LESS='-R'
@@ -43,15 +43,15 @@ export VISUAL=nvim
 export MAIL=~/Maildir
 [[ -z "$BROWSER" ]] && export BROWSER=w3m
 
-# bemenuの設定
+# bemenu
 export BEMENU_BACKEND=curses
 export BEMENU_OPTS='--scrollbar=autohide'
 
-# sshの設定
+# ssh
 eval $(gnome-keyring-daemon --start --components=pkcs11,secrets,ssh 2>/dev/null)
 export SSH_AUTH_SOCK
 
-# asdfの設定
+# asdf
 if [[ ! -d $HOME/.asdf ]]; then
     print -P "%F{33} %F{220}Installing %F{33}asdf%F{220} tool version manager…%f"
     git clone https://github.com/asdf-vm/asdf.git ~/.asdf && \
@@ -59,7 +59,7 @@ if [[ ! -d $HOME/.asdf ]]; then
         print -P "%F{160} Instllation failed.%f%b"
 fi
 
-# pyenvの設定
+# pyenv
 if [[ ! -d $HOME/.pyenv ]]; then
     print -P "%F{33} %F{220}Installing %F{33}pyenv%F{220} python version manager…%f"
     curl https://pyenv.run | bash && \
@@ -73,7 +73,7 @@ if command -v pyenv 1>/dev/null 2>&1; then
     eval "$(pyenv virtualenv-init -)"
 fi
 
-# poetryの設定
+# poetry
 if [[ ! -d $HOME/.poetry ]]; then
     print -P "%F{33} %F{220}Installing %F{33}poetry%F{220} python environment manager…%f"
     curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python && \
@@ -82,7 +82,7 @@ if [[ ! -d $HOME/.poetry ]]; then
 fi
 export PATH="$HOME/.poetry/bin:$PATH"
 
-# rustupの設定
+# rustup
 if [[ ! -d $HOME/.cargo ]]; then
     print -P "%F{33} %F{220}Installing %F{33}rustup%F{220} rust tool manager…%f"
     curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh && \
@@ -91,47 +91,44 @@ if [[ ! -d $HOME/.cargo ]]; then
 fi
 [[ -f $HOME/.cargo/env ]] && source "$HOME/.cargo/env"
 
-# dotnetの設定
+# dotnet
 [[ -f $HOME/.asdf/plugins/dotnet-core/set-dotnet-home.zsh ]] && \
     source "$HOME/.asdf/plugins/dotnet-core/set-dotnet-home.zsh"
 export PATH="$HOME/.dotnet/tools:$PATH"
 
-# ghcupの設定
+# ghcup
 export PATH="$HOME/.ghcup/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 
-# userの設定
+# user
 export PATH="$HOME/bin:$PATH"
 export JAVA_WORKSPACE="$HOME/.workspace"
 
-# PATHの重複を除去
 typeset -U PATH
 
 #######################################
-# 全般
-# 色を使用出来るようにする
+# Generics
+# colors
 autoload -Uz colors
 colors
 
-# ヒストリの設定
+# history
 HISTFILE=~/.zsh_history
 HISTSIZE=1000000
 SAVEHIST=1000000
 
-# 単語の区切り文字を指定する
+# word delimiter
 autoload -Uz select-word-style
 select-word-style default
-# ここで指定した文字は単語区切りとみなされる
-# / も区切りと扱うので、^W でディレクトリ１つ分を削除できる
 zstyle ':zle:*' word-chars " /=;@:{},|"
 zstyle ':zle:*' word-style unspecified
 
 ########################################
-# 補完
-# asdfの設定
+# Completions
+# asdf
 fpath=(${ASDF_DIR}/completions $fpath)
 
-# zfuncの設定
+# zfunc
 [[ ! -d $HOME/.zfunc ]] && mkdir ~/.zfunc
 if [[ ! -f $HOME/.zfunc/_poetry ]]; then
     print -P "%F{33} %F{220}Installing %F{33}poetry%F{220} completions…%f"
@@ -153,7 +150,7 @@ if [[ ! -f $HOME/.zfunc/_cargo ]]; then
 fi
 fpath+=~/.zfunc
 
-# dotnet-coreの設定
+# dotnet-core
 _dotnet_zsh_complete()
 {
     local completions=("$(dotnet complete "$words")")
@@ -163,64 +160,40 @@ if command -v dotnet 1>/dev/null 2>&1; then
     compctl -K _dotnet_zsh_complete dotnet
 fi
 
-# 補完機能を有効にする
+# load completion
 autoload -Uz compinit
 compinit
 
-# 補完で小文字でも大文字にマッチさせる
+# ignore case
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 
-# ../ の後は今いるディレクトリを補完しない
+# ignore parents (../)
 zstyle ':completion:*' ignore-parents parent pwd ..
 
-# sudo の後ろでコマンド名を補完する
+# sudo
 zstyle ':completion:*:sudo:*' command-path /usr/local/sbin /usr/local/bin /usr/sbin /usr/bin /sbin /bin
 
-# ps コマンドのプロセス名補完
+# ps
 zstyle ':completion:*:processes' command 'ps x -o pid,s,args'
 
 ########################################
-# オプション
-# 日本語ファイル名を表示可能にする
+# Options
 setopt print_eight_bit
-
-# beep を無効にする
 setopt no_beep
-
-# フローコントロールを無効にする
 setopt no_flow_control
-
-# Ctrl+Dでzshを終了しない
 setopt ignore_eof
-
-# '#' 以降をコメントとして扱う
 setopt interactive_comments
-
-# ディレクトリ名だけでcdする
 setopt auto_cd
-
-# cd したら自動的にpushdする
 setopt auto_pushd
-# 重複したディレクトリを追加しない
 setopt pushd_ignore_dups
-
-# 同時に起動したzshの間でヒストリを共有する
 setopt share_history
-
-# 同じコマンドをヒストリに残さない
 setopt hist_ignore_all_dups
-
-# スペースから始まるコマンド行はヒストリに残さない
 setopt hist_ignore_space
-
-# ヒストリに保存するときに余分なスペースを削除する
 setopt hist_reduce_blanks
-
-# 高機能なワイルドカード展開を使用する
 setopt extended_glob
 
 ########################################
-# エイリアス
+# Alias
 alias la='ls -a'
 alias ll='ls -l'
 alias ls='ls -F --color=auto'
@@ -234,9 +207,7 @@ alias vi='nvim'
 alias vim='nvim'
 
 ########################################
-# tmux自動起動
-# VSCodeのときは起動しない
-# fzf使用
+# tmux
 if [[ -z "$TMUX" && ! -z "$PS1" && $TERM_PROGRAM != "vscode" ]]; then
     PERCOL="fzf"
     ID="$(tmux list-sessions 2>/dev/null)"

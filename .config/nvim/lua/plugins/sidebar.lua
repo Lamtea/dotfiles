@@ -1,47 +1,48 @@
 local m = {}
 
 m.setup = function(use)
-    -- 色々な情報を出すサイドバー
+    -- A generic and modular lua sidebar inspired by lualine.
+    -- Development status: Alpha - bugs are expected.
     use("sidebar-nvim/sidebar.nvim")
 
     m.setup_sidebar()
 end
 
 m.setup_sidebar = function()
-    -- デフォルトキーマップ
+    -- Key mappings by default.
     -- git
-    -- e	hovering filename	            open file in the previous window
+    -- e	hovering filename	        open file in the previous window
     -- diagnostics
     -- e	hovering diagnostic             message	open file in the previous window at the diagnostic position
-    -- t	hovering filename	            toggle collapse on the group
+    -- t	hovering filename	        toggle collapse on the group
     -- todos
     -- e	hovering todo location	        open file in the previous window at the todo position
-    -- t	hovering the group	            toggle collapse on the group
+    -- t	hovering the group	        toggle collapse on the group
     -- containers
     -- e	hovering a container location	open a new terminal and attach to the container with
-    --                                      docker exec -it <container id> ${config.containers.attach_shell}
+    --                                      	docker exec -it <container id> ${config.containers.attach_shell}
     -- buffers
-    -- d	hovering an item	            close the identified buffer
-    -- e	hovering an item	            open the identified buffer in a window
-    -- w	hovering an item	            save the identified buffer
+    -- d	hovering an item	        close the identified buffer
+    -- e	hovering an item	        open the identified buffer in a window
+    -- w	hovering an item	        save the identified buffer
     -- files
-    -- d	hovering an item	            delete file/folder
-    -- y	hovering an item	            yank/copy a file/folder
-    -- x	hovering an item	            cut a file/folder
-    -- p	hovering an item	            paste a file/folder
-    -- c	hovering an item	            create a new file
-    -- e	hovering an item	            open the current file/folder
-    -- r	hovering an item	            rename file/folder
+    -- d	hovering an item	        delete file/folder
+    -- y	hovering an item	        yank/copy a file/folder
+    -- x	hovering an item	        cut a file/folder
+    -- p	hovering an item	        paste a file/folder
+    -- c	hovering an item	        create a new file
+    -- e	hovering an item	        open the current file/folder
+    -- r	hovering an item	        rename file/folder
     -- u	hovering the section	        undo operation
-    -- <C-r>hovering the section	        redo operation
-    -- <CR>	hovering an item	            open file/folder
+    -- <C-r>	hovering the section	        redo operation
+    -- <CR>	hovering an item	        open file/folder
     -- symbols
-    -- t	hovering an item	            toggle group
-    -- e	hovering an item	            open location
+    -- t	hovering an item	        toggle group
+    -- e	hovering an item	        open location
     require("sidebar-nvim").setup({
         disable_default_keybindings = 0,
         bindings = {
-            -- qで閉じる
+            -- q: close
             ["q"] = function()
                 require("sidebar-nvim").close()
             end,

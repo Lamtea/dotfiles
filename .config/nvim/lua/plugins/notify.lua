@@ -1,7 +1,7 @@
 local m = {}
 
 m.setup = function(use)
-    -- ポップアップ通知
+    -- A fancy, configurable, notification manager for NeoVim.
     use("rcarriga/nvim-notify")
 
     m.setup_notify()

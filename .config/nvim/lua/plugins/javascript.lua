@@ -1,12 +1,12 @@
 local m = {}
 
 m.setup = function(use)
-    -- package.jsonの補完やnpm/yarn/pnpmのコマンドを発行してくれる
+    -- All the npm/yarn/pnpm commands I don't want to type.
     use({
         "vuki656/package-info.nvim",
         requires = "MunifTanjim/nui.nvim",
     })
-    -- javascript/typescriptの正規表現を解説してくれる
+    -- Describe the regular expression under the cursor.
     use({
         "bennypowers/nvim-regexplainer",
         requires = {
@@ -82,7 +82,7 @@ m.setup_regexplainer = function()
     })
 end
 
--- Show package versions
+-- Show package versions.
 vim.api.nvim_set_keymap(
     "n",
     "<leader><leader>nn",
@@ -90,7 +90,7 @@ vim.api.nvim_set_keymap(
     { silent = true, noremap = true }
 )
 
--- Hide package versions
+-- Hide package versions.
 vim.api.nvim_set_keymap(
     "n",
     "<leader><leader>nc",
@@ -98,7 +98,7 @@ vim.api.nvim_set_keymap(
     { silent = true, noremap = true }
 )
 
--- Update package on line
+-- Update package on line.
 vim.api.nvim_set_keymap(
     "n",
     "<leader><leader>nu",
@@ -106,7 +106,7 @@ vim.api.nvim_set_keymap(
     { silent = true, noremap = true }
 )
 
--- Delete package on line
+-- Delete package on line.
 vim.api.nvim_set_keymap(
     "n",
     "<leader><leader>nd",
@@ -114,7 +114,7 @@ vim.api.nvim_set_keymap(
     { silent = true, noremap = true }
 )
 
--- Install a new package
+-- Install a new package.
 vim.api.nvim_set_keymap(
     "n",
     "<leader><leader>ni",
@@ -122,7 +122,7 @@ vim.api.nvim_set_keymap(
     { silent = true, noremap = true }
 )
 
--- Reinstall dependencies
+-- Reinstall dependencies.
 vim.api.nvim_set_keymap(
     "n",
     "<leader><leader>nr",
@@ -130,7 +130,7 @@ vim.api.nvim_set_keymap(
     { silent = true, noremap = true }
 )
 
--- Install a different package version
+-- Install a different package version.
 vim.api.nvim_set_keymap(
     "n",
     "<leader><leader>np",

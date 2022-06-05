@@ -1,41 +1,60 @@
 local m = {}
 
 m.setup = function(use)
-    -- パーサー(モジュールによってはnode.jsが必須. エラーがないか :checkhealth で要確認)
+    -- The goal of nvim-treesitter is both to provide a simple and easy way to use the interface for tree-sitter
+    -- in Neovim and to provide some basic functionality such as highlighting based on it.
     use({
         "nvim-treesitter/nvim-treesitter",
         run = ":TSUpdate",
     })
-    -- シンタックスベースの編集サポート(キーバインドは textobjects 参照, 言語別対応については see:github)
+    -- Syntax aware text-objects, select, move, swap, and peek support.
     use("nvim-treesitter/nvim-treesitter-textobjects")
-    -- シンタックスベースの範囲選択(キーバインドは textsubjects 参照)
+    -- Location and syntax aware text objects.
     use("RRethy/nvim-treesitter-textsubjects")
-    -- シンタックスベースの範囲選択(EasyMotion系)
+    -- Plugin that provides region selection using hints on the abstract syntax tree of a document.
+    -- This is intended to be used for pending operator mappings.
     use("mfussenegger/nvim-ts-hint-textobject")
-    -- シンタックスベースの範囲選択(ユニット単位, ざっくり系)
+    -- A tiny Neovim plugin to deal with treesitter units.
+    -- A unit is defined as a treesitter node including all its children.
+    -- It allows you to quickly select, yank, delete or replace language-specific ranges.
+    -- For inner selections, the main node under the cursor is selected. For outer selections, the next node is selected.
     use("David-Kunz/treesitter-unit")
-    -- シンタックスベースのスワップ(EasyMotion系)
+    -- Interactively select and swap: function arguments, list elements, function parameters, and more.
+    -- Powered by tree-sitter.
     use("mizlan/iswap.nvim")
-    -- コメンティングにtreesitterを使用(tsx/jsx等のスタイル混在時に便利, numToStr/Comment.nvimで使用)
+    -- A Neovim plugin for setting the commentstring option based on the cursor location in the file.
+    -- The location is checked via treesitter queries.
+    -- This is useful when there are embedded languages in certain types of files.
+    -- For example, Vue files can have many different sections, each of which can have a different style for comments.
+    -- Note that this plugin only changes the commentstring setting.
+    -- It does not add any mappings for commenting.
+    -- It is recommended to use a commenting plugin like vim-commentary alongside this plugin.
     use("JoosepAlviste/nvim-ts-context-commentstring")
-    -- マッチングペアをハイライト, 移動, 編集(キーバインドについては see:github, vimscript)
+    -- match-up is a plugin that lets you highlight, navigate, and operate on sets of matching text.
+    -- It extends vim's % key to language-specific words instead of just single characters.
     use("andymass/vim-matchup")
 
     if not vim.g.vscode then
-        -- メソッド等のスコープが長いとき先頭行に表示してくれる(context.vimの代替)
+        -- Lightweight alternative to context.vim implemented with nvim-treesitter.
         use("nvim-treesitter/nvim-treesitter-context")
-        -- 閉括弧にvirtual textを表示
+        -- Shows virtual text of the current context after functions, methods, statements, etc.
         use("haringsrob/nvim_context_vt")
-        -- 引数を色分け表示
+        -- Highlight arguments' definitions and usages, asynchronously, using Treesitter.
         use({
             "m-demare/hlargs.nvim",
             requires = {
                 "nvim-treesitter/nvim-treesitter",
             },
         })
-        -- 対応する括弧の色分け表示
+        -- Rainbow parentheses for neovim using tree-sitter.
+        -- This is a module for nvim-treesitter, not a standalone plugin.
+        -- It requires and is configured via nvim-treesitter
+        -- Should work with any language supported by nvim-treesitter.
+        -- If any language is missing, please open an issue/PR.
+        -- Only neovim nightly is targeted.
         use("p00f/nvim-ts-rainbow")
-        -- タグを自動で閉じてくれる
+        -- Use treesitter to autoclose and autorename html tag.
+        -- It work with html,tsx,vue,svelte,php,rescript.
         use("windwp/nvim-ts-autotag")
     end
 
@@ -59,18 +78,13 @@ m.setup_treesitter = function()
         incremental_selection = {
             enable = true,
             keymaps = {
-                -- normal modeからnodeを初期選択してvisual modeに入れる
                 init_selection = "<CR>",
-                -- 親nodeをたどって選択
                 node_incremental = "<CR>",
-                -- scope範囲で親nodeをたどって選択
                 scope_incremental = "<TAB>",
-                -- 子nodeまで選択を戻す
                 node_decremental = "<S-TAB>",
             },
         },
         indent = {
-            -- インデント有効(実験的 see:github, 代替はnvim-yati see:github)
             enable = not vim.g.vscode,
         },
         textobjects = {
@@ -127,7 +141,7 @@ m.setup_treesitter = function()
                 },
             },
             lsp_interop = {
-                -- lspsagaのプレビューを使用
+                -- use lspsaga
                 enable = false,
                 peek_definition_code = {
                     ["<leader>lf"] = "@function.outer",
@@ -136,7 +150,6 @@ m.setup_treesitter = function()
             },
         },
         textsubjects = {
-            -- incremental_selectionと違いトリビアごと選択できる
             enable = true,
             prev_selection = ",",
             keymaps = {
@@ -148,7 +161,6 @@ m.setup_treesitter = function()
         rainbow = {
             enable = not vim.g.vscode,
             extended_mode = true,
-            -- 大きなファイルで重くなる場合は最大行数を設定
             max_file_line = nil,
         },
         context_commentstring = {
@@ -172,7 +184,7 @@ end
 m.setup_context_vt = function()
     require("nvim_context_vt").setup({
         enabled = true,
-        -- pythonなどのインデントベースの場合は非表示(virtual textで行がズレて見にくい)
+        --Hide for indent bases such as python (virtual text makes it hard to see the lines).
         disable_virtual_lines = true,
     })
 end
@@ -185,20 +197,12 @@ m.setup_hlargs = function()
     require("hlargs").setup()
 end
 
--- ユニット単位の選択
--- カーソル位置がステートメント, ブロックなどによって選択範囲が変わる
--- auを使用するとカーソル位置より下のユニットを選択するので, 真下のメソッド等を選択するのに良い
 vim.api.nvim_set_keymap("x", "iu", [[:lua require('treesitter-unit').select()<CR>]], { noremap = true })
 vim.api.nvim_set_keymap("x", "au", [[:lua require('treesitter-unit').select(true)<CR>]], { noremap = true })
 vim.api.nvim_set_keymap("o", "iu", [[:<c-u>lua require('treesitter-unit').select()<CR>]], { noremap = true })
 vim.api.nvim_set_keymap("o", "au", [[:<c-u>lua require('treesitter-unit').select(true)<CR>]], { noremap = true })
--- 現在行の範囲選択をEasyMotion風に行う
--- 現在位置より後ろを選ぶと先頭から選んだ位置までを選択
--- 現在位置より前を選ぶと選んだ位置から末尾までを選択
 vim.cmd([[omap <silent> m :<C-u>lua require('tsht').nodes()<CR>]]) -- motion
 vim.cmd([[vnoremap <silent> m :lua require('tsht').nodes()<CR>]]) -- motion
--- 引数の入れ替えをEasyMotion風に行う
--- ssは2つ選択するが, swはカーソル位置の引数と入れ替える
 vim.api.nvim_set_keymap("n", "<Leader>ss", "<cmd>ISwap<CR>", { noremap = true }) -- swap motion
 vim.api.nvim_set_keymap("n", "<Leader>sw", "<cmd>ISwapWith<CR>", { noremap = true }) -- swap motion with
 

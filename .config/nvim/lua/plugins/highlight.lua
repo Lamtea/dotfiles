@@ -1,16 +1,25 @@
 local m = {}
 
 m.setup = function(use)
-    -- 色コードや名称をカラー表示
+    -- A high-performance color highlighter for Neovim which has no external dependencies! Written in performant Luajit.
     use("norcalli/nvim-colorizer.lua")
-    -- todo系コメントハイライトとtrouble, telecopeに表示(タグについては see:github)
+    -- todo-comments is a lua plugin for Neovim 0.5
+    -- to highlight and search for todo comments like TODO, HACK, BUG in your code base.
     use({
         "folke/todo-comments.nvim",
         requires = "nvim-lua/plenary.nvim",
     })
-    -- insertモード時は絶対行にする(vimscript)
+    -- numbers.vim is a plugin for intelligently toggling line numbers.
+    -- This plugin alternates between relative numbering (relativenumber)
+    -- and absolute numbering (number) for the active window depending on the mode you are in.
+    -- In a GUI, it also functions based on whether or not the app has focus.
+    -- Commands are included for toggling the line numbering method and for enabling and disabling the plugin.
     use("myusuf3/numbers.vim")
-    -- インデントを見やすく表示
+    -- This plugin adds indentation guides to all lines (including empty lines).
+    -- It uses Neovims virtual text feature and no conceal.
+    -- This plugin requires Neovim 0.5 or higher.
+    -- It makes use of Neovim only features so it will not work in Vim.
+    -- There is a legacy version of the plugin that supports Neovim 0.4 under the branch version-1.
     use("lukas-reineke/indent-blankline.nvim")
 
     m.setup_colorizer()
@@ -29,16 +38,16 @@ end
 m.setup_indent_blankline = function()
     require("indent_blankline").setup({
         space_char_blankline = " ",
-        -- treesitterベースでスコープを表示
+        -- Show scope of treesitter base.
         show_current_context = true,
-        -- アンダースコア表示はしない
+        -- Hide underline.
         show_current_context_start = false,
     })
 end
 
--- Todoをtroubleに表示
-vim.api.nvim_set_keymap("n", "<Leader>xt", "<cmd>TodoTrouble<CR>", { noremap = true })
--- Todoをtelescopeに表示
-vim.api.nvim_set_keymap("n", "<Leader>ft", "<cmd>TodoTelescope<CR>", { noremap = true })
+-- Show todos in the trouble window.
+vim.api.nvim_set_keymap("n", "<Leader>xz", "<cmd>TodoTrouble<CR>", { noremap = true })
+-- Show todos in the telescope window.
+vim.api.nvim_set_keymap("n", "<Leader>fz", "<cmd>TodoTelescope<CR>", { noremap = true })
 
 return m

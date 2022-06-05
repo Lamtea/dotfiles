@@ -1,7 +1,7 @@
 local m = {}
 
 m.setup = function(use)
-    -- バッファをタブ表示
+    -- A super powerful autopair plugin for Neovim that supports multiple characters.
     use({
         "akinsho/bufferline.nvim",
         tag = "v2.*",
@@ -38,18 +38,18 @@ m.setup_bufferline = function()
     })
 end
 
--- バッファタブの選択を移動
+-- Select the buffer tab on the left/right side of the currently selected buffer tab.
 vim.api.nvim_set_keymap("n", "<leader>n", "<Cmd>BufferLineCycleNext<CR>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "<leader>p", "<Cmd>BufferLineCyclePrev<CR>", { noremap = true, silent = true })
--- バッファタブを移動
+-- Move the currently selected buffer tab.
 vim.api.nvim_set_keymap("n", "<leader>N", "<Cmd>BufferLineMoveNext<CR>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "<leader>P", "<Cmd>BufferLineMovePrev<CR>", { noremap = true, silent = true })
--- バッファラインのソート
+-- Sort buffer tabs.
 vim.api.nvim_set_keymap("n", "<leader>E", "<Cmd>BufferLineSortByExtension<CR>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "<leader>D", "<Cmd>BufferLineSortByDirectory<CR>", { noremap = true, silent = true })
--- バッファタブをEasyMotion風に選択
+-- Select a buffer tab like EasyMotion.
 vim.api.nvim_set_keymap("n", "<Leader>B", "<Cmd>BufferLinePick<CR>", { noremap = true, silent = true })
--- バッファタブを番号指定で選択
+-- Select a buffer tab by buffer number.
 vim.api.nvim_set_keymap("n", "<Leader>1", "<Cmd>BufferLineGoToBuffer 1<CR>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "<Leader>2", "<Cmd>BufferLineGoToBuffer 2<CR>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "<Leader>3", "<Cmd>BufferLineGoToBuffer 3<CR>", { noremap = true, silent = true })
@@ -59,11 +59,10 @@ vim.api.nvim_set_keymap("n", "<Leader>6", "<Cmd>BufferLineGoToBuffer 6<CR>", { n
 vim.api.nvim_set_keymap("n", "<Leader>7", "<Cmd>BufferLineGoToBuffer 7<CR>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "<Leader>8", "<Cmd>BufferLineGoToBuffer 8<CR>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "<Leader>9", "<Cmd>BufferLineGoToBuffer 9<CR>", { noremap = true, silent = true })
--- バッファタブをEasyMotion風に選択
+-- Close a buffer tab like EasyMotion.
 vim.api.nvim_set_keymap("n", "<Leader>q", "<Cmd>BufferLinePickClose<CR>", { noremap = true, silent = true })
--- 現在選択されているバッファタブの左側のバッファタブを閉じる
+-- Close the buffer tab on the left/right side of the currently selected buffer tab.
 vim.api.nvim_set_keymap("n", "<Leader>L", "<Cmd>BufferLineCloseLeft<CR>", { noremap = true, silent = true })
--- 上記の右側版
 vim.api.nvim_set_keymap("n", "<Leader>R", "<Cmd>BufferLineCloseRight<CR>", { noremap = true, silent = true })
 
 return m

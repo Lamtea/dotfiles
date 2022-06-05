@@ -1,32 +1,36 @@
 local m = {}
 
 m.setup = function(use)
-    -- 補完エンジン
+    -- A completion engine plugin for neovim written in Lua.
+    -- Completion sources are installed from external repositories and "sourced".
     use("hrsh7th/nvim-cmp")
-    -- バッファ補完用ソース
+    -- nvim-cmp source for buffer words.
     use("hrsh7th/cmp-buffer")
-    -- パス補完用ソース
+    -- nvim-cmp source for filesystem paths.
     use("hrsh7th/cmp-path")
-    -- コマンドライン補完用ソース
+    -- nvim-cmp source for vim's cmdline.
     use("hrsh7th/cmp-cmdline")
-    -- 関数シグネチャ補完用ソース
+    -- nvim-cmp source for displaying function signatures with the current parameter emphasized.
     use("hrsh7th/cmp-nvim-lsp-signature-help")
-    -- /検索用ソース
+    -- nvim-cmp source for textDocument/documentSymbol via nvim-lsp.
+    -- The purpose is the demonstration customize / search by nvim-cmp.
     use("hrsh7th/cmp-nvim-lsp-document-symbol")
-    -- Lua API用ソース
+    -- nvim-cmp source for neovim Lua API.
     use("hrsh7th/cmp-nvim-lua")
-    -- 絵文字用ソース
+    -- nvim-cmp source for emojis.
     use("hrsh7th/cmp-emoji")
-    -- 補完にアイコン表示
+    -- This tiny plugin adds vscode-like pictograms to neovim built-in lsp.
     use("onsails/lspkind-nvim")
-    -- vscodeスニペット(vimscript)
+    -- VSCode(LSP)'s snippet feature in vim.
     use("hrsh7th/vim-vsnip")
-    -- vscodeスニペット用ソース
+    -- nvim-cmp source for vim-vsnip.
     use("hrsh7th/cmp-vsnip")
-    -- vscodeスニペット定義ファイル
+    -- Snippets collection for a set of different programming languages for faster development.
+    -- The only goal is to have one community driven repository for all kinds of snippets in all programming languages,
+    -- this way you can have it all in one place.
     use("rafamadriz/friendly-snippets")
 
-    -- 補完設定
+    -- For completion.
     vim.g.completeopt = "menu,menuone,noselect"
 
     m.setup_lspkind()
@@ -82,14 +86,14 @@ m.setup_cmp = function()
         },
         snippet = {
             expand = function(args)
-                -- vscodeスニペット設定
+                -- For vscode snippet.
                 vim.fn["vsnip#anonymous"](args.body)
             end,
         },
         mapping = cmp.mapping.preset.insert({
             ["<C-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
             ["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
-            -- <C-b>はtmuxで使用されるため
+            -- <C-b> is tmux key binding.
             ["<C-d>"] = cmp.mapping.scroll_docs(-4),
             ["<C-f>"] = cmp.mapping.scroll_docs(4),
             ["<C-Space>"] = cmp.mapping.complete(),

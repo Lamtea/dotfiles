@@ -1,14 +1,14 @@
-# デフォルトで全部無効
+# all ignore by default
 /*
 /.**
 
 # gitignore
 !/.gitignore
 
-# インストールシェルスクリプト
+# install script
 !/install.sh
 
-# vscode 開発環境
+# vscode
 !/.vscode/
 !/.vscode/**/*
 !/package.json
@@ -21,13 +21,13 @@
 !/.github/
 !/.github/**/*
 
-# シェルスクリプト
+# shell scripts
 !/.bin/
 !/.bin/**/*
 !/bin/
 !/bin/**/*
 
-# ホームディレクトリ設定ファイル
+# home dir
 ## zsh
 !/.zprofile
 !/.zshrc
@@ -41,7 +41,7 @@
 !/.default-golang-pkgs
 !/.default-npm-packages
 
-# config設定ファイル
+# config dir
 !/.config/
 ## neomutt
 !/.config/neomutt/
@@ -57,5 +57,5 @@
 !/.config/ranger/
 !/.config/ranger/**/*
 
-# ruby gem設定ファイル
+# ruby gems
 !/Gemfile
