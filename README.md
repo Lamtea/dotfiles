@@ -6,7 +6,7 @@ My dotfiles for command line interface on Arch linux.
 
 ![overview](https://user-images.githubusercontent.com/48638671/171588449-9a133364-cb2b-4423-a661-0510a0940431.png)
 
-## How to install
+## How to Install
 
 ```bash
 paru -S <dependent packages>
@@ -65,13 +65,13 @@ vi +PackerSync
 # (No problem because it is an extension of the standard command)
 ```
 
-## Hello world
+## neovim Hello World
 
 See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
 
-## Recommended language servers
+## neovim Language Servers
 
-See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim-Language-Servers)
+See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim-language-servers)
 
 ## Depend on
 
@@ -218,12 +218,12 @@ See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim-Language-Servers)
 - yarn
 - zsh
 
-## Terminal fonts for zsh powerlevel10k
+## Terminal Fonts for zsh powerlevel10k
 
 - Ricty & MesloLGS NF
 - HackGenNerd
 
-## Shell scripts
+## Shell Scripts
 
 | Name            | Description                   |
 | --------------- | ----------------------------- |
