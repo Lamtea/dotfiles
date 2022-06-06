@@ -41,7 +41,7 @@ export PAGER=less
 export EDITOR=nvim
 export VISUAL=nvim
 export MAIL=~/Maildir
-[[ -z "$BROWSER" ]] && export BROWSER=w3m
+[[ ! -z "$BROWSER" ]] || export BROWSER=w3m
 
 # bemenu
 export BEMENU_BACKEND=curses
@@ -89,10 +89,10 @@ if [[ ! -d $HOME/.cargo ]]; then
         print -P "%F{33} %F{34}Installation successful.%f%b" || \
         print -P "%F{160} Instllation failed.%f%b"
 fi
-[[ -f $HOME/.cargo/env ]] && source "$HOME/.cargo/env"
+[[ ! -f $HOME/.cargo/env ]] || source "$HOME/.cargo/env"
 
 # dotnet
-[[ -f $HOME/.asdf/plugins/dotnet-core/set-dotnet-home.zsh ]] && \
+[[ ! -f $HOME/.asdf/plugins/dotnet-core/set-dotnet-home.zsh ]] || \
     source "$HOME/.asdf/plugins/dotnet-core/set-dotnet-home.zsh"
 export PATH="$HOME/.dotnet/tools:$PATH"
 
@@ -129,7 +129,7 @@ zstyle ':zle:*' word-style unspecified
 fpath=(${ASDF_DIR}/completions $fpath)
 
 # zfunc
-[[ ! -d $HOME/.zfunc ]] && mkdir ~/.zfunc
+[[ -d $HOME/.zfunc ]] || mkdir ~/.zfunc
 if [[ ! -f $HOME/.zfunc/_poetry ]]; then
     print -P "%F{33} %F{220}Installing %F{33}poetry%F{220} completions…%f"
     poetry completions zsh > ~/.zfunc/_poetry && \
