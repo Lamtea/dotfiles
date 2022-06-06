@@ -227,7 +227,7 @@ See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
 - wget
 - xclip
   **(optional)**
-  _(I use Linux Desktop Environment so this is it, see :h clipboard)_
+  _(I use Linux Desktop Environment so this is it, see `:h clipboard` in nvim)_
 - xdebug _(php debugger extension)_
 - yarn
 - zsh
