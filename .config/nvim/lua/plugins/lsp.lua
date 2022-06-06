@@ -117,6 +117,26 @@ local function setup_lsp_clangd(serverconfig, on_attach)
     })
 end
 
+local function setup_lsp_rust_analyzer(serverconfig, on_attach, capabilities)
+    serverconfig.setup({
+        settings = {
+            ["rust-analyzer"] = {
+                cargo = {
+                    loadOutDirsFromCheck = true,
+                },
+                procMacro = {
+                    enable = true,
+                },
+                checkOnSave = {
+                    command = "clippy",
+                },
+            },
+        },
+        on_attach = on_attach,
+        capabilities = capabilities,
+    })
+end
+
 local function setup_lsp_html(serverconfig, on_attach, capabilities)
     serverconfig.setup({
         -- Use prettier
@@ -176,6 +196,9 @@ m.setup_lsp = function()
         if server.name == "clangd" then
             -- c/cpp
             setup_lsp_clangd(serverconfig, on_attach)
+        elseif server.name == "rust_analyzer" then
+            -- rust
+            setup_lsp_rust_analyzer(serverconfig, on_attach, capabilities)
         elseif server.name == "html" then
             -- html
             setup_lsp_html(serverconfig, on_attach, capabilities)
