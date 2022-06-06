@@ -226,6 +226,8 @@ See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
 - w3m
 - wget
 - xclip
+  **(optional)**
+  _(I use Linux Desktop Environment so this is it, see :h clipboard)_
 - xdebug _(php debugger extension)_
 - yarn
 - zsh
