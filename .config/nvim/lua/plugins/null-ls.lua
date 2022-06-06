@@ -97,8 +97,8 @@ m.setup_null_ls = function()
             }),
 
             -- for go
-            -- NOTE: There is also a lsp version, but still under development.
-            null_ls.builtins.diagnostics.golangci_lint,
+            -- use lsp version
+            -- null_ls.builtins.diagnostics.golangci_lint,
 
             -- for dockerfile
             null_ls.builtins.diagnostics.hadolint,
