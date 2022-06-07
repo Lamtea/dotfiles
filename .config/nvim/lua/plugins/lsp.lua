@@ -137,10 +137,25 @@ local function setup_lsp_rust_analyzer(serverconfig, on_attach, capabilities)
     })
 end
 
+local function setup_lsp_hls(serverconfig, on_attach, capabilities)
+    serverconfig.setup({
+        settings = {
+            haskell = {
+                hlintOn = true,
+                formattingProvider = "fourmolu",
+            },
+        },
+        on_attach = on_attach,
+        capabilities = capabilities,
+    })
+end
+
 local function setup_lsp_html(serverconfig, on_attach, capabilities)
     serverconfig.setup({
-        -- Use prettier
-        provideFormatter = false,
+        init_options = {
+            -- Use prettier
+            provideFormatter = false,
+        },
         on_attach = on_attach,
         capabilities = capabilities,
     })
@@ -148,8 +163,10 @@ end
 
 local function setup_lsp_jsonls(serverconfig, on_attach, capabilities)
     serverconfig.setup({
-        -- Use prettier
-        provideFormatter = false,
+        init_options = {
+            -- Use prettier
+            provideFormatter = false,
+        },
         on_attach = on_attach,
         capabilities = capabilities,
     })
@@ -199,6 +216,9 @@ m.setup_lsp = function()
         elseif server.name == "rust_analyzer" then
             -- rust
             setup_lsp_rust_analyzer(serverconfig, on_attach, capabilities)
+        elseif server.name == "hls" then
+            -- haskell
+            setup_lsp_hls(serverconfig, on_attach, capabilities)
         elseif server.name == "html" then
             -- html
             setup_lsp_html(serverconfig, on_attach, capabilities)

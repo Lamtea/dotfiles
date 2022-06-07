@@ -23,10 +23,6 @@ local lsp_formatting = function(bufnr)
             if client.name == "sumneko_lua" then
                 return false
             end
-            -- haskell use fourmolu
-            if client.name == "hls" then
-                return false
-            end
             -- xml use tidy
             if client.name == "lemminx" then
                 return false
@@ -184,7 +180,8 @@ m.setup_null_ls = function()
             null_ls.builtins.formatting.erb_lint,
 
             -- for haskell
-            null_ls.builtins.formatting.fourmolu,
+            -- used by hls
+            -- null_ls.builtins.formatting.fourmolu,
 
             -- for go
             null_ls.builtins.formatting.gofmt,
