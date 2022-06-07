@@ -98,23 +98,14 @@ m.setup_diffview = function()
         },
         file_history_panel = {
             log_options = {
-                -- Limit the number of commits
-                max_count = 256,
-                -- Follow renames (only for single file)
-                follow = false,
-                -- Include all refs under 'refs/' including HEAD
-                all = false,
-                -- List only merge commits
-                merges = false,
-                -- List no merge commits
-                no_merges = false,
-                -- List commits in reverse order
-                reverse = false,
-            },
-            -- See |diffview-config-win_config|
-            win_config = {
-                position = "bottom",
-                height = 16,
+                single_file = {
+                    max_count = 512,
+                    follow = true,
+                },
+                multi_file = {
+                    max_count = 128,
+                    -- follow = false   -- `follow` only applies to single-file history
+                },
             },
         },
         commit_log_panel = {

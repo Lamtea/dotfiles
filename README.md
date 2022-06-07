@@ -146,6 +146,7 @@ See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
 - github-cli
 - gnome-keyring
 - go
+- google-java-format _(aur, java formatter)_
 - gradle
 - imagemagick
 - jdk-openjdk

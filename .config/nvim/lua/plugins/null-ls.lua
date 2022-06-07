@@ -15,16 +15,18 @@ end
 local lsp_formatting = function(bufnr)
     vim.lsp.buf.format({
         filter = function(client)
-            -- javascript/typescript use prettier
-            if client.name == "tsserver" then
+            if client.name == "jdt.ls" then
+                -- jdtls.ls in ftplugin/java.lua
+                -- java use google-java-format
                 return false
-            end
-            -- lua use stylua
-            if client.name == "sumneko_lua" then
+            elseif client.name == "tsserver" then
+                -- javascript/typescript use prettier
                 return false
-            end
-            -- xml use tidy
-            if client.name == "lemminx" then
+            elseif client.name == "sumneko_lua" then
+                -- lua use stylua
+                return false
+            elseif client.name == "lemminx" then
+                -- xml use tidy
                 return false
             end
 
@@ -185,6 +187,9 @@ m.setup_null_ls = function()
 
             -- for go
             null_ls.builtins.formatting.gofmt,
+
+            -- for java
+            null_ls.builtins.formatting.google_java_format,
 
             -- for python
             null_ls.builtins.formatting.isort.with({
