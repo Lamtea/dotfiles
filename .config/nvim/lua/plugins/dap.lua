@@ -406,17 +406,17 @@ vim.api.nvim_set_keymap("n", "<F3>", "<Cmd>lua require'osv'.run_this()<CR>", { n
 -- vscode like.
 vim.api.nvim_set_keymap("n", "<F4>", "<Cmd>lua require'dap'.disconnect({})<CR>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "<F5>", "<Cmd>lua require'dap'.continue()<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<F6>", "<Cmd>lua require'dap'.run_last()<CR>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap(
     "n",
-    "<F6>",
-    "<Cmd>lua require'dap.ext.vscode'.load_launchjs()<CR>",
+    "<F7>",
+    "<Cmd>lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>",
     { noremap = true, silent = true }
 )
-vim.api.nvim_set_keymap("n", "<F7>", "lua require'dap'.run_last()", { noremap = true, silent = true })
 vim.api.nvim_set_keymap(
     "n",
     "<F8>",
-    "lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))",
+    "<Cmd>lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<CR>",
     { noremap = true, silent = true }
 )
 vim.api.nvim_set_keymap("n", "<F9>", "<Cmd>lua require'dap'.toggle_breakpoint()<CR>", { noremap = true, silent = true })
@@ -424,6 +424,12 @@ vim.api.nvim_set_keymap("n", "<F10>", "<Cmd>lua require'dap'.step_over()<CR>", {
 vim.api.nvim_set_keymap("n", "<F11>", "<Cmd>lua require'dap'.step_into()<CR>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "<S-F11>", "<Cmd>lua require'dap'.step_out()<CR>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "<F12>", "<Cmd>lua require'dap'.repl.open()<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap(
+    "n",
+    "<S-F12>",
+    "<Cmd>lua require'dap.ext.vscode'.load_launchjs()<CR>",
+    { noremap = true, silent = true }
+)
 
 -- dapui.
 -- Toggle show/close of dapui windows.
