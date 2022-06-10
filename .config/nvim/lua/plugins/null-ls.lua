@@ -182,11 +182,12 @@ m.setup_null_ls = function()
             null_ls.builtins.formatting.erb_lint,
 
             -- for haskell
-            -- used by hls
+            -- be used by hls
             -- null_ls.builtins.formatting.fourmolu,
 
             -- for go
-            null_ls.builtins.formatting.gofmt,
+            -- be used by gopls
+            -- null_ls.builtins.formatting.gofmt,
 
             -- for java
             null_ls.builtins.formatting.google_java_format,

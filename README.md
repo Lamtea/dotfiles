@@ -137,11 +137,8 @@ See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
 - gawk
 - ghcup-hs-bin _(aur)_
   - ghc _(ghcup)_
+  - hls _(ghcup)_
   - stack _(ghcup)_
-    - haskell-dap _(stack, haskell debugger)_
-    - ghci-dap _(stack, haskell debugger)_
-    - haskell-debug-adapter _(stack, haskell debugger)_
-    - fourmolu _(stack, haskell formatter)_
 - git
 - github-cli
 - gnome-keyring
@@ -195,7 +192,6 @@ See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
 - python-black _(python formatter)_
 - python-debugpy _(python debugger)_
 - python-isort _(python formatter)_
-- python-pip
 - python-pytest
 - ranger **(optional)**
 - rclone **(optional)**
