@@ -209,7 +209,8 @@ m.setup_null_ls = function()
             }),
 
             -- for ruby
-            null_ls.builtins.formatting.rubocop,
+            -- be used by solargraph
+            -- null_ls.builtins.formatting.rubocop,
 
             -- for rust
             -- be used by rust_analyzer
