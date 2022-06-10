@@ -75,11 +75,11 @@ vi +PackerSync
 
 ## neovim Plugins
 
-See: [neovim plugins used in my dotfiles](https://github.com/stars/Lamtea/lists/neovim-plugins)
+See: [neovim Plugins used in my dotfiles](https://github.com/stars/Lamtea/lists/neovim-plugins)
 
 ## neovim Language Servers
 
-See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim-language-servers)
+See: [neovim Language Servers I use](https://github.com/stars/Lamtea/lists/neovim-language-servers)
 
 ## neovim Hello World
 
