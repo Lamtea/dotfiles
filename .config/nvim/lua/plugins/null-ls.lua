@@ -106,7 +106,7 @@ m.setup_null_ls = function()
                 prefer_local = "node_modules/.bin",
             }),
 
-            -- kotlin
+            -- for kotlin
             null_ls.builtins.diagnostics.ktlint,
 
             -- for lua
