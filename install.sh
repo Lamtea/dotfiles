@@ -75,6 +75,7 @@ dotfiles_or_dirs=(
 	bin/update-vscode-node-debug2.sh
 	bin/update-vscode-chrome-debug.sh
 	bin/update-vscode-firefox-debug.sh
+	bin/update-vscode-php-debug.sh
 	bin/update-java-debug.sh
 	bin/update-vscode-java-test.sh
 	bin/update-lsp.sh
