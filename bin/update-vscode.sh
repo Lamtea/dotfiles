@@ -6,4 +6,4 @@ update-vscode-node-debug2.sh &&
 	update-vscode-php-debug.sh &&
 	update-java-debug.sh &&
 	update-vscode-java-test.sh &&
-	update-kotlin-debug-adaper.sh
+	update-kotlin-debug-adapter.sh
