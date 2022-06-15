@@ -54,6 +54,7 @@ m.setup = function(use)
     m.setup_dap_go()
     m.setup_dap_haskell()
     m.setup_dap_dotnet()
+    m.setup_dap_kotlin()
     m.setup_dap_lldb()
     m.setup_dap_load_launchjs()
 end
@@ -357,6 +358,26 @@ m.setup_dap_dotnet = function()
             request = "launch",
             program = function()
                 return vim.fn.input("Path to dll: ", vim.fn.getcwd() .. "/bin/Debug/", "file")
+            end,
+        },
+    }
+end
+
+m.setup_dap_kotlin = function()
+    local dap = require("dap")
+    dap.adapters.kotlin = {
+        type = "executable",
+        command = vsext_path .. "/kotlin-debug-adapter/adapter/build/install/adapter/bin/kotlin-debug-adapter",
+        args = { "--interpreter=vscode" },
+    }
+    dap.configurations.kotlin = {
+        {
+            type = "kotlin",
+            name = "Launch",
+            request = "launch",
+            projectRoot = vim.fn.getcwd() .. "/app",
+            mainClass = function()
+                return vim.fn.input("Path to main class: ", "", "file")
             end,
         },
     }

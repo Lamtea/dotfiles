@@ -31,8 +31,6 @@ m.setup = function(use)
     use("j-hui/fidget.nvim")
     -- Vim plugin for automatically highlighting other uses of the current word under the cursor.
     use("RRethy/vim-illuminate")
-    -- For kotlin filetype.
-    use("udalov/kotlin-vim")
 
     -- vim-illuminate
     vim.g.Illuminate_delay = 500

@@ -198,7 +198,8 @@ m.setup_null_ls = function()
             }),
 
             -- for kotlin
-            null_ls.builtins.formatting.ktlint,
+            -- be used by kotlin-language-server
+            -- null_ls.builtins.formatting.ktlint,
 
             -- for php
             null_ls.builtins.formatting.phpcsfixer,
