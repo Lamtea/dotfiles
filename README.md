@@ -219,8 +219,10 @@ See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
   - vscode-node-debug2
   - vscode-chrome-debug
   - vscode-firefox-debug
+  - vscode-php-debug
   - java-debug
   - vscode-java-test
+  - kotlin-debug-adapter
 - w3m
 - wget
 - xclip
