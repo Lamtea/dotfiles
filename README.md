@@ -37,6 +37,7 @@ git clone https://github.com/Lamtea/dotfiles.git .dotfiles
 cd .dotfiles
 vi .gitconfig
   email = <your email address>
+  name = <your user name>
 vi .config/neomutt/neomuttrc
   set my_name="<your name>"
 # For localization, see below `Localization`.
