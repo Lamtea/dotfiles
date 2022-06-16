@@ -463,7 +463,7 @@ vim.api.nvim_set_keymap("v", "<space>u", '<Cmd>lua require("dapui").eval()<CR>',
 vim.api.nvim_set_keymap(
     "n",
     "<leader>dr",
-    "lua require'telescope'.extensions.dap.commands{}",
+    "<Cmd>lua require'telescope'.extensions.dap.commands{}<CR>",
     { noremap = true, silent = true }
 )
 -- Show dap configurations.

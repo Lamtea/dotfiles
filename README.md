@@ -88,9 +88,19 @@ See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
 
 ## Depend on
 
+- android-apktool _(aur)_
+- android-platform _(aur)_
+- android-sdk _(aur)_
+- android-sdk-build-tools _(aur)_
+- android-sdk-cmdline-tools-latest _(aur)_
+- android-sdk-platform-tools _(aur)_
+- android-tools
+- android-udev-git _(aur)_
 - asdf **(from github)**
+  - dart _(asdf)_
   - deno _(asdf)_
   - dotnet _(asdf)_
+  - flutter _(asdf)_
   - golang _(asdf)_
     - delve _(go get)_
   - golangci-lint _(asdf, go linter)_

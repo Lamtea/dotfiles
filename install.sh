@@ -61,11 +61,13 @@ dotfiles_or_dirs=(
 	bin/update-asdf-golangci-lint.sh
 	bin/update-asdf-hadolint.sh
 	bin/update-asdf-ktlint.sh
+	bin/update-asdf-flutter.sh
 	bin/update-asdf-locals.sh
 	bin/update-asdf-nodejs.sh
 	bin/update-asdf-deno.sh
 	bin/update-asdf-golang.sh
 	bin/update-asdf-dotnet-core.sh
+	bin/update-asdf-dart.sh
 	bin/update-dotnet-core-tools.sh
 	bin/update-pyenv.sh
 	bin/update-poetry.sh

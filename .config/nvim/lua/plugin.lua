@@ -44,6 +44,7 @@ require("packer").startup(function(use)
         require("plugins.markdown").setup(use)
         require("plugins.javascript").setup(use)
         require("plugins.java").setup(use)
+        require("plugins.dart").setup(use)
         require("plugins.sql").setup(use)
         require("plugins.log").setup(use)
     end
