@@ -102,7 +102,7 @@ See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
   - dotnet _(asdf)_
   - flutter _(asdf)_
   - golang _(asdf)_
-    - delve _(go get)_
+    - delve _(go install)_
   - golangci-lint _(asdf, go linter)_
   - hadolint _(asdf, dockerfile linter)_
   - ktlint _(asdf, kotlin linter/formatter)_
