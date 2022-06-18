@@ -8,6 +8,7 @@
 @types/react-dom
 @typescript-eslint/eslint-plugin
 @typescript-eslint/parser
+@vue/cli
 autoprefixer
 axios
 babel-loader
@@ -15,6 +16,7 @@ chalk
 clean-webpack-plugin
 commander
 compression
+create-react-app
 css-loader
 css-minimizer-webpack-plugin
 debug
@@ -53,6 +55,7 @@ stylelint-config-recommended-scss
 stylelint-config-standard
 stylelint-config-standard-scss
 terser-webpack-plugin
+ts-jest
 ts-loader
 ts-node
 typescript
