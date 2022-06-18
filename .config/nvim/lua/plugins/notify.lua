@@ -16,4 +16,7 @@ m.setup_notify = function()
     vim.notify = require("notify")
 end
 
+-- find notify.
+vim.api.nvim_set_keymap("n", "<leader>fN", "<Cmd>Telescope notify<CR>", { noremap = true })
+
 return m
