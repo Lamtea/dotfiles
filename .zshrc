@@ -100,9 +100,6 @@ export PATH="$HOME/.dotnet/tools:$PATH"
 export PATH="$HOME/.ghcup/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 
-# flutter
-export CHROME_EXECUTABLE="google-chrome-stable"
-
 # user
 export PATH="$HOME/bin:$PATH"
 export JAVA_WORKSPACE="$HOME/.workspace"

@@ -176,6 +176,7 @@ See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
   - wbthomason/packer.nvim **(from install script)**
 - netcoredbg _(aur, csharp debugger)_
 - nginx **(optional)**
+- ninja
 - nodejs-jsonlint _(aur, json linter)_
 - nodejs-lts-gallium
 - nodejs-markdownlint-cli _(aur, markdown linter)_
