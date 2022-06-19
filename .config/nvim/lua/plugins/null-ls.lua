@@ -76,9 +76,7 @@ m.setup_null_ls = function()
             null_ls.builtins.diagnostics.cppcheck,
 
             -- for editorconfig
-            null_ls.builtins.diagnostics.editorconfig_checker.with({
-                prefer_local = "node_modules/.bin",
-            }),
+            null_ls.builtins.diagnostics.editorconfig_checker,
 
             -- for eruby
             null_ls.builtins.diagnostics.erb_lint,
@@ -143,9 +141,7 @@ m.setup_null_ls = function()
             }),
 
             -- for html/xml
-            null_ls.builtins.diagnostics.tidy.with({
-                prefer_local = "node_modules/.bin",
-            }),
+            null_ls.builtins.diagnostics.tidy,
 
             -- for typescript/react
             -- use tsserver
@@ -154,9 +150,7 @@ m.setup_null_ls = function()
             -- }),
 
             -- for yaml
-            null_ls.builtins.diagnostics.yamllint.with({
-                prefer_local = "node_modules/.bin",
-            }),
+            null_ls.builtins.diagnostics.yamllint,
 
             -- for zsh
             null_ls.builtins.diagnostics.zsh,
@@ -246,7 +240,6 @@ m.setup_null_ls = function()
             -- for xml
             -- html use prettier
             null_ls.builtins.formatting.tidy.with({
-                prefer_local = "node_modules/.bin",
                 disabled_filetypes = { "html" },
             }),
 

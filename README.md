@@ -108,16 +108,13 @@ See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
   - ktlint _(asdf, kotlin linter/formatter)_
   - neovim _(asdf)_
   - nodejs _(asdf)_
-    - editorconfig-checker _(npm)_
     - eslint _(npm)_
     - jsonlint _(npm)_
     - markdownlint-cli _(npm)_
     - neovim _(npm)_
     - prettier _(npm)_
     - stylelint _(npm)_
-    - tidy _(npm)_
     - typescript _(npm)_
-    - yaml-lint _(npm)_
     - etc... _(for development)_
   - ruby _(asdf)_
     - bundler _(gem)_
@@ -188,12 +185,11 @@ See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
 - php-\* (apcu, gd, sqlite, pgsql, redis, imap, imagick, fpm)
 - php-cs-fixer _(aur, php formatter)_
 - poetry **(from install script)**
-  - python3 _(poetry)_
-    - black _(poetry)_
-    - debugpy _(poetry)_
-    - flake8 _(poetry)_
-    - isort _(poetry)_
-    - pytest _(poetry)_
+  - black _(poetry)_
+  - debugpy _(poetry)_
+  - flake8 _(poetry)_
+  - isort _(poetry)_
+  - pytest _(poetry)_
 - postfix **(optional)** _(localhost only for neomutt)_
 - prettier
   _(html/css/sass/javascript/typescript/react/vue/json/yaml/markdown/graphql formatter)_
@@ -219,7 +215,6 @@ See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
 - shellcheck _(bash linter)_
 - source-highlight
 - stylelint _(css linter)_
-- stylelint-config-standard
 - stylua _(lua formatter)_
 - sqlfluff _(sql linter/formatter)_
 - sqlite
