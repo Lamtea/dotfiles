@@ -86,28 +86,25 @@ m.setup_dap_ui = function()
         -- Expand lines larger than the window
         -- Requires >= 0.7
         expand_lines = vim.fn.has("nvim-0.7"),
-        sidebar = {
-            -- You can change the order of elements in the sidebar
-            elements = {
-                -- Provide as ID strings or tables with "id" and "size" keys
-                {
-                    id = "scopes",
-                    -- Can be float or integer > 1
-                    size = 0.25,
+        layouts = {
+            {
+                elements = {
+                    "scopes",
+                    "breakpoints",
+                    "stacks",
+                    "watches",
                 },
-                { id = "breakpoints", size = 0.25 },
-                { id = "stacks", size = 0.25 },
-                { id = "watches", size = 00.25 },
+                size = 40,
+                position = "left",
             },
-            size = 40,
-            -- Can be "left", "right", "top", "bottom"
-            position = "right",
-        },
-        tray = {
-            elements = { "repl" },
-            size = 10,
-            -- Can be "left", "right", "top", "bottom"
-            position = "bottom",
+            {
+                elements = {
+                    "repl",
+                    "console",
+                },
+                size = 10,
+                position = "bottom",
+            },
         },
         floating = {
             -- These can be integers or a float between 0 and 1.

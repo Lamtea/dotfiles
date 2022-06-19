@@ -48,7 +48,9 @@ dotfiles_or_dirs=(
 	.default-golang-pkgs
 	.default-npm-packages
 	.default-python-packages
-	.config/nvim
+	.config/nvim/init.lua
+	.config/nvim/lua
+	.config/nvim/ftplugin
 	.config/neomutt
 	.config/ranger
 	.bin/rclone_mount.sh
