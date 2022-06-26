@@ -1,5 +1,6 @@
 {
   "devDependencies": {
-    "bash-language-server": "^2.0.0"
+    "bash-language-server": "^3.0.4",
+    "npm-check-updates": "^14.1.1"
   }
 }
