@@ -23,7 +23,8 @@ m.setup = function(use)
     use("lewis6991/gitsigns.nvim")
 
     m.setup_neogit()
-    m.setup_diffview()
+    -- https://github.com/sindrets/diffview.nvim/pull/190#issuecomment-1220620153
+    -- m.setup_diffview()
     m.setup_gitsigns()
 end
 
