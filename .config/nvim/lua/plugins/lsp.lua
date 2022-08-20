@@ -32,20 +32,15 @@ m.setup = function(use)
     -- Vim plugin for automatically highlighting other uses of the current word under the cursor.
     use("RRethy/vim-illuminate")
 
-    -- vim-illuminate
-    vim.g.Illuminate_delay = 500
-    vim.g.Illuminate_highlightUnderCursor = 0
-
     m.setup_lsp()
     m.setup_lspsaga()
     m.setup_lsp_color()
     m.setup_trouble()
     m.setup_fidget()
+    m.setup_illuminate()
 end
 
-m.on_attach = function(client, bufnr)
-    require("illuminate").on_attach(client)
-
+m.on_attach = function(_, bufnr)
     local function buf_set_keymap(...)
         vim.api.nvim_buf_set_keymap(bufnr, ...)
     end
@@ -322,6 +317,40 @@ m.setup_fidget = function()
                 task_name
             )
         end,
+    })
+end
+
+m.setup_illuminate = function()
+    require("illuminate").configure({
+        -- providers: provider used to get references in the buffer, ordered by priority
+        providers = {
+            "lsp",
+            "treesitter",
+            "regex",
+        },
+        -- delay: delay in milliseconds
+        delay = 500,
+        -- filetypes_denylist: filetypes to not illuminate, this overrides filetypes_allowlist
+        filetypes_denylist = {
+            "dirvish",
+            "fugitive",
+        },
+        -- filetypes_allowlist: filetypes to illuminate, this is overridden by filetypes_denylist
+        filetypes_allowlist = {},
+        -- modes_denylist: modes to not illuminate, this overrides modes_allowlist
+        modes_denylist = {},
+        -- modes_allowlist: modes to illuminate, this is overridden by modes_denylist
+        modes_allowlist = {},
+        -- providers_regex_syntax_denylist: syntax to not illuminate, this overrides providers_regex_syntax_allowlist
+        -- Only applies to the 'regex' provider
+        -- Use :echom synIDattr(synIDtrans(synID(line('.'), col('.'), 1)), 'name')
+        providers_regex_syntax_denylist = {},
+        -- providers_regex_syntax_allowlist: syntax to illuminate, this is overridden by providers_regex_syntax_denylist
+        -- Only applies to the 'regex' provider
+        -- Use :echom synIDattr(synIDtrans(synID(line('.'), col('.'), 1)), 'name')
+        providers_regex_syntax_allowlist = {},
+        -- under_cursor: whether or not to illuminate under the cursor
+        under_cursor = true,
     })
 end
 
