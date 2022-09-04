@@ -17,11 +17,7 @@ require("packer").startup(function(use)
         require("plugins.null-ls").setup(use)
         require("plugins.completion").setup(use)
         require("plugins.fzf").setup(use)
-    end
-
-    require("plugins.treesitter").setup(use)
-
-    if not vim.g.vscode then
+        require("plugins.treesitter").setup(use)
         require("plugins.status-line").setup(use)
         require("plugins.buffer-line").setup(use)
         require("plugins.sidebar").setup(use)

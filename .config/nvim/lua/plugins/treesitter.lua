@@ -33,30 +33,27 @@ m.setup = function(use)
     -- match-up is a plugin that lets you highlight, navigate, and operate on sets of matching text.
     -- It extends vim's % key to language-specific words instead of just single characters.
     use("andymass/vim-matchup")
-
-    if not vim.g.vscode then
-        -- Lightweight alternative to context.vim implemented with nvim-treesitter.
-        use("nvim-treesitter/nvim-treesitter-context")
-        -- Shows virtual text of the current context after functions, methods, statements, etc.
-        use("haringsrob/nvim_context_vt")
-        -- Highlight arguments' definitions and usages, asynchronously, using Treesitter.
-        use({
-            "m-demare/hlargs.nvim",
-            requires = {
-                "nvim-treesitter/nvim-treesitter",
-            },
-        })
-        -- Rainbow parentheses for neovim using tree-sitter.
-        -- This is a module for nvim-treesitter, not a standalone plugin.
-        -- It requires and is configured via nvim-treesitter
-        -- Should work with any language supported by nvim-treesitter.
-        -- If any language is missing, please open an issue/PR.
-        -- Only neovim nightly is targeted.
-        use("p00f/nvim-ts-rainbow")
-        -- Use treesitter to autoclose and autorename html tag.
-        -- It work with html,tsx,vue,svelte,php,rescript.
-        use("windwp/nvim-ts-autotag")
-    end
+    -- Lightweight alternative to context.vim implemented with nvim-treesitter.
+    use("nvim-treesitter/nvim-treesitter-context")
+    -- Shows virtual text of the current context after functions, methods, statements, etc.
+    use("haringsrob/nvim_context_vt")
+    -- Highlight arguments' definitions and usages, asynchronously, using Treesitter.
+    use({
+        "m-demare/hlargs.nvim",
+        requires = {
+            "nvim-treesitter/nvim-treesitter",
+        },
+    })
+    -- Rainbow parentheses for neovim using tree-sitter.
+    -- This is a module for nvim-treesitter, not a standalone plugin.
+    -- It requires and is configured via nvim-treesitter
+    -- Should work with any language supported by nvim-treesitter.
+    -- If any language is missing, please open an issue/PR.
+    -- Only neovim nightly is targeted.
+    use("p00f/nvim-ts-rainbow")
+    -- Use treesitter to autoclose and autorename html tag.
+    -- It work with html,tsx,vue,svelte,php,rescript.
+    use("windwp/nvim-ts-autotag")
 
     m.setup_treesitter()
 
@@ -73,7 +70,7 @@ m.setup_treesitter = function()
         ensure_installed = "all",
         sync_install = true,
         highlight = {
-            enable = not vim.g.vscode,
+            enable = true,
         },
         incremental_selection = {
             enable = true,
@@ -85,7 +82,7 @@ m.setup_treesitter = function()
             },
         },
         indent = {
-            enable = not vim.g.vscode,
+            enable = true,
         },
         textobjects = {
             select = {
@@ -159,7 +156,7 @@ m.setup_treesitter = function()
             },
         },
         rainbow = {
-            enable = not vim.g.vscode,
+            enable = true,
             extended_mode = true,
             max_file_line = nil,
         },
@@ -170,7 +167,7 @@ m.setup_treesitter = function()
             enable = true,
         },
         autotag = {
-            enable = not vim.g.vscode,
+            enable = true,
         },
     })
 end
