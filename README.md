@@ -95,7 +95,7 @@ See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
 - android-sdk-cmdline-tools-latest _(aur)_
 - android-sdk-platform-tools _(aur)_
 - android-tools
-- android-udev-git _(aur)_
+- android-udev
 - asdf **(from github)**
   - dart _(asdf)_
   - deno _(asdf)_
