@@ -308,16 +308,7 @@ m.setup_trouble = function()
 end
 
 m.setup_fidget = function()
-    require("fidget").setup({
-        task = function(task_name, message, percentage)
-            return string.format(
-                "%s%s [%s]",
-                message,
-                percentage and string.format(" (%s%%)", percentage) or "",
-                task_name
-            )
-        end,
-    })
+    require("fidget").setup()
 end
 
 m.setup_illuminate = function()

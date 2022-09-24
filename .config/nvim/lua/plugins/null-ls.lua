@@ -16,7 +16,7 @@ local lsp_formatting = function(bufnr)
     vim.lsp.buf.format({
         filter = function(client)
             if client.name == "jdt.ls" then
-                -- jdtls.ls in ftplugin/java.lua
+                -- jdt.ls in ftplugin/java.lua
                 -- java use google-java-format
                 return false
             elseif client.name == "tsserver" then
