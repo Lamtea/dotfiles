@@ -61,6 +61,15 @@ m.setup_null_ls = function()
             -- NOTE: There is also a lsp version, but still under development.
             null_ls.builtins.code_actions.eslint.with({
                 prefer_local = "node_modules/.bin",
+                condition = function(utils)
+                    return utils.root_has_file({
+                        ".eslintrc.js",
+                        ".eslintrc.cjs",
+                        ".eslintrc.yaml",
+                        ".eslintrc.yml",
+                        ".eslintrc.json",
+                    })
+                end,
             }),
 
             -- for bash
@@ -85,6 +94,15 @@ m.setup_null_ls = function()
             -- NOTE: There is also a lsp version, but still under development.
             null_ls.builtins.diagnostics.eslint.with({
                 prefer_local = "node_modules/.bin",
+                condition = function(utils)
+                    return utils.root_has_file({
+                        ".eslintrc.js",
+                        ".eslintrc.cjs",
+                        ".eslintrc.yaml",
+                        ".eslintrc.yml",
+                        ".eslintrc.json",
+                    })
+                end,
             }),
 
             -- for python
@@ -133,6 +151,17 @@ m.setup_null_ls = function()
             -- NOTE: If switch to the lsp version eslint, should also switch to the lsp version stylelint.
             null_ls.builtins.diagnostics.stylelint.with({
                 prefer_local = "node_modules/.bin",
+                condition = function(utils)
+                    return utils.root_has_file({
+                        ".stylelint.config.js",
+                        ".stylelint.config.cjs",
+                        ".stylelintrc",
+                        ".stylelintrc.js",
+                        ".stylelintrc.yaml",
+                        ".stylelintrc.yml",
+                        ".stylelintrc.json",
+                    })
+                end,
             }),
 
             -- for sql

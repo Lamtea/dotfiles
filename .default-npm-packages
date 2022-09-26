@@ -1,7 +1,11 @@
 eslint
+eslint-config-prettier
 jsonlint
 markdownlint-cli
 neovim
 prettier
 stylelint
+stylelint-config-standard
+stylelint-config-recommended
+stylelint-config-prettier
 typescript

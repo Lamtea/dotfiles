@@ -109,11 +109,15 @@ See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
   - neovim _(asdf)_
   - nodejs _(asdf)_
     - eslint _(npm)_
+      - eslint-config-prettier _(npm)_
     - jsonlint _(npm)_
     - markdownlint-cli _(npm)_
     - neovim _(npm)_
     - prettier _(npm)_
     - stylelint _(npm)_
+      - stylelint-config-standard _(npm)_
+      - stylelint-config-recommended _(npm)_
+      - stylelint-config-prettier _(npm)_
     - typescript _(npm)_
     - etc... _(for development)_
   - ruby _(asdf)_
@@ -216,6 +220,8 @@ See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
 - shellcheck _(bash linter)_
 - source-highlight
 - stylelint _(css linter)_
+  - stylelint-config-standard
+  - stylelint-config-recommended
 - stylua _(lua formatter)_
 - sqlfluff _(sql linter/formatter)_
 - sqlite
