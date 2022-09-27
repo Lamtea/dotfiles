@@ -54,7 +54,7 @@ exec zsh
 ```
 
 ```bash
-sudo archlinux-java set java-18-openjdk
+sudo archlinux-java set java-17-openjdk
 ~/bin/update-devtools.sh
 sudo archlinux-java set <your jdk version>
 # Install asdf tools, dotnet tools, pyenv, poetry, ghcup, rustup,
