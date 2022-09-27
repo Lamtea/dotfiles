@@ -8,11 +8,11 @@ m.setup = function(use)
     -- See contributions.
     -- lspconfig has extensive help documentation, see :help lspconfig.
     use("neovim/nvim-lspconfig")
-    -- Neovim plugin that allow you to manage LSP servers
-    -- (servers are installed inside :echo stdpath("data") by default).
-    -- It works in tandem with lspconfig1 by registering a hook that enhances the PATH environment variable,
-    -- allowing neovim's LSP client to locate the server executable installed by nvim-lsp-installer.
-    use("williamboman/nvim-lsp-installer")
+    -- Portable package manager for Neovim that runs everywhere Neovim runs.
+    -- Easily install and manage LSP servers, DAP servers, linters, and formatters.
+    use("williamboman/mason.nvim")
+    -- mason-lspconfig bridges mason.nvim with the lspconfig plugin - making it easier to use both plugins together.
+    use("williamboman/mason-lspconfig.nvim")
     -- nvim-cmp source for neovim's built-in language server client.
     use("hrsh7th/cmp-nvim-lsp")
     -- A maintained fork of glepnir/lspsaga.nvim.
@@ -195,36 +195,39 @@ local function setup_lsp_any(serverconfig, on_attach, capabilities)
 end
 
 m.setup_lsp = function()
-    local lsp_installer = require("nvim-lsp-installer")
+    local mason = require("mason")
+    local mason_lspconfig = require("mason-lspconfig")
     local lspconfig = require("lspconfig")
     local capabilities = m.get_capabilities()
     local on_attach = m.on_attach
-    lsp_installer.setup()
-    for _, server in ipairs(lsp_installer.get_installed_servers()) do
-        local serverconfig = lspconfig[server.name]
+    mason.setup()
+    mason_lspconfig.setup_handlers({
+        function(server_name)
+            local serverconfig = lspconfig[server_name]
 
-        if server.name == "clangd" then
-            -- c/cpp
-            setup_lsp_clangd(serverconfig, on_attach)
-        elseif server.name == "rust_analyzer" then
-            -- rust
-            setup_lsp_rust_analyzer(serverconfig, on_attach, capabilities)
-        elseif server.name == "hls" then
-            -- haskell
-            setup_lsp_hls(serverconfig, on_attach, capabilities)
-        elseif server.name == "html" then
-            -- html
-            setup_lsp_html(serverconfig, on_attach, capabilities)
-        elseif server.name == "jsonls" then
-            -- json
-            setup_lsp_jsonls(serverconfig, on_attach, capabilities)
-        elseif server.name == "sumneko_lua" then
-            -- lua
-            setup_lsp_sumneko_lua(serverconfig, on_attach, capabilities)
-        else
-            setup_lsp_any(serverconfig, on_attach, capabilities)
-        end
-    end
+            if server_name == "clangd" then
+                -- c/cpp
+                setup_lsp_clangd(serverconfig, on_attach)
+            elseif server_name == "rust_analyzer" then
+                -- rust
+                setup_lsp_rust_analyzer(serverconfig, on_attach, capabilities)
+            elseif server_name == "hls" then
+                -- haskell
+                setup_lsp_hls(serverconfig, on_attach, capabilities)
+            elseif server_name == "html" then
+                -- html
+                setup_lsp_html(serverconfig, on_attach, capabilities)
+            elseif server_name == "jsonls" then
+                -- json
+                setup_lsp_jsonls(serverconfig, on_attach, capabilities)
+            elseif server_name == "sumneko_lua" then
+                -- lua
+                setup_lsp_sumneko_lua(serverconfig, on_attach, capabilities)
+            else
+                setup_lsp_any(serverconfig, on_attach, capabilities)
+            end
+        end,
+    })
 end
 
 m.setup_lspsaga = function()
