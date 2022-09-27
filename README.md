@@ -65,7 +65,7 @@ sudo archlinux-java set <your jdk version>
 ```bash
 vi +PackerSync
    :helptags ALL
-   :LspInstallInfo
+   :Mason
    :checkhealth
 # Install neovim plugins and create helptags,
 # and install lsp in your programming languages
