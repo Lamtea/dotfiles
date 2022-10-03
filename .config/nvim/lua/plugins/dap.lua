@@ -1,5 +1,4 @@
 local m = {}
-local vsext_path = require("os").getenv("HOME") .. "/dev/vscode"
 
 m.setup = function(use)
     -- nvim-dap is a Debug Adapter Protocol client implementation for Neovim. nvim-dap allows you to:
@@ -32,15 +31,6 @@ m.setup = function(use)
     -- An extension for nvim-dap providing configurations
     -- for launching go debugger (delve) and debugging individual tests.
     use("leoluz/nvim-dap-go")
-    -- Dap Buddy allows you to manage debuggers provided by nvim-dap.
-    -- It should ease out the process of installing, configuring and interacting with said debuggers.
-    -- No troubleshooting needed.
-    -- Just plug and play.
-    -- At the moment the plugin has gone through some problems that could be traced back to the codebase itself;
-    -- that's why I'm going to be doing a rewrite:
-    -- faster, better, and without all the bugs it originally had. Stay tuned!
-    --  NOTE: Debugger installer is under development.
-    -- use("Pocco81/dap-buddy.nvim")
 
     m.setup_dap()
     m.setup_dap_ui()
@@ -54,7 +44,6 @@ m.setup = function(use)
     m.setup_dap_go()
     m.setup_dap_haskell()
     m.setup_dap_dotnet()
-    m.setup_dap_kotlin()
     m.setup_dap_lldb()
     m.setup_dap_load_launchjs()
 end
@@ -232,8 +221,8 @@ m.setup_dap_php = function()
     local dap = require("dap")
     dap.adapters.php = {
         type = "executable",
-        command = "node",
-        args = { vsext_path .. "/vscode-php-debug/out/phpDebug.js" },
+        command = "php-debug-adapter",
+        args = {},
     }
     dap.configurations.php = {
         {
@@ -248,21 +237,15 @@ end
 
 m.setup_dap_javascript_typescript = function()
     local dap = require("dap")
-    -- NOTE: For now nvim-dap vscode-js-debug is out of support.
     dap.adapters.node2 = {
         type = "executable",
-        command = "node",
-        args = { vsext_path .. "/vscode-node-debug2/out/src/nodeDebug.js" },
+        command = "node-debug2-adapter",
+        args = {},
     }
     dap.adapters.chrome = {
         type = "executable",
-        command = "node",
-        args = { vsext_path .. "/vscode-chrome-debug/out/src/chromeDebug.js" },
-    }
-    dap.adapters.firefox = {
-        type = "executable",
-        command = "node",
-        args = { vsext_path .. "/vscode-firefox-debug/dist/adapter.bundle.js" },
+        command = "chrome-debug-adapter",
+        args = {},
     }
     local node2_configuration_javascript = {
         name = "Launch(node)",
@@ -355,26 +338,6 @@ m.setup_dap_dotnet = function()
             request = "launch",
             program = function()
                 return vim.fn.input("Path to dll: ", vim.fn.getcwd() .. "/bin/Debug/", "file")
-            end,
-        },
-    }
-end
-
-m.setup_dap_kotlin = function()
-    local dap = require("dap")
-    dap.adapters.kotlin = {
-        type = "executable",
-        command = vsext_path .. "/kotlin-debug-adapter/adapter/build/install/adapter/bin/kotlin-debug-adapter",
-        args = { "--interpreter=vscode" },
-    }
-    dap.configurations.kotlin = {
-        {
-            type = "kotlin",
-            name = "Launch",
-            request = "launch",
-            projectRoot = vim.fn.getcwd() .. "/app",
-            mainClass = function()
-                return vim.fn.input("Path to main class: ", "", "file")
             end,
         },
     }

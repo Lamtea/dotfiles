@@ -75,14 +75,6 @@ dotfiles_or_dirs=(
 	bin/update-poetry.sh
 	bin/update-ghcup.sh
 	bin/update-rustup.sh
-	bin/update-vscode.sh
-	bin/update-vscode-node-debug2.sh
-	bin/update-vscode-chrome-debug.sh
-	bin/update-vscode-firefox-debug.sh
-	bin/update-vscode-php-debug.sh
-	bin/update-java-debug.sh
-	bin/update-vscode-java-test.sh
-	bin/update-kotlin-debug-adapter.sh
 	bin/update-lsp.sh
 	bin/update-lsp-jdtls.sh
 	bin/update-lsp-lombok.sh
