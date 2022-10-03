@@ -130,6 +130,17 @@ local function setup_lsp_rust_analyzer(serverconfig, on_attach, capabilities)
     })
 end
 
+local function setup_lsp_omnisharp(serverconfig, on_attach, capabilities)
+    serverconfig.setup({
+        -- cmd = { mason_path .. "/omnisharp" },
+        cmd = { "omnisharp" },
+        enable_editorconfig_support = true,
+        enable_roslyn_analyzers = true,
+        on_attach = on_attach,
+        capabilities = capabilities,
+    })
+end
+
 local function setup_lsp_hls(serverconfig, on_attach, capabilities)
     serverconfig.setup({
         settings = {
@@ -165,7 +176,7 @@ local function setup_lsp_jsonls(serverconfig, on_attach, capabilities)
     })
 end
 
-local function setup_lsp_sumneko_lua(serverconfig, on_attach, capabilities)
+local function setup_lsp_lua(serverconfig, on_attach, capabilities)
     serverconfig.setup({
         settings = {
             Lua = {
@@ -211,6 +222,9 @@ m.setup_lsp = function()
             elseif server_name == "rust_analyzer" then
                 -- rust
                 setup_lsp_rust_analyzer(serverconfig, on_attach, capabilities)
+            elseif server_name == "omnisharp" then
+                -- csharp
+                setup_lsp_omnisharp(serverconfig, on_attach, capabilities)
             elseif server_name == "hls" then
                 -- haskell
                 setup_lsp_hls(serverconfig, on_attach, capabilities)
@@ -222,7 +236,7 @@ m.setup_lsp = function()
                 setup_lsp_jsonls(serverconfig, on_attach, capabilities)
             elseif server_name == "sumneko_lua" then
                 -- lua
-                setup_lsp_sumneko_lua(serverconfig, on_attach, capabilities)
+                setup_lsp_lua(serverconfig, on_attach, capabilities)
             else
                 setup_lsp_any(serverconfig, on_attach, capabilities)
             end

@@ -54,11 +54,9 @@ exec zsh
 ```
 
 ```bash
-sudo archlinux-java set java-17-openjdk
 ~/bin/update-devtools.sh
-sudo archlinux-java set <your jdk version>
-# Install asdf tools, dotnet tools, pyenv, poetry, ghcup, rustup,
-# vscode extensions, language servers, neovim nightly, etc...
+# Install asdf tools, dotnet tools, pyenv, poetry, ghcup, rustup, lsp, dap,
+# neovim nightly, etc...
 # If you fail, make sure the way may have changed(See: github).
 ```
 
@@ -81,6 +79,10 @@ See: [neovim Plugins used in my dotfiles](https://github.com/stars/Lamtea/lists/
 ## neovim Language Servers
 
 See: [neovim Language Servers I use](https://github.com/stars/Lamtea/lists/neovim-language-servers)
+
+## neovim DAP
+
+See: [neovim DAP I use](https://github.com/stars/Lamtea/lists/neovim-dap)
 
 ## neovim Hello World
 
@@ -178,7 +180,6 @@ See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
   - nodejs-neovim _(aur)_
   - python-pynvim
   - wbthomason/packer.nvim **(from install script)**
-- netcoredbg _(aur, csharp debugger)_
 - nginx **(optional)**
 - ninja
 - nodejs-jsonlint _(aur, json linter)_
@@ -228,14 +229,6 @@ See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
 - tidy _(html linter)_
 - tmux
 - typescript
-- vscode extensions **(from github)**
-  - vscode-node-debug2
-  - vscode-chrome-debug
-  - vscode-firefox-debug
-  - vscode-php-debug
-  - java-debug
-  - vscode-java-test
-  - kotlin-debug-adapter
 - w3m
 - wget
 - xclip
