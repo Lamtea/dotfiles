@@ -66,23 +66,19 @@ vi +PackerSync
    :Mason
    :checkhealth
 # Install neovim plugins and create helptags,
-# and install lsp in your programming languages
+# and install lsp, dap in your programming languages
 # (if you are unsure, see below `neovim Language Servers` list).
 # Finally, All OK except WARNING from Whichkey.
 # (No problem because it is an extension of the standard command)
 ```
 
-## neovim Plugins
+## neovim Plugins, LSP, DAP
 
-See: [neovim Plugins used in my dotfiles](https://github.com/stars/Lamtea/lists/neovim-plugins)
+See: [neovim plugins](https://github.com/stars/Lamtea/lists/neovim-plugins)
 
-## neovim Language Servers
+See: [neovim LSP](https://github.com/stars/Lamtea/lists/neovim-language-servers)
 
-See: [neovim Language Servers I use](https://github.com/stars/Lamtea/lists/neovim-language-servers)
-
-## neovim DAP
-
-See: [neovim DAP I use](https://github.com/stars/Lamtea/lists/neovim-dap)
+See: [neovim DAP](https://github.com/stars/Lamtea/lists/neovim-dap)
 
 ## neovim Hello World
 
