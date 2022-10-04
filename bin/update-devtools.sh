@@ -5,5 +5,4 @@ update-asdf.sh &&
 	update-pyenv.sh &&
 	update-poetry.sh &&
 	update-ghcup.sh &&
-	update-rustup.sh &&
-	update-lsp.sh
+	update-rustup.sh

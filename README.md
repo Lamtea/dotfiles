@@ -55,7 +55,7 @@ exec zsh
 
 ```bash
 ~/bin/update-devtools.sh
-# Install asdf tools, dotnet tools, pyenv, poetry, ghcup, rustup, lsp,
+# Install asdf tools, dotnet tools, pyenv, poetry, ghcup, rustup,
 # neovim nightly, etc...
 # If you fail, make sure the way may have changed(See: github).
 ```
@@ -161,9 +161,6 @@ See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
 - jdk17-openjdk
 - julia
 - kotlin
-- language-server
-  - jdtls _(for nvim-jdtls, download latest)_
-    - lombok _(download latest)_
 - libgnome-keyring
 - lldb _(c/cpp/rust debugger)_
 - lua
