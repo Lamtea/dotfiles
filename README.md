@@ -76,7 +76,7 @@ vi +PackerSync
 
 See: [neovim Plugins](https://github.com/stars/Lamtea/lists/neovim-plugins)
 
-See: [neovim LSP](https://github.com/stars/Lamtea/lists/neovim-language-servers)
+See: [neovim LSP](https://github.com/stars/Lamtea/lists/neovim-lsp)
 
 See: [neovim DAP](https://github.com/stars/Lamtea/lists/neovim-dap)
 
