@@ -75,9 +75,6 @@ dotfiles_or_dirs=(
 	bin/update-poetry.sh
 	bin/update-ghcup.sh
 	bin/update-rustup.sh
-	bin/update-lsp.sh
-	bin/update-lsp-jdtls.sh
-	bin/update-lsp-lombok.sh
 	Gemfile
 )
 

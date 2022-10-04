@@ -225,6 +225,8 @@ m.setup_lsp = function()
             elseif server_name == "omnisharp" then
                 -- csharp
                 setup_lsp_omnisharp(serverconfig, on_attach, capabilities)
+            elseif server_name == "jdtls" then
+                -- jdtls is used by nvim-jdtls
             elseif server_name == "hls" then
                 -- haskell
                 setup_lsp_hls(serverconfig, on_attach, capabilities)
