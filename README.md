@@ -55,7 +55,7 @@ exec zsh
 
 ```bash
 ~/bin/update-devtools.sh
-# Install asdf tools, dotnet tools, pyenv, poetry, ghcup, rustup, lsp, dap,
+# Install asdf tools, dotnet tools, pyenv, poetry, ghcup, rustup, lsp,
 # neovim nightly, etc...
 # If you fail, make sure the way may have changed(See: github).
 ```
@@ -74,7 +74,7 @@ vi +PackerSync
 
 ## neovim Plugins, LSP, DAP
 
-See: [neovim plugins](https://github.com/stars/Lamtea/lists/neovim-plugins)
+See: [neovim Plugins](https://github.com/stars/Lamtea/lists/neovim-plugins)
 
 See: [neovim LSP](https://github.com/stars/Lamtea/lists/neovim-language-servers)
 
