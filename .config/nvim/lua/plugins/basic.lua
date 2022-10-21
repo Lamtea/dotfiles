@@ -7,10 +7,12 @@ m.setup = function(use)
     -- Most of the time, those sequences’ lengths will be between 1 to 3 characters,
     -- making every jump target in your document reachable in a few keystrokes.
     use("phaazon/hop.nvim")
+
     -- An always-on highlight for a unique character in every word on a line to help you use f, F and family.
     -- This plugin should help you get to any word on a line in two or three keystrokes with Vim's built-in f<char>
     -- (which moves your cursor to <char>).
     use("unblevable/quick-scope")
+
     -- This script defines motions similar to w, b, e which do not move word-wise (forward/backward),
     -- but Camel-wise; i.e. to word boundaries and uppercase letters.
     -- The motions also work on underscore notation, where words are delimited by underscore ('_') characters.
@@ -61,6 +63,7 @@ m.setup = function(use)
 
     if not vim.g.vscode then
         m.setup_neoclip()
+        m.setup_hlslens()
         m.setup_autopairs()
     end
 end
@@ -83,6 +86,10 @@ m.setup_comment = function()
         end,
         post_hook = nil,
     })
+end
+
+m.setup_hlslens = function()
+    require("hlslens").setup()
 end
 
 m.setup_autopairs = function()
