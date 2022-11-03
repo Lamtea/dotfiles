@@ -20,7 +20,7 @@ if [[ -z "$PLUGIN" ]]; then
 fi
 
 (asdf install deno latest &&
-	printf "${ESC}[1;32m%s${ESC}[m\n" '***** asdf deno updated (If you want to use latest: asdf local deno [version]). *****.' &&
+	printf "${ESC}[1;32m%s${ESC}[m\n" '***** asdf deno updated (If you want to use latest: asdf local deno [version]). *****' &&
 	exit 0) ||
 	(printf "${ESC}[1;31m%s${ESC}[m\n" '***** asdf deno update failed. *****' &&
 		exit 3)

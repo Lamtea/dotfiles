@@ -12,7 +12,7 @@ fi
 	ghcup install ghc latest &&
 	ghcup install hls latest &&
 	ghcup install stack latest &&
-	printf "${ESC}[1;32m%s${ESC}[m\n" '***** ghcup updated. *****.' &&
+	printf "${ESC}[1;32m%s${ESC}[m\n" '***** ghcup updated (If you want to use latest: ghcup set ghc|hls|stack [version]). *****' &&
 	exit 0) ||
 	(printf "${ESC}[1;31m%s${ESC}[m\n" '***** ghcup update failed. *****' &&
 		exit 2)

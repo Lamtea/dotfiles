@@ -10,7 +10,7 @@ fi
 
 (pyenv update &&
 	pyenv global system &&
-	printf "${ESC}[1;32m%s${ESC}[m\n" '***** pyenv updated. *****.' &&
+	printf "${ESC}[1;32m%s${ESC}[m\n" '***** pyenv updated (If you want to use latest: pyenv install [version]; pyenv local [version]). *****' &&
 	exit 0) ||
 	(printf "${ESC}[1;31m%s${ESC}[m\n" '***** pyenv update failed. *****' &&
 		exit 2)
