@@ -27,7 +27,7 @@ fi
 
 (asdf install neovim nightly 2>/dev/null &&
 	asdf global neovim nightly &&
-	printf "${ESC}[1;32m%s${ESC}[m\n" '***** asdf neovim updated. *****.' &&
+	printf "${ESC}[1;32m%s${ESC}[m\n" '***** asdf neovim updated. *****' &&
 	exit 0) ||
 	(printf "${ESC}[1;31m%s${ESC}[m\n" '***** asdf neovim update failed. *****' &&
 		exit 4)

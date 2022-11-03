@@ -20,7 +20,7 @@ if [[ -z "$PLUGIN" ]]; then
 fi
 
 (asdf install dart latest &&
-	printf "${ESC}[1;32m%s${ESC}[m\n" '***** asdf dart updated (If you want to use latest: asdf local dart [version]). *****.' &&
+	printf "${ESC}[1;32m%s${ESC}[m\n" '***** asdf dart updated (If you want to use latest: asdf local dart [version]). *****' &&
 	exit 0) ||
 	(printf "${ESC}[1;31m%s${ESC}[m\n" '***** asdf dart update failed. *****' &&
 		exit 3)

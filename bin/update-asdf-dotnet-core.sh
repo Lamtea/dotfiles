@@ -20,7 +20,7 @@ if [[ -z "$PLUGIN" ]]; then
 fi
 
 (asdf install dotnet-core latest &&
-	printf "${ESC}[1;32m%s${ESC}[m\n" '***** asdf dotnet-core updated (If you want to use latest: asdf local dotnet-core [version]). *****.' &&
+	printf "${ESC}[1;32m%s${ESC}[m\n" '***** asdf dotnet-core updated (If you want to use latest: asdf local dotnet-core [version]). *****' &&
 	exit 0) ||
 	(printf "${ESC}[1;31m%s${ESC}[m\n" '***** asdf dotnet-core update failed. *****' &&
 		exit 3)

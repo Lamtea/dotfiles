@@ -11,7 +11,7 @@ fi
 (rustup self update &&
 	rustup update &&
 	rustup completions zsh >~/.zfunc/_rustup &&
-	printf "${ESC}[1;32m%s${ESC}[m\n" '***** rustup updated. *****.' &&
+	printf "${ESC}[1;32m%s${ESC}[m\n" '***** rustup updated. *****' &&
 	exit 0) ||
 	(printf "${ESC}[1;31m%s${ESC}[m\n" '***** rustup update failed. *****' &&
 		exit 2)

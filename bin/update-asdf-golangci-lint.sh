@@ -20,7 +20,7 @@ fi
 
 (asdf install golangci-lint latest &&
 	asdf global golangci-lint "$(asdf list golangci-lint | grep '[0-9]\+' | tail -n 1 | xargs)" &&
-	printf "${ESC}[1;32m%s${ESC}[m\n" '***** asdf golangci-lint updated. *****.' &&
+	printf "${ESC}[1;32m%s${ESC}[m\n" '***** asdf golangci-lint updated. *****' &&
 	exit 0) ||
 	(printf "${ESC}[1;31m%s${ESC}[m\n" '***** asdf golangci-lint update failed. *****' &&
 		exit 3)

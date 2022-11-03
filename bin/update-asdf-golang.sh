@@ -20,7 +20,7 @@ if [[ -z "$PLUGIN" ]]; then
 fi
 
 (asdf install golang latest &&
-	printf "${ESC}[1;32m%s${ESC}[m\n" '***** asdf golang updated (If you want to use latest: asdf local golang [version]). *****.' &&
+	printf "${ESC}[1;32m%s${ESC}[m\n" '***** asdf golang updated (If you want to use latest: asdf local golang [version]). *****' &&
 	exit 0) ||
 	(printf "${ESC}[1;31m%s${ESC}[m\n" '***** asdf golang update failed. *****' &&
 		exit 3)

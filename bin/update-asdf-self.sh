@@ -10,7 +10,7 @@ fi
 
 (asdf update &&
 	asdf plugin-update --all &&
-	printf "${ESC}[1;32m%s${ESC}[m\n" '***** asdf self updated. *****.' &&
+	printf "${ESC}[1;32m%s${ESC}[m\n" '***** asdf self updated. *****' &&
 	exit 0) ||
 	(printf "${ESC}[1;31m%s${ESC}[m\n" '***** asdf self update failed. *****' &&
 		exit 2)
