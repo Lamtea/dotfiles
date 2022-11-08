@@ -8,7 +8,7 @@ if ! command -v dotnet 1>/dev/null 2>&1; then
 	exit 1
 fi
 
-(dotnet tool update -g dotnet-aspnet-codegenerator &&
+(dotnet tool update -g --version '6.*' dotnet-aspnet-codegenerator &&
 	dotnet tool update -g dotnet-ef &&
 	dotnet tool update -g powershell &&
 	printf "${ESC}[1;32m%s${ESC}[m\n" '***** dotnet-core tools updated. *****' &&
