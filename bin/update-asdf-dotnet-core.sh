@@ -11,8 +11,7 @@ fi
 PLUGIN="$(asdf plugin-list | grep 'dotnet-core' 2>/dev/null)"
 if [[ -z "$PLUGIN" ]]; then
 	if asdf plugin-add dotnet-core; then
-		asdf global dotnet-core system
-		printf "${ESC}[1;32m%s${ESC}[m\n" '***** asdf dotnet-core plugin installed (and set: asdf global dotnet-core system). *****'
+		printf "${ESC}[1;32m%s${ESC}[m\n" '***** asdf dotnet-core plugin installed. *****'
 	else
 		printf "${ESC}[1;31m%s${ESC}[m\n" '***** asdf dotnet-core plugin install failed. *****'
 		exit 2
@@ -20,7 +19,8 @@ if [[ -z "$PLUGIN" ]]; then
 fi
 
 (asdf install dotnet-core latest &&
-	printf "${ESC}[1;32m%s${ESC}[m\n" '***** asdf dotnet-core updated (If you want to use latest: asdf local dotnet-core [version]). *****' &&
+	asdf global dotnet-core "$(asdf list dotnet-core | grep '[0-9]\+' | tail -n 1 | xargs)" &&
+	printf "${ESC}[1;32m%s${ESC}[m\n" '***** asdf dotnet-core updated. *****' &&
 	exit 0) ||
 	(printf "${ESC}[1;31m%s${ESC}[m\n" '***** asdf dotnet-core update failed. *****' &&
 		exit 3)
