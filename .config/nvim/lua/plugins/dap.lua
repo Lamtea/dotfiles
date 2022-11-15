@@ -36,6 +36,7 @@ m.setup = function(use)
     m.setup_dap_ui()
     m.setup_dap_virtual_text()
     m.setup_dap_telescope()
+    m.setup_dap_bash()
     m.setup_dap_nlua()
     m.setup_dap_python()
     m.setup_dap_ruby()
@@ -162,6 +163,37 @@ end
 
 m.setup_dap_telescope = function()
     require("telescope").load_extension("dap")
+end
+
+m.setup_dap_bash = function()
+    local path = require("lib.path")
+    local dap = require("dap")
+    dap.adapters.bashdb = {
+        type = "executable",
+        command = "bash-debug-adapter",
+        name = "bashdb",
+    }
+    dap.configurations.sh = {
+        {
+            type = "bashdb",
+            request = "launch",
+            name = "Launch file",
+            showDebugOutput = true,
+            pathBashdb = path.get_install_path("bash-debug-adapter") .. "/extension/bashdb_dir/bashdb",
+            pathBashdbLib = path.get_install_path("bash-debug-adapter") .. "/extension/bashdb_dir",
+            trace = true,
+            file = "${file}",
+            program = "${file}",
+            cwd = "${workspaceFolder}",
+            pathCat = "cat",
+            pathBash = "bash",
+            pathMkfifo = "mkfifo",
+            pathPkill = "pkill",
+            args = {},
+            env = {},
+            terminalKind = "integrated",
+        },
+    }
 end
 
 m.setup_dap_nlua = function()

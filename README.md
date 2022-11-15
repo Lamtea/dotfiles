@@ -258,11 +258,8 @@ See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
 ## Development
 
 - bash
-- bashdb
+- zsh
 - python
 - lua
 - git
-- nodejs
-  - bash-language-server
-- vscode
 - neovim
