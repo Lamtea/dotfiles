@@ -252,6 +252,7 @@ m.setup_null_ls = function()
             -- for python
             null_ls.builtins.formatting.isort.with({
                 prefer_local = ".venv/bin",
+                extra_args = { "--profile", "black" },
             }),
 
             -- for kotlin
