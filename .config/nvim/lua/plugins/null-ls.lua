@@ -108,6 +108,9 @@ m.setup_null_ls = function()
             -- for python
             null_ls.builtins.diagnostics.flake8.with({
                 prefer_local = ".venv/bin",
+                -- Recommend matching the black line length (default 88),
+                -- rather than using the flake8 default of 79:
+                extra_args = { "--max-line-length", "88", "--extend-ignore", "E203" },
             }),
 
             -- for go
@@ -115,11 +118,23 @@ m.setup_null_ls = function()
             -- null_ls.builtins.diagnostics.golangci_lint,
 
             -- for dockerfile
-            null_ls.builtins.diagnostics.hadolint,
+            null_ls.builtins.diagnostics.hadolint.with({
+                -- condition = function(utils)
+                --     return utils.root_has_file({
+                --         ".hadolint.yaml",
+                --     })
+                -- end,
+            }),
 
             -- for json
             null_ls.builtins.diagnostics.jsonlint.with({
                 prefer_local = "node_modules/.bin",
+                -- condition = function(utils)
+                --     return utils.root_has_file({
+                --         ".jsonlintrc",
+                --         ".jsonlintignore",
+                --     })
+                -- end,
             }),
 
             -- for kotlin
@@ -134,6 +149,17 @@ m.setup_null_ls = function()
             -- for markdown
             null_ls.builtins.diagnostics.markdownlint.with({
                 prefer_local = "node_modules/.bin",
+                -- condition = function(utils)
+                --     return utils.root_has_file({
+                --         ".markdownlintrc",
+                --         ".markdownlint.yml",
+                --         ".markdownlint.yaml",
+                --         ".markdownlint.json",
+                --         ".markdownlint.jsonc",
+                --         ".markdownlint.js",
+                --         ".markdownlint.cjs",
+                --     })
+                -- end,
             }),
 
             -- for php
@@ -179,7 +205,15 @@ m.setup_null_ls = function()
             -- }),
 
             -- for yaml
-            null_ls.builtins.diagnostics.yamllint,
+            null_ls.builtins.diagnostics.yamllint.with({
+                -- condition = function(utils)
+                --     return utils.root_has_file({
+                --         ".yamllint",
+                --         ".yamllint.yaml",
+                --         ".yamllint.yaml",
+                --     })
+                -- end,
+            }),
 
             -- for zsh
             null_ls.builtins.diagnostics.zsh,
