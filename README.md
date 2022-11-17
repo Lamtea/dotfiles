@@ -72,18 +72,6 @@ vi +PackerSync
 # (No problem because it is an extension of the standard command)
 ```
 
-## neovim Plugins, LSP, DAP
-
-See: [neovim Plugins](https://github.com/stars/Lamtea/lists/neovim-plugins)
-
-See: [neovim LSP](https://github.com/stars/Lamtea/lists/neovim-lsp)
-
-See: [neovim DAP](https://github.com/stars/Lamtea/lists/neovim-dap)
-
-## neovim Hello World
-
-See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
-
 ## Containers **(optional)**
 
 ### Docker
@@ -103,6 +91,18 @@ See: [Arch Wiki - Minikube](https://wiki.archlinux.org/title/Minikube)
 WSL 0.67.6 and above (see wsl --version), systemd is natively supported.
 
 See: [ArchWSL - Known-issues](https://wsldl-pg.github.io/ArchW-docs/Known-issues/#systemdsystemctl)
+
+## neovim Plugins, LSP, DAP
+
+See: [neovim Plugins](https://github.com/stars/Lamtea/lists/neovim-plugins)
+
+See: [neovim LSP](https://github.com/stars/Lamtea/lists/neovim-lsp)
+
+See: [neovim DAP](https://github.com/stars/Lamtea/lists/neovim-dap)
+
+## neovim Hello World
+
+See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
 
 ## Depend on
 
