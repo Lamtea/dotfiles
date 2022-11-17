@@ -84,6 +84,26 @@ See: [neovim DAP](https://github.com/stars/Lamtea/lists/neovim-dap)
 
 See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
 
+## Containers **(optional)**
+
+### Docker
+
+See: [Arch Wiki - Docker](https://wiki.archlinux.org/title/Docker)
+
+### Containerd
+
+See: [gitHub - nerdctl](https://github.com/containerd/nerdctl)
+
+### Minikube
+
+See: [Arch Wiki - Minikube](https://wiki.archlinux.org/title/Minikube)
+
+### For WSL user
+
+WSL 0.67.6 and above (see wsl --version), systemd is natively supported.
+
+See: [ArchWSL - Known-issues](https://wsldl-pg.github.io/ArchW-docs/Known-issues/#systemdsystemctl)
+
 ## Depend on
 
 - android-apktool _(aur)_
@@ -129,12 +149,21 @@ See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
 - cmake
 - codespell _(spell linter/formatter)_
 - composer
+- containerd **(optional)**
+  - nerdctl
+  - buildkit
+  - cni-plugins
+  - rootlesskit
+  - slir4netns
 - colordiff
 - cppcheck _(c/cpp linter)_
 - dart
 - dart-sass
 - delve _(go debugger)_
 - deno
+- docker **(optional)**
+  - docker-compose **(deplicated)**
+  - nvidia-container-toolkit \*_(aur, for NVIDIA cuda user)_
 - dotnet-host
 - dotnet-runtime
 - dotnet-sdk
@@ -167,6 +196,7 @@ See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
 - luacheck _(lua linter)_
 - luarocks
 - maven
+- minikube **(optional)**
 - neomutt **(optional)**
 - neovim
   - neovim-drop-in _(aur, vi/vim simlink)_
