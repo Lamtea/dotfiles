@@ -8,12 +8,6 @@
 # install script
 !/install.sh
 
-# vscode
-!/.vscode/
-!/.vscode/**/*
-!/package.json
-!/package-lock.json
-
 # readme
 !/README.md
 
