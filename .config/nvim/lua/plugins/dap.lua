@@ -330,6 +330,20 @@ end
 m.setup_dap_go = function()
     local dap_go = require("dap-go")
     dap_go.setup()
+    local dap = require("dap")
+    dap.adapters.vsgo = {
+        type = "executable",
+        command = "go-debug-adapter",
+        args = {},
+    }
+    table.insert(dap.configurations.go, {
+        type = "vsgo",
+        name = "Debug (vscode-go)",
+        request = "launch",
+        showLog = false,
+        program = "${file}",
+        dlvToolPath = vim.fn.exepath("dlv"),
+    })
 end
 
 m.setup_dap_haskell = function()
@@ -377,6 +391,14 @@ end
 
 m.setup_dap_lldb = function()
     local dap = require("dap")
+    dap.adapters.codelldb = {
+        type = "server",
+        port = "${port}",
+        executable = {
+            command = "codelldb",
+            args = { "--port", "${port}" },
+        },
+    }
     dap.adapters.lldb = {
         type = "executable",
         command = "lldb-vscode",
@@ -384,7 +406,18 @@ m.setup_dap_lldb = function()
     }
     dap.configurations.cpp = {
         {
-            name = "Launch",
+            name = "Launch (codelldb)",
+            type = "codelldb",
+            request = "launch",
+            program = function()
+                return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
+            end,
+            cwd = "${workspaceFolder}",
+            stopOnEntry = false,
+            args = {},
+        },
+        {
+            name = "Launch (lldb)",
             type = "lldb",
             request = "launch",
             program = function()
