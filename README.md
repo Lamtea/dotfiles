@@ -199,6 +199,8 @@ See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
 - luarocks
 - maven
 - minikube **(optional)**
+  - kubernetes-tools
+  - helm
 - neomutt **(optional)**
 - neovim
   - neovim-drop-in _(aur, vi/vim simlink)_
