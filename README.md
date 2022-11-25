@@ -241,6 +241,7 @@ See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
   - pcloud
   - mega
 - ripgrep
+- rust
 - rustup **(from install script)**
   - rust _(rustup)_
   - cargo _(rustup)_
