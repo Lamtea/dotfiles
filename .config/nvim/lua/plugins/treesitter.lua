@@ -56,13 +56,10 @@ m.setup = function(use)
     use("windwp/nvim-ts-autotag")
 
     m.setup_treesitter()
-
-    if not vim.g.vscode then
-        m.setup_context()
-        m.setup_context_vt()
-        m.setup_hlargs()
-        m.setup_autotag()
-    end
+    m.setup_context()
+    m.setup_context_vt()
+    m.setup_hlargs()
+    m.setup_autotag()
 end
 
 m.setup_treesitter = function()
