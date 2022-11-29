@@ -123,11 +123,7 @@ end
 
 local get_prettier_disabled_filetypes = function()
     local utils = require("null-ls.utils").make_conditional_utils()
-    local has_deno_settings = utils.root_has_file({
-        "deno.json",
-        "deno.jsonc",
-    })
-    if has_deno_settings then
+    if has_deno_configured(utils) then
         return {
             "javascript",
             "javascriptreact",
