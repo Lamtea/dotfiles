@@ -32,6 +32,12 @@ m.setup = function(use)
     -- Vim plugin for automatically highlighting other uses of the current word under the cursor.
     use("RRethy/vim-illuminate")
 
+    -- To appropriately highlight codefences returned from denols,
+    -- you will need to augment vim.g.markdown_fenced languages.
+    vim.g.markdown_fenced_languages = {
+        "ts=typescript",
+    }
+
     m.setup_lsp()
     m.setup_lspsaga()
     m.setup_lsp_color()
@@ -132,7 +138,6 @@ end
 
 local function setup_lsp_omnisharp(serverconfig, on_attach, capabilities)
     serverconfig.setup({
-        -- cmd = { mason_path .. "/omnisharp" },
         cmd = { "omnisharp" },
         enable_editorconfig_support = true,
         enable_roslyn_analyzers = true,
@@ -157,7 +162,7 @@ end
 local function setup_lsp_html(serverconfig, on_attach, capabilities)
     serverconfig.setup({
         init_options = {
-            -- Use prettier
+            -- Use prettier.
             provideFormatter = false,
         },
         on_attach = on_attach,
@@ -168,9 +173,74 @@ end
 local function setup_lsp_jsonls(serverconfig, on_attach, capabilities)
     serverconfig.setup({
         init_options = {
-            -- Use prettier
+            -- Use deno or prettier.
             provideFormatter = false,
         },
+        on_attach = on_attach,
+        capabilities = capabilities,
+    })
+end
+
+local function setup_lsp_tsserver(serverconfig, on_attach, capabilities)
+    local lspconfig = require("lspconfig")
+    serverconfig.setup({
+        -- Exclude ".git"
+        root_dir = lspconfig.util.root_pattern("package.json", "tsconfig.json", "jsconfig.json"),
+        on_attach = on_attach,
+        capabilities = capabilities,
+    })
+end
+
+local function setup_lsp_denols(serverconfig, on_attach, capabilities)
+    local lspconfig = require("lspconfig")
+    serverconfig.setup({
+        init_options = {
+            enable = true,
+            lint = true,
+            unstable = false,
+        },
+        -- Exclude ".git"
+        root_dir = lspconfig.util.root_pattern("deno.json", "deno.jsonc"),
+        on_attach = on_attach,
+        capabilities = capabilities,
+    })
+end
+
+local function setup_lsp_cssmodules_ls(serverconfig, on_attach, capabilities)
+    local lspconfig = require("lspconfig")
+    serverconfig.setup({
+        -- Include "deno.json", "deno.jsonc"
+        root_dir = lspconfig.util.root_pattern("package.json", "deno.json", "deno.jsonc"),
+        on_attach = on_attach,
+        capabilities = capabilities,
+    })
+end
+
+local function setup_lsp_tailwindcss(serverconfig, on_attach, capabilities)
+    local lspconfig = require("lspconfig")
+    serverconfig.setup({
+        -- Include "deno.json", "deno.jsonc"
+        root_dir = lspconfig.util.root_pattern(
+            "tailwind.config.js",
+            "tailwind.config.ts",
+            "postcss.config.js",
+            "postcss.config.ts",
+            "package.json",
+            "node_modules",
+            "deno.json",
+            "deno.jsonc",
+            ".git"
+        ),
+        on_attach = on_attach,
+        capabilities = capabilities,
+    })
+end
+
+local function setup_lsp_prismals(serverconfig, on_attach, capabilities)
+    local lspconfig = require("lspconfig")
+    serverconfig.setup({
+        -- Include "deno.json", "deno.jsonc"
+        root_dir = lspconfig.util.root_pattern(".git", "package.json", "deno.json", "deno.jsonc"),
         on_attach = on_attach,
         capabilities = capabilities,
     })
@@ -236,6 +306,22 @@ m.setup_lsp = function()
             elseif server_name == "jsonls" then
                 -- json
                 setup_lsp_jsonls(serverconfig, on_attach, capabilities)
+            elseif server_name == "tsserver" then
+                -- javascript/typescript/react
+                setup_lsp_tsserver(serverconfig, on_attach, capabilities)
+            elseif server_name == "denols" then
+                -- javascript/typescript/react
+                setup_lsp_denols(serverconfig, on_attach, capabilities)
+            elseif server_name == "cssmodules_ls" then
+                -- javascript/typescript/react
+                setup_lsp_cssmodules_ls(serverconfig, on_attach, capabilities)
+            elseif server_name == "tailwindcss" then
+                -- many file types(see below)
+                -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#tailwindcss
+                setup_lsp_tailwindcss(serverconfig, on_attach, capabilities)
+            elseif server_name == "prismals" then
+                -- prisma
+                setup_lsp_prismals(serverconfig, on_attach, capabilities)
             elseif server_name == "sumneko_lua" then
                 -- lua
                 setup_lsp_lua(serverconfig, on_attach, capabilities)

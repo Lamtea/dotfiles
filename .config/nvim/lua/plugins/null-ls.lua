@@ -20,7 +20,7 @@ local lsp_formatting = function(bufnr)
                 -- java use google-java-format
                 return false
             elseif client.name == "tsserver" then
-                -- javascript/typescript use prettier
+                -- javascript/typescript/react use prettier
                 return false
             elseif client.name == "sumneko_lua" then
                 -- lua use stylua
@@ -50,6 +50,97 @@ local on_attach = function(client, bufnr)
     end
 end
 
+local node_modules_path = "node_modules/.bin"
+local python_venv_path = ".venv/bin"
+local sqlfluff_extra_args = { "--dialect", "postgres" }
+
+local has_eslint_configured = function(utils)
+    return utils.root_has_file({
+        ".eslintrc.js",
+        ".eslintrc.cjs",
+        ".eslintrc.yaml",
+        ".eslintrc.yml",
+        ".eslintrc.json",
+    })
+end
+
+local has_stylelint_configured = function(utils)
+    return utils.root_has_file({
+        ".stylelint.config.js",
+        ".stylelint.config.cjs",
+        ".stylelintrc",
+        ".stylelintrc.js",
+        ".stylelintrc.yaml",
+        ".stylelintrc.yml",
+        ".stylelintrc.json",
+    })
+end
+
+local has_deno_configured = function(utils)
+    return utils.root_has_file({
+        "deno.json",
+        "deno.jsonc",
+    })
+end
+
+local has_markdownlint_configured = function(utils)
+    -- Works without configuration.
+    return true
+        or utils.root_has_file({
+            ".markdownlintrc",
+            ".markdownlint.yml",
+            ".markdownlint.yaml",
+            ".markdownlint.json",
+            ".markdownlint.jsonc",
+            ".markdownlint.js",
+            ".markdownlint.cjs",
+        })
+end
+
+local has_hadolint_configured = function(utils)
+    -- Works without configuration.
+    return true or utils.root_has_file({
+        ".hadolint.yaml",
+    })
+end
+
+local has_jsonlint_configured = function(utils)
+    -- Works without configuration.
+    return true or utils.root_has_file({
+        ".jsonlintrc",
+        ".jsonlintignore",
+    })
+end
+
+local has_yamllint_configured = function(utils)
+    -- Works without configuration.
+    return true or utils.root_has_file({
+        ".yamllint",
+        ".yamllint.yaml",
+        ".yamllint.yaml",
+    })
+end
+
+local get_prettier_disabled_filetypes = function()
+    local utils = require("null-ls.utils").make_conditional_utils()
+    local has_deno_settings = utils.root_has_file({
+        "deno.json",
+        "deno.jsonc",
+    })
+    if has_deno_settings then
+        return {
+            "javascript",
+            "javascriptreact",
+            "json",
+            "jsonc",
+            "markdown",
+            "typescript",
+            "typescriptreact",
+        }
+    end
+    return {}
+end
+
 m.setup_null_ls = function()
     local null_ls = require("null-ls")
     null_ls.setup({
@@ -60,16 +151,8 @@ m.setup_null_ls = function()
             -- for javascript/typescript/react/vue
             -- NOTE: There is also a lsp version, but still under development.
             null_ls.builtins.code_actions.eslint.with({
-                prefer_local = "node_modules/.bin",
-                condition = function(utils)
-                    return utils.root_has_file({
-                        ".eslintrc.js",
-                        ".eslintrc.cjs",
-                        ".eslintrc.yaml",
-                        ".eslintrc.yml",
-                        ".eslintrc.json",
-                    })
-                end,
+                prefer_local = node_modules_path,
+                condition = has_eslint_configured,
             }),
 
             -- for bash
@@ -93,21 +176,13 @@ m.setup_null_ls = function()
             -- for javascript/typescript/react/vue
             -- NOTE: There is also a lsp version, but still under development.
             null_ls.builtins.diagnostics.eslint.with({
-                prefer_local = "node_modules/.bin",
-                condition = function(utils)
-                    return utils.root_has_file({
-                        ".eslintrc.js",
-                        ".eslintrc.cjs",
-                        ".eslintrc.yaml",
-                        ".eslintrc.yml",
-                        ".eslintrc.json",
-                    })
-                end,
+                prefer_local = node_modules_path,
+                condition = has_eslint_configured,
             }),
 
             -- for python
             null_ls.builtins.diagnostics.flake8.with({
-                prefer_local = ".venv/bin",
+                prefer_local = python_venv_path,
                 -- Recommend matching the black line length (default 88),
                 -- rather than using the flake8 default of 79:
                 extra_args = { "--max-line-length", "88", "--extend-ignore", "E203" },
@@ -119,22 +194,13 @@ m.setup_null_ls = function()
 
             -- for dockerfile
             null_ls.builtins.diagnostics.hadolint.with({
-                -- condition = function(utils)
-                --     return utils.root_has_file({
-                --         ".hadolint.yaml",
-                --     })
-                -- end,
+                condition = has_hadolint_configured,
             }),
 
             -- for json
             null_ls.builtins.diagnostics.jsonlint.with({
-                prefer_local = "node_modules/.bin",
-                -- condition = function(utils)
-                --     return utils.root_has_file({
-                --         ".jsonlintrc",
-                --         ".jsonlintignore",
-                --     })
-                -- end,
+                prefer_local = node_modules_path,
+                condition = has_jsonlint_configured,
             }),
 
             -- for kotlin
@@ -148,18 +214,8 @@ m.setup_null_ls = function()
 
             -- for markdown
             null_ls.builtins.diagnostics.markdownlint.with({
-                prefer_local = "node_modules/.bin",
-                -- condition = function(utils)
-                --     return utils.root_has_file({
-                --         ".markdownlintrc",
-                --         ".markdownlint.yml",
-                --         ".markdownlint.yaml",
-                --         ".markdownlint.json",
-                --         ".markdownlint.jsonc",
-                --         ".markdownlint.js",
-                --         ".markdownlint.cjs",
-                --     })
-                -- end,
+                prefer_local = node_modules_path,
+                condition = has_markdownlint_configured,
             }),
 
             -- for php
@@ -176,23 +232,13 @@ m.setup_null_ls = function()
             -- for css
             -- NOTE: If switch to the lsp version eslint, should also switch to the lsp version stylelint.
             null_ls.builtins.diagnostics.stylelint.with({
-                prefer_local = "node_modules/.bin",
-                condition = function(utils)
-                    return utils.root_has_file({
-                        ".stylelint.config.js",
-                        ".stylelint.config.cjs",
-                        ".stylelintrc",
-                        ".stylelintrc.js",
-                        ".stylelintrc.yaml",
-                        ".stylelintrc.yml",
-                        ".stylelintrc.json",
-                    })
-                end,
+                prefer_local = node_modules_path,
+                condition = has_stylelint_configured,
             }),
 
             -- for sql
             null_ls.builtins.diagnostics.sqlfluff.with({
-                extra_args = { "--dialect", "postgres" },
+                extra_args = sqlfluff_extra_args,
             }),
 
             -- for html/xml
@@ -201,18 +247,12 @@ m.setup_null_ls = function()
             -- for typescript/react
             -- use tsserver
             -- null_ls.builtins.diagnostics.tsc.with({
-            -- 	   prefer_local = "node_modules/.bin",
+            -- 	   prefer_local = node_local_path,
             -- }),
 
             -- for yaml
             null_ls.builtins.diagnostics.yamllint.with({
-                -- condition = function(utils)
-                --     return utils.root_has_file({
-                --         ".yamllint",
-                --         ".yamllint.yaml",
-                --         ".yamllint.yaml",
-                --     })
-                -- end,
+                condition = has_yamllint_configured,
             }),
 
             -- for zsh
@@ -222,11 +262,11 @@ m.setup_null_ls = function()
 
             -- for python
             null_ls.builtins.formatting.black.with({
-                prefer_local = ".venv/bin",
+                prefer_local = python_venv_path,
             }),
 
             -- for c/cpp/cs/java
-            -- cs/java use formatter of ominisharp/jdtls
+            -- cs/java use formatter of ominisharp/google-java-format
             null_ls.builtins.formatting.clang_format.with({
                 disabled_filetypes = { "cs", "java" },
             }),
@@ -251,7 +291,7 @@ m.setup_null_ls = function()
 
             -- for python
             null_ls.builtins.formatting.isort.with({
-                prefer_local = ".venv/bin",
+                prefer_local = python_venv_path,
                 extra_args = { "--profile", "black" },
             }),
 
@@ -263,8 +303,12 @@ m.setup_null_ls = function()
             null_ls.builtins.formatting.phpcsfixer,
 
             -- for html/css/sass/javascript/typescript/react/vue/json/yaml/markdown/graphql
+            null_ls.builtins.formatting.deno_fmt.with({
+                condition = has_deno_configured,
+            }),
             null_ls.builtins.formatting.prettier.with({
-                prefer_local = "node_modules/.bin",
+                prefer_local = node_modules_path,
+                disabled_filetypes = get_prettier_disabled_filetypes(),
             }),
 
             -- for ruby
@@ -280,7 +324,7 @@ m.setup_null_ls = function()
 
             -- for sql
             null_ls.builtins.formatting.sqlfluff.with({
-                extra_args = { "--dialect", "postgres" },
+                extra_args = sqlfluff_extra_args,
             }),
 
             -- for lua
@@ -307,6 +351,8 @@ m.setup_null_ls = function()
                 disabled_filetypes = { "html" },
             }),
 
+            -- trim
+            null_ls.builtins.formatting.trim_newlines,
             null_ls.builtins.formatting.trim_whitespace,
         },
     })
