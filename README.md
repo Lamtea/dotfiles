@@ -96,11 +96,7 @@ See: [ArchWSL - Known-issues](https://wsldl-pg.github.io/ArchW-docs/Known-issues
 
 ## neovim Plugins, LSP, DAP
 
-See: [neovim Plugins](https://github.com/stars/Lamtea/lists/neovim-plugins)
-
-See: [neovim LSP](https://github.com/stars/Lamtea/lists/neovim-lsp)
-
-See: [neovim DAP](https://github.com/stars/Lamtea/lists/neovim-dap)
+See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#introduction)
 
 ## neovim Hello World
 
@@ -128,6 +124,7 @@ See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
   - ktlint _(asdf, kotlin linter/formatter)_
   - neovim _(asdf)_
   - nodejs _(asdf)_
+    - devcontainers/cli _(npm)_
     - eslint _(npm)_
       - eslint-config-prettier _(npm)_
     - jsonlint _(npm)_
@@ -138,8 +135,8 @@ See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
       - stylelint-config-standard _(npm)_
       - stylelint-config-recommended _(npm)_
       - stylelint-config-prettier _(npm)_
+    - ts-node _(npm)_
     - typescript _(npm)_
-    - etc... _(for development)_
   - ruby _(asdf)_
     - bundler _(gem)_
 - aspnet-runtime
@@ -163,6 +160,7 @@ See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
 - dart-sass
 - delve _(go debugger)_
 - deno
+- devcontainer-cli _(aur)_
 - docker **(optional)**
   - docker-compose **(deplicated)**
   - nvidia-container-toolkit _(aur, for NVIDIA CUDA user, also available in containerd)_
@@ -256,6 +254,7 @@ See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
 - sqlite
 - tidy _(html linter)_
 - tmux
+- ts-node
 - typescript
 - w3m
 - wget
