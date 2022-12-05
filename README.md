@@ -208,7 +208,7 @@ See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
 - nginx **(optional)**
 - ninja
 - nodejs-jsonlint _(aur, json linter)_
-- nodejs-lts-gallium
+- nodejs-lts-hydrogen
 - nodejs-markdownlint-cli _(aur, markdown linter)_
 - npm
 - openssh
