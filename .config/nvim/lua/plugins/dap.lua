@@ -31,6 +31,11 @@ m.setup = function(use)
     -- An extension for nvim-dap providing configurations
     -- for launching go debugger (delve) and debugging individual tests.
     use("leoluz/nvim-dap-go")
+    -- nvim-dap adapter for vscode-js-debug.
+    use({
+        "mxsdev/nvim-dap-vscode-js",
+        requires = { "mfussenegger/nvim-dap" },
+    })
 
     m.setup_dap()
     m.setup_dap_ui()
@@ -168,6 +173,7 @@ end
 m.setup_dap_bash = function()
     local path = require("lib.path")
     local dap = require("dap")
+    local bashdb_path = path.get_install_path("bash-debug-adapter")
     dap.adapters.bashdb = {
         type = "executable",
         command = "bash-debug-adapter",
@@ -179,8 +185,8 @@ m.setup_dap_bash = function()
             request = "launch",
             name = "Launch file",
             showDebugOutput = true,
-            pathBashdb = path.get_install_path("bash-debug-adapter") .. "/extension/bashdb_dir/bashdb",
-            pathBashdbLib = path.get_install_path("bash-debug-adapter") .. "/extension/bashdb_dir",
+            pathBashdb = bashdb_path .. "/extension/bashdb_dir/bashdb",
+            pathBashdbLib = bashdb_path .. "/extension/bashdb_dir",
             trace = true,
             file = "${file}",
             program = "${file}",
@@ -202,7 +208,7 @@ m.setup_dap_nlua = function()
         {
             type = "nlua",
             request = "attach",
-            name = "Attach to running Neovim instance",
+            name = "Attach to running neovim instance",
             host = function()
                 local value = vim.fn.input("Host [127.0.0.1]: ")
                 if value ~= "" then
@@ -268,63 +274,97 @@ m.setup_dap_php = function()
 end
 
 m.setup_dap_javascript_typescript = function()
+    local path = require("lib.path")
     local dap = require("dap")
-    dap.adapters.node2 = {
-        type = "executable",
-        command = "node-debug2-adapter",
-        args = {},
-    }
-    dap.adapters.chrome = {
-        type = "executable",
-        command = "chrome-debug-adapter",
-        args = {},
-    }
-    local node2_configuration_javascript = {
-        name = "Launch(node)",
-        type = "node2",
-        request = "launch",
-        program = "${file}",
-        cwd = vim.fn.getcwd(),
-        sourceMaps = true,
-        protocol = "inspector",
-    }
-    local node2_configuration_typescript = {
-        name = "Launch(node)",
-        type = "node2",
-        request = "launch",
-        program = function()
-            return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
-        end,
-        cwd = vim.fn.getcwd(),
-        sourceMaps = true,
-        protocol = "inspector",
-    }
-    local chrome_configuration = {
-        name = "Launch(chrome)",
-        type = "chrome",
-        request = "launch",
-        -- live-server/webpack-dev-server default port.
-        url = "http://localhost:8080",
-        -- webpack-dev-server default.
-        webRoot = "${workspaceFolder}/public",
-        cwd = vim.fn.getcwd(),
-        sourceMaps = true,
-        protocol = "inspector",
-        runtimeExecutable = "/usr/bin/google-chrome-stable",
-    }
-    dap.configurations.javascript = {
-        node2_configuration_javascript,
-        chrome_configuration,
-    }
-    dap.configurations.typescript = {
-        node2_configuration_typescript,
-        chrome_configuration,
-    }
-    dap.configurations.javascriptreact = {
-        chrome_configuration,
-    }
-    dap.configurations.vue = dap.configurations.javascriptreact
-    dap.configurations.typescriptreact = dap.configurations.javascriptreact
+    local dap_vscode_js = require("dap-vscode-js")
+    dap_vscode_js.setup({
+        debugger_path = path.get_install_path("js-debug-adapter"),
+        adapters = { "pwa-node", "pwa-chrome", "pwa-msedge", "node-terminal", "pwa-extensionHost" },
+    })
+
+    -- node
+    local node_path = "node"
+    local tsnode_path = "ts-node"
+    for _, language in ipairs({ "typescript", "javascript" }) do
+        local runtime = language == "typescript" and tsnode_path or node_path
+        dap.configurations[language] = {
+            {
+                type = "pwa-node",
+                request = "launch",
+                name = "Launch file",
+                program = "${file}",
+                cwd = "${workspaceFolder}",
+                console = "integratedTerminal",
+                outFiles = {
+                    "${workspaceFolder}/**",
+                    "!**/node_modules/**",
+                },
+                resolveSourceMapLocations = {
+                    "${workspaceFolder}/**",
+                    "!**/node_modules/**",
+                },
+                runtimeExecutable = runtime,
+            },
+            {
+                type = "pwa-node",
+                request = "launch",
+                name = "Debug jest tests",
+                rootPath = "${workspaceFolder}",
+                cwd = "${workspaceFolder}",
+                console = "integratedTerminal",
+                internalConsoleOptions = "neverOpen",
+                outFiles = {
+                    "${workspaceFolder}/**",
+                    "!**/node_modules/**",
+                },
+                resolveSourceMapLocations = {
+                    "${workspaceFolder}/**",
+                    "!**/node_modules/**",
+                },
+                runtimeExecutable = "node",
+                runtimeArgs = {
+                    "./node_modules/jest/bin/jest.js",
+                    "--runInBand",
+                },
+            },
+        }
+    end
+
+    -- chrome
+    local chrome_path = "/usr/bin/google-chrome-stable"
+    for _, language in ipairs({ "typescriptreact", "javascriptreact" }) do
+        dap.configurations[language] = {}
+    end
+    for _, language in ipairs({ "typescript", "typescriptreact", "javascript", "javascriptreact" }) do
+        table.insert(dap.configurations[language], {
+            type = "pwa-chrome",
+            request = "attach",
+            name = "Attach to chrome remote debugging port",
+            program = "${file}",
+            cwd = "${workspaceFolder}",
+            port = 9222,
+            webRoot = "${workspaceFolder}",
+            console = "integratedTerminal",
+        })
+        table.insert(dap.configurations[language], {
+            type = "pwa-chrome",
+            request = "launch",
+            name = "Launch chrome (localhost:3000)",
+            cwd = "${workspaceFolder}",
+            url = "http://localhost:3000",
+            webRoot = "${workspaceFolder}",
+            runtimeExecutable = chrome_path,
+        })
+        table.insert(dap.configurations[language], {
+            type = "pwa-chrome",
+            request = "launch",
+            name = "Launch chrome (localhost:8080)",
+            cwd = "${workspaceFolder}",
+            url = "http://localhost:8080",
+            webRoot = "${workspaceFolder}",
+            runtimeExecutable = chrome_path,
+        })
+    end
 end
 
 m.setup_dap_go = function()
@@ -338,8 +378,8 @@ m.setup_dap_go = function()
     }
     table.insert(dap.configurations.go, {
         type = "vsgo",
-        name = "Debug (vscode-go)",
         request = "launch",
+        name = "Debug (vscode-go)",
         showLog = false,
         program = "${file}",
         dlvToolPath = vim.fn.exepath("dlv"),
@@ -356,7 +396,7 @@ m.setup_dap_haskell = function()
         {
             type = "haskell",
             request = "launch",
-            name = "Launch",
+            name = "Launch file",
             workspace = "${workspaceFolder}",
             startup = "${file}",
             stopOnEntry = true,
@@ -380,8 +420,8 @@ m.setup_dap_dotnet = function()
     dap.configurations.cs = {
         {
             type = "coreclr",
-            name = "Launch",
             request = "launch",
+            name = "Launch",
             program = function()
                 return vim.fn.input("Path to dll: ", vim.fn.getcwd() .. "/bin/Debug/", "file")
             end,
@@ -406,9 +446,9 @@ m.setup_dap_lldb = function()
     }
     dap.configurations.cpp = {
         {
-            name = "Launch (codelldb)",
             type = "codelldb",
             request = "launch",
+            name = "Launch (codelldb)",
             program = function()
                 return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
             end,
@@ -417,9 +457,9 @@ m.setup_dap_lldb = function()
             args = {},
         },
         {
-            name = "Launch (lldb)",
             type = "lldb",
             request = "launch",
+            name = "Launch (lldb)",
             program = function()
                 return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
             end,
