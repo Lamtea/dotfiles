@@ -19,7 +19,7 @@ if [[ -z "$PLUGIN" ]]; then
 fi
 
 (asdf install ruby latest &&
-	asdf global ruby "$(asdf list ruby | grep '[0-9]\+' | tail -n 1 | xargs)" &&
+	asdf global ruby "$(asdf list ruby | grep -o '[0-9.]\+' | tail -n 1 | xargs)" &&
 	cd "$HOME" &&
 	bundle install &&
 	printf "${ESC}[1;32m%s${ESC}[m\n" '***** asdf ruby and bundle updated. *****' &&

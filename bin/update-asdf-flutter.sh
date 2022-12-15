@@ -19,7 +19,7 @@ if [[ -z "$PLUGIN" ]]; then
 fi
 
 (asdf install flutter latest &&
-	asdf global flutter "$(asdf list flutter | grep '[0-9]\+' | tail -n 1 | xargs)" &&
+	asdf global flutter "$(asdf list flutter | grep -o '[0-9.]\+.*' | tail -n 1 | xargs)" &&
 	printf "${ESC}[1;32m%s${ESC}[m\n" '***** asdf flutter updated. *****' &&
 	exit 0) ||
 	(printf "${ESC}[1;31m%s${ESC}[m\n" '***** asdf flutter update failed. *****' &&

@@ -19,7 +19,7 @@ if [[ -z "$PLUGIN" ]]; then
 fi
 
 (asdf install dotnet-core latest &&
-	asdf global dotnet-core "$(asdf list dotnet-core | grep '[0-9]\+' | tail -n 1 | xargs)" &&
+	asdf global dotnet-core "$(asdf list dotnet-core | grep -o '[0-9.]\+' | tail -n 1 | xargs)" &&
 	printf "${ESC}[1;32m%s${ESC}[m\n" '***** asdf dotnet-core updated. *****' &&
 	exit 0) ||
 	(printf "${ESC}[1;31m%s${ESC}[m\n" '***** asdf dotnet-core update failed. *****' &&

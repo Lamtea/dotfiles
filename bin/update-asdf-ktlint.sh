@@ -19,7 +19,7 @@ if [[ -z "$PLUGIN" ]]; then
 fi
 
 (asdf install ktlint latest &&
-	asdf global ktlint "$(asdf list ktlint | grep '[0-9]\+' | tail -n 1 | xargs)" &&
+	asdf global ktlint "$(asdf list ktlint | grep -o '[0-9.]\+' | tail -n 1 | xargs)" &&
 	printf "${ESC}[1;32m%s${ESC}[m\n" '***** asdf ktlint updated. *****' &&
 	exit 0) ||
 	(printf "${ESC}[1;31m%s${ESC}[m\n" '***** asdf ktlint update failed. *****' &&
