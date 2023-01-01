@@ -5,4 +5,5 @@ update-asdf-golangci-lint.sh &&
 	update-asdf-ktlint.sh &&
 	update-asdf-ruby.sh &&
 	update-asdf-flutter.sh &&
+	update-asdf-dotnet-core.sh &&
 	update-asdf-neovim.sh
