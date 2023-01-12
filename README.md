@@ -13,7 +13,6 @@ gnome-keyring settings required.
 See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/gnome-keyring)
 
 ```bash
-paru -S <dependent packages>
 # Install arch packages and aur packages(see below `Depend on` list).
 # Options can be ignored.
 # If you want to use cloud such as dropbox, gdrive, etc..,
@@ -24,12 +23,13 @@ paru -S <dependent packages>
 # Use neomutt and postfix in local mail delivery(See Arch wiki for postfix settings).
 # (In my case I use it to logwatch and notify system errors from services.)
 # (Also, it is not used in wsl.)
+paru -S <dependent packages>
 ```
 
 ```bash
 cd ~
-git clone --depth 1 https://github.com/wbthomason/packer.nvim .local/share/nvim/site/pack/packer/start/packer.nvim
 # If you fail, make sure the way may have changed(see: github).
+git clone --depth 1 https://github.com/wbthomason/packer.nvim .local/share/nvim/site/pack/packer/start/packer.nvim
 git clone https://github.com/Lamtea/dotfiles.git .dotfiles
 ```
 
@@ -38,9 +38,9 @@ cd .dotfiles
 vi .gitconfig
   email = <your email address>
   name = <your user name>
+# For localization, see below `Localization`.
 vi .config/neomutt/neomuttrc
   set my_name="<your name>"
-# For localization, see below `Localization`.
 ```
 
 ```bash
@@ -48,28 +48,28 @@ vi .config/neomutt/neomuttrc
 ```
 
 ```bash
-exec zsh
 # Install zsh plugins and some packages from github or script.
 # If you are not using zsh, run `chsh -s /usr/bin/zsh'.
+exec zsh
 ```
 
 ```bash
-~/bin/update-devtools.sh
 # Install asdf tools, dotnet tools, pyenv, poetry, ghcup, rustup,
 # neovim nightly, etc...
 # If you fail, make sure the way may have changed(See: github).
+~/bin/update-devtools.sh
 ```
 
 ```bash
-vi +PackerSync
-   :helptags ALL
-   :Mason
-   :checkhealth
 # Install neovim plugins and create helptags,
 # and install lsp, dap in your programming languages
 # (if you are unsure, see below `neovim Plugins, LSP, DAP` list).
 # Finally, All OK except WARNING from Whichkey.
 # (No problem because it is an extension of the standard command)
+vi +PackerSync
+   :helptags ALL
+   :Mason
+   :checkhealth
 ```
 
 ## Containers **(optional)**
@@ -282,14 +282,14 @@ See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
   - Ricty & MesloLGS NF
   - HackGenNerd
 
-## Shell Scripts
+## Scripts
 
 | Name            | Description                   |
 | --------------- | ----------------------------- |
 | rclone_mount.sh | mount cloud script.           |
 | update-\*.sh    | update local package scripts. |
 
-## Development
+## Develop Environment
 
 - bash
 - zsh
