@@ -213,7 +213,7 @@ See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
 - npm
 - openssh
 - php
-- php-\* (apcu, gd, sqlite, pgsql, redis, imap, imagick, fpm)
+- php-\* (apcu, gd, sqlite, pgsql, redis, imagick, fpm)
 - php-cs-fixer _(aur, php formatter)_
 - poetry **(from install script)**
   - black _(poetry)_
