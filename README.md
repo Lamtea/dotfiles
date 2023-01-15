@@ -209,7 +209,7 @@ See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
 - ninja
 - nodejs-jsonlint _(aur, json linter)_
 - nodejs-lts-hydrogen
-- nodejs-markdownlint-cli _(aur, markdown linter)_
+- markdownlint-cli _(aur, markdown linter)_
 - npm
 - openssh
 - php
