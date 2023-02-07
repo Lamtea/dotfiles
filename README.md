@@ -156,7 +156,6 @@ See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
   - slir4netns
 - colordiff
 - cppcheck _(c/cpp linter)_
-- dart
 - dart-sass
 - delve _(go debugger)_
 - deno

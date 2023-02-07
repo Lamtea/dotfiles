@@ -51,14 +51,6 @@ export BEMENU_OPTS='--scrollbar=autohide'
 eval $(gnome-keyring-daemon --start --components=pkcs11,secrets,ssh 2>/dev/null)
 export SSH_AUTH_SOCK
 
-# asdf
-if [[ ! -d $HOME/.asdf ]]; then
-    print -P "%F{33} %F{220}Installing %F{33}asdf%F{220} tool version manager…%f"
-    git clone https://github.com/asdf-vm/asdf.git ~/.asdf && \
-        print -P "%F{33} %F{34}Installation successful.%f%b" || \
-        print -P "%F{160} Installation failed.%f%b"
-fi
-
 # pyenv
 if [[ ! -d $HOME/.pyenv ]]; then
     print -P "%F{33} %F{220}Installing %F{33}pyenv%F{220} python version manager…%f"
@@ -90,16 +82,16 @@ if [[ ! -d $HOME/.cargo ]]; then
 fi
 [[ ! -f $HOME/.cargo/env ]] || source "$HOME/.cargo/env"
 
-# dotnet
-[[ ! -f $HOME/.asdf/plugins/dotnet-core/set-dotnet-home.zsh ]] || \
-    source "$HOME/.asdf/plugins/dotnet-core/set-dotnet-home.zsh"
-export PATH="$HOME/.dotnet/tools:$PATH"
-
 # ghcup
 export PATH="$HOME/.ghcup/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 
-# user
+# asdf dotnet
+[[ ! -f $HOME/.asdf/plugins/dotnet-core/set-dotnet-home.zsh ]] || \
+    source "$HOME/.asdf/plugins/dotnet-core/set-dotnet-home.zsh"
+export PATH="$HOME/.dotnet/tools:$PATH"
+
+# etc
 export PATH="$HOME/bin:$PATH"
 export JAVA_WORKSPACE="$HOME/.workspace"
 
