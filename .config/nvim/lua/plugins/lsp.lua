@@ -322,7 +322,7 @@ m.setup_lsp = function()
             elseif server_name == "prismals" then
                 -- prisma
                 setup_lsp_prismals(serverconfig, on_attach, capabilities)
-            elseif server_name == "sumneko_lua" then
+            elseif server_name == "lua_ls" then
                 -- lua
                 setup_lsp_lua(serverconfig, on_attach, capabilities)
             else
