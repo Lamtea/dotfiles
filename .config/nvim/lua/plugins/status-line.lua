@@ -9,24 +9,11 @@ m.setup = function(use)
             opt = true,
         },
     })
-    -- nvim-gps is a simple status line component that shows context of the current cursor position in file.
-    -- It is similar to the statusline function provided by nvim-treesitter, but smarter.
-    -- Using custom treesitter queries for each language,
-    -- nvim-gps is able to show exact name of containing class, struct, function, method, etc.
-    -- along with some fancy symbols!
-    use({
-        "SmiteshP/nvim-gps",
-        requires = {
-            "nvim-treesitter/nvim-treesitter",
-        },
-    })
 
     m.setup_lualine()
-    m.setup_gps()
 end
 
 m.setup_lualine = function()
-    local gps = require("nvim-gps")
     require("lualine").setup({
         options = {
             theme = "nightfox",
@@ -42,7 +29,6 @@ m.setup_lualine = function()
             },
             lualine_c = {
                 "filename",
-                { gps.get_location, cond = gps.is_available },
             },
             lualine_x = {
                 "encoding",
@@ -57,10 +43,6 @@ m.setup_lualine = function()
             },
         },
     })
-end
-
-m.setup_gps = function()
-    require("nvim-gps").setup()
 end
 
 return m
