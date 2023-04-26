@@ -1,6 +1,12 @@
 local m = {}
 
 m.setup = function(use)
+    -- A simple statusline/winbar component that uses LSP to show your current code context.
+    -- Named after the Indian satellite navigation system.
+    use({
+        "SmiteshP/nvim-navic",
+        requires = "neovim/nvim-lspconfig",
+    })
     -- A blazing fast and easy to configure Neovim statusline written in Lua.
     use({
         "nvim-lualine/lualine.nvim",
@@ -10,7 +16,17 @@ m.setup = function(use)
         },
     })
 
+    m.setup_navic()
     m.setup_lualine()
+end
+
+m.setup_navic = function()
+    require("nvim-navic").setup({
+        lsp = {
+            auto_attach = true,
+        },
+        highlight = true,
+    })
 end
 
 m.setup_lualine = function()
@@ -29,6 +45,7 @@ m.setup_lualine = function()
             },
             lualine_c = {
                 "filename",
+                "navic",
             },
             lualine_x = {
                 "encoding",
