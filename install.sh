@@ -68,9 +68,9 @@ dotfiles_or_dirs=(
 	bin/update-asdf-nodejs.sh
 	bin/update-asdf-deno.sh
 	bin/update-asdf-golang.sh
-	bin/update-asdf-dotnet-core.sh
+	bin/update-asdf-dotnet.sh
 	bin/update-asdf-dart.sh
-	bin/update-dotnet-core-tools.sh
+	bin/update-dotnet-tools.sh
 	bin/update-pyenv.sh
 	bin/update-poetry.sh
 	bin/update-ghcup.sh

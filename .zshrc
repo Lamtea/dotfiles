@@ -87,8 +87,8 @@ export PATH="$HOME/.ghcup/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 
 # asdf dotnet
-[[ ! -f $HOME/.asdf/plugins/dotnet-core/set-dotnet-home.zsh ]] || \
-    source "$HOME/.asdf/plugins/dotnet-core/set-dotnet-home.zsh"
+[[ ! -f $HOME/.asdf/plugins/dotnet/set-dotnet-home.zsh ]] || \
+    source "$HOME/.asdf/plugins/dotnet/set-dotnet-home.zsh"
 export PATH="$HOME/.dotnet/tools:$PATH"
 
 # etc

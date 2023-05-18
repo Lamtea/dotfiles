@@ -1,7 +1,7 @@
 #!/bin/bash
 
 update-asdf.sh &&
-	update-dotnet-core-tools.sh &&
+	update-dotnet-tools.sh &&
 	update-pyenv.sh &&
 	update-poetry.sh &&
 	update-ghcup.sh &&
