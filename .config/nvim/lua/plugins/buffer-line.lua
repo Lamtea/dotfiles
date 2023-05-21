@@ -4,7 +4,7 @@ m.setup = function(use)
     -- A super powerful autopair plugin for Neovim that supports multiple characters.
     use({
         "akinsho/bufferline.nvim",
-        tag = "v2.*",
+        tag = "*",
         requires = "kyazdani42/nvim-web-devicons",
     })
 
