@@ -4,7 +4,7 @@ m.setup = function(use)
     -- A neovim plugin to persist and toggle multiple terminals during an editing session.
     use({
         "akinsho/toggleterm.nvim",
-        tag = "v2.*",
+        tag = "*",
     })
 
     m.setup_toggleterm()
