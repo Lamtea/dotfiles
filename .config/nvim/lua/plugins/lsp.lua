@@ -28,7 +28,10 @@ m.setup = function(use)
         requires = "kyazdani42/nvim-web-devicons",
     })
     -- Standalone UI for nvim-lsp progress. Eye candy for the impatient.
-    use("j-hui/fidget.nvim")
+    use({
+        "j-hui/fidget.nvim",
+        tag = "legacy",
+    })
     -- Vim plugin for automatically highlighting other uses of the current word under the cursor.
     use("RRethy/vim-illuminate")
 
