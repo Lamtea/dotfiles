@@ -3,7 +3,7 @@ local m = {}
 m.setup = function(use)
     -- A work-in-progress Magit clone for Neovim that is geared toward the Vim philosophy.
     use({
-        "TimUntersberger/neogit",
+        "NeogitOrg/neogit",
         requires = {
             "nvim-lua/plenary.nvim",
         },
