@@ -5,7 +5,7 @@ m.setup = function(use)
     -- including sidebars, floating windows, netrw split style, or all of them at once!
     use({
         "nvim-neo-tree/neo-tree.nvim",
-        branch = "v2.x",
+        branch = "v3.x",
         requires = {
             "nvim-lua/plenary.nvim",
             "kyazdani42/nvim-web-devicons",
@@ -154,7 +154,9 @@ m.setup_neotree = function()
                 },
             },
             -- This will find and focus the file in the active buffer every
-            follow_current_file = false,
+            follow_current_file = {
+                enabled = false,
+            },
             -- time the current file is changed while the tree is open.
             -- when true, empty folders will be grouped together
             group_empty_dirs = false,
@@ -184,7 +186,9 @@ m.setup_neotree = function()
         },
         buffers = {
             -- This will find and focus the file in the active buffer every
-            follow_current_file = true,
+            follow_current_file = {
+                enabled = true,
+            },
             -- time the current file is changed while the tree is open.
             -- when true, empty folders will be grouped together
             group_empty_dirs = true,
