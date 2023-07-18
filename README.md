@@ -253,6 +253,7 @@ See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
 - sqlite
 - tidy _(html linter)_
 - tmux
+- tree-sitter-cli
 - ts-node
 - typescript
 - w3m
