@@ -15,11 +15,9 @@ m.setup = function(use)
     -- In a GUI, it also functions based on whether or not the app has focus.
     -- Commands are included for toggling the line numbering method and for enabling and disabling the plugin.
     use("myusuf3/numbers.vim")
-    -- This plugin adds indentation guides to all lines (including empty lines).
-    -- It uses Neovims virtual text feature and no conceal.
-    -- This plugin requires Neovim 0.5 or higher.
-    -- It makes use of Neovim only features so it will not work in Vim.
-    -- There is a legacy version of the plugin that supports Neovim 0.4 under the branch version-1.
+    -- This plugin adds indentation guides to Neovim. It uses Neovim's virtual text feature and no conceal
+    -- To start using indent-blankline, call the ibl.setup() function.
+    -- This plugin requires the latest stable version of Neovim.
     use("lukas-reineke/indent-blankline.nvim")
 
     m.setup_colorizer()
@@ -36,13 +34,7 @@ m.setup_todo_comments = function()
 end
 
 m.setup_indent_blankline = function()
-    require("indent_blankline").setup({
-        space_char_blankline = " ",
-        -- Show scope of treesitter base.
-        show_current_context = true,
-        -- Hide underline.
-        show_current_context_start = false,
-    })
+    require("ibl").setup()
 end
 
 -- Show todos in the trouble window.
