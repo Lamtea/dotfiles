@@ -141,6 +141,7 @@ See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
     - bundler _(gem)_
 - aspnet-runtime
 - aspnet-targeting-pack
+- azure-cli _(aur)_
 - base-devel
 - bashdb _(aur)_
 - bemenu
