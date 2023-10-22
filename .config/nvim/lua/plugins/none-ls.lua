@@ -3,7 +3,7 @@ local m = {}
 m.setup = function(use)
     -- Use Neovim as a language server to inject LSP diagnostics, code actions, and more via Lua.
     use({
-        "jose-elias-alvarez/null-ls.nvim",
+        "nvimtools/none-ls.nvim",
         requires = {
             "nvim-lua/plenary.nvim",
         },
