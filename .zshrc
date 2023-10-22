@@ -141,19 +141,34 @@ if [[ ! -f $HOME/.zfunc/_cargo ]]; then
 fi
 fpath+=~/.zfunc
 
-# dotnet-core
-_dotnet_zsh_complete()
-{
-    local completions=("$(dotnet complete "$words")")
-    reply=( "${(ps:\n:)completions}" )
-}
-if command -v dotnet 1>/dev/null 2>&1; then
-    compctl -K _dotnet_zsh_complete dotnet
-fi
-
 # load completion
 autoload -Uz compinit
 compinit
+autoload -U +X bashcompinit
+bashcompinit
+
+# dotnet
+_dotnet_zsh_complete() {
+    local completions=("$(dotnet complete "$words")")
+    if [ -z "$completions" ]; then
+        _arguments '*::arguments: _normal'
+        return
+    fi
+    _values = "${(ps:\n:)completions}"
+}
+if command -v dotnet 1>/dev/null 2>&1; then
+    compdef _dotnet_zsh_complete dotnet
+fi
+
+# azure-cli
+[[ -d $HOME/.azure-cli ]] || mkdir ~/.azure-cli
+if [[ ! -f $HOME/.azure-cli/az.completion ]]; then
+    print -P "%F{33} %F{220}Installing %F{33}azure-cli%F{220} completions…%f"
+    curl -o $HOME/.azure-cli/az.completion https://raw.githubusercontent.com/Azure/azure-cli/dev/az.completion && \
+        print -P "%F{33} %F{34}Installation successful.%f%b" || \
+        print -P "%F{160} Installation failed.%f%b"
+fi
+source $HOME/.azure-cli/az.completion
 
 # ignore case
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
