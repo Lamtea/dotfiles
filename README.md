@@ -142,6 +142,7 @@ See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
 - aspnet-runtime
 - aspnet-targeting-pack
 - azure-cli _(aur)_
+- azure-functions-core-tools _(aur)_
 - base-devel
 - bashdb _(aur)_
 - bemenu
