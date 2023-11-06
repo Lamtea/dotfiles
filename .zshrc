@@ -160,6 +160,9 @@ if command -v dotnet 1>/dev/null 2>&1; then
     compdef _dotnet_zsh_complete dotnet
 fi
 
+# terraform
+complete -o nospace -C terraform terraform
+
 # azure-cli
 [[ -d $HOME/.azure-cli ]] || mkdir ~/.azure-cli
 if [[ ! -f $HOME/.azure-cli/az.completion ]]; then
