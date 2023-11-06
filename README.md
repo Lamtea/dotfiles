@@ -253,6 +253,7 @@ See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
 - stylua _(lua formatter)_
 - sqlfluff _(sql linter/formatter)_
 - sqlite
+- terraform
 - tidy _(html linter)_
 - tmux
 - tree-sitter-cli
