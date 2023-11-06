@@ -254,6 +254,7 @@ See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
 - sqlfluff _(sql linter/formatter)_
 - sqlite
 - terraform
+- tfsec _(aur, terraform linter)_
 - tidy _(html linter)_
 - tmux
 - tree-sitter-cli

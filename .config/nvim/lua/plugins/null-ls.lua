@@ -254,6 +254,9 @@ m.setup_null_ls = function()
             -- for zsh
             null_ls.builtins.diagnostics.zsh,
 
+            -- for terraform
+            null_ls.builtins.diagnostics.tfsec,
+
             -- formatting
 
             -- for python
@@ -346,6 +349,9 @@ m.setup_null_ls = function()
             null_ls.builtins.formatting.tidy.with({
                 disabled_filetypes = { "html" },
             }),
+
+            -- for terraform
+            null_ls.builtins.formatting.terraform_fmt,
 
             -- trim
             null_ls.builtins.formatting.trim_newlines,
