@@ -161,7 +161,9 @@ if command -v dotnet 1>/dev/null 2>&1; then
 fi
 
 # terraform
-complete -o nospace -C terraform terraform
+if command -v terraform 1>/dev/null 2>&1; then
+    complete -o nospace -C terraform terraform
+fi
 
 # azure-cli
 [[ -d $HOME/.azure-cli ]] || mkdir ~/.azure-cli
