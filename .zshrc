@@ -82,6 +82,11 @@ if [[ ! -d $HOME/.cargo ]]; then
 fi
 [[ ! -f $HOME/.cargo/env ]] || source "$HOME/.cargo/env"
 
+# go
+if command -v go 1>/dev/null 2>&1; then
+    export PATH="$(go env GOPATH)/bin:$PATH"
+fi
+
 # ghcup
 export PATH="$HOME/.ghcup/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"

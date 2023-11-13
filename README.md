@@ -119,6 +119,9 @@ See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
   - flutter _(asdf)_
   - golang _(asdf)_
     - delve _(go install)_
+    - grpc
+    - protoc-gen-go
+    - protoc-gen-go-grpc
   - golangci-lint _(asdf, go linter)_
   - hadolint _(asdf, dockerfile linter)_
   - ktlint _(asdf, kotlin linter/formatter)_
@@ -225,6 +228,7 @@ See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
 - postfix **(optional)** _(localhost only for neomutt)_
 - prettier
   _(html/css/sass/javascript/typescript/react/vue/json/yaml/markdown/graphql formatter)_
+- protobuf
 - pyenv **(from install script)**
   - python3 _(pyenv)_
 - python3
