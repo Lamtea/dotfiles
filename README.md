@@ -188,6 +188,7 @@ See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
 - go
 - google-java-format _(aur, java formatter)_
 - gradle
+- grpcurl-bin _(aur)_
 - imagemagick
 - jdk-openjdk
 - jdk11-openjdk
