@@ -23,7 +23,7 @@ See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/gnome-keyring)
 # Use neomutt and postfix in local mail delivery(See Arch wiki for postfix settings).
 # (In my case I use it to logwatch and notify system errors from services.)
 # (Also, it is not used in wsl.)
-paru -S <dependent packages>
+yay -S <dependent packages>
 ```
 
 ```bash
@@ -274,6 +274,7 @@ See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
   _(I use Linux Desktop Environment so this is it, see `:h clipboard` in nvim)_
 - xdebug _(php debugger extension)_
 - yarn
+- yay _(aur)_
 - zsh
 
 ## Localization
