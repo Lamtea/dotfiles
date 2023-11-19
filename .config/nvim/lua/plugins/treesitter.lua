@@ -58,6 +58,7 @@ m.setup = function(use)
     m.setup_treesitter()
     m.setup_context()
     m.setup_context_vt()
+    m.setup_ts_context_commentstring()
     m.setup_hlargs()
     m.setup_autotag()
 end
@@ -157,9 +158,6 @@ m.setup_treesitter = function()
             extended_mode = true,
             max_file_line = nil,
         },
-        context_commentstring = {
-            enable = true,
-        },
         matchup = {
             enable = true,
         },
@@ -181,6 +179,10 @@ m.setup_context_vt = function()
         --Hide for indent bases such as python (virtual text makes it hard to see the lines).
         disable_virtual_lines = true,
     })
+end
+
+m.setup_ts_context_commentstring = function()
+    require("ts_context_commentstring").setup()
 end
 
 m.setup_autotag = function()
