@@ -167,7 +167,7 @@ See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
 - devcontainer-cli _(aur)_
 - docker **(optional)**
   - docker-buildx
-  - docker-compose **(deplicated)**
+  - docker-compose
   - nvidia-container-toolkit _(aur, for NVIDIA CUDA user, also available in containerd)_
 - dotnet-host
 - dotnet-runtime
