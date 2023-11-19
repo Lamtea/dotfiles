@@ -201,9 +201,8 @@ See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
 - luacheck _(lua linter)_
 - luarocks
 - maven
-- minikube **(optional)**
+- minikube **(optional)**, kind-bin **(optional)** _(aur)_
   - istio
-  - kind-bin _(aur)_
   - kubernetes-tools
   - helm
 - neomutt **(optional)**
