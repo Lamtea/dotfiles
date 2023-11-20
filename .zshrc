@@ -152,6 +152,14 @@ if command -v minikube 1>/dev/null 2>&1; then
             print -P "%F{160} Installation failed.%f%b"
     fi
 fi
+if command -v kind 1>/dev/null 2>&1; then
+    if [[ ! -f $HOME/.zfunc/_kind ]]; then
+        print -P "%F{33} %F{220}Installing %F{33}kind%F{220} completions…%f"
+        kind completion zsh > ~/.zfunc/_kind && \
+            print -P "%F{33} %F{34}Installation successful.%f%b" || \
+            print -P "%F{160} Installation failed.%f%b"
+    fi
+fi
 fpath+=~/.zfunc
 
 # load completion
