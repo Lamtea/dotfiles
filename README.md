@@ -104,6 +104,7 @@ See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
 
 ## Depend on
 
+- actionlint _(github actions linter)_
 - android-apktool _(aur)_
 - android-platform _(aur)_
 - android-sdk _(aur)_
@@ -131,7 +132,7 @@ See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
     - eslint _(npm)_
       - eslint-config-prettier _(npm)_
     - jsonlint _(npm)_
-    - markdownlint-cli _(npm)_
+    - markdownlint-cli2 _(npm)_
     - neovim _(npm)_
     - prettier _(npm)_
     - stylelint _(npm)_
@@ -149,8 +150,11 @@ See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
 - base-devel
 - bashdb _(aur)_
 - bemenu
+- buf
+- checkmake _(aur, make linter)_
 - clang
 - cmake
+- cmake-lint _(aur, cmake linter)_
 - codespell _(spell linter/formatter)_
 - composer
 - containerd **(optional)**
@@ -201,6 +205,7 @@ See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
 - lua
 - luacheck _(lua linter)_
 - luarocks
+- markdownlint-cli2 _(markdown linter)_
 - maven
 - minikube **(optional)**, kind-bin **(optional)** _(aur)_
   - istio
@@ -216,7 +221,6 @@ See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
 - ninja
 - nodejs-jsonlint _(aur, json linter)_
 - nodejs-lts-hydrogen
-- markdownlint-cli _(aur, markdown linter)_
 - npm
 - openssh
 - php

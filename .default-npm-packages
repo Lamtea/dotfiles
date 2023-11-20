@@ -2,7 +2,7 @@ devcontainers/cli
 eslint
 eslint-config-prettier
 jsonlint
-markdownlint-cli
+markdownlint-cli2
 neovim
 prettier
 stylelint

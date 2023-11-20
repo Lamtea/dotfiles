@@ -145,7 +145,6 @@ m.setup_null_ls = function()
             -- code action
 
             -- for javascript/typescript/react/vue
-            -- NOTE: There is also a lsp version, but still under development.
             null_ls.builtins.code_actions.eslint.with({
                 prefer_local = node_modules_path,
                 condition = has_eslint_configured,
@@ -161,6 +160,7 @@ m.setup_null_ls = function()
             null_ls.builtins.diagnostics.codespell,
 
             -- for c/cpp
+            null_ls.builtins.diagnostics.clang_check,
             null_ls.builtins.diagnostics.cppcheck,
 
             -- for editorconfig
@@ -169,8 +169,10 @@ m.setup_null_ls = function()
             -- for eruby
             null_ls.builtins.diagnostics.erb_lint,
 
-            -- for javascript/typescript/react/vue
-            -- NOTE: There is also a lsp version, but still under development.
+            -- for javascript/typescript/react
+            null_ls.builtins.diagnostics.deno_lint.with({
+                condition = has_deno_configured,
+            }),
             null_ls.builtins.diagnostics.eslint.with({
                 prefer_local = node_modules_path,
                 condition = has_eslint_configured,
@@ -209,7 +211,7 @@ m.setup_null_ls = function()
             }),
 
             -- for markdown
-            null_ls.builtins.diagnostics.markdownlint.with({
+            null_ls.builtins.diagnostics.markdownlint_cli2.with({
                 prefer_local = node_modules_path,
                 condition = has_markdownlint_configured,
             }),
@@ -226,7 +228,6 @@ m.setup_null_ls = function()
             -- null_ls.builtins.diagnostics.shellcheck,
 
             -- for css
-            -- NOTE: If switch to the lsp version eslint, should also switch to the lsp version stylelint.
             null_ls.builtins.diagnostics.stylelint.with({
                 prefer_local = node_modules_path,
                 condition = has_stylelint_configured,
@@ -251,11 +252,23 @@ m.setup_null_ls = function()
                 condition = has_yamllint_configured,
             }),
 
+            -- for github actions
+            null_ls.builtins.diagnostics.actionlint,
+
             -- for zsh
             null_ls.builtins.diagnostics.zsh,
 
             -- for terraform
             null_ls.builtins.diagnostics.tfsec,
+
+            -- for protocol buffer
+            null_ls.builtins.diagnostics.buf,
+
+            -- for make
+            null_ls.builtins.diagnostics.checkmake,
+
+            -- for cmake
+            null_ls.builtins.diagnostics.cmake_lint,
 
             -- formatting
 
@@ -301,7 +314,7 @@ m.setup_null_ls = function()
             -- for php
             null_ls.builtins.formatting.phpcsfixer,
 
-            -- for html/css/sass/javascript/typescript/react/vue/json/yaml/markdown/graphql
+            -- for html/css/sass/javascript/typescript/react/json/yaml/markdown/graphql
             null_ls.builtins.formatting.deno_fmt.with({
                 condition = has_deno_configured,
             }),
@@ -352,6 +365,9 @@ m.setup_null_ls = function()
 
             -- for terraform
             null_ls.builtins.formatting.terraform_fmt,
+
+            -- for protocol buffer
+            null_ls.builtins.formatting.buf,
 
             -- trim
             null_ls.builtins.formatting.trim_newlines,
