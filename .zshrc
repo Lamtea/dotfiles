@@ -144,6 +144,14 @@ if [[ ! -f $HOME/.zfunc/_cargo ]]; then
         print -P "%F{33} %F{34}Installation successful.%f%b" || \
         print -P "%F{160} Installation failed.%f%b"
 fi
+if command -v minikube 1>/dev/null 2>&1; then
+    if [[ ! -f $HOME/.zfunc/_minikube ]]; then
+        print -P "%F{33} %F{220}Installing %F{33}minikube%F{220} completions…%f"
+        minikube completion zsh > ~/.zfunc/_minikube && \
+            print -P "%F{33} %F{34}Installation successful.%f%b" || \
+            print -P "%F{160} Installation failed.%f%b"
+    fi
+fi
 fpath+=~/.zfunc
 
 # load completion
