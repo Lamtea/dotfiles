@@ -113,7 +113,6 @@ local function get_clang_capabilities()
 end
 
 local function setup_lsp_clangd(serverconfig, on_attach)
-    local lspconfig = require("lspconfig")
     serverconfig.setup({
         -- Exclude ".proto"
         filetypes = { "c", "cpp", "objc", "objcpp", "cuda" },

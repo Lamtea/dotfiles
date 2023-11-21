@@ -160,7 +160,8 @@ m.setup_null_ls = function()
             null_ls.builtins.diagnostics.codespell,
 
             -- for c/cpp
-            null_ls.builtins.diagnostics.clang_check,
+            -- use lsp version
+            -- null_ls.builtins.diagnostics.clang_check,
             null_ls.builtins.diagnostics.cppcheck,
 
             -- for editorconfig
@@ -170,9 +171,8 @@ m.setup_null_ls = function()
             null_ls.builtins.diagnostics.erb_lint,
 
             -- for javascript/typescript/react
-            null_ls.builtins.diagnostics.deno_lint.with({
-                condition = has_deno_configured,
-            }),
+            -- use lsp version
+            -- null_ls.builtins.diagnostics.deno_lint.with({ condition = has_deno_configured, }),
             null_ls.builtins.diagnostics.eslint.with({
                 prefer_local = node_modules_path,
                 condition = has_eslint_configured,
@@ -268,7 +268,8 @@ m.setup_null_ls = function()
             null_ls.builtins.diagnostics.checkmake,
 
             -- for cmake
-            null_ls.builtins.diagnostics.cmake_lint,
+            -- use lsp version
+            -- null_ls.builtins.diagnostics.cmake_lint,
 
             -- formatting
 
@@ -368,6 +369,10 @@ m.setup_null_ls = function()
 
             -- for protocol buffer
             null_ls.builtins.formatting.buf,
+
+            -- for cmake
+            -- use lsp version
+            -- null_ls.builtins.formatting.cmake_format,
 
             -- trim
             null_ls.builtins.formatting.trim_newlines,

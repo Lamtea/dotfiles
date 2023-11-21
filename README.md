@@ -154,7 +154,7 @@ See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
 - checkmake _(aur, make linter)_
 - clang
 - cmake
-- cmake-lint _(aur, cmake linter)_
+- cmake-language-server _(aur, cmake linter/formatter)_
 - codespell _(spell linter/formatter)_
 - composer
 - containerd **(optional)**
