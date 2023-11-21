@@ -126,39 +126,23 @@ fpath=(${ASDF_DIR}/completions $fpath)
 
 # zfunc
 [[ -d $HOME/.zfunc ]] || mkdir ~/.zfunc
-if [[ ! -f $HOME/.zfunc/_poetry ]]; then
-    print -P "%F{33} %F{220}Installing %F{33}poetry%F{220} completions…%f"
-    poetry completions zsh > ~/.zfunc/_poetry && \
-        print -P "%F{33} %F{34}Installation successful.%f%b" || \
-        print -P "%F{160} Installation failed.%f%b"
+if command -v poetry 1>/dev/null 2>&1; then
+    poetry completions zsh > ~/.zfunc/_poetry
 fi
-if [[ ! -f $HOME/.zfunc/_rustup ]]; then
-    print -P "%F{33} %F{220}Installing %F{33}rustup%F{220} completions…%f"
-    rustup completions zsh > ~/.zfunc/_rustup && \
-        print -P "%F{33} %F{34}Installation successful.%f%b" || \
-        print -P "%F{160} Installation failed.%f%b"
+if command -v rustup 1>/dev/null 2>&1; then
+    rustup completions zsh > ~/.zfunc/_rustup
 fi
-if [[ ! -f $HOME/.zfunc/_cargo ]]; then
-    print -P "%F{33} %F{220}Installing %F{33}cargo%F{220} completions…%f"
-    ln -sf ~/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/share/zsh/site-functions/_cargo ~/.zfunc/_cargo && \
-        print -P "%F{33} %F{34}Installation successful.%f%b" || \
-        print -P "%F{160} Installation failed.%f%b"
+if command -v cargo 1>/dev/null 2>&1; then
+    ln -sf ~/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/share/zsh/site-functions/_cargo ~/.zfunc/_cargo
 fi
 if command -v minikube 1>/dev/null 2>&1; then
-    if [[ ! -f $HOME/.zfunc/_minikube ]]; then
-        print -P "%F{33} %F{220}Installing %F{33}minikube%F{220} completions…%f"
-        minikube completion zsh > ~/.zfunc/_minikube && \
-            print -P "%F{33} %F{34}Installation successful.%f%b" || \
-            print -P "%F{160} Installation failed.%f%b"
-    fi
+    minikube completion zsh > ~/.zfunc/_minikube
 fi
 if command -v kind 1>/dev/null 2>&1; then
-    if [[ ! -f $HOME/.zfunc/_kind ]]; then
-        print -P "%F{33} %F{220}Installing %F{33}kind%F{220} completions…%f"
-        kind completion zsh > ~/.zfunc/_kind && \
-            print -P "%F{33} %F{34}Installation successful.%f%b" || \
-            print -P "%F{160} Installation failed.%f%b"
-    fi
+    kind completion zsh > ~/.zfunc/_kind
+fi
+if command -v argocd 1>/dev/null 2>&1; then
+    argocd completion zsh > ~/.zfunc/_argocd
 fi
 fpath+=~/.zfunc
 
@@ -181,6 +165,11 @@ if command -v dotnet 1>/dev/null 2>&1; then
     compdef _dotnet_zsh_complete dotnet
 fi
 
+# kubeadm
+if command -v kubeadm 1>/dev/null 2>&1; then
+    source <(kubeadm completion zsh)
+fi
+
 # terraform
 if command -v terraform 1>/dev/null 2>&1; then
     complete -o nospace -C terraform terraform
@@ -189,10 +178,7 @@ fi
 # azure-cli
 [[ -d $HOME/.azure-cli ]] || mkdir ~/.azure-cli
 if [[ ! -f $HOME/.azure-cli/az.completion ]]; then
-    print -P "%F{33} %F{220}Installing %F{33}azure-cli%F{220} completions…%f"
-    curl -o $HOME/.azure-cli/az.completion https://raw.githubusercontent.com/Azure/azure-cli/dev/az.completion && \
-        print -P "%F{33} %F{34}Installation successful.%f%b" || \
-        print -P "%F{160} Installation failed.%f%b"
+    curl -o $HOME/.azure-cli/az.completion https://raw.githubusercontent.com/Azure/azure-cli/dev/az.completion
 fi
 source $HOME/.azure-cli/az.completion
 

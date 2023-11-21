@@ -113,6 +113,7 @@ See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
 - android-sdk-platform-tools _(aur)_
 - android-tools
 - android-udev
+- argocd
 - asdf **(from github)**
   - dart _(asdf)_
   - deno _(asdf)_
