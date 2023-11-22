@@ -165,11 +165,6 @@ if command -v dotnet 1>/dev/null 2>&1; then
     compdef _dotnet_zsh_complete dotnet
 fi
 
-# kubeadm
-if command -v kubeadm 1>/dev/null 2>&1; then
-    source <(kubeadm completion zsh)
-fi
-
 # terraform
 if command -v terraform 1>/dev/null 2>&1; then
     complete -o nospace -C terraform terraform

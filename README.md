@@ -113,7 +113,6 @@ See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
 - android-sdk-platform-tools _(aur)_
 - android-tools
 - android-udev
-- argocd
 - asdf **(from github)**
   - dart _(asdf)_
   - deno _(asdf)_
@@ -209,6 +208,7 @@ See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
 - markdownlint-cli2 _(markdown linter)_
 - maven
 - minikube **(optional)**, kind-bin **(optional)** _(aur)_
+  - argocd
   - istio
   - kubernetes-tools
   - helm
