@@ -213,7 +213,6 @@ See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
   - kubernetes-tools
   - helm
   - helmfile
-  - helm-diff _(aur)_
 - neomutt **(optional)**
 - neovim
   - neovim-drop-in _(aur, vi/vim simlink)_
