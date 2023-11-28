@@ -169,6 +169,7 @@ See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
 - delve _(go debugger)_
 - deno
 - devcontainer-cli _(aur)_
+- debtap _(aur)_
 - docker **(optional)**
   - docker-buildx
   - docker-compose
