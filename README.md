@@ -151,6 +151,9 @@ See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
 - bashdb _(aur)_
 - bemenu
 - buf
+- certbot
+  - certbot-nginx
+  - certbot-dns-cloudflare
 - checkmake _(aur, make linter)_
 - clang
 - cmake
