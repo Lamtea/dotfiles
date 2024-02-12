@@ -18,15 +18,15 @@ if [[ -z "$PLUGIN" ]]; then
 	fi
 fi
 
-LIST="$(asdf list neovim | grep 'nightly' 2>/dev/null)"
+LIST="$(asdf list neovim | grep 'stable' 2>/dev/null)"
 if [[ -n "$LIST" ]]; then
-	asdf uninstall neovim nightly ||
+	asdf uninstall neovim stable ||
 		(printf "${ESC}[1;31m%s${ESC}[m\n" '***** asdf neovim uninstall failed. *****' &&
 			exit 3)
 fi
 
-(asdf install neovim nightly 2>/dev/null &&
-	asdf global neovim nightly &&
+(asdf install neovim stable 2>/dev/null &&
+	asdf global neovim stable &&
 	printf "${ESC}[1;32m%s${ESC}[m\n" '***** asdf neovim updated. *****' &&
 	exit 0) ||
 	(printf "${ESC}[1;31m%s${ESC}[m\n" '***** asdf neovim update failed. *****' &&
