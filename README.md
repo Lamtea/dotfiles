@@ -55,7 +55,7 @@ exec zsh
 
 ```bash
 # Install asdf tools, dotnet tools, pyenv, poetry, ghcup, rustup,
-# neovim nightly, etc...
+# neovim, etc...
 # If you fail, make sure the way may have changed(See: github).
 ~/bin/update-devtools.sh
 ```
