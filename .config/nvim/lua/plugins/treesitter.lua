@@ -44,13 +44,6 @@ m.setup = function(use)
             "nvim-treesitter/nvim-treesitter",
         },
     })
-    -- Rainbow parentheses for neovim using tree-sitter.
-    -- This is a module for nvim-treesitter, not a standalone plugin.
-    -- It requires and is configured via nvim-treesitter
-    -- Should work with any language supported by nvim-treesitter.
-    -- If any language is missing, please open an issue/PR.
-    -- Only neovim nightly is targeted.
-    use("p00f/nvim-ts-rainbow")
     -- Use treesitter to autoclose and autorename html tag.
     -- It work with html,tsx,vue,svelte,php,rescript.
     use("windwp/nvim-ts-autotag")
@@ -152,11 +145,6 @@ m.setup_treesitter = function()
                 [";"] = "textsubjects-container-outer",
                 ["i;"] = "textsubjects-container-inner",
             },
-        },
-        rainbow = {
-            enable = true,
-            extended_mode = true,
-            max_file_line = nil,
         },
         matchup = {
             enable = true,
