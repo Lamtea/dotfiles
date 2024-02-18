@@ -1,13 +1,13 @@
 devcontainers/cli
 eslint
-eslint-config-prettier
 jsonlint
 markdownlint-cli2
 neovim
 prettier
 stylelint
 stylelint-config-standard
-stylelint-config-recommended
-stylelint-config-prettier
+stylelint-config-standard-scss
+stylelint-config-recess-order
+stylelint-declaration-block-no-ignored-properties
 ts-node
 typescript

@@ -130,15 +130,15 @@ See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
   - nodejs _(asdf)_
     - devcontainers/cli _(npm)_
     - eslint _(npm)_
-      - eslint-config-prettier _(npm)_
     - jsonlint _(npm)_
     - markdownlint-cli2 _(npm)_
     - neovim _(npm)_
     - prettier _(npm)_
     - stylelint _(npm)_
       - stylelint-config-standard _(npm)_
-      - stylelint-config-recommended _(npm)_
-      - stylelint-config-prettier _(npm)_
+      - stylelint-config-standard-scss _(npm)_
+      - stylelint-config-recess-order _(npm)_
+      - stylelint-declaration-block-no-ignored-properties _(npm)_
     - ts-node _(npm)_
     - typescript _(npm)_
   - ruby _(asdf)_
