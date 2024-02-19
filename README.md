@@ -135,10 +135,6 @@ See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
     - neovim _(npm)_
     - prettier _(npm)_
     - stylelint _(npm)_
-      - stylelint-config-standard _(npm)_
-      - stylelint-config-standard-scss _(npm)_
-      - stylelint-config-recess-order _(npm)_
-      - stylelint-declaration-block-no-ignored-properties _(npm)_
     - ts-node _(npm)_
     - typescript _(npm)_
   - ruby _(asdf)_
@@ -265,8 +261,6 @@ See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
 - shellcheck _(bash linter)_
 - source-highlight
 - stylelint _(css linter)_
-  - stylelint-config-standard
-  - stylelint-config-recommended
 - stylua _(lua formatter)_
 - sqlfluff _(sql linter/formatter)_
 - sqlite

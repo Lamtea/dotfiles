@@ -3,11 +3,8 @@ eslint
 jsonlint
 markdownlint-cli2
 neovim
+npm-run-all
 prettier
 stylelint
-stylelint-config-standard
-stylelint-config-standard-scss
-stylelint-config-recess-order
-stylelint-declaration-block-no-ignored-properties
 ts-node
 typescript
