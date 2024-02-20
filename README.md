@@ -132,6 +132,7 @@ See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
     - eslint _(npm)_
     - jsonlint _(npm)_
     - markdownlint-cli2 _(npm)_
+    - markuplint _(npm)_
     - neovim _(npm)_
     - prettier _(npm)_
     - stylelint _(npm)_

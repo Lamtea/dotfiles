@@ -2,6 +2,7 @@ devcontainers/cli
 eslint
 jsonlint
 markdownlint-cli2
+markuplint
 neovim
 npm-run-all
 prettier
