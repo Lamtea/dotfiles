@@ -145,10 +145,10 @@ m.setup_null_ls = function()
             -- code action
 
             -- for javascript/typescript/react/vue
-            null_ls.builtins.code_actions.eslint.with({
-                prefer_local = node_modules_path,
-                condition = has_eslint_configured,
-            }),
+            -- null_ls.builtins.code_actions.eslint.with({
+            --     prefer_local = node_modules_path,
+            --     condition = has_eslint_configured,
+            -- }),
 
             -- for bash
             -- be used by bashls
@@ -173,18 +173,18 @@ m.setup_null_ls = function()
             -- for javascript/typescript/react
             -- use lsp version
             -- null_ls.builtins.diagnostics.deno_lint.with({ condition = has_deno_configured, }),
-            null_ls.builtins.diagnostics.eslint.with({
-                prefer_local = node_modules_path,
-                condition = has_eslint_configured,
-            }),
+            -- null_ls.builtins.diagnostics.eslint.with({
+            --     prefer_local = node_modules_path,
+            --     condition = has_eslint_configured,
+            -- }),
 
             -- for python
-            null_ls.builtins.diagnostics.flake8.with({
-                prefer_local = python_venv_path,
-                -- Recommend matching the black line length (default 88),
-                -- rather than using the flake8 default of 79:
-                extra_args = { "--max-line-length", "88", "--extend-ignore", "E203" },
-            }),
+            -- null_ls.builtins.diagnostics.flake8.with({
+            --     prefer_local = python_venv_path,
+            --     -- Recommend matching the black line length (default 88),
+            --     -- rather than using the flake8 default of 79:
+            --     extra_args = { "--max-line-length", "88", "--extend-ignore", "E203" },
+            -- }),
 
             -- for go
             -- use lsp version
@@ -196,19 +196,19 @@ m.setup_null_ls = function()
             }),
 
             -- for json
-            null_ls.builtins.diagnostics.jsonlint.with({
-                prefer_local = node_modules_path,
-                condition = has_jsonlint_configured,
-            }),
+            -- null_ls.builtins.diagnostics.jsonlint.with({
+            --     prefer_local = node_modules_path,
+            --     condition = has_jsonlint_configured,
+            -- }),
 
             -- for kotlin
             null_ls.builtins.diagnostics.ktlint,
 
             -- for lua
-            null_ls.builtins.diagnostics.luacheck.with({
-                -- for vim
-                extra_args = { "--globals vim" },
-            }),
+            -- null_ls.builtins.diagnostics.luacheck.with({
+            --     -- for vim
+            --     extra_args = { "--globals vim" },
+            -- }),
 
             -- for markdown
             null_ls.builtins.diagnostics.markdownlint_cli2.with({
@@ -217,7 +217,7 @@ m.setup_null_ls = function()
             }),
 
             -- for php
-            null_ls.builtins.diagnostics.php,
+            -- null_ls.builtins.diagnostics.php,
 
             -- for ruby
             -- be used by solargraph
@@ -316,9 +316,9 @@ m.setup_null_ls = function()
             null_ls.builtins.formatting.phpcsfixer,
 
             -- for html/css/sass/javascript/typescript/react/json/yaml/markdown/graphql
-            null_ls.builtins.formatting.deno_fmt.with({
-                condition = has_deno_configured,
-            }),
+            -- null_ls.builtins.formatting.deno_fmt.with({
+            --     condition = has_deno_configured,
+            -- }),
             null_ls.builtins.formatting.prettier.with({
                 prefer_local = node_modules_path,
                 disabled_filetypes = get_prettier_disabled_filetypes(),
@@ -375,8 +375,8 @@ m.setup_null_ls = function()
             -- null_ls.builtins.formatting.cmake_format,
 
             -- trim
-            null_ls.builtins.formatting.trim_newlines,
-            null_ls.builtins.formatting.trim_whitespace,
+            -- null_ls.builtins.formatting.trim_newlines,
+            -- null_ls.builtins.formatting.trim_whitespace,
         },
     })
 end
