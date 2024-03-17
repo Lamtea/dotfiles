@@ -48,8 +48,7 @@ export BEMENU_BACKEND=curses
 export BEMENU_OPTS='--scrollbar=autohide'
 
 # ssh
-eval $(gnome-keyring-daemon --start --components=pkcs11,secrets,ssh 2>/dev/null)
-export SSH_AUTH_SOCK
+export SSH_AUTH_SOCK=$XDG_RUNTIME_DIR/gcr/ssh
 
 # pyenv
 if [[ ! -d $HOME/.pyenv ]]; then
