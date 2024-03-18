@@ -45,9 +45,10 @@ dotfiles_or_dirs=(
 	.tmux.conf
 	.gitconfig
 	.default-gems
-	.default-golang-pkgs
+	.default-go-packages
 	.default-npm-packages
 	.default-python-packages
+	.config/mise
 	.config/nvim/init.lua
 	.config/nvim/lua
 	.config/nvim/ftplugin
@@ -55,25 +56,11 @@ dotfiles_or_dirs=(
 	.config/ranger
 	.bin/rclone_mount.sh
 	bin/update-devtools.sh
-	bin/update-asdf.sh
-	bin/update-asdf-self.sh
-	bin/update-asdf-globals.sh
-	bin/update-asdf-neovim.sh
-	bin/update-asdf-ruby.sh
-	bin/update-asdf-golangci-lint.sh
-	bin/update-asdf-hadolint.sh
-	bin/update-asdf-ktlint.sh
-	bin/update-asdf-flutter.sh
-	bin/update-asdf-locals.sh
-	bin/update-asdf-nodejs.sh
-	bin/update-asdf-deno.sh
-	bin/update-asdf-golang.sh
-	bin/update-asdf-dotnet.sh
-	bin/update-asdf-dart.sh
 	bin/update-dotnet-tools.sh
-	bin/update-pyenv.sh
-	bin/update-poetry.sh
 	bin/update-ghcup.sh
+	bin/update-mise.sh
+	bin/update-poetry.sh
+	bin/update-ruby-bundle.sh
 	bin/update-rustup.sh
 	Gemfile
 )

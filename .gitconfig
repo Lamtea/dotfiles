@@ -2,7 +2,7 @@
 	email = caramelamcha@gmail.com
 	name = lamt
 [credential]
-	helper = /usr/lib/git-core/git-credential-gnome-keyring
+	helper = /usr/lib/git-core/git-credential-libsecret
 [core]
 	editor = nvim
 [color]

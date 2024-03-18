@@ -1,11 +1,6 @@
 devcontainers/cli
-eslint
-jsonlint
 markdownlint-cli2
-markuplint
 neovim
-npm-run-all
+npm-check-updates
 prettier
-stylelint
-ts-node
-typescript
+

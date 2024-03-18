@@ -1,0 +1,10 @@
+[tools]
+usage = "latest"
+ruby = "latest"
+neovim = "stable"
+ktlint = "latest"
+hadolint = "latest"
+golangci-lint = "latest"
+flutter = "latest"
+dotnet = "latest"
+dart = "latest"

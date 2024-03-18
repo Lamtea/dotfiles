@@ -32,11 +32,15 @@
 !/.gitconfig
 ## asdf
 !/.default-gems
-!/.default-golang-pkgs
+!/.default-go-packages
 !/.default-npm-packages
+!/.default-python-packages
 
 # config dir
 !/.config/
+## mise
+!/.config/mise/
+!/.config/mise/**/*
 ## neomutt
 !/.config/neomutt/
 !/.config/neomutt/**/*

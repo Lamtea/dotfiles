@@ -54,8 +54,7 @@ exec zsh
 ```
 
 ```bash
-# Install asdf tools, dotnet tools, pyenv, poetry, ghcup, rustup,
-# neovim, etc...
+# Install mise tools, poetry, rustup, ghcup, ruby bundle, dotnet tools.
 # If you fail, make sure the way may have changed(See: github).
 ~/bin/update-devtools.sh
 ```
@@ -88,11 +87,9 @@ See: [gitHub - nerdctl](https://github.com/containerd/nerdctl)
 
 See: [Arch Wiki - Minikube](https://wiki.archlinux.org/title/Minikube)
 
-### For WSL user
+### Kind
 
-WSL 0.67.6 and above (see wsl --version), systemd is natively supported.
-
-See: [ArchWSL - Known-issues](https://wsldl-pg.github.io/ArchW-docs/Known-issues/#systemdsystemctl)
+See: [github - kind](https://github.com/kubernetes-sigs/kind)
 
 ## neovim Plugins, LSP, DAP
 
@@ -113,33 +110,28 @@ See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
 - android-sdk-platform-tools _(aur)_
 - android-tools
 - android-udev
-- asdf **(from github)**
-  - dart _(asdf)_
-  - deno _(asdf)_
-  - dotnet _(asdf)_
-  - flutter _(asdf)_
-  - golang _(asdf)_
-    - delve _(go install)_
-    - grpc
-    - protoc-gen-go
-    - protoc-gen-go-grpc
-  - golangci-lint _(asdf, go linter)_
-  - hadolint _(asdf, dockerfile linter)_
-  - ktlint _(asdf, kotlin linter/formatter)_
-  - neovim _(asdf)_
-  - nodejs _(asdf)_
-    - devcontainers/cli _(npm)_
-    - eslint _(npm)_
-    - jsonlint _(npm)_
-    - markdownlint-cli2 _(npm)_
-    - markuplint _(npm)_
-    - neovim _(npm)_
-    - prettier _(npm)_
-    - stylelint _(npm)_
-    - ts-node _(npm)_
-    - typescript _(npm)_
-  - ruby _(asdf)_
-    - bundler _(gem)_
+- mise **(from install script)**
+  - dart _(global, latest)_
+  - deno _(local)_
+  - dotnet _(global, latest)_
+  - flutter _(global, latest)_
+  - golang _(local)_
+    - delve
+  - golangci-lint _(global, latest, go linter)_
+  - hadolint _(global, latest, dockerfile linter)_
+  - ktlint _(global, latest, kotlin linter/formatter)_
+  - neovim _(global, stable)_
+  - nodejs _(local)_
+    - devcontainers/cli
+    - markdownlint-cli2
+    - neovim
+    - npm-check-updates
+    - prettier
+  - python _(local)_
+    - debugpy
+    - neovim
+  - ruby _(global, latest)_
+    - bundler
 - aspnet-runtime
 - aspnet-targeting-pack
 - azure-cli _(aur)_
@@ -179,15 +171,20 @@ See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
 - dotnet-sdk
 - dotnet-targeting-pack
 - editorconfig-checker _(editorconfig linter)_
-- eslint _(javascript/typescript/react/vue linter)_
 - fd
 - flake8 _(python linter)_
 - fzf
 - gawk
-- ghcup-hs-bin _(aur)_
-  - ghc _(ghcup)_
-  - hls _(ghcup)_
-  - stack _(ghcup)_
+- ghcup _(from install script)_
+  - ghc
+  - hls
+  - stack
+    - haskell-dap
+    - ghci-dap
+    - haskell-debug-adapter
+    - hlint
+    - apply-refact
+    - fourmolu
 - git
 - github-cli
 - gnome-keyring
@@ -225,22 +222,21 @@ See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
 - nodejs-jsonlint _(aur, json linter)_
 - nodejs-lts-hydrogen
 - npm
+- npm-check-updates
 - openssh
 - php
 - php-\* (apcu, gd, sqlite, pgsql, redis, imagick, fpm)
 - php-cs-fixer _(aur, php formatter)_
 - poetry **(from install script)**
-  - black _(poetry)_
-  - debugpy _(poetry)_
-  - flake8 _(poetry)_
-  - isort _(poetry)_
-  - pytest _(poetry)_
+  - black
+  - debugpy
+  - flake8
+  - isort
+  - pytest
 - postfix **(optional)** _(localhost only for neomutt)_
 - prettier
   _(html/css/sass/javascript/typescript/react/vue/json/yaml/markdown/graphql formatter)_
 - protobuf
-- pyenv **(from install script)**
-  - python3 _(pyenv)_
 - python3
 - python-black _(python formatter)_
 - python-debugpy _(python debugger)_
@@ -256,12 +252,11 @@ See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
 - ripgrep
 - rust
 - rustup **(from install script)**
-  - rust _(rustup)_
-  - cargo _(rustup)_
+  - rust
+  - cargo
 - shfmt _(bash formatter)_
 - shellcheck _(bash linter)_
 - source-highlight
-- stylelint _(css linter)_
 - stylua _(lua formatter)_
 - sqlfluff _(sql linter/formatter)_
 - sqlite
@@ -270,8 +265,6 @@ See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
 - tidy _(html linter)_
 - tmux
 - tree-sitter-cli
-- ts-node
-- typescript
 - w3m
 - wget
 - xclip

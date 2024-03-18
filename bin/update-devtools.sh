@@ -1,8 +1,8 @@
 #!/bin/bash
 
-update-asdf.sh &&
-	update-dotnet-tools.sh &&
-	update-pyenv.sh &&
+update-mise.sh &&
 	update-poetry.sh &&
+	update-rustup.sh &&
 	update-ghcup.sh &&
-	update-rustup.sh
+	update-ruby-bundle.sh &&
+	update-dotnet-tools.sh
