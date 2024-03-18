@@ -10,7 +10,7 @@ m.setup = function(use)
     -- A UI for nvim-dap which provides a good out of the box configuration.
     use({
         "rcarriga/nvim-dap-ui",
-        requires = { "mfussenegger/nvim-dap" },
+        requires = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" },
     })
     -- This plugin adds virtual text support to nvim-dap. nvim-treesitter is used to find variable definitions.
     use("theHamsta/nvim-dap-virtual-text")
