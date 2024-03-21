@@ -199,6 +199,9 @@ m.setup_octo = function()
                 toggle_viewed = "<leader><space>", -- toggle viewer viewed state
             },
         },
+        suppress_missing_scope = {
+            projects_v2 = true,
+        },
     })
 end
 
