@@ -111,7 +111,7 @@ See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
 - bemenu
 - buf
 - certbot
-  - certbot-nginx
+  - certbot-nginx **(optional)**
   - certbot-dns-cloudflare
 - clang
 - cmake
