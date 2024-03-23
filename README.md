@@ -13,7 +13,7 @@ gnome-keyring settings required.
 See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/gnome-keyring)
 
 ```bash
-# Install arch packages and aur packages(see below `Depend on` list).
+# Install arch official packages and aur packages(see below `Depend on` list).
 # Options can be ignored.
 # If you want to use cloud such as dropbox, gdrive, etc..,
 # setup rclone(see: Arch wiki) and edit ./bin/rclone_mount.sh.
