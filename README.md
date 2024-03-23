@@ -54,7 +54,7 @@ exec zsh
 ```
 
 ```bash
-# Install mise tools, poetry, rustup, ghcup, ruby bundle, dotnet tools.
+# Install mise tools, rustup, ghcup, ruby bundle, dotnet tools, etc...
 # If you fail, make sure the way may have changed(See: github).
 ~/bin/update-devtools.sh
 source ~/.zshrc
