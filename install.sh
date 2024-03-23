@@ -56,12 +56,12 @@ dotfiles_or_dirs=(
 	.config/ranger
 	.bin/rclone_mount.sh
 	bin/update-devtools.sh
-	bin/update-dotnet-tools.sh
-	bin/update-ghcup.sh
 	bin/update-mise.sh
-	bin/update-poetry.sh
-	bin/update-ruby-bundle.sh
 	bin/update-rustup.sh
+	bin/update-ghcup.sh
+	bin/update-ruby-bundle.sh
+	bin/update-dotnet-tools.sh
+	bin/update-etc.sh
 	Gemfile
 )
 

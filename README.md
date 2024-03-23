@@ -57,6 +57,7 @@ exec zsh
 # Install mise tools, poetry, rustup, ghcup, ruby bundle, dotnet tools.
 # If you fail, make sure the way may have changed(See: github).
 ~/bin/update-devtools.sh
+source ~/.zshrc
 ```
 
 ```bash
@@ -268,13 +269,13 @@ See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
     - neovim
     - npm-check-updates
     - prettier
+  - poetry _(global, latest)_
   - python _(local)_
     - debugpy
     - neovim
   - ruby _(global, latest)_
     - bundler
   - tfsec _(global, latest, terraform linter)_
-- poetry
 - rustup
   - cargo
   - clippy
