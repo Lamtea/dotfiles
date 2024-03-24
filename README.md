@@ -72,7 +72,7 @@ vi +PackerSync
    :checkhealth
 ```
 
-## Containers **(optional)**
+## Container **(optional)**
 
 ### Docker
 
@@ -84,6 +84,8 @@ See: [gitHub - containerd](https://github.com/containerd/containerd)
 
 See: [gitHub - nerdctl](https://github.com/containerd/nerdctl)
 
+## Kubernetes **(optional)**
+
 ### Minikube
 
 See: [Arch Wiki - Minikube](https://wiki.archlinux.org/title/Minikube)
@@ -92,11 +94,13 @@ See: [Arch Wiki - Minikube](https://wiki.archlinux.org/title/Minikube)
 
 See: [github - kind](https://github.com/kubernetes-sigs/kind)
 
-## Neovim Plugins, LSP, DAP
+## Neovim
+
+### Neovim Plugins, LSP, DAP
 
 See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#introduction)
 
-## Neovim Hello World
+### Neovim Hello World
 
 See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
 
