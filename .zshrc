@@ -138,6 +138,9 @@ fi
 if command -v argocd 1>/dev/null 2>&1; then
     argocd completion zsh > "${HOME}/.zfunc/_argocd"
 fi
+if command -v azcopy 1>/dev/null 2>&1; then
+    azcopy completion zsh > "${HOME}/.zfunc/_azcopy"
+fi
 fpath=("${HOME}/.zfunc" $fpath)
 
 # load completion
