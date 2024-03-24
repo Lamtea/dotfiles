@@ -108,7 +108,7 @@ See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
 
 ### Official
 
-- actionlint _(github actions linter)_
+- actionlint
 - android-tools
 - android-udev
 - aspnet-runtime
@@ -122,7 +122,7 @@ See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
   - certbot-dns-cloudflare
 - clang
 - cmake
-- codespell _(spell linter/formatter)_
+- codespell
 - composer
 - containerd **(optional)**
   - nerdctl
@@ -131,9 +131,9 @@ See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
   - rootlesskit
   - slir4netns
 - colordiff
-- cppcheck _(c/cpp linter)_
+- cppcheck
 - dart-sass
-- delve _(go debugger)_
+- delve
 - docker **(optional)**
   - docker-buildx
   - docker-compose
@@ -141,7 +141,7 @@ See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
 - dotnet-runtime
 - dotnet-sdk
 - dotnet-targeting-pack
-- editorconfig-checker _(editorconfig linter)_
+- editorconfig-checker
 - fd
 - fzf
 - gawk
@@ -157,11 +157,11 @@ See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
 - jdk11-openjdk
 - jdk17-openjdk
 - jq
-- lldb _(c/cpp/rust debugger)_
+- lldb
 - lua
-- luacheck _(lua linter)_
+- luacheck
 - luarocks
-- markdownlint-cli2 _(markdown linter)_
+- markdownlint-cli2
 - maven
 - minikube **(optional)**
   - argocd
@@ -182,10 +182,9 @@ See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
 - php-\* (apcu, gd, sqlite, pgsql, redis, imagick, fpm)
 - postfix **(optional)** _(localhost only for neomutt)_
 - prettier
-  _(html/css/sass/javascript/typescript/react/vue/json/yaml/markdown/graphql formatter)_
 - protobuf
 - python3
-- python-debugpy _(python debugger)_
+- python-debugpy
 - python-pytest
 - ranger **(optional)**
 - rclone **(optional)**
@@ -195,17 +194,17 @@ See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
   - pcloud
   - mega
 - ripgrep
-- ruff _(python linter/formatter)_
+- ruff
 - rust
-- shfmt _(bash formatter)_
-- shellcheck _(bash linter)_
+- shfmt
+- shellcheck
 - source-highlight
-- stylua _(lua formatter)_
-- sqlfluff _(sql linter/formatter)_
+- stylua
+- sqlfluff
 - sqlite
 - taplo-cli
 - terraform
-- tidy _(html/xml linter)_
+- tidy
 - tmux
 - tree-sitter-cli
 - w3m
@@ -213,8 +212,8 @@ See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
 - xclip
   **(optional)**
   _(I use Linux Desktop Environment so this is it, see `:h clipboard` in nvim)_
-- xdebug _(php debugger extension)_
-- yamllint _(global, latest, yaml linter)_
+- xdebug
+- yamllint
 - yarn
 - zsh
 
@@ -224,17 +223,17 @@ See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
 - azcopy
 - azure-developer-cli
 - azure-functions-core-tools
-- bashdb _(bash debugger)_
-- checkmake _(make linter)_
-- cmake-language-server _(cmake linter/formatter)_
+- bashdb
+- checkmake
+- cmake-language-server
   - cmake-format
 - devcontainer-cli
 - debtap
 - nvidia-container-toolkit **(optional)** _(for NVIDIA CUDA user, also available in containerd)_
-- google-java-format _(java formatter)_
-- neovim-drop-in _(vi/vim simlink)_
+- google-java-format
+- neovim-drop-in
 - nodejs-neovim
-- php-cs-fixer _(php formatter)_
+- php-cs-fixer
 - yay
 
 ### From install script
@@ -243,12 +242,12 @@ See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
   - ghc
   - hls
   - stack
-    - haskell-debug-adapter _(haskell debugger)_
+    - haskell-debug-adapter
       - haskell-dap
       - ghci-dap
-    - hlint _(haskell linter)_
+    - hlint
       - apply-refact
-    - fourmolu _(haskell formatter)_
+    - fourmolu
 - mise
   - bun _(global, latest)_
   - dart _(global, latest)_
@@ -257,12 +256,12 @@ See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
   - flutter _(global, latest)_
   - golang _(local)_
     - delve
-  - golangci-lint _(global, latest, go linter)_
-  - hadolint _(global, latest, dockerfile linter)_
+  - golangci-lint _(global, latest)_
+  - hadolint _(global, latest)_
   - java _(local)_
   - kind _(global, latest)_
   - kotlin _(global, latest)_
-  - ktlint _(global, latest, kotlin linter/formatter)_
+  - ktlint _(global, latest)_
   - neovim _(global, stable)_
     - wbthomason/packer.nvim
   - nodejs _(local)_
@@ -277,7 +276,7 @@ See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
     - neovim
   - ruby _(global, latest)_
     - bundler
-  - tfsec _(global, latest, terraform linter)_
+  - tfsec _(global, latest)_
 - rustup
   - cargo
   - clippy
