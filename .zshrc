@@ -49,6 +49,11 @@ export BEMENU_OPTS='--scrollbar=autohide'
 # ssh
 export SSH_AUTH_SOCK="${XDG_RUNTIME_DIR}/gcr/ssh"
 
+# python-build
+export PYTHON_CONFIGURE_OPTS="--enable-optimizations --with-lto"
+export PYTHON_CFLAGS="-march=native -mtune=native"
+export PROFILE_TASK="-m test.regrtest --pgo -j0"
+
 # mise
 if [[ ! -f "${HOME}/.local/bin/mise" ]]; then
     print -P "%F{33} %F{220}Installing %F{33}mise%F{220} tool manager… %f"

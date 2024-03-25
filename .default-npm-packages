@@ -2,5 +2,6 @@ devcontainers/cli
 markdownlint-cli2
 neovim
 npm-check-updates
+pnpm
 prettier
 

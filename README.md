@@ -174,16 +174,18 @@ See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
   - python-pynvim
 - nginx **(optional)**
 - ninja
-- nodejs-lts-hydrogen
+- nodejs-lts-iron
 - npm
 - npm-check-updates
 - openssh
 - php
 - php-\* (apcu, gd, sqlite, pgsql, redis, imagick, fpm)
+- pnpm
 - postfix **(optional)** _(localhost only for neomutt)_
 - prettier
 - protobuf
 - python3
+- python-build
 - python-debugpy
 - python-pytest
 - ranger **(optional)**
@@ -269,6 +271,7 @@ See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
     - markdownlint-cli2
     - neovim
     - npm-check-updates
+    - pnpm
     - prettier
   - poetry _(global, latest)_
   - python _(local)_
