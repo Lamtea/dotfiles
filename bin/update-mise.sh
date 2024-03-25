@@ -8,8 +8,8 @@ if ! command -v mise 1>/dev/null 2>&1; then
 	exit 1
 fi
 
-(mise self-update -C "${HOME}" &&
-	mise upgrade -C "${HOME}" &&
+(mise self-update -y -C "${HOME}" &&
+	mise upgrade -y -C "${HOME}" &&
 	printf "${ESC}[1;32m%s${ESC}[m\n" '***** mise updated. *****' &&
 	exit 0) ||
 	(printf "${ESC}[1;31m%s${ESC}[m\n" '***** mise update failed. *****' &&
