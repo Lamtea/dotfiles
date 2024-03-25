@@ -95,6 +95,7 @@ export PATH="${HOME}/.dotnet/tools:${PATH}"
 # etc
 export PATH="${HOME}/bin:${PATH}"
 export JAVA_WORKSPACE="${HOME}/.workspace"
+export ANDROID_HOME=/opt/android-sdk
 
 typeset -U PATH
 
