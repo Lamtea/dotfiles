@@ -274,9 +274,9 @@ m.setup_null_ls = function()
             -- formatting
 
             -- for python
-            null_ls.builtins.formatting.black.with({
-                prefer_local = python_venv_path,
-            }),
+            -- null_ls.builtins.formatting.black.with({
+            --     prefer_local = python_venv_path,
+            -- }),
 
             -- for c/cpp/cs/java
             -- cs/java use formatter of ominisharp/google-java-format
@@ -303,10 +303,10 @@ m.setup_null_ls = function()
             null_ls.builtins.formatting.google_java_format,
 
             -- for python
-            null_ls.builtins.formatting.isort.with({
-                prefer_local = python_venv_path,
-                extra_args = { "--profile", "black" },
-            }),
+            -- null_ls.builtins.formatting.isort.with({
+            --     prefer_local = python_venv_path,
+            --     extra_args = { "--profile", "black" },
+            -- }),
 
             -- for kotlin
             -- be used by kotlin-language-server

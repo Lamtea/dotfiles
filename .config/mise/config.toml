@@ -1,7 +1,7 @@
 [tools]
 usage = "latest"
 ruby = "latest"
-neovim = "stable"
+neovim = "latest"
 ktlint = "latest"
 hadolint = "latest"
 golangci-lint = "latest"
