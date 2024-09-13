@@ -279,6 +279,7 @@ See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
     - neovim
   - ruby _(global, latest)_
     - bundler
+  - rye (global, latest)
   - tfsec _(global, latest)_
 - rustup
   - cargo
