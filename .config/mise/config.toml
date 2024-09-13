@@ -15,6 +15,7 @@ grpcurl = "latest"
 kind = "latest"
 kotlin = "latest"
 tfsec = "latest"
+rye = "latest"
 
 [settings]
 python_compile = true
