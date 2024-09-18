@@ -441,7 +441,7 @@ m.setup_dap_lldb = function()
     }
     dap.adapters.lldb = {
         type = "executable",
-        command = "lldb-vscode",
+        command = "lldb-dap",
         name = "lldb",
     }
     dap.configurations.cpp = {

@@ -48,12 +48,13 @@ m.setup_telescope = function()
     -- <S-Tab>	    	Toggle selection and move to prev selection
     -- <C-q>	    	Send all items not filtered to quickfixlist (qflist)
     -- <M-q>	    	Send all selected items to qflist
-    local trouble = require("trouble.providers.telescope")
-    require("telescope").setup({
+    local open_with_trouble = require("trouble.sources.telescope").open
+    local telescope = require("telescope")
+    telescope.setup({
         defaults = {
             mappings = {
-                i = { ["<C-t>"] = trouble.open_with_trouble },
-                n = { ["<C-t>"] = trouble.open_with_trouble },
+                i = { ["<C-t>"] = open_with_trouble },
+                n = { ["<C-t>"] = open_with_trouble },
             },
         },
         extensions = {
@@ -65,10 +66,10 @@ m.setup_telescope = function()
             },
         },
     })
-    require("telescope").load_extension("fzf")
-    require("telescope").load_extension("notify")
-    require("telescope").load_extension("ui-select")
-    require("telescope").load_extension("flutter")
+    telescope.load_extension("fzf")
+    telescope.load_extension("notify")
+    telescope.load_extension("ui-select")
+    telescope.load_extension("flutter")
 end
 
 -- telescope builtin picker.

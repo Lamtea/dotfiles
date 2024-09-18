@@ -11,11 +11,9 @@ bo.expandtab = true
 bo.smartindent = true
 bo.tabstop = 4
 bo.shiftwidth = 4
-if not vim.g.vscode then
-    o.splitright = true
-    o.termguicolors = true
-    wo.number = true
-    wo.relativenumber = true
-    wo.signcolumn = "yes"
-    wo.cursorline = true
-end
+o.splitright = true
+o.termguicolors = true
+wo.number = true
+wo.relativenumber = true
+wo.signcolumn = "yes"
+wo.cursorline = true

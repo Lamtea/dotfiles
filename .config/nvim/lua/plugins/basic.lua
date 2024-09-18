@@ -30,26 +30,24 @@ m.setup = function(use)
     -- Smart and Powerful commenting plugin for neovim.
     use("numToStr/Comment.nvim")
 
-    if not vim.g.vscode then
-        -- neoclip is a clipboard manager for neovim inspired by for example clipmenu.
-        -- It records everything that gets yanked in your vim session
-        -- (up to a limit which is by default 1000 entries but can be configured).
-        -- You can then select an entry in the history using telescope or fzf-lua
-        -- which then gets populated in a register of your choice.
-        use({
-            "AckslD/nvim-neoclip.lua",
-            requires = {
-                { "tami5/sqlite.lua", module = "sqlite" },
-                { "nvim-telescope/telescope.nvim" },
-            },
-        })
+    -- neoclip is a clipboard manager for neovim inspired by for example clipmenu.
+    -- It records everything that gets yanked in your vim session
+    -- (up to a limit which is by default 1000 entries but can be configured).
+    -- You can then select an entry in the history using telescope or fzf-lua
+    -- which then gets populated in a register of your choice.
+    use({
+        "AckslD/nvim-neoclip.lua",
+        requires = {
+            { "tami5/sqlite.lua", module = "sqlite" },
+            { "nvim-telescope/telescope.nvim" },
+        },
+    })
 
-        -- nvim-hlslens helps you better glance at matched information, seamlessly jump between matched instances.
-        use("kevinhwang91/nvim-hlslens")
+    -- nvim-hlslens helps you better glance at matched information, seamlessly jump between matched instances.
+    use("kevinhwang91/nvim-hlslens")
 
-        -- A super powerful autopair plugin for Neovim that supports multiple characters.
-        use("windwp/nvim-autopairs")
-    end
+    -- A super powerful autopair plugin for Neovim that supports multiple characters.
+    use("windwp/nvim-autopairs")
 
     -- quick-scope
     -- f/t is forward search, F/T is backward search, t version is cursorred before the selected character.
@@ -60,12 +58,9 @@ m.setup = function(use)
 
     m.setup_hop()
     m.setup_comment()
-
-    if not vim.g.vscode then
-        m.setup_neoclip()
-        m.setup_hlslens()
-        m.setup_autopairs()
-    end
+    m.setup_neoclip()
+    m.setup_hlslens()
+    m.setup_autopairs()
 end
 
 m.setup_hop = function()
