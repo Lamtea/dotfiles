@@ -62,7 +62,7 @@ if [[ ! -f "${HOME}/.local/bin/mise" ]]; then
             print -P "%F{160} Installation failed.%f%b"
 fi
 eval "$("${HOME}/.local/bin/mise" activate zsh)"
-export MISE_CACHE_PRUNE_AGE=100
+export MISE_CACHE_PRUNE_AGE=0
 
 # rustup
 if [[ ! -d "${HOME}/.cargo" ]]; then
