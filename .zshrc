@@ -64,6 +64,9 @@ fi
 eval "$("${HOME}/.local/bin/mise" activate zsh)"
 export MISE_CACHE_PRUNE_AGE=0
 
+# rye
+[[ ! -f "${HOME}/.rye/env" ]] || source "${HOME}/.rye/env"
+
 # rustup
 if [[ ! -d "${HOME}/.cargo" ]]; then
     print -P "%F{33} %F{220}Installing %F{33}rustup%F{220} rust tool manager… %f"
@@ -123,6 +126,9 @@ zstyle ':zle:*' word-style unspecified
 [[ -d "${HOME}/.zfunc" ]] || mkdir "${HOME}/.zfunc"
 if command -v mise 1>/dev/null 2>&1; then
     mise completion --usage zsh > "${HOME}/.zfunc/_mise"
+fi
+if command -v rye 1>/dev/null 2>&1; then
+    rye self completion -s zsh > "${HOME}/.zfunc/_rye"
 fi
 if command -v poetry 1>/dev/null 2>&1; then
     poetry completions zsh > "${HOME}/.zfunc/_poetry"
