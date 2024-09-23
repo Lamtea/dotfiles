@@ -149,9 +149,6 @@ m.setup_treesitter = function()
         matchup = {
             enable = true,
         },
-        autotag = {
-            enable = true,
-        },
     })
 end
 
@@ -174,7 +171,18 @@ m.setup_ts_context_commentstring = function()
 end
 
 m.setup_autotag = function()
-    require("nvim-ts-autotag").setup()
+    require("nvim-ts-autotag").setup({
+        opts = {
+            enable_close = true,
+            enable_rename = true,
+            enable_close_on_slash = false,
+        },
+        per_filetype = {
+            ["html"] = {
+                enable_close = false,
+            },
+        },
+    })
 end
 
 m.setup_hlargs = function()
