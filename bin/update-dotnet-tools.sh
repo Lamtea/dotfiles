@@ -11,6 +11,7 @@ fi
 (dotnet tool update -g dotnet-aspnet-codegenerator &&
 	dotnet tool update -g dotnet-ef &&
 	dotnet tool update -g dotnet-reportgenerator-globaltool &&
+	dotnet tool update -g dotnet-outdated-tool &&
 	dotnet tool update -g linux-dev-certs &&
 	dotnet tool update -g roslynator.dotnet.cli &&
 	dotnet tool update -g powershell &&
