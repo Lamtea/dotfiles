@@ -273,7 +273,6 @@ See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
     - npm-check-updates
     - pnpm
     - prettier
-  - poetry _(global, latest)_
   - python _(local)_
     - debugpy
     - neovim
