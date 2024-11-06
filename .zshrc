@@ -130,9 +130,6 @@ fi
 if command -v rye 1>/dev/null 2>&1; then
     rye self completion -s zsh > "${HOME}/.zfunc/_rye"
 fi
-if command -v poetry 1>/dev/null 2>&1; then
-    poetry completions zsh > "${HOME}/.zfunc/_poetry"
-fi
 if command -v rustup 1>/dev/null 2>&1; then
     rustup completions zsh > "${HOME}/.zfunc/_rustup"
 fi
