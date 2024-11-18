@@ -223,7 +223,6 @@ See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
 
 - android-apktool
 - azcopy
-- azure-developer-cli
 - azure-functions-core-tools
 - bashdb
 - checkmake
