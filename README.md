@@ -156,7 +156,7 @@ See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
 - jdk-openjdk
 - jdk11-openjdk
 - jdk17-openjdk
-- jq
+- jq/jaq
 - lldb
 - lua
 - luacheck
@@ -174,7 +174,7 @@ See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
   - python-pynvim
 - nginx **(optional)**
 - ninja
-- nodejs-lts-iron
+- nodejs-lts-jod
 - npm
 - npm-check-updates
 - openssh
@@ -217,6 +217,7 @@ See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
 - xdebug
 - yamllint
 - yarn
+- yq
 - zsh
 
 ### AUR
@@ -260,6 +261,7 @@ See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
   - golangci-lint _(global, latest)_
   - hadolint _(global, latest)_
   - java _(local)_
+  - jq _(global, latest)_
   - kind _(global, latest)_
   - kotlin _(global, latest)_
   - ktlint _(global, latest)_
@@ -272,16 +274,26 @@ See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
     - npm-check-updates
     - pnpm
     - prettier
+    - yarn
   - python _(local)_
     - debugpy
-    - neovim
+    - pynvim
+    - pytest
+    - sqlfluff
+    - uv
+    - yamllint
   - ruby _(global, latest)_
     - bundler
+  - ruff _(global, latest)_
   - rye (global, latest)
   - tfsec _(global, latest)_
+  - yq _(global, latest)_
 - rustup
   - cargo
+  - cargo-binstall
+  - cargo-cache
   - clippy
+  - jaq
   - llvm-tools
   - rls
   - rust-analysis

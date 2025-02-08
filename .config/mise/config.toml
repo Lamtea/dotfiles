@@ -15,6 +15,9 @@ kind = "latest"
 kotlin = "latest"
 tfsec = "latest"
 rye = "latest"
+ruff = "latest"
+jq = "latest"
+yq = "latest"
 
 [settings]
 python_compile = true

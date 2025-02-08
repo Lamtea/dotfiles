@@ -1,3 +1,7 @@
 debugpy
 pynvim
+pytest
+sqlfluff
+uv
+yamllint
 
