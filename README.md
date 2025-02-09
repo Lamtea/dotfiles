@@ -290,10 +290,12 @@ See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
   - yq _(global, latest)_
 - rustup
   - cargo
-  - cargo-binstall
-  - cargo-cache
+    - cargo-binstall
+    - cargo-cache
+    - cargo-update
+    - cargo-watch
+    - jaq
   - clippy
-  - jaq
   - llvm-tools
   - rls
   - rust-analysis
