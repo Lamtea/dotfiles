@@ -12,3 +12,20 @@
 	conflictstyle = diff3
 [mergetool]
 	prompt = false
+[push]
+	autoSetupRemote = true
+[alias]
+    f = fetch origin
+    p = pull
+    s = status
+    ss = status -s
+    d = diff
+    l = log --oneline -10
+    ll = log --oneline -20
+    lll = log --onelline -30
+    br = branch
+    co = checkout
+    sw = switch
+    ad = add -A
+    cm = commit -m
+    ph = push

@@ -44,7 +44,6 @@ dotfiles_or_dirs=(
 	.zshenv
 	.tmux.conf
 	.gitconfig
-	.default-gems
 	.default-go-packages
 	.default-npm-packages
 	.default-python-packages
@@ -61,8 +60,9 @@ dotfiles_or_dirs=(
 	bin/update-rustup.sh
 	bin/update-ghcup.sh
 	bin/update-ruby-bundle.sh
-	bin/update-dotnet-tools.sh
+	bin/update-php-composer.sh
 	bin/update-etc.sh
+	composer.json
 	Gemfile
 )
 

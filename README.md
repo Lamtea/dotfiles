@@ -235,7 +235,6 @@ See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
 - google-java-format
 - neovim-drop-in
 - nodejs-neovim
-- php-cs-fixer
 - yay
 
 ### From install script
@@ -251,10 +250,18 @@ See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
       - apply-refact
     - fourmolu
 - mise
+  - biome _(global, latest)_
   - bun _(global, latest)_
   - dart _(global, latest)_
   - deno _(global, latest)_
   - dotnet _(global, latest)_
+    - dotnet-aspnet-codegenerator
+    - dotnet-ef
+    - dotnet-outdated-tool
+    - dotnet-reportgenerator-globaltool
+    - linux-dev-certs
+    - powershell
+    - roslynator.dotnet.cli
   - flutter _(global, latest)_
   - golang _(local)_
     - delve
@@ -269,24 +276,23 @@ See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
     - wbthomason/packer.nvim
   - nodejs _(local)_
     - devcontainers/cli
-    - markdownlint-cli2
     - neovim
     - npm-check-updates
-    - pnpm
     - prettier
     - yarn
+  - php _(glovbal, fixed version)_
+    - php-cs-fixer
   - python _(local)_
     - debugpy
     - pynvim
-    - pytest
     - sqlfluff
-    - uv
-    - yamllint
   - ruby _(global, latest)_
     - bundler
   - ruff _(global, latest)_
   - rye (global, latest)
   - tfsec _(global, latest)_
+  - uv _(global, latest)_
+  - yamllint _(globalp, latest)_
   - yq _(global, latest)_
 - rustup
   - cargo

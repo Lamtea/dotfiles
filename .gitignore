@@ -55,5 +55,9 @@
 !/.config/ranger/
 !/.config/ranger/**/*
 
-# ruby gems
+# packages
+## php composer
+!/composer.json
+## ruby gems
 !/Gemfile
+

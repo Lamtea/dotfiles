@@ -96,10 +96,17 @@ fi
     source "${HOME}/.local/share/mise/plugins/dotnet/set-dotnet-home.zsh"
 export PATH="${HOME}/.dotnet/tools:${PATH}"
 
-# etc
-export PATH="${HOME}/bin:${PATH}"
+# php composer
+export PATH="${HOME}/vendor/bin:${PATH}"
+
+# java
 export JAVA_WORKSPACE="${HOME}/.workspace"
+
+# android sdk
 export ANDROID_HOME=/opt/android-sdk
+
+# local bin
+export PATH="${HOME}/bin:${PATH}"
 
 typeset -U PATH
 
