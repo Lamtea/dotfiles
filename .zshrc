@@ -272,5 +272,3 @@ if [[ -z "${TMUX}" && ! -z "${PS1}" && "${TERM_PROGRAM}" != "vscode" ]]; then
     fi
 fi
 
-# bun completions
-[ -s "/home/lamt/.bun/_bun" ] && source "/home/lamt/.bun/_bun"
