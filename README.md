@@ -155,6 +155,7 @@ See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
 - dotnet-targeting-pack
 - editorconfig-checker
 - fd
+- flawfinder
 - fzf
 - gawk
 - git
