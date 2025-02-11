@@ -149,6 +149,12 @@ fi
 if command -v uv 1>/dev/null 2>&1; then
     uv generate-shell-completion zsh > "${HOME}/.zfunc/_uv"
 fi
+if command -v deno 1>/dev/null 2>&1; then
+    deno completions zsh > "${HOME}/.zfunc/_deno"
+fi
+if command -v golangci-lint 1>/dev/null 2>&1; then
+    golangci-lint completion zsh > "${HOME}/.zfunc/_golangci-lint"
+fi
 if command -v minikube 1>/dev/null 2>&1; then
     minikube completion zsh > "${HOME}/.zfunc/_minikube"
 fi
@@ -168,6 +174,11 @@ autoload -Uz compinit
 compinit
 autoload -U +X bashcompinit
 bashcompinit
+
+# bun
+if command -v bun 1>/dev/null 2>&1; then
+    bun completions 1>/dev/null 2>&1 && source "${HOME}/.bun/_bun"
+fi
 
 # dotnet
 _dotnet_zsh_complete() {
@@ -260,3 +271,6 @@ if [[ -z "${TMUX}" && ! -z "${PS1}" && "${TERM_PROGRAM}" != "vscode" ]]; then
         fi
     fi
 fi
+
+# bun completions
+[ -s "/home/lamt/.bun/_bun" ] && source "/home/lamt/.bun/_bun"
