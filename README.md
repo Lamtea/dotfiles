@@ -61,6 +61,18 @@ source ~/.zshrc
 ```
 
 ```bash
+# Add rust components.
+rustup component add clippy llvm-tools rls rust-analysis rust-analyzer rust-docs rust-src rustfmt
+```
+
+```bash
+# Set ghc, hls, stack.
+ghcup tui
+# Install haskell packages.
+stack install haskell-dap ghci-dap haskell-debug-adapter hlint apply-refact fourmolu
+```
+
+```bash
 # Install neovim plugins and create helptags,
 # and install lsp, dap in your programming languages
 # (if you are unsure, see below `neovim Plugins, LSP, DAP` list).
