@@ -198,6 +198,7 @@ See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
 - protobuf
 - python3
 - python-build
+- python-cpplint
 - python-debugpy
 - python-pytest
 - ranger **(optional)**
@@ -296,7 +297,9 @@ See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
     - php-cs-fixer
   - python _(local)_
     - debugpy
+    - cpplint
     - pynvim
+    - pytest
     - sqlfluff
   - ruby _(global, latest)_
     - bundler
