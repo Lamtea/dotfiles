@@ -54,19 +54,6 @@ export PYTHON_CONFIGURE_OPTS="--enable-optimizations --with-lto"
 export PYTHON_CFLAGS="-march=native -mtune=native"
 export PROFILE_TASK="-m test.regrtest --pgo -j0"
 
-# mise
-if [[ ! -f "${HOME}/.local/bin/mise" ]]; then
-    print -P "%F{33} %F{220}Installing %F{33}mise%F{220} tool manager… %f"
-        curl https://mise.run | sh && \
-            print -P "%F{33} %F{34}Installation successful.%f%b" || \
-            print -P "%F{160} Installation failed.%f%b"
-fi
-eval "$("${HOME}/.local/bin/mise" activate zsh)"
-export MISE_CACHE_PRUNE_AGE=0
-
-# rye
-[[ ! -f "${HOME}/.rye/env" ]] || source "${HOME}/.rye/env"
-
 # rustup
 if [[ ! -d "${HOME}/.cargo" ]]; then
     print -P "%F{33} %F{220}Installing %F{33}rustup%F{220} rust tool manager… %f"
@@ -85,6 +72,19 @@ if [[ ! -d "${HOME}/.ghcup/bin" ]]; then
 fi
 export PATH="${HOME}/.ghcup/bin:${PATH}"
 export PATH="${HOME}/.local/bin:${PATH}"
+
+# mise
+if [[ ! -f "${HOME}/.local/bin/mise" ]]; then
+    print -P "%F{33} %F{220}Installing %F{33}mise%F{220} tool manager… %f"
+        curl https://mise.run | sh && \
+            print -P "%F{33} %F{34}Installation successful.%f%b" || \
+            print -P "%F{160} Installation failed.%f%b"
+fi
+eval "$("${HOME}/.local/bin/mise" activate zsh)"
+export MISE_CACHE_PRUNE_AGE=0
+
+# rye
+[[ ! -f "${HOME}/.rye/env" ]] || source "${HOME}/.rye/env"
 
 # go
 if command -v go 1>/dev/null 2>&1; then
@@ -131,12 +131,6 @@ zstyle ':zle:*' word-style unspecified
 # Completions
 # zfunc
 [[ -d "${HOME}/.zfunc" ]] || mkdir "${HOME}/.zfunc"
-if command -v mise 1>/dev/null 2>&1; then
-    mise completion --usage zsh > "${HOME}/.zfunc/_mise"
-fi
-if command -v rye 1>/dev/null 2>&1; then
-    rye self completion -s zsh > "${HOME}/.zfunc/_rye"
-fi
 if command -v rustup 1>/dev/null 2>&1; then
     rustup completions zsh > "${HOME}/.zfunc/_rustup"
 fi
@@ -145,6 +139,15 @@ if command -v cargo 1>/dev/null 2>&1; then
 fi
 if [[ ! -f "${HOME}/.zfunc/_ghcup" ]]; then
     curl -o "${HOME}/.zfunc/_ghcup" https://raw.githubusercontent.com/haskell/ghcup-hs/master/scripts/shell-completions/zsh
+fi
+if command -v mise 1>/dev/null 2>&1; then
+    mise completion --usage zsh > "${HOME}/.zfunc/_mise"
+fi
+if command -v rye 1>/dev/null 2>&1; then
+    rye self completion -s zsh > "${HOME}/.zfunc/_rye"
+fi
+if command -v uv 1>/dev/null 2>&1; then
+    uv generate-shell-completion zsh > "${HOME}/.zfunc/_uv"
 fi
 if command -v minikube 1>/dev/null 2>&1; then
     minikube completion zsh > "${HOME}/.zfunc/_minikube"

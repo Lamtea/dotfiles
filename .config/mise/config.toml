@@ -1,6 +1,11 @@
 [tools]
 biome = "latest"
 bun = "latest"
+"cargo:cargo-binstall" = "latest"
+"cargo:cargo-cache" = "latest"
+"cargo:cargo-update" = "latest"
+"cargo:cargo-watch" = "latest"
+"cargo:jaq" = "latest"
 dart = "latest"
 deno = "latest"
 dotnet = "latest"
