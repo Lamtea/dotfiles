@@ -149,6 +149,9 @@ fi
 if command -v uv 1>/dev/null 2>&1; then
     uv generate-shell-completion zsh > "${HOME}/.zfunc/_uv"
 fi
+if command -v bun 1>/dev/null 2>&1; then
+    bun completions zsh > "${HOME}/.zfunc/_bun"
+fi
 if command -v deno 1>/dev/null 2>&1; then
     deno completions zsh > "${HOME}/.zfunc/_deno"
 fi
@@ -174,11 +177,6 @@ autoload -Uz compinit
 compinit
 autoload -U +X bashcompinit
 bashcompinit
-
-# bun
-if command -v bun 1>/dev/null 2>&1; then
-    bun completions 1>/dev/null 2>&1 && source "${HOME}/.bun/_bun"
-fi
 
 # dotnet
 _dotnet_zsh_complete() {
