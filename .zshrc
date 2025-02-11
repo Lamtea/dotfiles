@@ -237,6 +237,7 @@ alias diff='colordiff -u'
 alias grep='grep --color=auto'
 alias vi='nvim'
 alias vim='nvim'
+alias g='gitui'
 
 ########################################
 # tmux
