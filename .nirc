@@ -1,0 +1,4 @@
+; fallback when no lock found
+defaultAgent=bun
+; for global installs
+globalAgent=bun

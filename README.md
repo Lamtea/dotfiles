@@ -18,7 +18,7 @@ See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/gnome-keyring)
 # If you want to use cloud such as dropbox, gdrive, etc..,
 # setup rclone(see: Arch wiki) and edit ./bin/rclone_mount.sh.
 # (In my case run on i3 startup)
-# nginx is used to check debugging using pathmappings, for example in PHP (even docker).
+# nginx is used to check debugging using path mappings, for example in PHP (even docker).
 # ranger is a vim-like filer.
 # Use neomutt and postfix in local mail delivery(See Arch wiki for postfix settings).
 # (In my case I use it to logwatch and notify system errors from services.)
@@ -90,12 +90,6 @@ vi +PackerSync
 
 See: [Arch Wiki - Docker](https://wiki.archlinux.org/title/Docker)
 
-### Containerd
-
-See: [gitHub - containerd](https://github.com/containerd/containerd)
-
-See: [gitHub - nerdctl](https://github.com/containerd/nerdctl)
-
 ## Kubernetes **(optional)**
 
 ### Minikube
@@ -120,62 +114,38 @@ See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
 
 ### Official
 
-- actionlint
 - android-tools
 - android-udev
 - aspnet-runtime
 - aspnet-targeting-pack
 - azure-cli
-- base-devel
 - bemenu
-- buf
 - certbot
   - certbot-nginx **(optional)**
   - certbot-dns-cloudflare
 - clang
-- cmake
-- codespell
-- composer
-- containerd **(optional)**
-  - nerdctl
-  - buildkit
-  - cni-plugins
-  - rootlesskit
-  - slir4netns
 - colordiff
 - cppcheck
-- dart-sass
-- delve
+- curl
 - docker **(optional)**
   - docker-buildx
   - docker-compose
+  - docker-rootless-extras
+  - nvidia-container-toolkit **(optional)** _(for NVIDIA CUDA user)_
 - dotnet-host
 - dotnet-runtime
 - dotnet-sdk
 - dotnet-targeting-pack
-- editorconfig-checker
-- fd
-- flawfinder
-- fzf
-- gawk
 - git
-- github-cli
-- gitui
 - gnome-keyring
   - libsecret
-- go
-- gradle
-- imagemagick
+- groovy
 - jdk-openjdk
-- jdk11-openjdk
-- jdk17-openjdk
-- jq/jaq
 - lldb
 - lua
 - luacheck
+- luajit
 - luarocks
-- markdownlint-cli2
-- maven
 - minikube **(optional)**
   - argocd
   - istio
@@ -186,22 +156,11 @@ See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
 - neovim
   - python-pynvim
 - nginx **(optional)**
-- ninja
-- nodejs-lts-jod
-- npm
-- npm-check-updates
 - openssh
 - php
 - php-\* (apcu, gd, sqlite, pgsql, redis, imagick, fpm)
-- pnpm
 - postfix **(optional)** _(localhost only for neomutt)_
-- prettier
-- protobuf
 - python3
-- python-build
-- python-cpplint
-- python-debugpy
-- python-pytest
 - ranger **(optional)**
 - rclone **(optional)**
   - gdrive
@@ -209,30 +168,16 @@ See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
   - onedrive
   - pcloud
   - mega
-- ripgrep
-- ruff
-- rust
-- shfmt
-- shellcheck
 - source-highlight
-- stylua
-- sqlfluff
 - sqlite
-- taplo-cli
-- terraform
 - tidy
-- tmux
-- tree-sitter-cli
 - w3m
-- wget
 - xclip
   **(optional)**
   _(I use Linux Desktop Environment so this is it, see `:h clipboard` in nvim)_
 - xdebug
-- yamllint
-- yarn
-- yq
 - zsh
+- zshdb
 
 ### AUR
 
@@ -240,15 +185,11 @@ See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
 - azcopy
 - azure-functions-core-tools
 - bashdb
-- checkmake
-- cmake-language-server
-  - cmake-format
-- devcontainer-cli
+- codelldb
 - debtap
-- nvidia-container-toolkit **(optional)** _(for NVIDIA CUDA user, also available in containerd)_
 - google-java-format
+- jdk
 - neovim-drop-in
-- nodejs-neovim
 - yay
 
 ### From install script
@@ -264,11 +205,15 @@ See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
       - apply-refact
     - fourmolu
 - mise
-  - biome _(global, latest)_
-  - bun _(global, latest)_
-  - dart _(global, latest)_
-  - deno _(global, latest)_
-  - dotnet _(global, latest)_
+  - actionlint
+  - biome
+  - buf
+  - bun
+  - cmake
+  - dart
+  - delta
+  - deno
+  - dotnet _(official)_
     - dotnet-aspnet-codegenerator
     - dotnet-ef
     - dotnet-outdated-tool
@@ -276,40 +221,62 @@ See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
     - linux-dev-certs
     - powershell
     - roslynator.dotnet.cli
-  - flutter _(global, latest)_
-  - golang _(local)_
+  - dprint
+  - fd
+  - flutter
+  - fzf
+  - github-cli
+  - gitui
+  - go
+    - checkmake
     - delve
-  - golangci-lint _(global, latest)_
-  - hadolint _(global, latest)_
+  - golangci-lint
+  - gradle
+  - groovy _(local)_
+  - hadolint
   - java _(local)_
-  - jq _(global, latest)_
-  - kind _(global, latest)_
-  - kotlin _(global, latest)_
-  - ktlint _(global, latest)_
-  - neovim _(global, stable)_
-    - wbthomason/packer.nvim
-  - nodejs _(local)_
-    - devcontainers/cli
+  - jq
+  - jwt
+  - jwtui
+  - kind
+  - kotlin
+  - ktlint
+  - lua _(local)_
+  - maven
+  - neovim
+  - node
+    - @antfu/ni
+    - @devcontainers/cli
     - neovim
-    - npm-check-updates
     - prettier
+    - sass
     - yarn
-  - php _(glovbal, fixed version)_
-    - php-cs-fixer
-  - python _(local)_
+  - php _(see also: [composer.json](./composer.json))_
+  - protoc
+  - python _(local, see also: [.default_python_packages](./.default-python-packages))_
     - debugpy
+    - cmakelang
+    - codespell
     - cpplint
-    - pynvim
+    - flawfinder
+    - pipx
     - pytest
+    - python-build
     - sqlfluff
-  - ruby _(global, latest)_
-    - bundler
-  - ruff _(global, latest)_
-  - rye (global, latest)
-  - tfsec _(global, latest)_
-  - uv _(global, latest)_
-  - yamllint _(globalp, latest)_
-  - yq _(global, latest)_
+  - ripgrep
+  - ruby _(see also: [GemFile](./Gemfile))_
+  - ruff
+  - rye
+  - shfmt
+  - shellcheck
+  - stylua
+  - terraform
+  - tfsec
+  - tmux
+  - tree-sitter
+  - uv
+  - yamllint
+  - yq
 - rustup
   - cargo
     - cargo-binstall

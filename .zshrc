@@ -42,6 +42,9 @@ export VISUAL=nvim
 export MAIL=~/Maildir
 [[ ! -z "${BROWSER}" ]] || export BROWSER=w3m
 
+# for rootless docker
+export DOCKER_HOST=unix://$XDG_RUNTIME_DIR/docker.sock
+
 # bemenu
 export BEMENU_BACKEND=curses
 export BEMENU_OPTS='--scrollbar=autohide'
@@ -90,11 +93,6 @@ export MISE_CACHE_PRUNE_AGE=0
 if command -v go 1>/dev/null 2>&1; then
     export PATH="$(go env GOPATH)/bin:${PATH}"
 fi
-
-# dotnet tools
-[[ ! -f "${HOME}/.local/share/mise/plugins/dotnet/set-dotnet-home.zsh" ]] || \
-    source "${HOME}/.local/share/mise/plugins/dotnet/set-dotnet-home.zsh"
-export PATH="${HOME}/.dotnet/tools:${PATH}"
 
 # php composer
 export PATH="${HOME}/vendor/bin:${PATH}"
@@ -149,6 +147,12 @@ fi
 if command -v uv 1>/dev/null 2>&1; then
     uv generate-shell-completion zsh > "${HOME}/.zfunc/_uv"
 fi
+if command -v ruff 1>/dev/null 2>&1; then
+    ruff generate-shell-completion zsh > "${HOME}/.zfunc/_ruff"
+fi
+if command -v pnpm 1>/dev/null 2>&1; then
+    pnpm completion zsh > "${HOME}/.zfunc/_pnpm"
+fi
 if command -v bun 1>/dev/null 2>&1; then
     bun completions zsh > "${HOME}/.zfunc/_bun"
 fi
@@ -157,6 +161,21 @@ if command -v deno 1>/dev/null 2>&1; then
 fi
 if command -v golangci-lint 1>/dev/null 2>&1; then
     golangci-lint completion zsh > "${HOME}/.zfunc/_golangci-lint"
+fi
+if command -v gh 1>/dev/null 2>&1; then
+    gh completion -s zsh > "${HOME}/.zfunc/_gh"
+fi
+if command -v buf 1>/dev/null 2>&1; then
+    buf completion zsh > "${HOME}/.zfunc/_buf"
+fi
+if command -v tree-sitter 1>/dev/null 2>&1; then
+    tree-sitter complete -s zsh > "${HOME}/.zfunc/_tree-sitter"
+fi
+if command -v jwt 1>/dev/null 2>&1; then
+    jwt completion zsh > "${HOME}/.zfunc/_jwt"
+fi
+if command -v yq 1>/dev/null 2>&1; then
+    yq completion zsh > "${HOME}/.zfunc/_yq"
 fi
 if command -v minikube 1>/dev/null 2>&1; then
     minikube completion zsh > "${HOME}/.zfunc/_minikube"
@@ -167,16 +186,17 @@ fi
 if command -v argocd 1>/dev/null 2>&1; then
     argocd completion zsh > "${HOME}/.zfunc/_argocd"
 fi
+if command -v helmfile 1>/dev/null 2>&1; then
+    helmfile completion zsh > "${HOME}/.zfunc/_helmfile"
+fi
 if command -v azcopy 1>/dev/null 2>&1; then
     azcopy completion zsh > "${HOME}/.zfunc/_azcopy"
 fi
 fpath=("${HOME}/.zfunc" $fpath)
 
-# load completion
+# load zsh completion
 autoload -Uz compinit
 compinit
-autoload -U +X bashcompinit
-bashcompinit
 
 # dotnet
 _dotnet_zsh_complete() {
@@ -194,6 +214,17 @@ fi
 # kubeadm
 if command -v kubeadm 1>/dev/null 2>&1; then
     source <(kubeadm completion zsh)
+fi
+
+# load bash completion
+autoload -U +X bashcompinit
+bashcompinit
+
+if command -v register-python-argcomplete 1>/dev/null 2>&1; then
+    # pipx
+    if command -v pipx 1>/dev/null 2>&1; then
+        source <(register-python-argcomplete pipx)
+    fi
 fi
 
 # terraform
@@ -249,24 +280,25 @@ alias diff='colordiff -u'
 alias grep='grep --color=auto'
 alias vi='nvim'
 alias vim='nvim'
-alias g='gitui'
+alias gt='gitui'
 
 ########################################
 # tmux
+if ! command -v tmux 1>/dev/null 2>&1 || ! command -v fzf 1>/dev/null 2>&1; then
+    exit
+fi
 if [[ -z "${TMUX}" && ! -z "${PS1}" && "${TERM_PROGRAM}" != "vscode" ]]; then
-    FINDER="fzf"
-    ID="$(tmux list-sessions 2>/dev/null)"
-    if [[ -z "${ID}" ]]; then
+    local sessions="$(tmux list-sessions 2>/dev/null)"
+    if [[ -z "${sessions}" ]]; then
         tmux new-session
     else
-        CREATE_NEW_SESSION="Create New Session"
-        ID="${ID}\n${CREATE_NEW_SESSION}:"
-        ID="$(echo $ID | $FINDER | cut -d: -f1)"
-        if [[ "${ID}" = "${CREATE_NEW_SESSION}" ]]; then
+        local new_session="Create New Session"
+        local finder_sessions="${sessions}\n${new_session}:"
+        local id="$(echo ${finder_sessions} | fzf | cut -d: -f1)"
+        if [[ "${id}" = "${new_session}" ]]; then
             tmux new-session
-        elif [[ -n "${ID}" ]]; then
-            tmux attach-session -t "${ID}"
+        elif [[ -n "${id}" ]]; then
+            tmux attach-session -t "${id}"
         fi
     fi
 fi
-

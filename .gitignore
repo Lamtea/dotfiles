@@ -30,6 +30,8 @@
 !/.tmux.conf
 ## git
 !/.gitconfig
+## ni
+!/.nirc
 ## asdf
 !/.default-gems
 !/.default-go-packages
@@ -54,10 +56,12 @@
 ## ranger
 !/.config/ranger/
 !/.config/ranger/**/*
+## irb
+!/.config/irb/
+!/.config/irb/irbrc
 
 # packages
 ## php composer
 !/composer.json
 ## ruby gems
 !/Gemfile
-

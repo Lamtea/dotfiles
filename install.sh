@@ -44,6 +44,7 @@ dotfiles_or_dirs=(
 	.zshenv
 	.tmux.conf
 	.gitconfig
+	.nirc
 	.default-go-packages
 	.default-npm-packages
 	.default-python-packages
@@ -54,6 +55,7 @@ dotfiles_or_dirs=(
 	.config/nvim/ftplugin
 	.config/neomutt
 	.config/ranger
+	.config/irb/irbrc
 	.bin/rclone_mount.sh
 	bin/update-devtools.sh
 	bin/update-mise.sh

@@ -8,7 +8,7 @@ if ! command -v composer 1>/dev/null 2>&1; then
 	exit 1
 fi
 
-(cd $HOME &&
+(cd "${HOME}" &&
 	composer update &&
 	printf "${ESC}[1;32m%s${ESC}[m\n" '***** php composer updated. *****' &&
 	exit 0) ||

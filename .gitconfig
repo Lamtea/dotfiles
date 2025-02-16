@@ -1,19 +1,27 @@
 [user]
-	email = caramelamcha@gmail.com
-	name = lamt
+    email = caramelamcha@gmail.com
+    name = lamt
 [credential]
-	helper = /usr/lib/git-core/git-credential-libsecret
+    helper = /usr/lib/git-core/git-credential-libsecret
 [core]
-	editor = nvim
+    editor = nvim
+    pager = delta
 [color]
-	ui = auto
+    ui = auto
+[interactive]
+    diffFilter = delta --color-only
+[delta]
+    navigate = true
+    dark = true
+    side-by-side = true
+    line-numbers = true
 [merge]
-	tool = vimdiff
-	conflictstyle = diff3
+    tool = vimdiff
+    conflictstyle = zdiff3
 [mergetool]
-	prompt = false
+    prompt = false
 [push]
-	autoSetupRemote = true
+    autoSetupRemote = true
 [alias]
     f = fetch origin
     p = pull
