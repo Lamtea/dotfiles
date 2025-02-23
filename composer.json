@@ -1,4 +1,5 @@
 {
+  "$schema": "https://getcomposer.org/schema.json",
   "require-dev": {
     "friendsofphp/php-cs-fixer": "^3.68"
   }

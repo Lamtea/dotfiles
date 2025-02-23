@@ -20,6 +20,7 @@
     conflictstyle = zdiff3
 [mergetool]
     prompt = false
+    keepBack = false
 [push]
     autoSetupRemote = true
 [alias]

@@ -309,8 +309,8 @@ See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
 ## Terminal Fonts for zsh powerlevel10k
 
 - For Japanese
+  - Moralerspace Neon HWNF
   - HackGen Console NF
-  - MesloLGS NF
 
 ## Scripts
 
