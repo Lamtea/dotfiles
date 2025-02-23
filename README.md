@@ -209,6 +209,7 @@ See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
   - biome
   - buf
   - bun
+  - checkmake
   - cmake
   - dart
   - delta
@@ -222,13 +223,13 @@ See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
     - powershell
     - roslynator.dotnet.cli
   - dprint
+  - eza
   - fd
   - flutter
   - fzf
   - github-cli
   - gitui
   - go
-    - checkmake
     - delve
   - golangci-lint
   - gradle
