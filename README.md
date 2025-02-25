@@ -215,6 +215,7 @@ See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
   - delta
   - deno
   - dotnet _(official)_
+    - csharpier
     - dotnet-aspnet-codegenerator
     - dotnet-ef
     - dotnet-outdated-tool
