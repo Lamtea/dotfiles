@@ -15,14 +15,6 @@ See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/gnome-keyring)
 ```bash
 # Install arch official packages and aur packages(see below `Depend on` list).
 # Options can be ignored.
-# If you want to use cloud such as dropbox, gdrive, etc..,
-# setup rclone(see: Arch wiki) and edit ./bin/rclone_mount.sh.
-# (In my case run on i3 startup)
-# nginx is used to check debugging using path mappings, for example in PHP (even docker).
-# ranger is a vim-like filer.
-# Use neomutt and postfix in local mail delivery(See Arch wiki for postfix settings).
-# (In my case I use it to logwatch and notify system errors from services.)
-# (Also, it is not used in wsl.)
 yay -S <dependent packages>
 ```
 
@@ -73,6 +65,18 @@ stack install haskell-dap ghci-dap haskell-debug-adapter hlint apply-refact four
 ```
 
 ```bash
+# Add yazi flavors and plugins.
+ya pack -a \
+  yazi-rs/flavors:catppuccin-frappe \
+  yazi-rs/plugins:chmod \
+  yazi-rs/plugins:full-border \
+  yazi-rs/plugins:git \
+  yazi-rs/plugins:jump-to-char \
+  yazi-rs/plugins:smart-enter \
+  yazi-rs/plugins:smart-filter
+```
+
+```bash
 # Install neovim plugins and create helptags,
 # and install lsp, dap in your programming languages
 # (if you are unsure, see below `neovim Plugins, LSP, DAP` list).
@@ -114,6 +118,7 @@ See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
 
 ### Official
 
+- 7zip
 - android-tools
 - android-udev
 - aspnet-runtime
@@ -123,6 +128,7 @@ See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
 - certbot
   - certbot-nginx **(optional)**
   - certbot-dns-cloudflare
+- chafa
 - clang
 - colordiff
 - cppcheck
@@ -136,10 +142,13 @@ See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
 - dotnet-runtime
 - dotnet-sdk
 - dotnet-targeting-pack
+- ffmpeg
+- file
 - git
 - gnome-keyring
   - libsecret
 - groovy
+- imagemagick
 - jdk-openjdk
 - lldb
 - lua
@@ -159,9 +168,9 @@ See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
 - openssh
 - php
 - php-\* (apcu, gd, sqlite, pgsql, redis, imagick, fpm)
+- poppler
 - postfix **(optional)** _(localhost only for neomutt)_
 - python3
-- ranger **(optional)**
 - rclone **(optional)**
   - gdrive
   - dropbox
@@ -171,10 +180,9 @@ See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
 - source-highlight
 - sqlite
 - tidy
+- ueberzugpp
 - w3m
 - xclip
-  **(optional)**
-  _(I use Linux Desktop Environment so this is it, see `:h clipboard` in nvim)_
 - xdebug
 - zsh
 - zshdb
@@ -243,6 +251,7 @@ See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
   - kind
   - kotlin
   - ktlint
+  - lefthook
   - lua _(local)_
   - maven
   - neovim
@@ -250,7 +259,6 @@ See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
     - @antfu/ni
     - @devcontainers/cli
     - neovim
-    - prettier
     - sass
     - yarn
   - php _(see also: [composer.json](./composer.json))_
@@ -278,7 +286,18 @@ See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
   - tree-sitter
   - uv
   - yamllint
+  - yazi
+    - flavors
+      - catppuccin-frappe
+    - plugins
+      - chmod
+      - full-border
+      - git
+      - jump-to-char
+      - smart-enter
+      - smart-filter
   - yq
+  - zoxide
 - rustup
   - cargo
     - cargo-binstall
@@ -325,7 +344,6 @@ See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
 
 - bash
 - zsh
-- python
 - lua
 - git
 - neovim

@@ -53,9 +53,12 @@
 !/.config/nvim/lua/**/*
 !/.config/nvim/ftplugin/
 !/.config/nvim/ftplugin/**/*
-## ranger
-!/.config/ranger/
-!/.config/ranger/**/*
+## yazi
+!/.config/yazi/
+!/.config/yazi/init.lua
+!/.config/yazi/keymap.toml
+!/.config/yazi/theme.toml
+!/.config/yazi/yazi.toml
 ## irb
 !/.config/irb/
 !/.config/irb/irbrc

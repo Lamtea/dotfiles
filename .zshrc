@@ -283,6 +283,22 @@ alias vim='nvim'
 alias gt='gitui'
 
 ########################################
+# Tools
+# zoxide
+if command -v zoxide 1>/dev/null 2>&1; then
+    eval "$(zoxide init --cmd j zsh)"
+fi
+
+# yazi
+function y() {
+    local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+    yazi "$@" --cwd-file="$tmp"
+    if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+        builtin cd -- "$cwd"
+    fi
+    rm -f -- "$tmp"
+}
+
 # tmux
 if ! command -v tmux 1>/dev/null 2>&1 || ! command -v fzf 1>/dev/null 2>&1; then
     exit
