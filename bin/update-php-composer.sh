@@ -10,6 +10,7 @@ fi
 
 (cd "${HOME}" &&
     composer update &&
+    composer global update &&
     printf "${ESC}[1;32m%s${ESC}[m\n" '***** php composer updated. *****' &&
     exit 0) ||
     (printf "${ESC}[1;31m%s${ESC}[m\n" '***** php composer update failed. *****' &&
