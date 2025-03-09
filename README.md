@@ -165,6 +165,8 @@ See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
 - neovim
   - python-pynvim
 - nginx **(optional)**
+- ollama
+  - ollama-cuda **(optional)** _(for NVIDIA CUDA user)_
 - openssh
 - php
 - php-\* (apcu, gd, sqlite, pgsql, redis, imagick, fpm)
