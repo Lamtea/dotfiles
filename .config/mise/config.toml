@@ -89,3 +89,5 @@ experimental                  = true
 python_compile                = true
 fetch_remote_versions_timeout = "60s"
 http_timeout                  = "60s"
+idiomatic_version_file_enable_tools = []
+
