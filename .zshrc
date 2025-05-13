@@ -216,6 +216,11 @@ if command -v kubeadm 1>/dev/null 2>&1; then
     source <(kubeadm completion zsh)
 fi
 
+# valkey
+if command -v valkey-cli 1>/dev/null 2>&1; then
+    compdef '_dispatch redis-cli_completion redis-cli' valkey-cli
+fi
+
 # load bash completion
 autoload -U +X bashcompinit
 bashcompinit
@@ -318,3 +323,4 @@ if [[ -z "${TMUX}" && ! -z "${PS1}" && "${TERM_PROGRAM}" != "vscode" ]]; then
         fi
     fi
 fi
+

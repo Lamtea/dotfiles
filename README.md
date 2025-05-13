@@ -183,6 +183,7 @@ See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
 - sqlite
 - tidy
 - ueberzugpp
+- valkey
 - w3m
 - xclip
 - xdebug
