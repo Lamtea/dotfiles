@@ -54,7 +54,7 @@ source ~/.zshrc
 
 ```bash
 # Add rust components.
-rustup component add clippy llvm-tools rls rust-analysis rust-analyzer rust-docs rust-src rustfmt
+rustup component add clippy llvm-tools rust-analysis rust-analyzer rust-docs rust-src rustfmt
 ```
 
 ```bash
@@ -310,7 +310,6 @@ See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
     - jaq
   - clippy
   - llvm-tools
-  - rls
   - rust-analysis
   - rust-analyzer
   - rust-docs
