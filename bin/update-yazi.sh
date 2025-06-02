@@ -8,7 +8,7 @@ if ! command -v ya 1>/dev/null 2>&1; then
     exit 1
 fi
 
-(ya pack -u &&
+(ya pkg upgrade &&
     printf "${ESC}[1;32m%s${ESC}[m\n" '***** yazi packages updated. *****' &&
     exit 0) ||
     (printf "${ESC}[1;31m%s${ESC}[m\n" '***** yazi packages failed. *****' &&
