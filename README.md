@@ -200,7 +200,7 @@ See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
 - debtap
 - google-java-format
 - jdk
-- neovim-drop-in
+- neovim-symlinks
 - yay
 
 ### From install script
