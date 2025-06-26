@@ -37,6 +37,8 @@
 !/.default-go-packages
 !/.default-npm-packages
 !/.default-python-packages
+!/.gemini/
+!/.gemini/settings.json
 
 # config dir
 !/.config/

@@ -48,6 +48,7 @@ dotfiles_or_dirs=(
     .default-go-packages
     .default-npm-packages
     .default-python-packages
+    .gemini/settings.json
     .config/gitui
     .config/mise
     .config/nvim/init.lua

@@ -48,6 +48,7 @@ neovim                                     = "latest"
 node                                       = "lts"
 "npm:@antfu/ni"                            = "latest"
 "npm:@devcontainers/cli"                   = "latest"
+"npm:@google/gemini-cli"                   = "latest"
 "npm:editorconfig-checker"                 = "latest"
 "npm:neovim"                               = "latest"
 "npm:sass"                                 = "latest"
@@ -85,9 +86,8 @@ yq                                         = "latest"
 zoxide                                     = "latest"
 
 [settings]
-experimental                  = true
-python_compile                = true
-fetch_remote_versions_timeout = "60s"
-http_timeout                  = "60s"
+experimental                        = true
+python_compile                      = true
+fetch_remote_versions_timeout       = "60s"
+http_timeout                        = "60s"
 idiomatic_version_file_enable_tools = []
-
