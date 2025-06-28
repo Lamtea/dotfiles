@@ -39,6 +39,7 @@
 !/.default-python-packages
 !/.gemini/
 !/.gemini/settings.json
+!/.gemini/GEMINI.md
 
 # config dir
 !/.config/

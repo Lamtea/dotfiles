@@ -49,6 +49,7 @@ dotfiles_or_dirs=(
     .default-npm-packages
     .default-python-packages
     .gemini/settings.json
+    .gemini/GEMINI.md
     .config/gitui
     .config/mise
     .config/nvim/init.lua
