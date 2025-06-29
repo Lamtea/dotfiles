@@ -86,9 +86,6 @@ fi
 eval "$("${HOME}/.local/bin/mise" activate zsh)"
 export MISE_CACHE_PRUNE_AGE=0
 
-# rye
-[[ ! -f "${HOME}/.rye/env" ]] || source "${HOME}/.rye/env"
-
 # go
 if command -v go 1>/dev/null 2>&1; then
     export PATH="$(go env GOPATH)/bin:${PATH}"
@@ -140,9 +137,6 @@ if [[ ! -f "${HOME}/.zfunc/_ghcup" ]]; then
 fi
 if command -v mise 1>/dev/null 2>&1; then
     mise completion --usage zsh > "${HOME}/.zfunc/_mise"
-fi
-if command -v rye 1>/dev/null 2>&1; then
-    rye self completion -s zsh > "${HOME}/.zfunc/_rye"
 fi
 if command -v uv 1>/dev/null 2>&1; then
     uv generate-shell-completion zsh > "${HOME}/.zfunc/_uv"

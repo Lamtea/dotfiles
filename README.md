@@ -279,7 +279,6 @@ See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
   - ripgrep
   - ruby _(see also: [GemFile](./Gemfile))_
   - ruff
-  - rye
   - shfmt
   - shellcheck
   - stylua
