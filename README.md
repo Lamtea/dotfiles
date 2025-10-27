@@ -181,6 +181,8 @@ See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
   - mega
 - source-highlight
 - sqlite
+- texlive
+  - texlive-langjapanese **(optional)** _(for Japanese user)_
 - tidy
 - ueberzugpp
 - valkey
@@ -264,6 +266,7 @@ See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
     - neovim
     - sass
     - yarn
+  - pandoc
   - php _(see also: [composer.json](./composer.json))_
   - protoc
   - python _(local, see also: [.default_python_packages](./.default-python-packages))_
@@ -272,6 +275,7 @@ See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
     - codespell
     - cpplint
     - flawfinder
+    - gitingest
     - pipx
     - pytest
     - python-build
@@ -299,6 +303,7 @@ See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
       - smart-enter
       - smart-filter
   - yq
+  - yt-dlp
   - zoxide
 - rustup
   - cargo
