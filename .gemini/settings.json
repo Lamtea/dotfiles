@@ -13,5 +13,19 @@
   },
   "ui": {
     "theme": "GitHub"
+  },
+  "mcpServers": {
+    "chrome-devtools": {
+      "command": "npx",
+      "args": ["chrome-devtools-mcp@latest"]
+    },
+    "playwright": {
+      "command": "npx",
+      "args": ["@playwright/mcp@latest"]
+    },
+    "youtube": {
+      "command": "npx",
+      "args": ["@anaisbetts/mcp-youtube"]
+    }
   }
 }
