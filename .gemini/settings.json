@@ -1,6 +1,17 @@
 {
-  "theme": "GitHub",
-  "selectedAuthType": "oauth-personal",
-  "hasSeenIdeIntegrationNudge": true,
-  "ideMode": true
+  "general": {
+    "preferredEditor": "neovim"
+  },
+  "ide": {
+    "hasSeenNudge": true,
+    "enabled": true
+  },
+  "security": {
+    "auth": {
+      "selectedType": "oauth-personal"
+    }
+  },
+  "ui": {
+    "theme": "GitHub"
+  }
 }
