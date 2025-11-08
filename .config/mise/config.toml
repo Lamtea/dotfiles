@@ -1,7 +1,6 @@
 #:schema = "https://raw.githubusercontent.com/mise-app/mise/main/schemas/config.schema.json"
 [tools]
 actionlint                                 = "latest"
-"aqua:mrtazz/checkmake"                    = "latest"
 biome                                      = "latest"
 buf                                        = "latest"
 bun                                        = "latest"
@@ -10,6 +9,7 @@ bun                                        = "latest"
 "cargo:cargo-update"                       = "latest"
 "cargo:cargo-watch"                        = "latest"
 "cargo:jaq"                                = "latest"
+checkmake                                  = "latest"
 cmake                                      = "latest"
 dart                                       = "latest"
 delta                                      = "latest"
@@ -54,7 +54,7 @@ node                                       = "lts"
 "npm:sass"                                 = "latest"
 "npm:yarn"                                 = "latest"
 pandoc                                     = "latest"
-php                                        = "8.4"
+php                                        = "latest"
 "pipx:argcomplete"                         = "latest"
 "pipx:cmakelang"                           = "latest"
 "pipx:codespell"                           = "latest"
@@ -88,8 +88,17 @@ yt-dlp                                     = "latest"
 zoxide                                     = "latest"
 
 [settings]
-experimental                        = true
+#experimental                        = true
 python_compile                      = true
 fetch_remote_versions_timeout       = "60s"
 http_timeout                        = "60s"
 idiomatic_version_file_enable_tools = []
+
+    [settings.npm]
+    bun = true
+
+    [settings.cargo]
+    binstall = true
+
+    [settings.pipx]
+    uvx = true
