@@ -9,7 +9,7 @@ if ! command -v composer 1>/dev/null 2>&1; then
 fi
 
 (cd "${HOME}" &&
-    composer global update &&
+    composer self-update &&
     composer update &&
     printf "${ESC}[1;32m%s${ESC}[m\n" '***** php composer updated. *****' &&
     exit 0) ||
