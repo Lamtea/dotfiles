@@ -37,7 +37,8 @@
         "--from", "git+https://github.com/oraios/serena",
         "serena", "start-mcp-server",
         "--context", "ide-assistant",
-        "--project", "${PWD}"
+        "--project", "${PWD}",
+        "--enable-web-dashboard=false"
       ]
     },
     "filesystem": {
