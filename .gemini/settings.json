@@ -59,6 +59,14 @@
       "command": "npx",
       "args": ["-y", "@anaisbetts/mcp-youtube"]
     },
+    "dbhub-postgres": {
+      "command": "npx",
+      "args": ["-y", "@bytebase/dbhub"],
+      "env": {
+        "TRANSPORT": "stdio",
+        "DSN": "postgres://$POSTGRES_USER:$POSTGRES_PASSWORD@$POSTGRES_HOST/$POSTGRES_DB?sslmode=disable"
+      }
+    },
     "github": {
       "command": "docker",
       "args": ["run", "-i", "--rm", "-e", "GITHUB_PERSONAL_ACCESS_TOKEN", "ghcr.io/github/github-mcp-server"],
