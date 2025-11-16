@@ -31,6 +31,15 @@
       "command": "uvx",
       "args": ["mcp-pandoc"]
     },
+    "serena": {
+      "command": "uvx",
+      "args": [
+        "--from", "git+https://github.com/oraios/serena",
+        "serena", "start-mcp-server",
+        "--context", "ide-assistant",
+        "--project", "${PWD}"
+      ]
+    },
     "filesystem": {
       "command": "npx",
       "args": ["-y", "@modelcontextprotocol/server-filesystem", "~/Downloads", "~/Documents"]
