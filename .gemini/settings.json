@@ -68,12 +68,11 @@
       "command": "npx",
       "args": ["-y", "@anaisbetts/mcp-youtube"]
     },
-    "dbhub-postgres": {
+    "dbhub": {
       "command": "npx",
       "args": ["-y", "@bytebase/dbhub"],
       "env": {
-        "TRANSPORT": "stdio",
-        "DSN": "postgres://$POSTGRES_USER:$POSTGRES_PASSWORD@$POSTGRES_HOST/$POSTGRES_DB?sslmode=disable"
+        "TRANSPORT": "stdio"
       }
     },
     "github": {
