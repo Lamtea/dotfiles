@@ -227,7 +227,7 @@ See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
   - dart
   - delta
   - deno
-  - dotnet _(official)_
+  - dotnet
     - csharpier
     - dotnet-aspnet-codegenerator
     - dotnet-ef
