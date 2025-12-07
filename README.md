@@ -247,9 +247,8 @@ See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
     - delve
   - golangci-lint
   - gradle
-  - groovy _(local)_
   - hadolint
-  - java _(local)_
+  - java
   - jq
   - jwt
   - jwtui
@@ -257,7 +256,7 @@ See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
   - kotlin
   - ktlint
   - lefthook
-  - lua _(local)_
+  - lua
   - maven
   - neovim
   - node
@@ -269,7 +268,7 @@ See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
   - pandoc
   - php _(see also: [composer.json](./composer.json))_
   - protoc
-  - python _(local, see also: [.default_python_packages](./.default-python-packages))_
+  - python _(see also: [.default_python_packages](./.default-python-packages))_
     - debugpy
     - cmakelang
     - codespell
