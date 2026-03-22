@@ -76,16 +76,6 @@ fi
 export PATH="${HOME}/.ghcup/bin:${PATH}"
 export PATH="${HOME}/.local/bin:${PATH}"
 
-# mise
-if [[ ! -f "${HOME}/.local/bin/mise" ]]; then
-    print -P "%F{33} %F{220}Installing %F{33}mise%F{220} tool manager… %f"
-        curl https://mise.run | sh && \
-            print -P "%F{33} %F{34}Installation successful.%f%b" || \
-            print -P "%F{160} Installation failed.%f%b"
-fi
-eval "$("${HOME}/.local/bin/mise" activate zsh)"
-export MISE_CACHE_PRUNE_AGE=0
-
 # go
 if command -v go 1>/dev/null 2>&1; then
     export PATH="$(go env GOPATH)/bin:${PATH}"
@@ -104,6 +94,16 @@ export ANDROID_HOME=/opt/android-sdk
 export PATH="${HOME}/bin:${PATH}"
 
 typeset -U PATH
+
+# mise
+if [[ ! -f "${HOME}/.local/bin/mise" ]]; then
+    print -P "%F{33} %F{220}Installing %F{33}mise%F{220} tool manager… %f"
+        curl https://mise.run | sh && \
+            print -P "%F{33} %F{34}Installation successful.%f%b" || \
+            print -P "%F{160} Installation failed.%f%b"
+fi
+eval "$("${HOME}/.local/bin/mise" activate zsh)"
+export MISE_CACHE_PRUNE_AGE=0
 
 #######################################
 # Generics
