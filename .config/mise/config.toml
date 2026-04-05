@@ -92,7 +92,6 @@ zoxide                                     = "latest"
 
 [settings]
 experimental                        = true
-python_compile                      = true
 fetch_remote_versions_timeout       = "60s"
 http_timeout                        = "60s"
 idiomatic_version_file_enable_tools = []
@@ -102,6 +101,9 @@ idiomatic_version_file_enable_tools = []
 
     [settings.cargo]
     binstall = true
+
+    [settings.python]
+    compile = true
 
     [settings.pipx]
     uvx = true
