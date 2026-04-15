@@ -1,6 +1,7 @@
 #:schema = "https://raw.githubusercontent.com/mise-app/mise/main/schemas/config.schema.json"
 [tools]
 actionlint                                 = "latest"
+bat                                        = "latest"
 biome                                      = "latest"
 buf                                        = "latest"
 bun                                        = "latest"
