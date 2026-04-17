@@ -31,7 +31,7 @@
     d = diff
     l = log --oneline -10
     ll = log --oneline -20
-    lll = log --onelline -30
+    lll = log --oneline -30
     br = branch
     co = checkout
     sw = switch

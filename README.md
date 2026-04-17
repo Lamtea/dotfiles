@@ -263,8 +263,11 @@ See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
   - node
     - @antfu/ni
     - @devcontainers/cli
+    - @stoplight/prism-cli
     - neovim
+    - prettier
     - sass
+    - wcat
     - yarn
   - pandoc
   - php _(see also: [composer.json](./composer.json))_
