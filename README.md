@@ -219,6 +219,7 @@ See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
     - fourmolu
 - mise
   - actionlint
+  - ast-grep
   - bat
   - biome
   - buf
