@@ -48,8 +48,5 @@
       "command": "npx",
       "args": ["-y", "@anaisbetts/mcp-youtube"]
     }
-  },
-  "model": {
-    "name": "gemini-3.1-flash-lite-preview"
   }
 }
