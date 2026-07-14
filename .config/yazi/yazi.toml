@@ -13,11 +13,11 @@ image_quality = 90
 
 # For plugins.
 [[plugin.prepend_fetchers]]
-id   = "git"
-name = "*"
-run  = "git"
+group = "git"
+url   = "*"
+run   = "git"
 
 [[plugin.prepend_fetchers]]
-id   = "git"
-name = "*/"
-run  = "git"
+group = "git"
+url   = "*/"
+run   = "git"
