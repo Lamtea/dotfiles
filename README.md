@@ -268,7 +268,7 @@ See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
     - neovim
     - prettier
     - sass
-    - wcat
+    - wscat
     - yarn
   - pandoc
   - php _(see also: [composer.json](./composer.json))_
@@ -291,6 +291,7 @@ See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
   - shellcheck
   - stylua
   - terraform
+  - terragrunt
   - tfsec
   - tmux
   - tree-sitter
