@@ -271,10 +271,6 @@ setopt extended_glob
 alias la='ls -a'
 alias ll='ls -l'
 alias ls='ls -F --color=auto'
-alias rm='rm -i'
-alias cp='cp -i'
-alias mv='mv -i'
-alias mkdir='mkdir -p'
 alias diff='colordiff -u'
 alias grep='grep --color=auto'
 alias vi='nvim'
@@ -317,4 +313,3 @@ if [[ -z "${TMUX}" && ! -z "${PS1}" && "${TERM_PROGRAM}" != "vscode" ]]; then
         fi
     fi
 fi
-
