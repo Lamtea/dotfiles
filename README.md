@@ -292,9 +292,9 @@ See: [Wiki](https://github.com/Lamtea/dotfiles/wiki/neovim#hello-world)
   - stylua
   - terraform
   - terragrunt
-  - tfsec
   - tmux
   - tree-sitter
+  - trivy
   - uv
   - yamllint
   - yazi
